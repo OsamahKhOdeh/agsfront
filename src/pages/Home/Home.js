@@ -11,9 +11,6 @@ const Home = () => {
   return (
     <Grow in>
       <Container style={{ display: "flex", flexDirection: "column", alignItems: "center" }} maxWidth="xl">
-        <Button style={{ width: "25%", padding: "25px" }} variant="contained" onClick={() => navigate("/pdf")}>
-          Price List
-        </Button>
         <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/makepi")}>
           Make PI
         </Button>{" "}
@@ -24,7 +21,7 @@ const Home = () => {
           Make PKL
         </Button>
         <Button style={{ width: "25%", padding: "25px", backgroundColor: "burlywood" }} variant="contained" onClick={() => navigate("/warranty")}>
-          Warranty{" "}
+          PriceList{" "}
         </Button>
         <Button style={{ width: "25%", padding: "25px" }} variant="outlined">
           Show PIs
