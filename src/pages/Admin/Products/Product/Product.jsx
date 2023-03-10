@@ -37,16 +37,16 @@ const Product = ({ product, index }) => {
   const [stateProduct , setStateProduct] = useState(product)
   const [price, setPrice] = useState(product.price);
   const [stock, setStock] = useState(product.stock);
-  const [freezoneToLocalPercentage, setFreezoneToLocalPercentage] = useState(product.freezoneToLocalPercentage);
-  const [additionOnLocalPercentage, setAdditionOnLocalPercentage] = useState(product.additionOnLocalPercentage);
+  const [freezoneToLocalPercentage, setFreezoneToLocalPercentage] = useState(product.freezonePrice);
+  const [additionOnLocalPercentage, setAdditionOnLocalPercentage] = useState(product.LocalPrice);
 
   const classes = useStyles();
   
   const handlePriceStockChange =() => {
     
          dispatch(updateProduct(product._id , {...product , price : price , stock : stock ,
-        freezoneToLocalPercentage : freezoneToLocalPercentage,
-        additionOnLocalPercentage : additionOnLocalPercentage}));
+        freezonePrice : freezoneToLocalPercentage,
+        LocalPrice : additionOnLocalPercentage}));
         setStateProduct({...stateProduct , price : price , stock : stock ,
         freezoneToLocalPercentage : freezoneToLocalPercentage,
         additionOnLocalPercentage : additionOnLocalPercentage})
@@ -95,7 +95,7 @@ const Product = ({ product, index }) => {
         <div className='product__image '>
           <img
             src={
-              product.image[0] ||
+              `images/${product._id}_1.png` ||
               "https://res.cloudinary.com/dwen6dx2a/image/upload/v1675842264/2038830_twveih.png"
             }
             alt=''
@@ -122,14 +122,13 @@ const Product = ({ product, index }) => {
           <div className='item__prices'>
             <div>
               <label htmlFor=''>Capacity : {product.capacity} </label>
-              <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezoneToLocalPercentage}
-              additionOnLocalPercentage={product.additionOnLocalPercentage}/> </label>
             </div>
           </div>
           <div className='item__prices'>
             {showPrice && (
               <div>
-                <label htmlFor=''>Price : {product.price}</label>
+                <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
+              additionOnLocalPercentage={product.LocalPrice}/> </label>
               </div>
             )}
             {showStock && (
@@ -139,9 +138,9 @@ const Product = ({ product, index }) => {
             )}
           </div>
 
-          <div className='product__description'>{product.code}</div>
+          <div className='product__description'>{product.brand}{product.code}</div>
           <div className='product_price_stock'>
-           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Price" value={price} onChange={
+           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Net Price" value={price} onChange={
             (e)=>{setPrice(e.target.value); setStateProduct({...stateProduct , price : (e.target.value) , stock : stock ,
         freezoneToLocalPercentage : freezoneToLocalPercentage,
         additionOnLocalPercentage : additionOnLocalPercentage})}}>

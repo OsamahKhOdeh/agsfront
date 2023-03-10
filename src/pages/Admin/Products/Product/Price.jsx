@@ -13,15 +13,15 @@ const Price = ({ price , freezoneToLocalPercentage ,additionOnLocalPercentage })
      console.log(localPriceAfterAddition);
 
   return (
-    <div> <b style={{ backgroundColor: "#E0E5E4", color: "red" }}>
+    <> <b style={{ backgroundColor: "#E0E5E4", color: "red" }}>
             {location === "local" ? (
-              <>{currency === "USD" ? price + "  $" : (Math.round(price * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
+              <>{currency === "USD" ? price + "  $" : (Math.round(price * usdToAedRate * 100) / 100).toFixed(3) + "  AED"}</>
             ) : (
               <>{currency === "USD" ?
-               (localPriceAfterAddition).toFixed(2) + "  $" 
-              : ((localPriceAfterAddition * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
+               (localPriceAfterAddition).toFixed(3) + "  $" 
+              : ((localPriceAfterAddition * usdToAedRate * 100) / 100).toFixed(3) + "  AED"}</>
             )}
-          </b></div>
+          </b></>
   )
 }
 

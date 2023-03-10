@@ -129,8 +129,8 @@ const Product = ({ product, index }) => {
           <div className='item__prices'>
             {showPrice && (
               <div>
-                <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezoneToLocalPercentage}
-              additionOnLocalPercentage={product.additionOnLocalPercentage}/></label>
+                <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
+              additionOnLocalPercentage={product.LocalPrice}/></label>
               </div>
             )}
             {showStock && (

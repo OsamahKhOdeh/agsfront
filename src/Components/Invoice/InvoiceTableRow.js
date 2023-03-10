@@ -60,7 +60,7 @@ const InvoiceTableRow = ({ products, currency }) => {
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {(item.qty * item.price).toFixed(2)}&nbsp;&nbsp;
+        {(item.qty * item.price).toFixed(3)}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>

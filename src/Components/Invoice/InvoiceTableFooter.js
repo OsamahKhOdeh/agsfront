@@ -36,7 +36,7 @@ const InvoiceTableFooter = ({ products, currency }) => {
       <View style={styles.row}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total).toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat(total).toFixed(3)}&nbsp;{currency}
         </Text>
       </View>
       <View style={styles.row}>
@@ -46,7 +46,7 @@ const InvoiceTableFooter = ({ products, currency }) => {
       <View style={styles.row}>
         <Text style={styles.description}>TOTAL PRICE IN NUMBER</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total).toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat(total).toFixed(3)}&nbsp;{currency}
         </Text>
       </View>
     </>

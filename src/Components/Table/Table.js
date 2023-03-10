@@ -24,13 +24,13 @@ const TablePage = () => {
       if (currency === "USD") {
         return freezonePrice;
       } else {
-        return (Math.round(freezonePrice * usdToAedRate * 100) / 100).toFixed(2);
+        return (Math.round(freezonePrice * usdToAedRate * 100) / 100).toFixed(3);
       }
     } else {
       if (currency === "USD") {
-        return localPrice.toFixed(2);
+        return localPrice.toFixed(3);
       } else {
-        return ((localPrice * usdToAedRate * 100) / 100).toFixed(2);
+        return ((localPrice * usdToAedRate * 100) / 100).toFixed(3);
       }
     }
   }
@@ -65,20 +65,20 @@ const TablePage = () => {
                   <p className="font-medium">
                     {" "}
                     {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item.price, item.freezoneToLocalPercentage, item.additionOnLocalPercentage)}
+                    {calcPrice(item.price, item.freezonePrice, item.LocalPrice)}
                   </p>
                 </td>
                 <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
-                    {(calcPrice(item.price, item.freezoneToLocalPercentage, item.additionOnLocalPercentage) * item.qty).toFixed(2)}
+                    {(calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty).toFixed(3)}
                   </p>
                 </td>
                 <td className="pl-12">
                   <Button
                     variant="contained"
                     onClick={() => {
-                      dispatch(modifyProductPrice({ id: item._id, price: calcPrice(item.price, item.freezoneToLocalPercentage, item.additionOnLocalPercentage) }));
+                      dispatch(modifyProductPrice({ id: item._id, price: calcPrice(item.price, item.freezonePrice, item.LocalPrice) }));
 
                       dispatch(setProductQty({ id: item._id, qty: qty }));
                     }}

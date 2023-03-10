@@ -4,7 +4,7 @@ export const filtersSlice = createSlice({
   name: "filters",
   initialState: {
     filters: { categories: ["All"], countries: ["All"] },
-    usdToAedRate: 3.62,
+    usdToAedRate: 3.67,
     currency: "USD",
     location: "freezone",
   },

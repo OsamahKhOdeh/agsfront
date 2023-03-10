@@ -74,9 +74,9 @@ const Product = ({ product }) => {
           Price :
           <b style={{ backgroundColor: "#E0E5E4", color: "red" }}>
             {location === "freezone" ? (
-              <>{currency === "USD" ? product.price + "  $" : (Math.round(product.price * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
+              <>{currency === "USD" ? product.price + "  $" : (Math.round(product.price * usdToAedRate * 100) / 100).toFixed(3) + "  AED"}</>
             ) : (
-              <>{currency === "USD" ? product.price + product.price / 10 + "  $" : (Math.round((product.price + product.price / 10) * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
+              <>{currency === "USD" ? product.price + product.price / 10 + "  $" : (Math.round((product.price + product.price / 10) * usdToAedRate * 100) / 100).toFixed(3) + "  AED"}</>
             )}
           </b>
         </Typography>
