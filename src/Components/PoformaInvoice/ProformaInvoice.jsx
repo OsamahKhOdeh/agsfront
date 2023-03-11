@@ -15,12 +15,12 @@ const ProformaInvoice = () => {
 
 
   return (
-    <>
+    <div style={{width:"1400px"}}>
    <PDFViewer width="100%" height="1200" className="app" >
                 <Invoice pi={pi} currency={currency}/>
    </PDFViewer>
  
-    </>
+    </div>
   )
 }
 
