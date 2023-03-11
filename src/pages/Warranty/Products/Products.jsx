@@ -91,10 +91,11 @@ const Products = () => {
       </>
     );
   }
+      const [itemOffset, setItemOffset] = useState(0);
+
   function PaginatedItems({ itemsPerPage }) {
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
-    const [itemOffset, setItemOffset] = useState(0);
 
     // Simulate fetching items from another resources.
     // (This could be items from props; or items loaded in a local state
@@ -220,7 +221,7 @@ const Products = () => {
               <ul className='list__ofItems'>
                 {cart.map((item, index) => (
                   <div className='card__item' key={index}>
-                    <div>{item.code}</div>
+                    <div>{item.brand}&nbsp;{item.code}</div>
                     <div
                       style={{ cursor: "pointer" }}
                       onClick={() => {
@@ -237,6 +238,7 @@ const Products = () => {
               <div
                 className='next'
                 onClick={() => {
+
                   navigate("/checkCustomer");
                 }}>
                 <span> Next </span>

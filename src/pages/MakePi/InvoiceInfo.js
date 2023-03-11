@@ -22,6 +22,7 @@ function InvoiceInfo() {
     notifyParty: "",
     partyOfDischarge: "",
     finalDistination: "",
+    discount: 0,
   });
   const handleChange = (event) => {
     setInvoiceInfo({ ...invoiceInfo, [event.target.name]: event.target.value });
@@ -82,10 +83,10 @@ function InvoiceInfo() {
           <TextField name="invoiceNo" value={invoiceInfo.invoiceNo} onChange={handleChange} label="INVOICE NUMBER" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
+          <TextField name="discount" value={invoiceInfo.discount} onChange={handleChange} label="Discount" fullWidth></TextField>
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel control={<Checkbox color="secondary" name="saveAddress" value="yes" />} label="Use this address for payment details" />
+        <Grid item xs={12} sm={6}>
+          <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
         </Grid>
       </Grid>
     </React.Fragment>

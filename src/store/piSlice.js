@@ -13,6 +13,7 @@ export const piSlice = createSlice({
       notifyParty: "",
       partyOfDischarge: "",
       finalDistination: "",
+      discount: 0,
     },
   },
   reducers: {

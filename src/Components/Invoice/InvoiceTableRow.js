@@ -53,10 +53,13 @@ const InvoiceTableRow = ({ products, currency }) => {
   const rows = products.map((item) => (
     <View style={styles.row} key={item._id}>
       <Text style={styles.no}>{no + 1}</Text>
-      <Text style={styles.description}>{item.code}</Text>
+      <Text style={styles.description}>
+        {item.brand}
+        {item.code}
+      </Text>
       <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
-        {item.price}&nbsp;&nbsp;
+        {item.price.toFixed(2)}&nbsp;&nbsp;
         {currency}
       </Text>
       <Text style={styles.amount}>

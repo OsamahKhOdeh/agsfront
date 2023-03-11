@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container style={{ display: "flex", flexDirection: "column", alignItems: "center" }} maxWidth="xl">
+      <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "900px" }} maxWidth="xl">
         <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/makepi")}>
           Make PI
         </Button>{" "}

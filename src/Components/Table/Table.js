@@ -5,7 +5,7 @@ import { deletProductformCart, setProductQty, modifyProductPrice } from "../../s
 import { contents } from "./test";
 const TablePage = () => {
   const dispatch = useDispatch();
-  const totalAmount = useSelector((state) => state.products.total);
+  let totalAmount = 0;
   const selectedProducts = useSelector((state) => state.cart.cart);
   const location = useSelector((state) => state.filters.location);
   const currency = useSelector((state) => state.filters.currency);
@@ -13,6 +13,13 @@ const TablePage = () => {
 
   const [qty, setQty] = useState("");
   console.log(selectedProducts);
+
+  function calcTotal() {
+    selectedProducts.map((item) => {
+      totalAmount += calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty;
+    });
+    return totalAmount;
+  }
 
   function calcPrice(price, freezoneToLocalPercentage, additionOnLocalPercentage) {
     let netToFreezonePer = freezoneToLocalPercentage;
@@ -56,7 +63,9 @@ const TablePage = () => {
                   <div className="flex items-center">{index + 1}</div>
                 </td>
                 <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800">{item.code}</p>
+                  <p className="text-sm font-medium leading-none text-gray-800">
+                    {item.brand}&nbsp;{item.code}
+                  </p>
                 </td>
                 <td className="pl-12">
                   <p className="font-medium">{item.qty}</p>
@@ -65,7 +74,7 @@ const TablePage = () => {
                   <p className="font-medium">
                     {" "}
                     {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item.price, item.freezonePrice, item.LocalPrice)}
+                    {calcPrice(item.price, item.freezonePrice, item.LocalPrice).toFixed(3)}
                   </p>
                 </td>
                 <td className="pl-12">
@@ -121,7 +130,7 @@ const TablePage = () => {
                 <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
               </td>
               <td className="pl-12">
-                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount}</p>
+                <p className="text-sm font-medium leading-none text-gray-800">{calcTotal}</p>
               </td>
             </tr>
           </tbody>

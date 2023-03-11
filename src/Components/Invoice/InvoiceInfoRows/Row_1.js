@@ -46,7 +46,7 @@ const Row_1 = ({ items }) => {
     <>
       <View style={styles.container}>
         <Text style={styles.exporter}>EXPORTER</Text>
-        <Text style={styles.invoice_no}>INVOICE NO</Text>
+        <Text style={styles.invoice_no}>NO</Text>
         <Text style={styles.date}>DATE</Text>
       </View>
     </>
