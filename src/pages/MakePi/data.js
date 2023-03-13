@@ -1183,3 +1183,5 @@ export const final_distination = [
   { name: "Mersin , Turkey", value: "Mersin , Turkey" },
   { name: "AQABA , JORDAN", value: "AQABA , JORDAN" },
 ];
+
+export const terms_and_conditions = [{ term: "ocvienrifv jmoicmiwermdsoipfk moicvlkwmrisdflk oikmiopkemwoisdf " }];

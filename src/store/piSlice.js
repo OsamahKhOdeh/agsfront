@@ -23,6 +23,9 @@ export const piSlice = createSlice({
     setPiInfo: (state, action) => {
       state.piInfo = action.payload;
     },
+    setPiNo: (state, action) => {
+      state.piInfo.invoiceNo = action.payload + 1;
+    },
 
     addProducttocart: (state, action) => {
       state.cart.some((item) => item._id === action.payload._id) ? null : state.cart.push(action.payload);
@@ -30,6 +33,6 @@ export const piSlice = createSlice({
   },
 });
 
-export const { setPiInfo, setPiProudcts } = piSlice.actions;
+export const { setPiInfo, setPiProudcts, setPiNo } = piSlice.actions;
 
 export default piSlice.reducer;

@@ -13,16 +13,22 @@ import Invoice from "../../Components/Invoice/Invoice";
 import { PDFViewer } from "@react-pdf/renderer";
 import invoiceData from "../../data/invoice-data";
 import ProformaInvoice from "../../Components/PoformaInvoice/ProformaInvoice";
+import { useDispatch, useSelector } from "react-redux";
+import { createProformaInvoice } from "../../actions/proformaInvoice";
 
 const steps = ["Select Products", "Select PI Information", "Make and Download PI"];
 
 export default function PiStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const dispatch = useDispatch();
+  const pi = useSelector((state) => state.pi);
 
   const handleNext = () => {
     let newSkipped = skipped;
-
+    if (activeStep === 2) {
+      dispatch(createProformaInvoice(pi));
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };

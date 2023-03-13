@@ -75,6 +75,7 @@ const Product = ({ product, index }) => {
 
   const addTocart = (items, index) => {
     dispatch(addProducttocart(items));
+    
     // document.querySelector(".sidebar").style.display = "block";
   };
 

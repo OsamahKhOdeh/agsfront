@@ -31,13 +31,13 @@ const TablePage = () => {
       if (currency === "USD") {
         return freezonePrice;
       } else {
-        return (Math.round(freezonePrice * usdToAedRate * 100) / 100).toFixed(3);
+        return Math.round(freezonePrice * usdToAedRate * 100) / 100;
       }
     } else {
       if (currency === "USD") {
-        return localPrice.toFixed(3);
+        return localPrice;
       } else {
-        return ((localPrice * usdToAedRate * 100) / 100).toFixed(3);
+        return (localPrice * usdToAedRate * 100) / 100;
       }
     }
   }
@@ -87,7 +87,7 @@ const TablePage = () => {
                   <Button
                     variant="contained"
                     onClick={() => {
-                      dispatch(modifyProductPrice({ id: item._id, price: calcPrice(item.price, item.freezonePrice, item.LocalPrice) }));
+                      if (item?.dumm_id !== 1) dispatch(modifyProductPrice({ id: item._id, dumm_id: 1, price: calcPrice(item.price, item.freezonePrice, item.LocalPrice) }));
 
                       dispatch(setProductQty({ id: item._id, qty: qty }));
                     }}

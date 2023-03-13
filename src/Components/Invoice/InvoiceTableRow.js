@@ -54,7 +54,7 @@ const InvoiceTableRow = ({ products, currency }) => {
     <View style={styles.row} key={item._id}>
       <Text style={styles.no}>{no + 1}</Text>
       <Text style={styles.description}>
-        {item.brand}
+        {item.brand}&nbsp;
         {item.code}
       </Text>
       <Text style={styles.qty}>{item.qty}</Text>
@@ -63,7 +63,7 @@ const InvoiceTableRow = ({ products, currency }) => {
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {(item.qty * item.price).toFixed(3)}&nbsp;&nbsp;
+        {(item.qty * item.price).toFixed(2)}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>

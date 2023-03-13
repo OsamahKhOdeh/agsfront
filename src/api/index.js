@@ -11,6 +11,10 @@ export const fetchFilteredProducts = (filters) => API.get(`/products/search?cate
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
 
+export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
+
+export const getLastPiNo = () => API.get("/pi/last");
+
 /*
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);

@@ -5,16 +5,26 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { setPiInfo } from "../../store/piSlice";
+import * as api from "../../api/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setPiInfo, setPiNo } from "../../store/piSlice";
 import { exporters, final_distination, notify_partys, party_of_discharge } from "./data";
+import { useEffect } from "react";
 
 function InvoiceInfo() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    async function getLast() {
+      const lasto = await api.getLastPiNo();
+      console.log(lasto.data);
+      dispatch(setPiNo(lasto.data));
+    }
+    getLast();
+  }, []);
   const [exporter, setExporter] = useState("");
   const [invoiceInfo, setInvoiceInfo] = useState({
     //   piProducts: [],
-    invoiceNo: 0,
+    // invoiceNo: 0,
     date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
     exporter: "",
     buyerAdress: "",
@@ -29,6 +39,7 @@ function InvoiceInfo() {
     dispatch(setPiInfo({ ...invoiceInfo, [event.target.name]: event.target.value }));
   };
   console.log(exporters[0].value);
+  // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
       <Grid container spacing={4}>
@@ -80,13 +91,16 @@ function InvoiceInfo() {
           </FormControl>{" "}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="invoiceNo" value={invoiceInfo.invoiceNo} onChange={handleChange} label="INVOICE NUMBER" fullWidth></TextField>
+          <TextField name="invoiceNo" value={useSelector((state) => state.pi.piInfo.invoiceNo)} label="INVOICE NUMBER" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField name="discount" value={invoiceInfo.discount} onChange={handleChange} label="Discount" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Checkbox name="term1" checked={true} label="fifty days before payment ,,,ldv ked" fullWidth></Checkbox>
         </Grid>
       </Grid>
     </React.Fragment>

@@ -30,6 +30,7 @@ export const addToCart = createSlice({
       state.cart.map((item) => {
         if (action.payload.id === item._id) {
           item.price = action.payload.price;
+          item.dumm_id = action.payload.dumm_id;
         }
       });
     },
