@@ -8,7 +8,7 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mate
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setPiInfo, setPiNo } from "../../store/piSlice";
-import { exporters, final_distination, notify_partys, party_of_discharge } from "./data";
+import { exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions } from "./data";
 import { useEffect } from "react";
 
 function InvoiceInfo() {
@@ -24,7 +24,7 @@ function InvoiceInfo() {
   const [exporter, setExporter] = useState("");
   const [invoiceInfo, setInvoiceInfo] = useState({
     //   piProducts: [],
-    // invoiceNo: 0,
+    invoiceNo: useSelector((state) => state.pi.piInfo.invoiceNo),
     date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
     exporter: "",
     buyerAdress: "",
@@ -33,12 +33,27 @@ function InvoiceInfo() {
     partyOfDischarge: "",
     finalDistination: "",
     discount: 0,
+    additions:0,
   });
   const handleChange = (event) => {
     setInvoiceInfo({ ...invoiceInfo, [event.target.name]: event.target.value });
     dispatch(setPiInfo({ ...invoiceInfo, [event.target.name]: event.target.value }));
   };
-  console.log(exporters[0].value);
+
+  const [terms, setTerms] = useState([]);
+  const handelTermsChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setTerms([...terms, value]);
+      dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms, value]   }));
+    } else {
+      setTerms(terms.filter((e) => e !== value));
+      dispatch(setPiInfo({ ...invoiceInfo, terms :terms.filter((e) => e !== value)  }));
+
+    }
+  };
+
+  console.log(terms);
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
@@ -100,8 +115,21 @@ function InvoiceInfo() {
           <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Checkbox name="term1" checked={true} label="fifty days before payment ,,,ldv ked" fullWidth></Checkbox>
+          <TextField name="additions" value={invoiceInfo.additions} onChange={handleChange} label="Additions" fullWidth></TextField>
         </Grid>
+        <div>
+          <div className="col-md-12">
+            {terms_and_conditions.map((term, i) => (
+              <div className="form-check m-3" key={i}>
+                <input className="form-check-input" type="checkbox" name="terms" value={term.term} id="flexCheckDefault" onChange={handelTermsChange} />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  {term.term}
+                </label>
+              </div>
+            ))}
+            </div>
+            </div>
+
       </Grid>
     </React.Fragment>
   );

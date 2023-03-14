@@ -52,8 +52,8 @@ const Invoice = ({ pi, currency }) => {
         <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
-        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} currency={currency} />
-        <InvoiceTerms />
+        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} currency={currency} additions={pi.piInfo.additions} />
+        <InvoiceTerms terms={pi.piInfo.terms} />
         <Image style={styles.pi_footer} src={stamp} />
       </Page>
     </Document>

@@ -68,12 +68,12 @@ export default function PiStepper() {
       ) : (
         <React.Fragment>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+            <Button variant="contained"  size="large"  color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
 
-            <Button onClick={handleNext}>{activeStep === steps.length - 1 ? "Finish" : "Next"}</Button>
+            <Button variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? "Finish" : "Next"}</Button>
           </Box>
           {activeStep === 0 && <MakiPi />}
           {activeStep === 1 && (

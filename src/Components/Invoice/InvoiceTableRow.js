@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
 
 const InvoiceTableRow = ({ products, currency }) => {
   let no = 0;
-  const rows = products.map((item) => (
-    <View style={styles.row} key={item._id}>
-      <Text style={styles.no}>{no + 1}</Text>
+  const rows = products.map((item , index) => (
+    <View style={styles.row}  key={index}>
+      <Text style={styles.no}>{index + 1}</Text>
       <Text style={styles.description}>
         {item.brand}&nbsp;
         {item.code}
@@ -63,7 +63,7 @@ const InvoiceTableRow = ({ products, currency }) => {
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {(item.qty * item.price).toFixed(2)}&nbsp;&nbsp;
+        {item.qty>0 ? (item.qty * item.price).toFixed(2) : 0}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>

@@ -38,7 +38,6 @@ const Warranty = () => {
       countries.push(product.country);
     }
   });
-  console.log(countries);
 
   const handleSearch = () => {
     let companies = [...new Set(choosenCompanies)];

@@ -1184,4 +1184,4 @@ export const final_distination = [
   { name: "AQABA , JORDAN", value: "AQABA , JORDAN" },
 ];
 
-export const terms_and_conditions = [{ term: "ocvienrifv jmoicmiwermdsoipfk moicvlkwmrisdflk oikmiopkemwoisdf " }];
+export const terms_and_conditions = [{ term: "This is EX-Warehouse"},{ term: "Delivery Time : 7 days after deposit"},{ term: "We will not be held responsible for any delivery delay occurred by the manufacturer or due to dalays in shippment"},{ term: "This is EX-Warehouse"},];

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ products, currency, discount }) => {
+const InvoiceTableFooter = ({ products, currency, discount ,additions }) => {
   let currency_word = "";
   let sub_currency_word = "";
   if (currency === "USD") {
@@ -130,11 +130,16 @@ const InvoiceTableFooter = ({ products, currency, discount }) => {
         <Text style={styles.total}>
           {discount}&nbsp;{currency}
         </Text>
+      </View> <View style={styles.row}>
+        <Text style={styles.description}>ADDITIONS</Text>
+        <Text style={styles.total}>
+          {additions}&nbsp;{currency}
+        </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.description}>{moneyToEng(total - discount)}&nbsp;only</Text>
+        <Text style={styles.description}>{moneyToEng((total - discount) +parseInt(additions))}&nbsp;only</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total - discount).toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat((total - discount) +parseInt(additions)).toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
     </>
