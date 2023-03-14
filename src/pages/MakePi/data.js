@@ -1184,7 +1184,7 @@ export const final_distination = [
   { name: "AQABA , JORDAN", value: "AQABA , JORDAN" },
 ];
 
-export const terms_and_conditions = [{ term: "This is EX-Warehouse"},{ term: "Delivery Time : 7 days after deposit"},{ term: "We will not be held responsible for any delivery delay occurred by the manufacturer or due to dalays in shippment"},{ term: "This is EX-Warehouse"},];
+export const terms_and_conditions = [{ term: "Advance Payment 10% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 20% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 30% Balance to be paid time providing copy of BL."}];
 
 
 export const terms_collections =[
