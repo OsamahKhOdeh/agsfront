@@ -1185,3 +1185,38 @@ export const final_distination = [
 ];
 
 export const terms_and_conditions = [{ term: "This is EX-Warehouse"},{ term: "Delivery Time : 7 days after deposit"},{ term: "We will not be held responsible for any delivery delay occurred by the manufacturer or due to dalays in shippment"},{ term: "This is EX-Warehouse"},];
+
+
+export const terms_collections =[
+  {collection : "EXWAREHOUSE" ,
+   terms : [
+    "Payment will be made either Cheque / Transfer",
+    "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+    "Deposit is not refundable in any circumtance",
+    "Currency Exchange Rate USD Against AED 3.674",
+    "Goods will be delivered with in 7 days after completion of full payment",
+    "We are not responsible any delay happened due to delay from manufacturer / shipment",
+    "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"
+  ] } ,{
+    collection : "FOB",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"]
+  },{
+    collection : "CIF",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
+      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+  }
+]
