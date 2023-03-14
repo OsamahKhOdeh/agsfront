@@ -8,7 +8,7 @@ export const addToCart = createSlice({
   },
   reducers: {
     addProducttocart: (state, action) => {
-      state.cart.some((item) => item._id === action.payload._id) ? null : state.cart.push({...action.payload , qty :0});
+      state.cart.some((item) => item._id === action.payload._id) ? null : state.cart.push(action.payload);
     },
     deletProductformCart: (state, action) => {
       let index = state.cart.findIndex((obj) => obj._id === action.payload._id);

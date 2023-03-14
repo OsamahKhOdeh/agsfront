@@ -1184,39 +1184,4 @@ export const final_distination = [
   { name: "AQABA , JORDAN", value: "AQABA , JORDAN" },
 ];
 
-export const terms_and_conditions = [{ term: "Advance Payment 10% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 20% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 30% Balance to be paid time providing copy of BL."}];
-
-
-export const terms_collections =[
-  {collection : "EXWAREHOUSE" ,
-   terms : [
-    "Payment will be made either Cheque / Transfer",
-    "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-    "Deposit is not refundable in any circumtance",
-    "Currency Exchange Rate USD Against AED 3.674",
-    "Goods will be delivered with in 7 days after completion of full payment",
-    "We are not responsible any delay happened due to delay from manufacturer / shipment",
-    "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"
-  ] } ,{
-    collection : "FOB",
-    terms : [
-      "Payment will be made either Cheque / Transfer",
-      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-      "Deposit is not refundable in any circumtance",
-      "Currency Exchange Rate USD Against AED 3.674",
-      "Goods will be delivered with in 7 days after completion of full payment",
-      "We are not responsible any delay happened due to delay from manufacturer / shipment",
-      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"]
-  },{
-    collection : "CIF",
-    terms : [
-      "Payment will be made either Cheque / Transfer",
-      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-      "Deposit is not refundable in any circumtance",
-      "Currency Exchange Rate USD Against AED 3.674",
-      "Goods will be delivered with in 7 days after completion of full payment",
-      "We are not responsible any delay happened due to delay from manufacturer / shipment",
-      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
-      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
-  }
-]
+export const terms_and_conditions = [{ term: "ocvienrifv jmoicmiwermdsoipfk moicvlkwmrisdflk oikmiopkemwoisdf " }];

@@ -80,7 +80,7 @@ const TablePage = () => {
                 <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
-                    {item.qty >0 ? (calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty).toFixed(3) : 0}
+                    {(calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty).toFixed(3)}
                   </p>
                 </td>
                 <td className="pl-12">
@@ -109,6 +109,7 @@ const TablePage = () => {
                     }}
                     variant="contained"
                     style={{ backgroundColor: "red" }}
+                    color="error"
                   >
                     DELETE
                   </Button>

@@ -4,11 +4,11 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@material-ui/core";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@material-ui/core";
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setPiInfo, setPiNo } from "../../store/piSlice";
-import { exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
+import { exporters, final_distination, notify_partys, party_of_discharge } from "./data";
 import { useEffect } from "react";
 
 function InvoiceInfo() {
@@ -24,7 +24,7 @@ function InvoiceInfo() {
   const [exporter, setExporter] = useState("");
   const [invoiceInfo, setInvoiceInfo] = useState({
     //   piProducts: [],
-    invoiceNo: useSelector((state) => state.pi.piInfo.invoiceNo),
+    // invoiceNo: 0,
     date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
     exporter: "",
     buyerAdress: "",
@@ -33,58 +33,12 @@ function InvoiceInfo() {
     partyOfDischarge: "",
     finalDistination: "",
     discount: 0,
-    additions:0,
   });
   const handleChange = (event) => {
     setInvoiceInfo({ ...invoiceInfo, [event.target.name]: event.target.value });
     dispatch(setPiInfo({ ...invoiceInfo, [event.target.name]: event.target.value }));
   };
-
-  const [terms, setTerms] = useState([]);
-  const handelTermsChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setTerms([...terms, value]);
-      dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms, value]   }));
-    } else {
-      setTerms(terms.filter((e) => e !== value));
-      dispatch(setPiInfo({ ...invoiceInfo, terms :terms.filter((e) => e !== value)  }));
-
-    }
-  };
-
-  const handleCollectionChange = (e) => {
-    const { value } = e.target;
-    switch (value) {
-      case "EXWAREHOUSE":
-       // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
-       setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)]);
-       dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)] }));
-
-        break;
-        case "FOB":
-        setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)] }));
-
-        break;
-        case "CIF":
-        setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)] }));
-
-        break;
-    
-      default:
-        break;
-    }
-    console.log((terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" }))[0]);
-    console.log(terms_collections);
-  };
-
-
-
-
-
-  console.log(terms);
+  console.log(exporters[0].value);
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
@@ -146,37 +100,8 @@ function InvoiceInfo() {
           <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="additions" value={invoiceInfo.additions} onChange={handleChange} label="Additions" fullWidth></TextField>
+          <Checkbox name="term1" checked={true} label="fifty days before payment ,,,ldv ked" fullWidth></Checkbox>
         </Grid>
-        <Grid item xs={12} sm={12}>
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">Terms Collections : </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              onChange={handleCollectionChange}
-            >
-             <FormControlLabel disabled={terms?.length>5} value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
-             <FormControlLabel disabled={terms?.length>5} value="FOB" control={<Radio />} label="FOB" />
-             <FormControlLabel disabled={terms?.length>5}value="CIF" control={<Radio />} label="CIF" />
-            </RadioGroup>
-           </FormControl>
-        </Grid>
-        
-        <div>
-          <div className="col-md-12">
-            {terms_and_conditions.map((term, i) => (
-              <div className="form-check m-3" key={i}>
-                <input className="form-check-input" type="checkbox" name="terms" value={term.term} id="flexCheckDefault" onChange={handelTermsChange} />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  {term.term}
-                </label>
-              </div>
-            ))}
-            </div>
-            </div>
-
       </Grid>
     </React.Fragment>
   );

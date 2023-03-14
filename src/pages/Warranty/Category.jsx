@@ -5,6 +5,7 @@ function Category(props) {
   const dispatch = useDispatch();
   const { title, img, checklevel1, setcheck } = props;
   const filters = useSelector((state) => state.filters.filters);
+  console.log(filters.categories);
   return (
     <>
       <div className='checkbox'>
@@ -13,7 +14,6 @@ function Category(props) {
            checked ={filters.categories.includes(title)}
             type='checkbox'
             className='checkbox-input'
-            onChange={()=>{}}
             onClick={() => props.onClick(title)}
           />
           <span className='checkbox-tile'>

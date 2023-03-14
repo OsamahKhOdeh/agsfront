@@ -53,19 +53,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTerms = ({ terms }) => (
+const InvoiceTerms = ({ currency }) => (
   <>
     <View style={styles.row}>
-      <Text style={styles.header}>Terms and Conditions : </Text>
+      <Text style={styles.header}>Terms and Conditions</Text>
     </View>
-    {terms?.length > 0 ? 
-      (terms.map((item, index) => (
-        <View key={index} style={styles.row}>
-          <Text style={styles.no}>{index + 1}</Text>
-          <Text style={styles.description}>{item}</Text>
-        </View>))
-      ) : null
-    }
+    <View style={styles.row}>
+      <Text style={styles.no}>1</Text>
+      <Text style={styles.description}>This is EX-Warehouse</Text>
+    </View>
+    <View style={styles.row}>
+      <Text style={styles.no}>2</Text>
+      <Text style={styles.description}>Delivery Time : 7 days after deposit</Text>
+    </View>
+    <View style={styles.row}>
+      <Text style={styles.no}>3</Text>
+      <Text style={styles.description}>We will not be held responsible for any delivery delay occurred by the manufacturer or due to dalays in shippment</Text>
+    </View>
     <View style={styles.row}>
       <Text style={styles.buyer}>Seller :</Text>
       <Text style={styles.buyer}>Buyer : </Text>

@@ -23,7 +23,7 @@ const Product = ({ product, index }) => {
 // Function will execute on click of button
     const onButtonClick = (url , downloadedFileName) => {
         // using Java Script method to get PDF file
-        fetch(`/datasheets/${url}.pdf`).then(response => {
+        fetch(`${url}.pdf`).then(response => {
             response.blob().then(blob => {
                 // Creating new object of PDF file
                 const fileURL = window.URL.createObjectURL(blob);
@@ -36,6 +36,12 @@ const Product = ({ product, index }) => {
         })
     }
 
+
+   function fetchFile(){ 
+      
+  axios.get('www.pdf').then(res => console.log(res.data))
+    .catch(err => console.log(err))
+}
 //End DataSheets////////////////////////////////
 
 

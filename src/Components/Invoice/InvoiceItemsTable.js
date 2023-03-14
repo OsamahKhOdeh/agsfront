@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceItemsTable = ({ products, currency, discount , additions }) => (
+const InvoiceItemsTable = ({ products, currency, discount }) => (
   <View style={styles.tableContainer}>
     <InvoiceTableHeader currency={currency} />
     <InvoiceTableRow products={products} currency={currency} />
-    <InvoiceTableFooter products={products} discount={discount} currency={currency} additions={additions} />
+    <InvoiceTableFooter products={products} discount={discount} currency={currency} />
   </View>
 );
 

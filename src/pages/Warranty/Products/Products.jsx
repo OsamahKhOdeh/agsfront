@@ -101,16 +101,16 @@ const Products = () => {
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
-    //console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % products.length;
-    /*  console.log(
+      console.log(
         `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );*/
+      );
       setItemOffset(newOffset);
     };
 
@@ -143,7 +143,7 @@ const Products = () => {
 
   //New Pagination ////////////////
 
- // console.log(totalPages);
+  console.log(totalPages);
 
   return isLoading ? (
     <Container
