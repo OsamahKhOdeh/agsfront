@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { createProduct } from "../../api";
+import * as api from "../../api/index.js";
 //import { CloudinaryContext, Image } from "cloudinary-react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,7 +14,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import useStyles from "./styles";
-import { companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } from "../../data";
+import { companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } from "./data.js";
+import { createProduct } from "../../actions/products.js";
+import { useDispatch } from "react-redux";
+console.log({ companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } );
 //import { INITIAL_STATE, producReducer } from "./productReducer";
 
 const ProductForm = ({ currentId, setCurrentId }) => {
@@ -35,44 +38,13 @@ const ProductForm = ({ currentId, setCurrentId }) => {
     netWeight: "",
     grossWeight: "",
     palatSize: "",
-    bl: [],
+    LocalPrice:"9", 
+    freezonePrice :"10"
   });
-
-  const [bls, setBls] = useState([
-    { code: "", qty: 0, date: "MM/DD/YY", warehouse: "" },
-    { code: "", qty: 0, date: "MM/DD/YY", warehouse: "" },
-    { code: "", qty: 0, date: "MM/DD/YY", warehouse: "" },
-    { code: "", qty: 0, date: "MM/DD/YY", warehouse: "" },
-  ]);
   const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
 
-  let newArray = [...bls];
-  const handleBlCodeChange = (e) => {
-    newArray = [...bls];
-    newArray[e.target.name].code = e.target.value;
-    setBls(newArray);
-  };
-  const handleBlQtyChange = (e) => {
-    if (e.target.value === "" || regex.test(e.target.value)) {
-      newArray = [...bls];
-      newArray[e.target.name].qty = parseFloat(e.target.value);
-      setBls(newArray);
-    }
-  };
-  const handleBlWareHouseChange = (e) => {
-    newArray = [...bls];
-    newArray[e.target.name].warehouse = e.target.value;
-    setBls(newArray);
-  };
-  const handleBlDateChange = (e) => {
-    newArray = [...bls];
-    newArray[e.target.name].date = e.target.value;
-    setBls(newArray);
-  };
-
-  const [showSecBL, setShowSecBL] = useState(false);
-  const [showThdcBL, setShowThecBL] = useState(false);
-  const [showFrthBL, setShowFrthBL] = useState(false);
+  
   let choosenCountry = productData.country.toLowerCase();
   let companies = ["None", "Choose Company"];
   switch (choosenCountry) {
@@ -118,9 +90,9 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   const handleUpload = async () => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "ags_product");
+    data.append("upload_preset", "jix4eghn");
 
-    const response = await axios.post("https://api.cloudinary.com/v1_1/dwen6dx2a/image/upload", data);
+    const response = await axios.post("https://api.cloudinary.com/v1_1/dvfuxrg12/image/upload", data);
     console.log(response.data.secure_url);
     setIsUploading(false);
     const image_url = response.data.secure_url;
@@ -129,10 +101,9 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(bls);
     console.log(productData);
     try {
-      const { data } = await createProduct(productData);
+      dispatch(createProduct(productData))
       showToastMessage();
       clear();
     } catch (e) {
@@ -165,7 +136,16 @@ const ProductForm = ({ currentId, setCurrentId }) => {
       theme: "light",
     });
   };
-
+/*
+  const handeleDatasheetSubmit = (e) => {
+    e.preventDefault(); 
+    const formData = new FormData()
+    formData.append('profileImg', image)
+    axios.post("http://localhost:5000/products", formData, { }).then(res => {
+        console.log(res)
+    })
+  }
+*/
   return (
     <Paper className={classes.paper} elevation={6}>
       <ToastContainer />
@@ -281,67 +261,60 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, palatSize: e.target.value });
           }}
         />
+        <TextField
+      name="price"
+      variant="outlined"
+      label="Net Price"
+      fullWidth
+      value={productData.price}
+      onChange={(e) => {
+        if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, price: e.target.value });
+      }}
+    />
+        <TextField
+      name="freezonePrice"
+      variant="outlined"
+      label="Freezone addition on net price (Percentage)"
+      fullWidth
+      value={productData.freezonePrice}
+      onChange={(e) => {
+        if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, freezonePrice: e.target.value });
+      }}
+    /><TextField
+        name="LocalPrice"
+        variant="outlined"
+        label="Local addition on freezone price (percentage) "
+        fullWidth
+        value={productData.LocalPrice}
+        onChange={(e) => {
+          if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, LocalPrice: e.target.value });
+        }}
+      />
+        
         <TextField name="description" variant="outlined" label="DESECRIPTION" fullWidth multiline minRows={4} value={productData.description} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
-        <Container>
-          <TextField name="0" variant="outlined" label="BL Code" value={productData.bl.code} onChange={handleBlCodeChange} />
-          <TextField name="0" variant="outlined" label="BL Quantity" value={productData.bl.qty} onChange={handleBlQtyChange} />
-          <TextField name="0" variant="outlined" label="BL Warehouse" value={productData.bl.warehouse} onChange={handleBlWareHouseChange} />
-          <TextField name="0" variant="outlined" label="BL Date" value={productData.bl.date} onChange={handleBlDateChange} />
-          <Button onClick={() => setShowSecBL(true)} variant="outlined" color="primary">
-            <AddIcon />
-          </Button>
-        </Container>
-        {showSecBL && (
-          <Container>
-            <TextField name="1" variant="outlined" label="BL Code" value={productData.bl.code} onChange={handleBlCodeChange} />
-            <TextField name="1" variant="outlined" label="BL Quantity" value={productData.bl.qty} onChange={handleBlQtyChange} />
-            <TextField name="1" variant="outlined" label="BL Warehouse" value={productData.bl.warehouse} onChange={handleBlWareHouseChange} />
-            <TextField name="1" variant="outlined" label="BL Date" value={productData.bl.date} onChange={handleBlDateChange} />
-            <Button onClick={() => setShowThecBL(true)} variant="outlined" color="primary">
-              <AddIcon />
-            </Button>
-          </Container>
-        )}
-        {showThdcBL && (
-          <Container>
-            <TextField name="2" variant="outlined" label="BL Code" value={productData.bl.code} onChange={handleBlCodeChange} />
-            <TextField name="2" variant="outlined" label="BL Quantity" value={productData.bl.qty} onChange={handleBlQtyChange} />
-            <TextField name="2" variant="outlined" label="BL Warehouse" value={productData.bl.warehouse} onChange={handleBlWareHouseChange} />
-            <TextField name="2" variant="outlined" label="BL Date" value={productData.bl.date} onChange={handleBlDateChange} />
-            <Button onClick={() => setShowFrthBL(true)} variant="outlined" color="primary">
-              <AddIcon />
-            </Button>
-          </Container>
-        )}
-
-        {showFrthBL && (
-          <Container>
-            <TextField name="3" variant="outlined" label="BL Code" value={productData.bl.code} onChange={handleBlCodeChange} />
-            <TextField name="3" variant="outlined" label="BL Quantity" value={productData.bl.qty} onChange={handleBlQtyChange} />
-            <TextField name="3" variant="outlined" label="BL Warehouse" value={productData.bl.warehouse} onChange={handleBlWareHouseChange} />
-            <TextField name="3" variant="outlined" label="BL Date" value={productData.bl.date} onChange={handleBlDateChange} />
-            <Button variant="outlined" g color="primary">
-              <AddIcon />
-            </Button>
-          </Container>
-        )}
-
+       
         <div className={classes.fileInput}>
           <input
-            style={{ color: "red" }}
+            style={{ color: "red" ,width :"25%" ,height :"30px" }}
             type="file"
             name="img"
             onChange={(e) => {
               setImage(e.target.files[0]);
-              setProductData({ ...productData, bl: bls });
               setIsUploading(true);
             }}
           />
-          <button type="button" onClick={handleUpload}>
+          <button type="button" style={{ color: "white" ,width :"12%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} onClick={handleUpload}>
             Upload image
           </button>
         </div>
-        <Button className={classes.buttonSubmit} disabled={isUploading} variant="contained" color="primary" size="large" type="submit" fullWidth>
+       {/* <div className={classes.fileInput} >
+                    <form onSubmit={handeleDatasheetSubmit}> 
+                            <input  style={{ color: "red" ,width :"25%" ,height :"30px" }} type="file" />
+                            <button  style={{ color: "white" ,width :"12%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} className="btn btn-primary" type="submit">Upload Datasheet</button>
+                    </form>
+            </div>
+       */}
+       <Button className={classes.buttonSubmit} disabled={isUploading} variant="contained" color="primary" size="large" type="submit" fullWidth>
           Submit
         </Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>

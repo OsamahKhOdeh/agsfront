@@ -3,6 +3,15 @@ import { setIsLoading } from "../store/showingSlice";
 import * as api from "../api/index.js";
 import { fetchAll, fetchFilterd } from "../store/productsSlice";
 
+export const createProduct = (newProduct) => async (dispatch) => {
+  console.log(newProduct);
+  try {
+    const { data } = await api.createProduct(newProduct);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getProducts = (page) => async (dispatch) => {
   try {
     // console.log("page : " + page);
