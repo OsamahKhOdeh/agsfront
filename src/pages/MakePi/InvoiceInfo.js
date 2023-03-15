@@ -13,14 +13,16 @@ import { useEffect } from "react";
 
 function InvoiceInfo() {
   const dispatch = useDispatch();
+  const [piNoState, setPiNoState] = useState(0);
   useEffect(() => {
     async function getLast() {
       const lasto = await api.getLastPiNo();
       console.log(lasto.data);
+      setPiNoState(lasto.data+1);
       dispatch(setPiNo(lasto.data));
     }
     getLast();
-  }, []);
+  }, [dispatch]);
   const [exporter, setExporter] = useState("");
   const [invoiceInfo, setInvoiceInfo] = useState({
     //   piProducts: [],
@@ -36,8 +38,8 @@ function InvoiceInfo() {
     additions:0,
   });
   const handleChange = (event) => {
-    setInvoiceInfo({ ...invoiceInfo, [event.target.name]: event.target.value });
-    dispatch(setPiInfo({ ...invoiceInfo, [event.target.name]: event.target.value }));
+    setInvoiceInfo({ ...invoiceInfo,invoiceNo : piNoState ,[event.target.name]: event.target.value });
+    dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
   };
 
   const [terms, setTerms] = useState([]);
@@ -45,10 +47,10 @@ function InvoiceInfo() {
     const { value, checked } = e.target;
     if (checked) {
       setTerms([...terms, value]);
-      dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms, value]   }));
+      dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms, value]   }));
     } else {
       setTerms(terms.filter((e) => e !== value));
-      dispatch(setPiInfo({ ...invoiceInfo, terms :terms.filter((e) => e !== value)  }));
+      dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms.filter((e) => e !== value)  }));
 
     }
   };
@@ -59,17 +61,17 @@ function InvoiceInfo() {
       case "EXWAREHOUSE":
        // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
        setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)]);
-       dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)] }));
+       dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)] }));
 
         break;
         case "FOB":
         setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)] }));
+        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)] }));
 
         break;
         case "CIF":
         setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)] }));
+        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)] }));
 
         break;
     

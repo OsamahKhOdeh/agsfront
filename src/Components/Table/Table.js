@@ -64,7 +64,7 @@ const TablePage = () => {
                 </td>
                 <td className="pl-12">
                   <p className="text-sm font-medium leading-none text-gray-800">
-                    {item.brand}&nbsp;{item.code}
+                    {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})
                   </p>
                 </td>
                 <td className="pl-12">

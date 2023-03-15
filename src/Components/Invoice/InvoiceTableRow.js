@@ -55,7 +55,7 @@ const InvoiceTableRow = ({ products, currency }) => {
       <Text style={styles.no}>{index + 1}</Text>
       <Text style={styles.description}>
         {item.brand}&nbsp;
-        {item.code}
+        {item.code}&nbsp;/&nbsp;{item.capacity}
       </Text>
       <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
