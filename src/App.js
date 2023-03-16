@@ -15,11 +15,13 @@ import Warranty from "./pages/Warranty/Warranty";
 import WarrantyCheck from "./pages/Warranty/WarrantyCheck/WarrantyCheck";
 import CheckCustomer from "./pages/Invoice/CheckCustomer";
 import AdminPage from "./pages/Admin/AdminPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index path="/" element={<Home />}></Route>
+        <Route index path="/" element={<LoginPage />}></Route>
+        <Route path="/home" element={<Home />}></Route>
         <Route path="/pricelist" element={<PriceList />}></Route>
         <Route path="/pdf" element={<ProformaInvoice />}></Route>
 
