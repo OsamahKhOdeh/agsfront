@@ -1,6 +1,6 @@
 import axios from "axios";
 console.log("From api");
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "http://143.42.61.215:5000" });
 // http://143.42.61.215:5001/
 
 //export const createProduct = (newProduct) => API.post("/products", newProduct);
