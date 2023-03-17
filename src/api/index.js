@@ -1,6 +1,6 @@
 import axios from "axios";
 console.log("From api");
-const API = axios.create({ baseURL: "http://143.42.61.215:5000" });
+const API = axios.create({ baseURL: "http://localhost:5000" });
 // http://143.42.61.215:5001/
 
 //export const createProduct = (newProduct) => API.post("/products", newProduct);
@@ -17,6 +17,8 @@ export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
 export const getLastPiNo = () => API.get("/pi/last");
+
+export const login = ({username , password}) => API.post("/auth", {username, password});
 
 /*
 export const fetchPost = (id) => API.get(`/posts/${id}`);

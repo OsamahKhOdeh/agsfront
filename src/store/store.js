@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import authSlice from "./authSlice";
 import cartSlice from "./cartSlice";
 import filtersSlice from "./filtersSlice";
 import piSlice from "./piSlice";
@@ -19,5 +20,6 @@ export default configureStore({
     show: showingSlice,
     filters: filtersSlice,
     warranty: warrantySlice,
+    auth : authSlice
   },
 });

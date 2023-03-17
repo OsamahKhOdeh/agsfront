@@ -492,3 +492,13 @@ p {
   background-color: rgb(235 235 235) !important;
   font-weight: bold !important;
 }
+
+
+
+.errmsg {
+  display: inline-block;
+  background-color: var(--TABLE-BGCOLOR);
+  color: var(--ERROR);
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+}

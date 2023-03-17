@@ -282,7 +282,7 @@ const PriceList = () => {
                       variant="contained"
                       color="error"
                       onClick={() => {
-                        navigate("/customer-price-list");
+                        navigate("/user/customer-price-list");
                       }}
                     >
                       Show PriceList
@@ -364,7 +364,7 @@ const PriceList = () => {
                   })}
                 <Button
                   onClick={() => {
-                    navigate("/customer-price-list");
+                    navigate("/user/customer-price-list");
                   }}
                   style={{ marginTop: "200px" }}
                   color="primary"

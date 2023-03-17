@@ -5,17 +5,17 @@ body {
   font-family: Raleway, sans-serif;
   color: #666;
 }
-
 .login {
   margin: 20px auto;
   padding: 40px 50px;
-  max-width: 300px;
   border-radius: 5px;
   background: #fff;
-  box-shadow: 1px 1px 1px #666;
+  display: grid;
+  place-content: center;
 }
 .login input {
   width: 100%;
+  height: 60px;
   display: block;
   box-sizing: border-box;
   margin: 10px 0;
@@ -37,16 +37,21 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.login input[type="submit"] {
+.login .submit {
   border: none;
   background: #ef5350;
   color: white;
   font-weight: bold;
   transition: 0.2s;
   margin: 20px 0px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  text-align: center;
 }
 
-.login input[type="submit"]:hover {
+.login .submit:hover {
   background: #f44336;
 }
 
@@ -98,4 +103,8 @@ body {
 
 .login a:hover {
   text-decoration: underline;
+}
+
+.login > img {
+  height: auto;
 }

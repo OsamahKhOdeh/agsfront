@@ -239,7 +239,7 @@ const Products = () => {
                 className='next'
                 onClick={() => {
 
-                  navigate("/checkCustomer");
+                  navigate("/user/checkCustomer");
                 }}>
                 <span> Next </span>
               </div>

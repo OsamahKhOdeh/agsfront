@@ -16,25 +16,35 @@ import WarrantyCheck from "./pages/Warranty/WarrantyCheck/WarrantyCheck";
 import CheckCustomer from "./pages/Invoice/CheckCustomer";
 import AdminPage from "./pages/Admin/AdminPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import Navbar from "./Components/Navbar/Navbar";
+import Layout from "./pages/Layout/Layout";
+import UserLayout from "./pages/Layout/UserLayout";
 function App() {
   return (
+    <>    
+   
     <BrowserRouter>
       <Routes>
-        <Route index path="/" element={<LoginPage />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/pricelist" element={<PriceList />}></Route>
-        <Route path="/pdf" element={<ProformaInvoice />}></Route>
+    <Route path="/" element={<Layout />}>
+     <Route index  element={<LoginPage />}></Route>
+      <Route path="user" element={<UserLayout/>}>
+        <Route index element={<Home />}></Route>
+        <Route path="pricelist" element={<PriceList />}></Route>
+        <Route path="pdf" element={<ProformaInvoice />}></Route>
+        <Route path="addproduct" element={<ProductForm />}></Route>
+        <Route path="makepi" element={<PiStepper />}></Route>
+        <Route path="table" element={<ProformaInvoice />}></Route>
+        <Route path="warranty" element={<Warranty />}></Route>
+        <Route path="admin" element={<AdminPage />}></Route>
+        <Route path="warranty-check" element={<WarrantyCheck />}></Route>
+        <Route path="customer-price-list" element={<CustomerPriceList />}></Route>
+        <Route path="checkCustomer" element={<CheckCustomer />}></Route>
+      </Route>
+    </Route>
 
-        <Route path="/addproduct" element={<ProductForm />}></Route>
-        <Route path="/makepi" element={<PiStepper />}></Route>
-        <Route path="/table" element={<ProformaInvoice />}></Route>
-        <Route path="/warranty" element={<Warranty />}></Route>
-        <Route path="/admin" element={<AdminPage />}></Route>
-        <Route path="/warranty-check" element={<WarrantyCheck />}></Route>
-        <Route path="/customer-price-list" element={<CustomerPriceList />}></Route>
-        <Route path="/checkCustomer" element={<CheckCustomer />}></Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 

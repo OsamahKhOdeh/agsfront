@@ -11,16 +11,16 @@ const Home = () => {
   return (
     <Grow in>
       <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "900px" }} maxWidth="xl">
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/makepi")}>
+        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/makepi")}>
           Make PI
         </Button>{" "}
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/admin")}>
+        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/admin")}>
           Admin
         </Button>
         <Button style={{ width: "25%", padding: "25px" }} variant="contained">
           Make PKL
         </Button>
-        <Button style={{ width: "25%", padding: "25px", backgroundColor: "burlywood" }} variant="contained" onClick={() => navigate("/warranty")}>
+        <Button style={{ width: "25%", padding: "25px", backgroundColor: "burlywood" }} variant="contained" onClick={() => navigate("/user/warranty")}>
           PriceList{" "}
         </Button>
         <Button style={{ width: "25%", padding: "25px" }} variant="outlined">
@@ -35,7 +35,7 @@ const Home = () => {
         <Button style={{ width: "25%", padding: "25px" }} variant="contained">
           Promo Codes{" "}
         </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/addproduct")}>
+        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/addproduct")}>
           Add Products
         </Button>
         <Button style={{ width: "25%", padding: "25px" }} variant="contained">

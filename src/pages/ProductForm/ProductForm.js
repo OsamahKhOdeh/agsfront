@@ -17,7 +17,6 @@ import useStyles from "./styles";
 import { companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } from "./data.js";
 import { createProduct } from "../../actions/products.js";
 import { useDispatch } from "react-redux";
-console.log({ companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } );
 //import { INITIAL_STATE, producReducer } from "./productReducer";
 
 const ProductForm = ({ currentId, setCurrentId }) => {

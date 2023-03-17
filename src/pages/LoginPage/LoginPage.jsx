@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useNavigation } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../../actions/auth";
 function LoginPage() {
   const SigninPage = styled.div`
     @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
@@ -113,27 +115,41 @@ function LoginPage() {
     }
   `;
 
+  
+
+
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const psswd = useRef();
   const username = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit =  (event) => {
     event.preventDefault();
+    try{
+
+      const formData = {username : username.current.value ,password : psswd.current.value};
+      dispatch(login(formData,navigate));
+   // navigate("/user");
+
     if (psswd.current.value === "") {
       alert("the value is empty");
     } else {
       if (psswd.current.value === "1234" && username.current.value === "ags") {
-        navigate("/home");
+       
       } else {
-        alert("the password is not correct ");
+        //alert("the password is not correct ");
       }
     }
+  }catch(error){
+
+  }
   };
 
   return (
     <SigninPage>
       <form className='login' onSubmit={handleSubmit}>
-        <img src='/images/logo.png' alt='' srcset='' />
+        <img src='/images/logo.png' alt='' srcSet='' />
         <input type='text' placeholder='User Name' ref={username} />
         <input type='password' placeholder='Password' ref={psswd} />
         <input className='submit' type='submit' value='Log In' />
