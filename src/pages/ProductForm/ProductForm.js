@@ -273,7 +273,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
         <TextField
       name="freezonePrice"
       variant="outlined"
-      label="Freezone addition on net price (Percentage)"
+      label="Freezone Price"
       fullWidth
       value={productData.freezonePrice}
       onChange={(e) => {
@@ -282,7 +282,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
     /><TextField
         name="LocalPrice"
         variant="outlined"
-        label="Local addition on freezone price (percentage) "
+        label="Local Price"
         fullWidth
         value={productData.LocalPrice}
         onChange={(e) => {
