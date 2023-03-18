@@ -136,7 +136,7 @@ function LoginPage() {
       alert("the value is empty");
     } else {
       if (psswd.current.value === "1234" && username.current.value === "ags") {
-       
+        navigate("/user");
       } else {
         //alert("the password is not correct ");
       }

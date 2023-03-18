@@ -27,6 +27,7 @@ const Product = ({ product, index }) => {
 
   const showPrice = useSelector((state) => state.show.showPrice);
   const showStock = useSelector((state) => state.show.showStock);
+  const location = useSelector((state) => state.filters.location);
   const showDatasheet = useSelector((state) => state.show.showDatasheet);
 
   const dispatch = useDispatch();
@@ -125,10 +126,14 @@ const Product = ({ product, index }) => {
             </div>
           </div>
           <div className='item__prices'>
-            {showPrice && (
+          {showPrice && (
               <div>
-                <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
-              additionOnLocalPercentage={product.LocalPrice}/> </label>
+                {location === "freezone" ? product.freezonePrice : product.LocalPrice}
+              {/*}  <label htmlFor=''>Price : 
+                <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
+              additionOnLocalPercentage={product.LocalPrice}/>
+              </label>
+            */}
               </div>
             )}
             {showStock && (
@@ -147,8 +152,8 @@ const Product = ({ product, index }) => {
 
            </TextField>
            <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Stock" value={stock} onChange={(e)=>{setStock(e.target.value)}}></TextField>
-           <TextField error={freezoneToLocalPercentage > 100 } fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Addition on Freezone" value={freezoneToLocalPercentage} onChange={(e)=>{setFreezoneToLocalPercentage(e.target.value)}}></TextField>
-           <TextField error={additionOnLocalPercentage>100} fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Addition on Local" value={additionOnLocalPercentage} onChange={(e)=>{setAdditionOnLocalPercentage(e.target.value)}}></TextField>
+           <TextField error={freezoneToLocalPercentage <= 0 } fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Freezone Price" value={freezoneToLocalPercentage} onChange={(e)=>{setFreezoneToLocalPercentage(e.target.value)}}></TextField>
+           <TextField error={additionOnLocalPercentage <=0 } fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Local Price" value={additionOnLocalPercentage} onChange={(e)=>{setAdditionOnLocalPercentage(e.target.value)}}></TextField>
            
             <Button variant="contained" style={{backgroundColor :"#ed3615"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
 

@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Invoice = ({ pi, currency }) => {
+const Invoice = ({ pi, currency , location, usdToAedRate }) => {
   let logo = logo_ags;
   let stamp = ags_stamp;
-  console.log(pi.piInfo.exporter);
+  console.log(location);
   if (pi.piInfo.exporter === "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae") {
     logo = logo_ajc;
     stamp = ajc_stamp;
@@ -52,7 +52,7 @@ const Invoice = ({ pi, currency }) => {
         <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
-        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} currency={currency} additions={pi.piInfo.additions} />
+        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
         <InvoiceTerms terms={pi.piInfo.terms} />
         <Image style={styles.pi_footer} src={stamp} />
       </Page>

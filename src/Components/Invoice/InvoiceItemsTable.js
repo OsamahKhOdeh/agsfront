@@ -17,12 +17,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceItemsTable = ({ products, currency, discount , additions }) => (
+const InvoiceItemsTable = ({ products, currency,location, discount, usdToAedRate , additions }) => 
+{
+  console.log(location);
+  return(
   <View style={styles.tableContainer}>
     <InvoiceTableHeader currency={currency} />
-    <InvoiceTableRow products={products} currency={currency} />
-    <InvoiceTableFooter products={products} discount={discount} currency={currency} additions={additions} />
+    <InvoiceTableRow products={products} currency={currency} location={location} usdToAedRate={usdToAedRate}/>
+    <InvoiceTableFooter products={products} discount={discount} currency={currency} usdToAedRate={usdToAedRate} location={location} additions={additions} />
   </View>
-);
+)};
 
 export default InvoiceItemsTable;

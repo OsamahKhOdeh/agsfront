@@ -14,13 +14,16 @@ const ProformaInvoice = () => {
   
    const pi = useSelector((state)=>state.pi);
    const currency = useSelector((state)=>state.filters.currency);
-   console.log(currency);
+   const location =useSelector((state)=>state.filters.location);
+   const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
+
+   console.log(location);
 
 
   return (
     <div style={{width:"1200px"}}>
    <PDFViewer width="100%" height="1200" className="app" >
-                <Invoice pi={pi} currency={currency}/>
+                <Invoice pi={pi} currency={currency} location={location}  usdToAedRate={usdToAedRate} />
    </PDFViewer>
  
     </div>

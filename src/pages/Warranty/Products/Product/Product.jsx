@@ -42,6 +42,13 @@ const Product = ({ product, index }) => {
   const showPrice = useSelector((state) => state.show.showPrice);
   const showStock = useSelector((state) => state.show.showStock);
   const showDatasheet = useSelector((state) => state.show.showDatasheet);
+  const location = useSelector((state) => state.filters.location);
+  const currency = useSelector((state) => state.filters.currency);
+  const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
+
+
+
+
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   // const QtyRef = useRef('')
@@ -92,7 +99,7 @@ const Product = ({ product, index }) => {
         <div className='product__image '>
           <img
             src={
-                  product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  product.image  :   `images/${product._id}_1.png` ||  `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
+                  product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  product.image  :   process.env.PUBLIC_URL+`images/${product._id}_1.png` ||  `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
             }
             alt=''
           />
@@ -123,8 +130,16 @@ const Product = ({ product, index }) => {
           <div className='item__prices'>
             {showPrice && (
               <div>
-                <label htmlFor=''>Price : <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
-              additionOnLocalPercentage={product.LocalPrice}/></label>
+                {currency === "AED" 
+                ? <>{location === "freezone" ? (product.freezonePrice * usdToAedRate).toFixed(3) : (product.LocalPrice * usdToAedRate).toFixed(3)}</>
+                :<>{location === "freezone" ? product.freezonePrice : product.LocalPrice}</>
+                }
+                
+              {/*}  <label htmlFor=''>Price : 
+                <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
+              additionOnLocalPercentage={product.LocalPrice}/>
+              </label>
+            */}
               </div>
             )}
             {showStock && (

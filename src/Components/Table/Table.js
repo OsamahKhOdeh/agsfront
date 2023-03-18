@@ -14,32 +14,31 @@ const TablePage = () => {
   const [qty, setQty] = useState("");
   console.log(selectedProducts);
 
+  let UAERATE=1;
+  if(currency === "AED")UAERATE=usdToAedRate;
   function calcTotal() {
     selectedProducts.map((item) => {
-      totalAmount += calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty;
+      console.log(item.LocalPrice);
+      if(location === "freezone"){
+        totalAmount += item.freezonePrice * item.qty * UAERATE;
+      }else{
+        totalAmount += item.LocalPrice* item.qty*UAERATE;
+      }
     });
-    return totalAmount;
+
   }
-
-  function calcPrice(price, freezoneToLocalPercentage, additionOnLocalPercentage) {
-    let netToFreezonePer = freezoneToLocalPercentage;
-    let freezoneToLocalPer = additionOnLocalPercentage;
-    let freezonePrice = price + (price * netToFreezonePer) / 100;
-    let localPrice = freezonePrice + (freezonePrice * freezoneToLocalPer) / 100;
-
-    if (location === "freezone") {
-      if (currency === "USD") {
-        return freezonePrice;
-      } else {
-        return Math.round(freezonePrice * usdToAedRate * 100) / 100;
-      }
-    } else {
-      if (currency === "USD") {
-        return localPrice;
-      } else {
-        return (localPrice * usdToAedRate * 100) / 100;
-      }
+calcTotal();
+  function calcPrice(item) {
+    let price =0;
+    if(location === "freezone"){
+      price = item.freezonePrice;
+    }else{
+      price = item.LocalPrice;
     }
+    if(currency === "AED"){
+      price = price * usdToAedRate;
+    }
+    return price;
   }
 
   return (
@@ -74,20 +73,20 @@ const TablePage = () => {
                   <p className="font-medium">
                     {" "}
                     {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item.price, item.freezonePrice, item.LocalPrice).toFixed(3)}
+                    {calcPrice(item).toFixed(3)}
                   </p>
                 </td>
                 <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
-                    {item.qty >0 ? (calcPrice(item.price, item.freezonePrice, item.LocalPrice) * item.qty).toFixed(3) : 0}
+                    {item.qty >0 ? (calcPrice(item) * item.qty).toFixed(3) : 0}
                   </p>
                 </td>
                 <td className="pl-12">
                   <Button
                     variant="contained"
                     onClick={() => {
-                      if (item?.dumm_id !== 1) dispatch(modifyProductPrice({ id: item._id, dumm_id: 1, price: calcPrice(item.price, item.freezonePrice, item.LocalPrice) }));
+                      if (item?.dumm_id !== 1) dispatch(modifyProductPrice({ id: item._id, dumm_id: 1, price: calcPrice(item) }));
 
                       dispatch(setProductQty({ id: item._id, qty: qty }));
                     }}
@@ -129,7 +128,7 @@ const TablePage = () => {
                 <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
               </td>
               <td className="pl-12">
-                <p className="text-sm font-medium leading-none text-gray-800">{calcTotal}</p>
+                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount.toFixed(3)}</p>
               </td>
             </tr>
           </tbody>

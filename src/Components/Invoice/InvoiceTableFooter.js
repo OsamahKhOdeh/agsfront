@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ products, currency, discount ,additions }) => {
+const InvoiceTableFooter = ({ products, currency, location,  discount ,additions ,usdToAedRate }) => {
   let currency_word = "";
   let sub_currency_word = "";
   if (currency === "USD") {
@@ -116,7 +116,30 @@ const InvoiceTableFooter = ({ products, currency, discount ,additions }) => {
   };
   //End cents/////////////////////////////////////////////////////////////////////////////////
 
-  const total = products.map((item) => item.qty * item.price).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  let total = 0;
+  let UAERATE = 1;
+  let price =0;
+
+  console.log(usdToAedRate);
+  if(currency === "AED"){
+    UAERATE = usdToAedRate;
+  }
+
+  function calcTotal() {
+    products.map((item) => {
+      console.log(item.LocalPrice);
+      if(location === "freezone"){
+        total += item.freezonePrice * item.qty * UAERATE;
+      }else{
+        total += item.LocalPrice* item.qty*UAERATE;
+      }
+    });
+
+  }
+  calcTotal();
+  console.log(total);
+
+ 
   return (
     <>
       <View style={styles.row}>

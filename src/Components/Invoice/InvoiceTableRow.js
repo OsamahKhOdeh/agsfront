@@ -48,7 +48,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableRow = ({ products, currency }) => {
+const InvoiceTableRow = ({ products, currency ,location, usdToAedRate}) => {
+  
+console.log("LOOOOOOOOOO"+location);
+  function calcPrice(item) {
+    let price =0;
+    if(location === "freezone"){
+      price = item.freezonePrice;
+    }else{
+      price = item.LocalPrice;
+    }
+    if(currency === "AED"){
+      price = price * usdToAedRate;
+    }
+    return price;
+  }
+
   let no = 0;
   const rows = products.map((item , index) => (
     <View style={styles.row}  key={index}>
@@ -59,11 +74,12 @@ const InvoiceTableRow = ({ products, currency }) => {
       </Text>
       <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
-        {item.price.toFixed(2)}&nbsp;&nbsp;
+        {calcPrice(item).toFixed(2)}
+          &nbsp;&nbsp;
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {item.qty>0 ? (item.qty * item.price).toFixed(2) : 0}&nbsp;&nbsp;
+        {item.qty>0 ? (item.qty * calcPrice(item)).toFixed(2) : 0}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>
