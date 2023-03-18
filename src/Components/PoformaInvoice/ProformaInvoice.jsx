@@ -4,13 +4,18 @@ import Invoice from '../Invoice/Invoice'
 import { PDFViewer } from '@react-pdf/renderer';
 import invoice from '../../data/invoice-data'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPiProudcts } from '../../store/piSlice';
+import { setPiEmployee, setPiProudcts } from '../../store/piSlice';
 import { useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 const ProformaInvoice = () => {
   const cart = useSelector((state)=>state.cart.cart);
+  const {username , status} = useAuth();
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(setPiProudcts(cart))},[])
+  useEffect(() => {dispatch(setPiProudcts(cart))
+ dispatch(setPiEmployee(username+" "+status))  
+  },[])
+  
   
    const pi = useSelector((state)=>state.pi);
    const currency = useSelector((state)=>state.filters.currency);

@@ -19,7 +19,11 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Navbar from "./Components/Navbar/Navbar";
 import Layout from "./pages/Layout/Layout";
 import UserLayout from "./pages/Layout/UserLayout";
+import useAuth from "./hooks/useAuth";
+import {ROLES} from './config/roles'
+import RequireAuth from "./actions/RequireAuth";
 function App() {
+  console.log( useAuth());
   return (
     <>    
    
@@ -27,7 +31,8 @@ function App() {
       <Routes>
     <Route path="/" element={<Layout />}>
      <Route index  element={<LoginPage />}></Route>
-      <Route path="user" element={<UserLayout/>}>
+     <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>   
+        <Route path="user" element={<UserLayout/>}>
         <Route index element={<Home />}></Route>
         <Route path="pricelist" element={<PriceList />}></Route>
         <Route path="pdf" element={<ProformaInvoice />}></Route>
@@ -35,10 +40,13 @@ function App() {
         <Route path="makepi" element={<PiStepper />}></Route>
         <Route path="table" element={<ProformaInvoice />}></Route>
         <Route path="warranty" element={<Warranty />}></Route>
-        <Route path="admin" element={<AdminPage />}></Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+         <Route path="admin" element={<AdminPage />}></Route>
+        </Route>
         <Route path="warranty-check" element={<WarrantyCheck />}></Route>
         <Route path="customer-price-list" element={<CustomerPriceList />}></Route>
         <Route path="checkCustomer" element={<CheckCustomer />}></Route>
+      </Route>
       </Route>
     </Route>
 

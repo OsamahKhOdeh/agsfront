@@ -3,47 +3,49 @@ import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from "@materi
 import useStyles from "./styles";
 import Products from "../../Components/Products/Products";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const {username ,isAdmin , status} = useAuth();
 
   return (
     <Grow in>
-      <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "900px" }} maxWidth="xl">
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/makepi")}>
+      <Container style={{  flexDirection: "column", alignItems: "center", width: "900px" }} maxWidth="xl">
+        <Button style={{ width: "25%", padding: "25px", margin : "20px" , backgroundColor: "#c1daf7" }} variant="outlined" onClick={() => navigate("/user/makepi")}>
           Make PI
         </Button>{" "}
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/admin")}>
+       {isAdmin && <Button style={{ width: "25%", padding: "25px" , margin : "20px" , backgroundColor : "#f7746a" }} variant="outlined" onClick={() => navigate("/user/admin")}>
           Admin
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="contained">
+        </Button>}
+        <Button style={{ width: "25%", padding: "25px", margin : "20px"  }} variant="contained">
           Make PKL
         </Button>
-        <Button style={{ width: "25%", padding: "25px", backgroundColor: "burlywood" }} variant="contained" onClick={() => navigate("/user/warranty")}>
+        <Button style={{ width: "25%", padding: "25px", backgroundColor: "#c1daf7" , margin : "20px" }} variant="contained" onClick={() => navigate("/user/warranty")}>
           PriceList{" "}
         </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined">
+        {/* { isAdmin && <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="outlined">
           Show PIs
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="contained">
+        </Button>}
+        {isAdmin && <Button style={{ width: "25%", padding: "25px", margin : "20px"  }} variant="contained">
           Show PKLs
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined">
+        </Button>}
+        {isAdmin && <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="outlined">
           Edit Price
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="contained">
+        </Button>}
+        {isAdmin && <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="contained">
           Promo Codes{" "}
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined" onClick={() => navigate("/user/addproduct")}>
+        </Button>} */}
+        {isAdmin && <Button style={{ width: "25%", padding: "25px", margin : "20px"  ,backgroundColor : "#f7746a" }} variant="outlined" onClick={() => navigate("/user/addproduct")}>
           Add Products
-        </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="contained">
+        </Button>}
+       {/* <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="contained">
           Edit Product Card
         </Button>
-        <Button style={{ width: "25%", padding: "25px" }} variant="outlined">
+        <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="outlined">
           Add Stock
-        </Button>
+        </Button>*/}
       </Container>
     </Grow>
   );

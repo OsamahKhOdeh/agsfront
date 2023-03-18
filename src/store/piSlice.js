@@ -16,6 +16,7 @@ export const piSlice = createSlice({
       discount: 0,
       additions : 0,
       terms : [],
+      employee : ""
     },
   },
   reducers: {
@@ -28,6 +29,9 @@ export const piSlice = createSlice({
     setPiNo: (state, action) => {
       state.piInfo.invoiceNo = action.payload + 1;
     },
+    setPiEmployee: (state, action) => {
+      state.piInfo.employee = action.payload;
+    },
 
     addProducttocart: (state, action) => {
       state.cart.some((item) => item._id === action.payload._id) ? null : state.cart.push(action.payload);
@@ -35,6 +39,6 @@ export const piSlice = createSlice({
   },
 });
 
-export const { setPiInfo, setPiProudcts, setPiNo } = piSlice.actions;
+export const { setPiInfo, setPiProudcts, setPiNo ,setPiEmployee } = piSlice.actions;
 
 export default piSlice.reducer;
