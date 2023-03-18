@@ -278,7 +278,7 @@ export const companyBrandCapacity = [
     brands: [
       {
         brandName: "ROCKET VRLA",
-        capacities: ["4.5 AH", "7 AH", "9 AH", "12 AH", "18 AH", "26 AH", "33 AH", "40 AH", "55 AH", "65 AH", "100 AH", "150 AH", "200 AH"],
+        capacities: ["4.5 AH","6 AH", "7 AH", "9 AH", "12 AH", "18 AH", "26 AH", "33 AH", "40 AH", "55 AH", "65 AH", "100 AH", "150 AH", "200 AH", "100 AH GEL", "150 AH GEL", "200 AH GEL"],
       },
     ],
   },
