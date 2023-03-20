@@ -45,8 +45,12 @@ export const productsSlice = createSlice({
     allProducts: [],
     productsForCountries: [],
     condition: 0,
+    itemOffset: 0,
   },
   reducers: {
+    setOffset(state, action) {
+     state.itemOffset =action.payload;
+    },
     fetchAll: (state, action) => {
       const { data, currentPage, numberOfPages } = action.payload;
       // console.log(data, currentPage, numberOfPages);
@@ -83,6 +87,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands } = productsSlice.actions;
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands ,setOffset } = productsSlice.actions;
 
 export default productsSlice.reducer;

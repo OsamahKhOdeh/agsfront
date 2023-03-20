@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { FaCarBattery } from "react-icons/fa";
 import FilteredPagination from "../FilteredPagination";
 import ReactPaginate from "react-paginate";
+import { setOffset } from "../../../store/productsSlice";
 const Products = () => {
 
   const dispatch = useDispatch();
@@ -104,7 +105,7 @@ function Items({ currentItems }) {
     </>
   );
 }function PaginatedItems({ itemsPerPage }) {
-  const [itemOffset, setItemOffset] = useState(0);
+  const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = products.slice(itemOffset, endOffset);
@@ -114,7 +115,9 @@ function Items({ currentItems }) {
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
+    dispatch(setOffset(newOffset))
     setItemOffset(newOffset);
+    
   };
 
   return (

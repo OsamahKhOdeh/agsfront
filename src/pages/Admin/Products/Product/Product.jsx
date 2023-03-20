@@ -219,15 +219,15 @@ const uploadFile = (e) => {
               setIsUploading(true);
             }}
           />
-          <button type="button" style={{ color: "white" ,width :"50%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} onClick={handleUpload}>
+          <button type="button" style={{ color: "white" ,width :"75%",backgroundColor : "#5e99ff" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} onClick={handleUpload}>
             Upload image
           </button>
           <form onSubmit={uploadFile}>
-      <input  style={{ color: "red" ,width :"100%" ,height :"30px" }} type="file" name="file" onChange={getFile} required />
-      <input  style={{ color: "white" ,width :"50%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} type="submit" name="upload" value="Upload Datasheet" />
-    </form>
+            <input  style={{ color: "red" ,width :"100%" ,height :"30px" }} type="file" name="file" onChange={getFile} required />
+            <input  style={{ cursor : "pointer", color: "white" ,width :"75%",backgroundColor : "#f28d8d" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} type="submit" name="upload" value="Upload Datasheet" />
+          </form>
 
-            <Button disabled={isUploading} variant="contained" style={{backgroundColor :"#ed3615"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
+            <Button disabled={isUploading} variant="contained" style={{marginTop : "10px", backgroundColor :"#5e99ff"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
 
           </div>  
         </div>

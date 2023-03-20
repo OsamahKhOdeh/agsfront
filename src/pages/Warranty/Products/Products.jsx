@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { FaCarBattery } from "react-icons/fa";
 import FilteredPagination from "../FilteredPagination";
 import ReactPaginate from "react-paginate";
+import { setOffset } from "../../../store/productsSlice";
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -97,9 +98,10 @@ const Products = () => {
 offsetVal =newOffset;
   }
      
-  const [itemOffset, setItemOffset] = useState(0);
 
   function PaginatedItems({ itemsPerPage }) {
+    const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
+
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
 
@@ -119,8 +121,7 @@ offsetVal =newOffset;
         `User requested page number ${event.selected}, which is offset ${newOffset}`
       );
       setItemOffset(newOffset);
-      changOffsetVal(newOffset)
-
+        dispatch(setOffset(newOffset))
     };
 
     return (
