@@ -17,13 +17,18 @@ import {
 import product from "../Product/style/product.css";
 import Price from "./Price";
 import axios from "axios";
+import { BASE_URL, downloadDatasheet } from "../../../../actions/products";
 const Product = ({ product, index }) => {
 
 //DataSheets//////////////////////////////////
 // Function will execute on click of button
-    const onButtonClick = (url , downloadedFileName) => {
-        // using Java Script method to get PDF file
-        fetch(`/datasheets/${url}.pdf`).then(response => {
+    const onButtonClick = async (id , downloadedFileName) => {
+  // const res = await  axios.get(BASE_URL+"/download/"+product._id)
+//console.log(res);     
+        downloadDatasheet(id, downloadedFileName)
+    /*  
+      // using Java Script method to get PDF file
+        fetch(BASE_URL+"/download/"+product._id).then(response => {
             response.blob().then(blob => {
                 // Creating new object of PDF file
                 const fileURL = window.URL.createObjectURL(blob);
@@ -34,6 +39,9 @@ const Product = ({ product, index }) => {
                 alink.click();
             })
         })
+
+        */
+        
     }
 
 //End DataSheets////////////////////////////////
@@ -91,6 +99,8 @@ const Product = ({ product, index }) => {
 
   const exist = itemfromCart.some((item) => item._id === product._id);
 
+  const inStock = product.stock>0;
+
   return (
     <>
       <div
@@ -131,8 +141,8 @@ const Product = ({ product, index }) => {
             {showPrice && (
               <div>
                 {currency === "AED" 
-                ? <>{location === "freezone" ? (product.freezonePrice * usdToAedRate).toFixed(2) : (product.LocalPrice * usdToAedRate).toFixed(2)}</>
-                :<>{location === "freezone" ? product.freezonePrice : product.LocalPrice}</>
+                ? <>{location === "freezone" ? (product.freezonePrice * usdToAedRate).toFixed(2) : (product.LocalPrice * usdToAedRate).toFixed(2)}&nbsp;{currency}</>
+                :<>{location === "freezone" ? product.freezonePrice : product.LocalPrice}&nbsp;{currency}</>
                 }
                 
               {/*}  <label htmlFor=''>Price : 
@@ -143,7 +153,7 @@ const Product = ({ product, index }) => {
               </div>
             )}
             {showStock && (
-              <div>
+              <div style={inStock ? {color : "green"} : {color : "red"}}>
                 <label htmlFor=''>Stock : {product.stock} </label>
               </div>
             )}
@@ -152,7 +162,7 @@ const Product = ({ product, index }) => {
           <div className='product__description'>{product.brand}  {product.code}</div>
           {showDatasheet && (
             <div className='product__button'>
-              <button
+              <button style={inStock ? {backgroundColor:`#1bf581` ,color : "black"}  :{backgroundColor:`#fa5252` ,color : "black"} }
                onClick={()=>onButtonClick(product._id , product.code)} className='detaills__product'>
                 Download Datasheet
                 </button>

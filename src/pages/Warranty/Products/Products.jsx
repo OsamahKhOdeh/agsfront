@@ -91,7 +91,13 @@ const Products = () => {
       </>
     );
   }
-      const [itemOffset, setItemOffset] = useState(0);
+  
+  let offsetVal = 0 ;
+  const changOffsetVal = (newOffset) =>{
+offsetVal =newOffset;
+  }
+     
+  const [itemOffset, setItemOffset] = useState(0);
 
   function PaginatedItems({ itemsPerPage }) {
     // Here we use item offsets; we could also use page offsets
@@ -101,17 +107,20 @@ const Products = () => {
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
-    //console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
+      console.log("Clicked");
       const newOffset = (event.selected * itemsPerPage) % products.length;
-    /*  console.log(
+     console.log(
         `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );*/
+      );
       setItemOffset(newOffset);
+      changOffsetVal(newOffset)
+
     };
 
     return (

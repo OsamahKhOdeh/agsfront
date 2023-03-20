@@ -48,6 +48,41 @@ export const updateProduct = (id, product) => async (dispatch) => {
     const { data } = await api.updateProduct(id, product);
     console.log(data);
     //  dispatch({ type: UPDATE, payload: data });
+    //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const uploadDatasheet = async (datasheet) =>  {
+  console.log("here");
+
+  try {
+    const { data } = await api.uploadDatasheet(datasheet);
+    console.log(data);
+    //  dispatch({ type: UPDATE, payload: data });
+    //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const downloadDatasheet = async (id,fileName) =>  {
+  console.log("here");
+
+  try {
+    // using Java Script method to get PDF file
+    fetch(api.BASE_URL+"/download/"+id).then(response => {
+      response.blob().then(blob => {
+          // Creating new object of PDF file
+          const fileURL = window.URL.createObjectURL(blob);
+          // Setting various property values
+          let alink = document.createElement('a');
+          alink.href = fileURL;
+          alink.download = `${fileName.trim()}.pdf`;
+          alink.click();
+      })
+  })
   } catch (error) {
     console.log(error);
   }

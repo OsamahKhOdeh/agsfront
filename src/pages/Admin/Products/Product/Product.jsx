@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios'
 import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateProduct } from "../../../../actions/products";
+import { updateProduct, uploadDatasheet } from "../../../../actions/products";
 
 import {
   addProductToWarrantyList,
@@ -20,8 +21,12 @@ import {
 import product from "../Product/style/product.css";
 import Price from "./Price";
 import { Button, TextField } from "@material-ui/core";
+import { BASE_URL } from "../../../../api/index";
 const Product = ({ product, index }) => {
  
+
+
+  const currency = useSelector((state) => state.filters.currency);
 
 
 
@@ -40,15 +45,58 @@ const Product = ({ product, index }) => {
   const [stock, setStock] = useState(product.stock);
   const [freezoneToLocalPercentage, setFreezoneToLocalPercentage] = useState(product.freezonePrice);
   const [additionOnLocalPercentage, setAdditionOnLocalPercentage] = useState(product.LocalPrice);
+  const [brand, setBrand] = useState(product.brand);
+  const [code, setCode] = useState(product.code); 
+  const [country, setCountry] = useState(product.country);
+  const [company, setCompany] = useState(product.company); 
+  const [category, setCategory] = useState(product.category);
+  const [capacity, setCapacity] = useState(product.capacity);
+   const [description, setDescription] = useState(product.description);
+  const [grossWeight, setGrossWeigth] = useState(product.grossWeight);
+  const [netWeight, setNetWeight] = useState(product.netWeight); 
+   const [paletSize, setPaletSize] = useState(product.palatSize);
+  const [image, setImage] = useState(product.image);
+  const [fileData, setFileData] = useState("");
+const getFile = (e) => {
+  setFileData(e.target.files[0]);
+};
+const uploadFile = (e) => { 
+  e.preventDefault();   
+  const data = new FormData();
+  data.append("file", fileData , `${product._id}.pdf`);
+  uploadDatasheet(data)
+};
+
+  const [isUploading, setIsUploading] = useState(false);
+
 
   const classes = useStyles();
+
+  const handleUpload = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "jix4eghn");
+
+    const response = await axios.post("https://api.cloudinary.com/v1_1/dvfuxrg12/image/upload", data);
+    console.log(response.data.secure_url);
+    setIsUploading(false);
+    const image_url = response.data.secure_url;
+    setImage(image_url)
+  };
   
   const handlePriceStockChange =() => {
     
          dispatch(updateProduct(product._id , {...product , price : price , stock : stock ,
+        brand : brand, code : code,
+        country : country,category : category, company : company, capacity : capacity,
+        description : description,netWeight : netWeight,image : image,
+        grossWeight : grossWeight,paletSize : paletSize,
         freezonePrice : freezoneToLocalPercentage,
         LocalPrice : additionOnLocalPercentage}));
-        setStateProduct({...stateProduct , price : price , stock : stock ,
+        setStateProduct({...stateProduct , price : price , stock : stock , brand : brand, code : code,
+          country : country,category : category, company : company, capacity : capacity,
+          description : description,netWeight : netWeight,image : image,
+          grossWeight : grossWeight,paletSize : paletSize,
         freezoneToLocalPercentage : freezoneToLocalPercentage,
         additionOnLocalPercentage : additionOnLocalPercentage})
         console.log(stateProduct);
@@ -96,8 +144,7 @@ const Product = ({ product, index }) => {
         <div className='product__image '>
           <img
             src={
-              `images/${product._id}_1.png`||`images/${product._id}_1.jpg`|| `images/${product._id}_1.JPG` ||
-              "https://res.cloudinary.com/dwen6dx2a/image/upload/v1675842264/2038830_twveih.png"
+              product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  product.image  :   process.env.PUBLIC_URL+`images/${product._id}_1.png` ||  `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
             }
             alt=''
           />
@@ -128,7 +175,7 @@ const Product = ({ product, index }) => {
           <div className='item__prices'>
           {showPrice && (
               <div>
-                {location === "freezone" ? product.freezonePrice : product.LocalPrice}
+                {location === "freezone" ? product.freezonePrice : product.LocalPrice}&nbsp;{"USD"}
               {/*}  <label htmlFor=''>Price : 
                 <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
               additionOnLocalPercentage={product.LocalPrice}/>
@@ -145,17 +192,42 @@ const Product = ({ product, index }) => {
 
           <div className='product__description'>{product.brand}{product.code}</div>
           <div className='product_price_stock'>
-           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Net Price" value={price} onChange={
+           <TextField  style={{marginBottom : "10px",width : "50%"}} variant="outlined" label="Net Price" value={price} onChange={
             (e)=>{setPrice(e.target.value); setStateProduct({...stateProduct , price : (e.target.value) , stock : stock ,
         freezoneToLocalPercentage : freezoneToLocalPercentage,
         additionOnLocalPercentage : additionOnLocalPercentage})}}>
-
            </TextField>
-           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Stock" value={stock} onChange={(e)=>{setStock(e.target.value)}}></TextField>
-           <TextField error={freezoneToLocalPercentage <= 0 } fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Freezone Price" value={freezoneToLocalPercentage} onChange={(e)=>{setFreezoneToLocalPercentage(e.target.value)}}></TextField>
-           <TextField error={additionOnLocalPercentage <=0 } fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Local Price" value={additionOnLocalPercentage} onChange={(e)=>{setAdditionOnLocalPercentage(e.target.value)}}></TextField>
-           
-            <Button variant="contained" style={{backgroundColor :"#ed3615"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
+           <TextField error={freezoneToLocalPercentage <= 0 }  style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Freezone Price" value={freezoneToLocalPercentage} onChange={(e)=>{setFreezoneToLocalPercentage(e.target.value)}}></TextField>
+           <TextField error={additionOnLocalPercentage <=0 }  style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Local Price" value={additionOnLocalPercentage} onChange={(e)=>{setAdditionOnLocalPercentage(e.target.value)}}></TextField>
+           <TextField  style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Stock" value={stock} onChange={(e)=>{setStock(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Code" value={code} onChange={(e)=>{setCode(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Brand" value={brand} onChange={(e)=>{setBrand(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Capacity" value={capacity} onChange={(e)=>{setCapacity(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Company" value={company} onChange={(e)=>{setCompany(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Country" value={country} onChange={(e)=>{setCountry(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Category" value={category} onChange={(e)=>{setCategory(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px "}} variant="outlined" label="Description" value={description} onChange={(e)=>{setDescription(e.target.value)}}></TextField>       
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Gross Weight" value={grossWeight} onChange={(e)=>{setGrossWeigth(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Net Weight" value={netWeight} onChange={(e)=>{setNetWeight(e.target.value)}}></TextField>
+           <TextField fullWidth style={{marginBottom : "10px ",width : "50%"}} variant="outlined" label="Palet Size" value={paletSize} onChange={(e)=>{setPaletSize(e.target.value)}}></TextField>
+           <input
+            style={{ color: "red" ,width :"100%" ,height :"30px" }}
+            type="file"
+            name="img"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+              setIsUploading(true);
+            }}
+          />
+          <button type="button" style={{ color: "white" ,width :"50%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} onClick={handleUpload}>
+            Upload image
+          </button>
+          <form onSubmit={uploadFile}>
+      <input  style={{ color: "red" ,width :"100%" ,height :"30px" }} type="file" name="file" onChange={getFile} required />
+      <input  style={{ color: "white" ,width :"50%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} type="submit" name="upload" value="Upload Datasheet" />
+    </form>
+
+            <Button disabled={isUploading} variant="contained" style={{backgroundColor :"#ed3615"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
 
           </div>  
         </div>
