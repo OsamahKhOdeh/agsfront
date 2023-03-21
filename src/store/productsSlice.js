@@ -36,18 +36,21 @@ const checkforallcountries = {
   __v: 0,
   stock: 0,
 };
-
+const initialState = {
+  products: [],
+  chosenProducts: [],
+  allProducts: [],
+  productsForCountries: [],
+  condition: 0,
+  itemOffset: 0,
+}
 export const productsSlice = createSlice({
   name: "product",
-  initialState: {
-    products: [],
-    chosenProducts: [],
-    allProducts: [],
-    productsForCountries: [],
-    condition: 0,
-    itemOffset: 0,
-  },
+  initialState: initialState,
   reducers: {
+    clearProductsState(state) {
+      state = initialState;
+    },
     setOffset(state, action) {
      state.itemOffset =action.payload;
     },

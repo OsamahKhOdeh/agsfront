@@ -22,6 +22,8 @@ import UserLayout from "./pages/Layout/UserLayout";
 import useAuth from "./hooks/useAuth";
 import {ROLES} from './config/roles'
 import RequireAuth from "./actions/RequireAuth";
+import Employees from "./pages/Employees/Employees";
+import NewUser from "./pages/NewUser/NewUser";
 function App() {
   console.log( useAuth());
   return (
@@ -42,6 +44,10 @@ function App() {
         <Route path="warranty" element={<Warranty />}></Route>
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
          <Route path="admin" element={<AdminPage />}></Route>
+         <Route path="employees" element={<Employees />}></Route>
+         <Route path="new_user" element={<NewUser />}></Route>
+
+
         </Route>
         <Route path="warranty-check" element={<WarrantyCheck />}></Route>
         <Route path="customer-price-list" element={<CustomerPriceList />}></Route>

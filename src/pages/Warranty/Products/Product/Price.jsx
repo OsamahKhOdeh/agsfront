@@ -15,10 +15,10 @@ const Price = ({ price , freezoneToLocalPercentage ,additionOnLocalPercentage })
   return (
      <b style={{ backgroundColor: "#E0E5E4", color: "red" }}>
             {location === "freezone" ? (
-              <>{currency === "USD" ? freezonePrice.toFixed(2) + "  $" : (Math.round(freezonePrice * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
+              <>{currency === "USD" ? freezonePrice?.toFixed(2) + "  $" : (Math.round(freezonePrice * usdToAedRate * 100) / 100)?.toFixed(2) + "  AED"}</>
             ) : (
               <>{currency === "USD" ?
-               (localPrice).toFixed(2) + "  $" 
+               (localPrice)?.toFixed(2) + "  $" 
               : ((localPrice * usdToAedRate * 100) / 100).toFixed(2) + "  AED"}</>
             )}
           </b>

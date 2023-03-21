@@ -79,7 +79,7 @@ console.log("LOOOOOOOOOO"+location);
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {item.qty>0 ? (item.qty * calcPrice(item)).toFixed(2) : 0}&nbsp;&nbsp;
+        {item.qty>0 ? (item.qty * calcPrice(item))?.toFixed(2) : 0}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>

@@ -7,6 +7,7 @@ import priceListSlice from "./priceListSlice";
 import productReducer from "./productSlice";
 import productsSlice from "./productsSlice";
 import showingSlice from "./showingSlice";
+import usersSlice from "./usersSlice";
 import warrantySlice from "./warrantySlice";
 
 export default configureStore({
@@ -20,6 +21,7 @@ export default configureStore({
     show: showingSlice,
     filters: filtersSlice,
     warranty: warrantySlice,
-    auth : authSlice
+    auth : authSlice,
+    users :usersSlice
   },
 });

@@ -73,13 +73,13 @@ calcTotal();
                   <p className="font-medium">
                     {" "}
                     {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item).toFixed(2)}
+                    {calcPrice(item)?.toFixed(2)}
                   </p>
                 </td>
                 <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
-                    {item.qty >0 ? (calcPrice(item) * item.qty).toFixed(2) : 0}
+                    {item.qty >0 ? (calcPrice(item) * item.qty)?.toFixed(2) : 0}
                   </p>
                 </td>
                 <td className="pl-12">
@@ -128,7 +128,7 @@ calcTotal();
                 <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
               </td>
               <td className="pl-12">
-                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount.toFixed(2)}</p>
+                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount?.toFixed(2)}</p>
               </td>
             </tr>
           </tbody>

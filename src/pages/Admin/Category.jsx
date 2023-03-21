@@ -7,15 +7,15 @@ function Category(props) {
   const filters = useSelector((state) => state.filters.filters);
   return (
     <>
-      <div class='checkbox'>
-        <label class='checkbox-wrapper'>
+      <div className='checkbox'>
+        <label className='checkbox-wrapper'>
           <input
             type='checkbox'
-            class='checkbox-input'
+            className='checkbox-input'
             onClick={() => props.onClick(title)}
           />
-          <span class='checkbox-tile'>
-            <img src={img} alt='' srcset='' className='logo__level1' />
+          <span className='checkbox-tile'>
+            <img src={img} alt='' srcSet='' className='logo__level1' />
           </span>
         </label>
       </div>

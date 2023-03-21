@@ -40,6 +40,9 @@ const Home = () => {
         {isAdmin && <Button style={{ width: "25%", padding: "25px", margin : "20px"  ,backgroundColor : "#f7746a" }} variant="outlined" onClick={() => navigate("/user/addproduct")}>
           Add Products
         </Button>}
+        {isAdmin && <Button style={{ width: "25%", padding: "25px", margin : "20px"  ,backgroundColor : "#f7746a" }} variant="outlined" onClick={() => navigate("/user/employees")}>
+          Employees
+        </Button>}
        {/* <Button style={{ width: "25%", padding: "25px" , margin : "20px" }} variant="contained">
           Edit Product Card
         </Button>
