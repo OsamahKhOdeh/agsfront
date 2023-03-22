@@ -140,7 +140,7 @@ select {
 }
 
 .background_color {
-  background-color: #e7e9eb !important;
+  background-color: #fae0e0 !important;
   transition: 0.5s;
 }
 
@@ -454,7 +454,7 @@ p {
 }
 
 .app__container {
-  max-width: 1440px;
+  max-width: 1800px;
   margin-inline: auto;
 }
 
@@ -470,6 +470,7 @@ p {
 }
 
 .product__items {
+
   display: flex !important;
   flex-direction: row;
 }

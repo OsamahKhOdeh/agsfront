@@ -5,6 +5,7 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
+import './products_styles.css';
 import { AiFillCloseCircle, AiTwotoneDelete } from "react-icons/ai";
 import Product from "./Product/Product";
 import useStyles from "./styles";
@@ -94,15 +95,13 @@ useEffect(() => {
 
 function Items({ currentItems }) {
   return (
-    <>
-      {
+    <div className="grid">         
+    {
       currentItems?.map((product, index) => (
-            <Grid item key={product._id} xs={12} sm={12} md={6} lg={3}>
               <Product product={product} index={index} />
-            </Grid>
           )) 
         }
-    </>
+    </div>
   );
 }function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
@@ -186,30 +185,15 @@ function Items({ currentItems }) {
           ? "No products Found" 
           : <p> There are <b>  {`${productsCount}`} </b> products found </p>}
  </div>
-
-     /* <div>
-      
-      <button onClick={handlePrevClick} disabled={currentPage === 1}>
-        Prev
-      </button>
-      <button onClick={handleNextClick} disabled={currentPage === totalPages}>
-        Next
-      </button>
-    </div>
-*/
       }
 
-      <Grid
-        container
-        className={classes.mainContainer}
-        alignitems='stretch'
-        spacing={3}>
+     
         {products ? 
         
         showFilters ?
         (
 
-          <PaginatedItems itemsPerPage={16} />
+          <PaginatedItems itemsPerPage={100} />
           
         )
 
@@ -223,14 +207,8 @@ function Items({ currentItems }) {
         : (
           <h1>Loading</h1>
         )}
-      </Grid>
 
-      <div className='battery__bottom' onClick={showList}>
-        <div className='bottom'>
-          <img src='/images/battery.png' width={80} height={80} />
-          <div className='battery__coutn'>{cart.length}</div>
-        </div>
-      </div>
+     
 
       {cartLength.length > 0 ? (  
         <div className='modal'>

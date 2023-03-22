@@ -1,16 +1,74 @@
+.item_card {
+  border: 0.3px solid rgb(231, 225, 225) ;
+  box-shadow: 1px 1px 1px 1px rgba(124, 118, 118, 0.1);
+  max-width: 300px;
+  width: 240px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  background-color: #fff;
+  padding: 0px;
+  transition: 0.5s;
+}
+.item_card:hover{
+  border: 0.9px solid rgb(201, 192, 192) ;
+  background-color: #eef1f3;
+}
+
+.datasheet_but{
+background-color: #f4511e;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.datasheet_but:hover{
+  opacity: 1;
+}
+
+.datasheet_but span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.datasheet_but span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.datasheet_but:hover span {
+  padding-right: 25px;
+}
+
+.datasheet_but:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+
+
+
 img {
   max-width: 100%;
   max-width: 100%;
   object-fit: fill;
   height: 200px;
 }
-.product__item {
-  background-color: #fff;
-  padding: 13px;
-  border: 2.3px solid #d6d6d6;
-  border-radius: 13px;
-  transition: 0.5s;
-}
+
 .product__image {
   height: 100%;
   padding: 0 0 50px 0;
@@ -36,11 +94,19 @@ img {
   cursor: pointer;
   transition: background-color 1s fade-in;
 }
+
 .check__product:hover {
   color: white;
   background-color: red;
   border: 0px;
   animation: 2s forwards;
+}
+
+.check__product__icon_unchecked{
+visibility: hidden;
+}
+.check__product__icon_checked{
+background-color: "#b4f0c4";
 }
 .Product__title {
   font-weight: bold;
@@ -48,14 +114,13 @@ img {
 }
 
 .product__description {
+  width: 100%;
   display: flex;
+  padding: 0px 10px;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 8px;
 }
-.product__description {
-  color: black;
-  font-size: 18px;
-}
+
 .product__capacity {
   color: rgb(53, 152, 19);
   font-weight: bold;

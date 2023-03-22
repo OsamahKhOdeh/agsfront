@@ -5,6 +5,7 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
+import './products_styles.css'
 import { AiFillCloseCircle, AiTwotoneDelete } from "react-icons/ai";
 import Product from "./Product/Product";
 import useStyles from "./styles";
@@ -83,14 +84,11 @@ const Products = () => {
 
   function Items({ currentItems }) {
     return (
-      <>
-        {currentItems?.map((product, index) => (
-          <Grid item key={product._id} xs={12} sm={12} md={6} lg={3}>
-            <Product product={product} index={index} />
-          </Grid>
-        ))}
-      </>
-    );
+      <div className="grid">         
+      {currentItems?.map((product, index) => (
+                 <Product product={product} index={index} />
+                        ))}
+ </div>    );
   }
   
   let offsetVal = 0 ;
@@ -101,19 +99,10 @@ offsetVal =newOffset;
 
   function PaginatedItems({ itemsPerPage }) {
     const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
-
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
-
-    // Simulate fetching items from another resources.
-    // (This could be items from props; or items loaded in a local state
-    // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
-
-    // Invoke when user click to request another page.
     const handlePageClick = (event) => {
       console.log("Clicked");
       const newOffset = (event.selected * itemsPerPage) % products.length;
@@ -178,38 +167,22 @@ offsetVal =newOffset;
             )}
           </div>
         )
-
-        /* <div>
-      
-      <button onClick={handlePrevClick} disabled={currentPage === 1}>
-        Prev
-      </button>
-      <button onClick={handleNextClick} disabled={currentPage === totalPages}>
-        Next
-      </button>
-    </div>
-*/
       }
 
-      <Grid
-        container
-        className={classes.mainContainer}
-        alignitems='stretch'
-        spacing={3}>
+     
+
         {products ? (
           showFilters ? (
-            <PaginatedItems itemsPerPage={16} />
+            <PaginatedItems itemsPerPage={35} />
           ) : (
             products?.map((product, index) => (
-              <Grid item key={product._id} xs={12} sm={12} md={6} lg={3}>
+              
                 <Product product={product} index={index} />
-              </Grid>
             ))
           )
         ) : (
           <h1>Loading</h1>
         )}
-      </Grid>
 
       <div className='battery__bottom' onClick={showList}>
         <div className='bottom'>

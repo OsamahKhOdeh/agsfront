@@ -7,6 +7,7 @@ import useStyles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 
 import { updateProduct, uploadDatasheet } from "../../../../actions/products";
+import './style/product.css'
 
 import {
   addProductToWarrantyList,
@@ -135,7 +136,7 @@ const uploadFile = (e) => {
   };
 
   return (
-    <>
+    <div  className="item_card">
               <ToastContainer />
 
       <div
@@ -148,23 +149,7 @@ const uploadFile = (e) => {
             }
             alt=''
           />
-          {exist ? (
-            <div
-              className='check__product'
-              onClick={() => {
-                removefromcart(product, index);
-              }}>
-              -
-            </div>
-          ) : (
-            <div
-              className='check__product'
-              onClick={() => {
-                addTocart(product, index);
-              }}>
-              +
-            </div>
-          )}
+        
         </div>
         <div className='product__description'>
           <div className='item__prices'>
@@ -224,7 +209,7 @@ const uploadFile = (e) => {
           </button>
           <form onSubmit={uploadFile}>
             <input  style={{ color: "red" ,width :"100%" ,height :"30px" }} type="file" name="file" onChange={getFile} required />
-            <input  style={{ cursor : "pointer", color: "white" ,width :"75%",backgroundColor : "#f28d8d" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} type="submit" name="upload" value="Upload Datasheet" />
+            <input  style={{ cursor : "pointer", color: "white" ,width :"75%",backgroundColor : "#f28d8d" ,marginLeft : "20px", borderRadius : "5%" }} type="submit" name="upload" value="Upload Datasheet" />
           </form>
 
             <Button disabled={isUploading} variant="contained" style={{marginTop : "10px", backgroundColor :"#5e99ff"}} onClick={handlePriceStockChange} fullWidth>Update Product</Button>
@@ -232,7 +217,7 @@ const uploadFile = (e) => {
           </div>  
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

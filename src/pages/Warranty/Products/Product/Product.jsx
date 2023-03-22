@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
-
-import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
-//import './style/product.css'
+import './style/product.css'
 import { useSelector, useDispatch } from "react-redux";
 import {
   addProductToWarrantyList,
@@ -19,34 +17,9 @@ import Price from "./Price";
 import axios from "axios";
 import { BASE_URL, downloadDatasheet } from "../../../../actions/products";
 const Product = ({ product, index }) => {
-
-//DataSheets//////////////////////////////////
-// Function will execute on click of button
     const onButtonClick = async (id , downloadedFileName) => {
-  // const res = await  axios.get(BASE_URL+"/download/"+product._id)
-//console.log(res);     
         downloadDatasheet(id, downloadedFileName)
-    /*  
-      // using Java Script method to get PDF file
-        fetch(BASE_URL+"/download/"+product._id).then(response => {
-            response.blob().then(blob => {
-                // Creating new object of PDF file
-                const fileURL = window.URL.createObjectURL(blob);
-                // Setting various property values
-                let alink = document.createElement('a');
-                alink.href = fileURL;
-                alink.download = `${downloadedFileName.trim()}.pdf`;
-                alink.click();
-            })
-        })
-
-        */
-        
     }
-
-//End DataSheets////////////////////////////////
-
-
   const showPrice = useSelector((state) => state.show.showPrice);
   const showStock = useSelector((state) => state.show.showStock);
   const showDatasheet = useSelector((state) => state.show.showDatasheet);
@@ -102,7 +75,7 @@ const Product = ({ product, index }) => {
   const inStock = product.stock>0;
 
   return (
-    <>
+    <div className="item_card">
       <div
         className={exist ? "product__item background_color" : "product__item"}
         style={{}}>
@@ -119,7 +92,9 @@ const Product = ({ product, index }) => {
               onClick={() => {
                 removefromcart(product, index);
               }}>
-              -
+              <span className='check__product__icon_checked'>
+              &#10004;
+                </span>
             </div>
           ) : (
             <div
@@ -127,7 +102,10 @@ const Product = ({ product, index }) => {
               onClick={() => {
                 addTocart(product, index);
               }}>
-              +
+                <span className='check__product__icon_unchecked'>
+                  +
+                </span>
+              
             </div>
           )}
         </div>
@@ -162,15 +140,15 @@ const Product = ({ product, index }) => {
           <div className='product__description'>{product.brand}  {product.code}</div>
           {showDatasheet && (
             <div className='product__button'>
-              <button style={inStock ? {backgroundColor:`#1bf581` ,color : "black"}  :{backgroundColor:`#fa5252` ,color : "black"} }
-               onClick={()=>onButtonClick(product._id , product.code)} className='detaills__product'>
-                Download Datasheet
+              <button className="datasheet_but" style={inStock ? {backgroundColor:`#1bf581` ,color : "black"}  :{backgroundColor:`#fa5252` ,color : "black"} }
+               onClick={()=>onButtonClick(product._id , product.code)}>
+               <span> Download Datasheet</span>
                 </button>
             </div>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
