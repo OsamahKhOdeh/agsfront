@@ -5,6 +5,7 @@ import {
   Paper,
   TextField,
 } from "@material-ui/core";
+import './side_filters_styles.css';
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,69 +59,49 @@ const SideFilters = () => {
     dispatch(changeCurrency(e.target.value));
   };
   const handleLocationChange = (e) => {
+    console.log(e.target.value);
     dispatch(changeLocation(e.target.value));
   };
 
   //Hid & Show Filters //////////////////////////////////////////////////////////////
   return (
     <div>
+      <div class="radio-toolbar">
+       <input type="radio" id="radioBananafq" name="radioFruitfq" value="All" />
+       <label for="radioBananafq">All</label>
+       <input type="radio" id="radioOrangef1" name="radioFruitf1" value="Booked"/>
+       <label for="radioOrangef1">Booked</label> 
+       <input type="radio" id="radioBananafqq" name="radioFruitfqq" value="Coming" />
+       <label for="radioBananafq">Coming</label>
+       <input type="radio" id="radioOrangef1q" name="radioFruitf1q" value="Available"/>
+       <label for="radioOrangef1">Available</label> 
+     </div>
+      <div class="radio-toolbar" onChange={handleLocationChange}>
+       <input type="radio" id="radioBanana" name="radioFruit" value="freezone" />
+       <label for="radioBanana">Freezone</label>
+       <input type="radio" id="radioOrange" name="radioFruit" value="local"/>
+       <label for="radioOrange">Local</label> 
+     </div>
+     <div class="radio-toolbar" onChange={handleCurrencyChange}>
+       <input type="radio" id="radioBananaf" name="radioFruitf" value="AED" />
+       <label for="radioBananaf">AED</label>
+       <input type="radio" id="radioOrangef" name="radioFruitf" value="USD"/>
+       <label for="radioOrangef">USD</label> 
+     </div>
       <Grid item xs={12} sm={6} md={8}>
-        <ToggleButtonGroup
-          fullWidth
-          value={["rr", "rr"]}
-          onChange={() => {}}
-          aria-label='text formatting'>
-          {availabiltyStatus.map((status, i) => {
-            return (
-              <ToggleButton key={i} value={status} aria-label={status}>
-                {status}
-              </ToggleButton>
-            );
-          })}
-        </ToggleButtonGroup>
-        <ToggleButtonGroup
-          fullWidth
-          value={location}
-          onChange={handleLocationChange}
-          aria-label='text formatting'>
-          {priceOnLocation.map((location, i) => {
-            return (
-              <ToggleButton key={i} value={location} aria-label={location}>
-                {location}
-              </ToggleButton>
-            );
-          })}
-        </ToggleButtonGroup>
-        <div style={{ display: "flex" }}>
-          <ToggleButtonGroup
-            style={{ flex: 2 }}
-            value={currency}
-            onChange={handleCurrencyChange}
-            aria-label='text formatting'>
-            {priceCurrency.map((curr, i) => {
-              return (
-                <ToggleButton
-                  style={{ flex: 2 }}
-                  key={i}
-                  value={curr}
-                  aria-label={curr}>
-                  {curr}
-                </ToggleButton>
-              );
-            })}
-          </ToggleButtonGroup>
-          <TextField
-            style={{ flex: 1 }}
-            placeholder='Rate'
-            color='primary'
-            value={usdToAedRateUseState}
-            onChange={(e) => setUsdToAedRateUseState(e.target.value)}
-            onBlur={(e) => {
-              dispatch(setUsdToAedRate(usdToAedRateUseState));
-            }}
-            variant='outlined'></TextField>
-        </div>
-        <Paper style={{ display: "flex", backgroundColor: "#c5d2d4" }}>
+        
+       
+        
+        
+      </Grid>
+    </div>
+  );
+};
+
+export default SideFilters;
+
+
+/*<Paper style={{ display: "flex", backgroundColor: "#c5d2d4" }}>
           <FormControlLabel
             style={{ flex: 1 }}
             control={
@@ -155,10 +136,4 @@ const SideFilters = () => {
             defaultValue=''
             size='medium'
           />
-        </Paper>
-      </Grid>
-    </div>
-  );
-};
-
-export default SideFilters;
+        </Paper>*/

@@ -78,36 +78,7 @@ img {
   position: relative;
 }
 
-.check__product {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  border: 3px solid #437cce;
-  position: absolute;
-  top: 5px;
-  right: 0;
-  color: #437cce;
-  font-size: 25px;
-  display: grid;
-  place-items: center;
-  place-content: center;
-  cursor: pointer;
-  transition: background-color 1s fade-in;
-}
 
-.check__product:hover {
-  color: white;
-  background-color: red;
-  border: 0px;
-  animation: 2s forwards;
-}
-
-.check__product__icon_unchecked{
-visibility: hidden;
-}
-.check__product__icon_checked{
-background-color: "#b4f0c4";
-}
 .Product__title {
   font-weight: bold;
   font-size: 19px;
@@ -127,11 +98,7 @@ background-color: "#b4f0c4";
   font-size: 20px;
   padding-bottom: 20px;
 }
-.product__button {
-  display: grid;
-  gap: 10px;
-  text-align: center;
-}
+
 
 .detaills__product {
   background-color: transparent;

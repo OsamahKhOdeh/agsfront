@@ -7,8 +7,9 @@
   text-align: center;
   font-family: arial;
   background-color: #fff;
-  padding: 0px;
+  padding: 0px 0px 10px 0px;;
   transition: 0.5s;
+  
 }
 .item_card:hover{
   border: 0.9px solid rgb(201, 192, 192) ;
@@ -22,12 +23,13 @@ background-color: #f4511e;
   padding: 10px 10px;
   text-align: center;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 4px 2px 10px 2px;
   opacity: 0.6;
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
+
 }
 .datasheet_but:hover{
   opacity: 1;
@@ -79,10 +81,10 @@ img {
 }
 
 .check__product {
-  width: 37px;
-  height: 37px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 3px solid #437cce;
+  border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;
   right: 0;
@@ -115,10 +117,20 @@ background-color: "#b4f0c4";
 
 .product__description {
   width: 100%;
+  font-size: 14px;
   display: flex;
   padding: 0px 10px;
   flex-direction: column;
   row-gap: 8px;
+}
+.product__description_code_brand{
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  padding: 0px 10px;
+  flex-direction: column;
+  row-gap: 8px;
+  height: 37px;
 }
 
 .product__capacity {
@@ -130,6 +142,7 @@ background-color: "#b4f0c4";
 .product__button {
   display: grid;
   gap: 10px;
+  margin-bottom: 6px;
   text-align: center;
 }
 

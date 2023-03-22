@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     grid-gap: 5px;
+    grid-row-gap: 21px ;
     align-items: stretch;
     }
   .grid > article {

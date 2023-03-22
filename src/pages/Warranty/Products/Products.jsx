@@ -186,7 +186,7 @@ offsetVal =newOffset;
 
       <div className='battery__bottom' onClick={showList}>
         <div className='bottom'>
-          <img src='/images/battery.png' width={80} height={80} />
+          <img src='/images/cart.png' width={80} height={80} />
           <div className='battery__coutn'>{cart.length}</div>
         </div>
       </div>

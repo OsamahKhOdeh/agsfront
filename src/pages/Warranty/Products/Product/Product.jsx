@@ -137,7 +137,7 @@ const Product = ({ product, index }) => {
             )}
           </div>
 
-          <div className='product__description'>{product.brand}  {product.code}</div>
+          <div className='product__description_code_brand'>{product.brand}  {product.code}</div>
           {showDatasheet && (
             <div className='product__button'>
               <button className="datasheet_but" style={inStock ? {backgroundColor:`#1bf581` ,color : "black"}  :{backgroundColor:`#fa5252` ,color : "black"} }
