@@ -3,13 +3,13 @@ import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   appBar: {
-    borderRadius: 15,
     margin: '0 0 20px 0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
+    backgroundColor : "#f1f1f1",
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -21,8 +21,8 @@ export default makeStyles((theme) => ({
     fontWeight: 300,
   },
   image: {
-    height : '30px',
-    marginLeft: '10px',
+    height : '40px',
+    marginLeft: '170px',
     marginTop: '5px',
   },
   toolbar: {

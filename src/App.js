@@ -35,13 +35,14 @@ function App() {
      <Route index  element={<LoginPage />}></Route>
      <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>   
         <Route path="user" element={<UserLayout/>}>
-        <Route index element={<Home />}></Route>
+        <Route index element={<Warranty />}></Route>
         <Route path="pricelist" element={<PriceList />}></Route>
         <Route path="pdf" element={<ProformaInvoice />}></Route>
         <Route path="addproduct" element={<ProductForm />}></Route>
         <Route path="makepi" element={<PiStepper />}></Route>
         <Route path="table" element={<ProformaInvoice />}></Route>
         <Route path="warranty" element={<Warranty />}></Route>
+       
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
          <Route path="admin" element={<AdminPage />}></Route>
          <Route path="employees" element={<Employees />}></Route>

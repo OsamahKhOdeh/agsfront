@@ -146,6 +146,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   }
 */
   return (
+    <div style={{paddingLeft:"20px" , paddingRight: "20px"}}>
     <Paper className={classes.paper} elevation={6}>
       <ToastContainer />
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
@@ -321,6 +322,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
         </Button>
       </form>
     </Paper>
+    </div>
   );
 };
 

@@ -239,19 +239,9 @@ const Warranty = () => {
   };
 
   return (
-    <>
-      <Grow in>
+    <div style={{width: "100%" }}>
+      <Grow in sx={{ width: "100%"}}>
         <Container maxWidth='xl'>
-          <div>
-            <Button
-              onClick={() => {
-                dispatch(setShowFilters(!showFilters));
-                //setShowFilters(!showFilters)
-              }}>
-              <ExpandCircleDownIcon />
-            </Button>
-          </div>
-
           {showFilters && (
             <>
               <div className='search__list'>
@@ -326,7 +316,7 @@ const Warranty = () => {
           <Products filters={filters} />
         </Container>
       </Grow>
-    </>
+    </div>
   );
 };
 

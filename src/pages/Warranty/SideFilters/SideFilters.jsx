@@ -65,35 +65,43 @@ const SideFilters = () => {
 
   //Hid & Show Filters //////////////////////////////////////////////////////////////
   return (
-    <div>
+    <div className="side_filters" > 
       <div class="radio-toolbar">
-       <input type="radio" id="radioBananafq" name="radioFruitfq" value="All" />
-       <label for="radioBananafq">All</label>
-       <input type="radio" id="radioOrangef1" name="radioFruitf1" value="Booked"/>
-       <label for="radioOrangef1">Booked</label> 
-       <input type="radio" id="radioBananafqq" name="radioFruitfqq" value="Coming" />
-       <label for="radioBananafq">Coming</label>
-       <input type="radio" id="radioOrangef1q" name="radioFruitf1q" value="Available"/>
-       <label for="radioOrangef1">Available</label> 
+       <input type="radio" id="radioAll" name="radioStatus" value="All" />
+       <label for="radioAll">All</label>
+       <input type="radio" id="radioBooked" name="radioStatus" value="Booked"/>
+       <label for="radioBooked">Booked</label> 
+       <input type="radio" id="radioComing" name="radioStatus" value="Coming" />
+       <label for="radioComing">Coming</label>
+       <input type="radio" id="radioAvailable" name="radioStatus" value="Available"/>
+       <label for="radioAvailable">Available</label> 
      </div>
       <div class="radio-toolbar" onChange={handleLocationChange}>
-       <input type="radio" id="radioBanana" name="radioFruit" value="freezone" />
+       <input type="radio" id="radioBanana" name="radioFruit" checked={location==="freezone"} value="freezone" />
        <label for="radioBanana">Freezone</label>
-       <input type="radio" id="radioOrange" name="radioFruit" value="local"/>
+       <input type="radio" id="radioOrange" name="radioFruit" checked={location==="local"} value="local"/>
        <label for="radioOrange">Local</label> 
      </div>
      <div class="radio-toolbar" onChange={handleCurrencyChange}>
-       <input type="radio" id="radioBananaf" name="radioFruitf" value="AED" />
+       <input type="radio" id="radioBananaf" checked={currency==="AED"} name="radioFruitf" value="AED" />
        <label for="radioBananaf">AED</label>
-       <input type="radio" id="radioOrangef" name="radioFruitf" value="USD"/>
+       <input type="radio" id="radioOrangef" checked={currency==="USD"} name="radioFruitf" value="USD"/>
        <label for="radioOrangef">USD</label> 
      </div>
-      <Grid item xs={12} sm={6} md={8}>
-        
-       
-        
-        
-      </Grid>
+     <div class="cat comedy">
+      <label>
+      <input onChange={handleShowDatasheetChange} type="checkbox" checked={showDatasheet} value="1"/><span>Datasheet</span>
+      </label>
+     </div>
+     <div class="cat comedy">
+      <label>
+      <input onChange={handleShowPriceChange} type="checkbox" checked={showPrice} value="1"/><span>Price</span>
+      </label>
+     </div><div class="cat comedy">
+      <label>
+      <input onChange={handleShowStockChange} type="checkbox" checked={showStock} value="1"/><span>Stock</span>
+      </label>
+     </div>
     </div>
   );
 };

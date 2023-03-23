@@ -235,18 +235,7 @@ const Warranty = () => {
     <>
       <Grow in>
         <Container maxWidth="xl">
-          <div>
-            <Button
-              onClick={() => {
-                dispatch(setShowFilters(!showFilters));
-                //setShowFilters(!showFilters)
-              }}
-            >
-              <ExpandCircleDownIcon />
-            </Button>
-          </div>
-
-          {showFilters && (
+                   {showFilters && (
             <>
               <div className="search__list">
                 <div className="change__">

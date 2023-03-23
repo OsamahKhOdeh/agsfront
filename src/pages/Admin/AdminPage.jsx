@@ -225,10 +225,10 @@ const showFilters = useSelector((state)=>state.show.showFilters)
   };
 
   return (
-    <>
+    <div style={{ width: "100%"  }}>
 
       <Grow in>
-        <Container maxWidth='xl'>
+        <Container maxWidth='xl' >
           <div>
             <Button onClick={() =>
                {
@@ -331,7 +331,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
           <Products filters={filters} />
         </Container>
       </Grow>
-    </>
+    </div>
   );
 };
 

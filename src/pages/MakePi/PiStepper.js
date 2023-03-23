@@ -42,7 +42,7 @@ export default function PiStepper() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%" ,paddingLeft : "20px" , paddingRight : "20px" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -67,7 +67,7 @@ export default function PiStepper() {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 ,paddingBottom : "20px" }}>
             <Button variant="contained"  size="large"  color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
