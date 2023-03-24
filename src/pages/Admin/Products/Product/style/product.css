@@ -145,3 +145,12 @@ img {
   height: 40px;
   right: 0;
 }
+
+
+.btn-delete{
+  background-color: #f4511e;
+  cursor: pointer;
+  position: relative;
+  right: -90px;
+  padding: 5px 0px 5px 5px;
+}

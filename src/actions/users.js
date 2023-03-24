@@ -39,3 +39,12 @@ export const createUser = (newUser) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const deleteUser = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.deleteUser(id);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -57,3 +57,18 @@ body{
   .password_txt {
     width: 50px;
   }
+
+    .previous {
+        margin-top: 20px;
+        background-color: #d1cbcb;
+        color: black;
+        padding: auto;
+        text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+      }
+  
+      .previous:hover{
+        background-color: #ddd;
+  color: black;
+      }

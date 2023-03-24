@@ -2,6 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletProductformCart, setProductQty, modifyProductPrice } from "../../store/cartSlice";
+import './styles.css'
 import { contents } from "./test";
 const TablePage = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,8 @@ const TablePage = () => {
   const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
 
   const [qty, setQty] = useState("");
+  const [newPrice,setNewPrice] = useState();
+
   console.log(selectedProducts);
 
   let UAERATE=1;
@@ -51,6 +54,7 @@ calcTotal();
               <th className="font-normal text-left pl-12">ITEMS</th>
               <th className="font-normal text-left ">QTY(PCS)/(WATTS)</th>
               <th className="font-normal text-left ">UNIT PRICE(USD)</th>
+              <th className="font-normal  ">New Price</th>
               <th className="font-normal text-left ">TOLTAL USD</th>
               <th className="font-normal  pl-12">ACTIONS</th>
             </tr>
@@ -76,6 +80,9 @@ calcTotal();
                     {calcPrice(item)?.toFixed(2)}
                   </p>
                 </td>
+                <td className="pl-12" style={{padding : "0px" , width : "5%"}}>
+                <input id="new_price" type="text" className="new_price_txt" onBlur={(e)=>console.log(e.target.value)}/>
+                </td>
                 <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
@@ -86,7 +93,7 @@ calcTotal();
                   <Button
                     variant="contained"
                     onClick={() => {
-                      if (item?.dumm_id !== 1) dispatch(modifyProductPrice({ id: item._id, dumm_id: 1, price: calcPrice(item) }));
+                      //if (item?.dumm_id !== 1) dispatch(modifyProductPrice({ id: item._id, dumm_id: 1, price: calcPrice(item) }));
 
                       dispatch(setProductQty({ id: item._id, qty: qty }));
                     }}

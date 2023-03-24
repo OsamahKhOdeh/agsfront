@@ -1,7 +1,7 @@
 import { setIsLoading } from "../store/showingSlice";
 
 import * as api from "../api/index.js";
-import { fetchAll, fetchFilterd } from "../store/productsSlice";
+import { deleteProductState, fetchAll, fetchFilterd } from "../store/productsSlice";
 
 export const createProduct = (newProduct) => async (dispatch) => {
   console.log(newProduct);
@@ -83,6 +83,18 @@ export const downloadDatasheet = async (id,fileName) =>  {
           alink.click();
       })
   })
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+     await api.deleteProduct(id);
+   // dispatch(deleteProductState(id))
+    //dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error);
   }

@@ -1,14 +1,29 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../actions/users";
+import { deleteUser, updateUser } from "../../actions/users";
 import { changeUserPassword, changeUserStatus } from "../../store/usersSlice";
+import { ToastContainer, toast } from "react-toastify";
+
 const UsersTable = () => {
   const dispatch = useDispatch();
   let totalAmount = 0;
   const users = useSelector((state) => state.users.users);
+  const showToastMessage = (msg) => {
+    toast.success(`${msg}✅`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   return (
     <>
+    <ToastContainer />
       <div className="container mx-auto">
         <table className="w-full whitespace-nowrap">
           <thead>
@@ -63,6 +78,8 @@ const UsersTable = () => {
                  
                   <Button
                     onClick={() => {
+                      dispatch(deleteUser(user._id))
+                      showToastMessage(`User ${user.username} deleted Succesfully`);
                     }}
                     variant="contained"
                     style={{ backgroundColor: "red"  , marginRight: "20px"}}
@@ -77,6 +94,7 @@ const UsersTable = () => {
                 <td className="pl-12"> <Button
                     onClick={() => {
                       dispatch(updateUser(user._id,user))
+                      showToastMessage(`User ${user.username} updated Succesfully`);
                     }}
                     variant="contained"
                     style={{ backgroundColor: "green" }}

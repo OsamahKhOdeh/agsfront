@@ -48,6 +48,11 @@ export const productsSlice = createSlice({
   name: "product",
   initialState: initialState,
   reducers: {
+    deleteProductState: (state, action) => {
+      state.products = state.products.filter((item) => {
+        return item._id!== action.payload;
+      });
+    },
     clearProductsState(state) {
       state = initialState;
     },
@@ -90,6 +95,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands ,setOffset } = productsSlice.actions;
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands ,setOffset ,deleteProductState } = productsSlice.actions;
 
 export default productsSlice.reducer;

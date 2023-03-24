@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios'
@@ -6,7 +7,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateProduct, uploadDatasheet } from "../../../../actions/products";
+import { deleteProduct, updateProduct, uploadDatasheet } from "../../../../actions/products";
 import './style/product.css'
 
 import {
@@ -23,9 +24,8 @@ import product from "../Product/style/product.css";
 import Price from "./Price";
 import { Button, TextField } from "@material-ui/core";
 import { BASE_URL } from "../../../../api/index";
+import { deleteProductState } from "../../../../store/productsSlice";
 const Product = ({ product, index }) => {
- 
-
 
   const currency = useSelector((state) => state.filters.currency);
 
@@ -135,13 +135,42 @@ const uploadFile = (e) => {
     });
   };
 
+  
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleConfirmDelete = () => {
+    setShow(false);
+    dispatch(deleteProductState(product._id))
+
+  dispatch(deleteProduct(product._id))
+}
+  const handleShow = () => setShow(true);
+ 
+
+
+
   return (
     <div  className="item_card">
               <ToastContainer />
+              <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><h4>are you sure you want to delete</h4> <h4 style={{color:"red"}}>{product.brand}{product.code}</h4> </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleConfirmDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div
         className={exist ? "product__item background_color" : "product__item"}
         style={{}}>
+          
         <div className='product__image '>
           <img
             src={
@@ -149,6 +178,15 @@ const uploadFile = (e) => {
             }
             alt=''
           />
+          <div
+              className='check__product'
+              onClick={() => {
+                handleShow()              }}>
+                  
+                
+                 <DeleteIcon/>
+              
+            </div>
         
         </div>
         <div className='product__description'>

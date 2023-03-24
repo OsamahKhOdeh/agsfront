@@ -21,7 +21,6 @@ function Dropdown() {
         className={click ? 'dropdown-menu clicked' : 'dropdown-menu'} style={{display : "flow-root"}}
       >
         {MenuItems.map((item, index) => {
-          console.log(item);
           return (
             <li key={index}>
               <Link
