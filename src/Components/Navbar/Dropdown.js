@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { MenuItems } from './MenuItems';
+import { EmployeeMenuItems, AdminMenuItems } from './MenuItems';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 function Dropdown() {
   const [click, setClick] = useState(false);
+  const {isAdmin} = useAuth();
+
 
   const handleClick = () => setClick(!click);
-
+   let MenuItems = EmployeeMenuItems;
+   if(isAdmin){
+    MenuItems = AdminMenuItems;
+   }
   return (
     <>
       <ul

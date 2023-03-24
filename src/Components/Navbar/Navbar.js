@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
+import useAuth from '../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/authSlice';
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {username , status} = useAuth();
+  const [user, setUser] = useState(useAuth()?.username);  
+
+  const logout = () => {
+    dispatch(logOut());
+
+    navigate('/');
+
+    setUser(null);
+  };
+
   
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -31,7 +48,7 @@ function Navbar() {
   return (
     <>
       <nav className='navbar'>
-      <Link to='/user' className='nav-links' onClick={closeMobileMenu} >
+      <Link to='/user/warranty' className='nav-links' onClick={closeMobileMenu} >
                 <img className="logo_image" src='/images/logo_nav.png' alt="icon" height="40px" />
       </Link>
   
@@ -40,7 +57,7 @@ function Navbar() {
         </div>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className='nav-item'>
-            <Link to='/user' className='nav-links' onClick={closeMobileMenu}>
+            <Link to='/user/warranty' className='nav-links' onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
@@ -67,26 +84,29 @@ function Navbar() {
               Products
             </Link>
           </li>
+          
+          <li className='nav-item' >
+            <Link
+             style={{backgroundColor : "gray"}}
+              className='nav-links'
+              onClick={()=>{}}
+            >
+             <div> {user}</div>
+            </Link>
+          </li>
           <li className='nav-item'>
             <Link
-              to='/contact-us'
+              
               className='nav-links'
-              onClick={closeMobileMenu}
+              onClick={logout}
             >
-              Contact Us
+              Logout
             </Link>
           </li>
-          <li>
-            <Link
-              to='/sign-up'
-              className='nav-links-mobile'
-              onClick={closeMobileMenu}
-            >
-              Sign Up
-            </Link>
-          </li>
+
+        
+          
         </ul>
-        <Button />
       </nav>
     </>
   );

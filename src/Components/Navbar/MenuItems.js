@@ -1,4 +1,4 @@
-export const MenuItems = [
+export const AdminMenuItems = [
   {
     title: 'Make PI',
     path: '/user/makepi',
@@ -26,3 +26,16 @@ export const MenuItems = [
     cName: 'dropdown-link'
   }
 ];
+export const EmployeeMenuItems = [
+  {
+    title: 'Make PI',
+    path: '/user/makepi',
+    cName: 'dropdown-link'
+  },
+  {
+    title: 'Make Countation',
+    path: '/user/warranty',
+    cName: 'dropdown-link'
+  }
+];
+

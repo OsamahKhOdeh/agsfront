@@ -7,7 +7,7 @@ export const login = (formData , navigate) => async (dispatch) => {
   try {
     const { data } = await api.login({username , password});
     dispatch(setCredentials(data))
-    navigate('/user');
+    navigate('/user/warranty');
     console.log(data);
    // router.push('/');
   } catch (error) {
