@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import { createSlice } from "@reduxjs/toolkit";
-export const piSlice = createSlice({
+export const priceListsSlice = createSlice({
   name: "pi",
   initialState: {
-    piProducts: [],
-    piInfo: {
+    priceListProducts: [],
+    priceListInfo: {
       invoiceNo: 0,
       date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
       exporter: "",
@@ -18,22 +18,18 @@ export const piSlice = createSlice({
       terms : [],
       employee : ""
     },
-    isPi : true
   },
   reducers: {
-    setIsPI : (state, action) => {
-      state.isPi = action.payload;
-    },
-    setPiProudcts: (state, action) => {
+    setPriceListProudcts: (state, action) => {
       state.piProducts = action.payload;
     },
-    setPiInfo: (state, action) => {
+    setPriceListInfo: (state, action) => {
       state.piInfo = action.payload;
     },
     setPiNo: (state, action) => {
       state.piInfo.invoiceNo = action.payload + 1;
     },
-    setPiEmployee: (state, action) => {
+    setPriceListEmployee: (state, action) => {
       state.piInfo.employee = action.payload;
     },
 
@@ -43,6 +39,6 @@ export const piSlice = createSlice({
   },
 });
 
-export const { setPiInfo, setPiProudcts, setPiNo ,setPiEmployee ,setIsPI } = piSlice.actions;
+export const { setPriceListInfo, setPriceListProudcts, setPiNo ,setPriceListEmployee } = priceListsSlice.actions;
 
-export default piSlice.reducer;
+export default priceListsSlice.reducer;

@@ -34,9 +34,37 @@ export const addToCart = createSlice({
         }
       });
     },
+    modifyProductPriceFreezone: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.freezonePrice = action.payload.price;
+        }
+      });
+    },
+    modifyProductPriceLocal: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.LocalPrice = action.payload.price;
+        }
+      });
+    },
+    modifyProductPriceFreezoneAED: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.freezonePriceAED = action.payload.price;
+        }
+      });
+    },
+    modifyProductPriceLocalAED: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.LocalPriceAED = action.payload.price;
+        }
+      });
+    },
   },
 });
 
-export const { addProducttocart, deletProductformCart, deleteAll, setProductQty, modifyProductPrice } = addToCart.actions;
+export const { addProducttocart, deletProductformCart, deleteAll, setProductQty, modifyProductPrice ,modifyProductPriceFreezone ,modifyProductPriceLocal,modifyProductPriceFreezoneAED ,modifyProductPriceLocalAED } = addToCart.actions;
 
 export default addToCart.reducer;

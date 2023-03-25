@@ -21,6 +21,7 @@ import SideFilters from "./SideFilters/SideFilters";
 import DropDown from "./DropDown";
 import { setShowFilters } from "../../store/showingSlice";
 import Brands from "./Brands/Brands";
+import { setIsPI } from "../../store/piSlice";
 
 let choosenCompanies = [];
 let choosenBrands = [];
@@ -312,6 +313,10 @@ const Warranty = () => {
               <Pagination page={page} />
             </Paper>
           )}
+
+            <div className="next_div"  >
+              <button className="btn_next success_next" onClick={()=>{dispatch(setIsPI(false)); navigate('/user/pricelistinfo')}} >NEXT</button>
+            </div>
 
           <Products filters={filters} />
         </Container>

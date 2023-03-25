@@ -4,6 +4,7 @@ import cartSlice from "./cartSlice";
 import filtersSlice from "./filtersSlice";
 import piSlice from "./piSlice";
 import priceListSlice from "./priceListSlice";
+import priceListsSlice from "./priceListsSlice";
 import productReducer from "./productSlice";
 import productsSlice from "./productsSlice";
 import showingSlice from "./showingSlice";
@@ -22,6 +23,7 @@ export default configureStore({
     filters: filtersSlice,
     warranty: warrantySlice,
     auth : authSlice,
-    users :usersSlice
+    users :usersSlice,
+    priceLists : priceListsSlice,
   },
 });

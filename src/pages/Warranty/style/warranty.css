@@ -251,3 +251,30 @@
   padding: 10px 125px;
   border: 0;
 }
+
+
+.btn_next {
+  margin-right: 40px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Green */
+.success_next {
+  border-color: #04AA6D;
+  color: green;
+}
+
+.success_next:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.next_div {
+  display: flex;
+  justify-content: flex-end;
+}

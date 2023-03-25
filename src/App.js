@@ -24,6 +24,8 @@ import {ROLES} from './config/roles'
 import RequireAuth from "./actions/RequireAuth";
 import Employees from "./pages/Employees/Employees";
 import NewUser from "./pages/NewUser/NewUser";
+import PriceListInfo from "./pages/Warranty/PriceListInfo/PriceListInfo";
+import PriceListPDF from "./Components/PriceListPDF/PriceListPDF";
 function App() {
   console.log( useAuth());
   return (
@@ -41,6 +43,9 @@ function App() {
         <Route path="addproduct" element={<ProductForm />}></Route>
         <Route path="makepi" element={<PiStepper />}></Route>
         <Route path="table" element={<ProformaInvoice />}></Route>
+        <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
+        <Route path="pricelistpdf" element={<PriceListPDF />}></Route>
+
         <Route path="warranty" element={<Warranty />}></Route>
        
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

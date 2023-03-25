@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPDF, { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
-import Invoice from '../Invoice/Invoice'
+import Invoice from './Invoice/Invoice'
 import { PDFViewer } from '@react-pdf/renderer';
 import invoice from '../../data/invoice-data'
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { setPiEmployee, setPiProudcts } from '../../store/piSlice';
 import { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 
-const ProformaInvoice = () => {
+const PriceListPDF = () => {
   const cart = useSelector((state)=>state.cart.cart);
   const {username , status} = useAuth();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ProformaInvoice = () => {
   )
 }
 
-export default ProformaInvoice
+export default PriceListPDF
 
 /*
    

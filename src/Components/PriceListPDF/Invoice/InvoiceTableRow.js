@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import { useSelector } from "react-redux";
 
 const borderColor = "black";
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     alignItems: "center",
-    height: 24,
+    height: 75,
     fontStyle: "bold",
     fontSize: "10px",
   },
@@ -41,10 +41,18 @@ const styles = StyleSheet.create({
     textAlign: "right",
     paddingRight: 8,
   },
-  amount: {
-    width: "15%",
+  image: {
+    width: "25%",
+    height: 75,
+    marginLeft : "10px",
     textAlign: "right",
     paddingRight: 8,
+  },
+  logo: {
+    width: "100%",
+    height: 66,
+    marginLeft: "0",
+    marginRight: "0",
   },
 });
 
@@ -75,16 +83,15 @@ function calcPrice(item) {
         {item.brand}&nbsp;
         {item.code}&nbsp;/&nbsp;{item.capacity}
       </Text>
-      <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
         {calcPrice(item).toFixed(2)}
           &nbsp;&nbsp;
         {currency}
       </Text>
-      <Text style={styles.amount}>
-        {item.qty>0 ? (item.qty * calcPrice(item))?.toFixed(2) : 0}&nbsp;&nbsp;
-        {currency}
-      </Text>
+      <Image style={styles.image} src={
+                  item.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  item.image  :   process.env.PUBLIC_URL+`images/${item._id}_1.png` ||  `images/${item._id}_1.jpg` || `images/${item._id}_1.JPG`
+            }  />
+     
     </View>
   ));
   return <Fragment>{rows}</Fragment>;

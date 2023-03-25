@@ -100,7 +100,7 @@ const Product = ({ product, index }) => {
             <div
               className='check__product'
               onClick={() => {
-                addTocart(product, index);
+                addTocart({...product,LocalPriceAED : product.LocalPrice * usdToAedRate , freezonePriceAED : product.freezonePrice * usdToAedRate});
               }}>
                 <span className='check__product__icon_unchecked'>
                   +

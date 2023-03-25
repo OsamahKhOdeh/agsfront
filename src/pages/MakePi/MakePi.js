@@ -271,17 +271,6 @@ const Warranty = () => {
 
                     <div className="list__filter">
                       {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
-
-                      {/*selectedItems.map((item, i) => (
-                            <div className='select__list'>
-                              <DropDown
-                                item={item}
-                                onChange={onChange}
-                                onNodeToggle={onNodeToggle}
-                                onAction={onAction}
-                              />
-                            </div>
-                        )) */}
                     </div>
                   </div>
 

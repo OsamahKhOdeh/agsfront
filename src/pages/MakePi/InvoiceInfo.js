@@ -10,10 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPiInfo, setPiNo } from "../../store/piSlice";
 import { exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function InvoiceInfo() {
+  const navigate = useNavigate();
+  const pi = useSelector((state) => state.pi.isPi);
   const dispatch = useDispatch();
   const [piNoState, setPiNoState] = useState(0);
+  const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
   useEffect(() => {
     async function getLast() {
       const lasto = await api.getLastPiNo();
@@ -37,6 +41,7 @@ function InvoiceInfo() {
     discount: 0,
     additions:0,
   });
+  
   const handleChange = (event) => {
     setInvoiceInfo({ ...invoiceInfo,invoiceNo : piNoState ,[event.target.name]: event.target.value });
     dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
@@ -86,7 +91,11 @@ function InvoiceInfo() {
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
+      {!pi && <div className="next_div"  >
+              <button className="btn_next success_next" onClick={()=>{navigate('/user/pricelistpdf')}} >NEXT</button>
+            </div>}
       <Grid container spacing={4}>
+      
         <Grid style={{ paddingBottom: "30px" }} item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">EXPORTER</InputLabel>
@@ -103,7 +112,7 @@ function InvoiceInfo() {
         <Grid item xs={12} sm={6}>
           <TextField name="consignee" value={invoiceInfo.consignee} onChange={handleChange} label="CONSIGNEE" fullWidth></TextField>
         </Grid>
-        <Grid item xs={12} sm={6}>
+       {pi && <><Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">NOTIFY PARTY</InputLabel>
             <Select name="notifyParty" value={invoiceInfo.notifyParty} onChange={handleChange} displayEmpty inputProps={{ "aria-label": "Without label" }}>
@@ -135,18 +144,20 @@ function InvoiceInfo() {
           </FormControl>{" "}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="invoiceNo" value={useSelector((state) => state.pi.piInfo.invoiceNo)} label="INVOICE NUMBER" fullWidth></TextField>
+          <TextField name="invoiceNo" value={invoiceNumber} label="INVOICE NUMBER" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField name="discount" value={invoiceInfo.discount} onChange={handleChange} label="Discount" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField name="additions" value={invoiceInfo.additions} onChange={handleChange} label="Additions" fullWidth></TextField>
         </Grid>
-        <Grid item xs={12} sm={12}>
+        </> }
+        <Grid item xs={12} sm={6}>
+          <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
+        </Grid>
+        
+       {pi && <><Grid item xs={12} sm={12}>
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label">Terms Collections : </FormLabel>
             <RadioGroup
@@ -173,6 +184,7 @@ function InvoiceInfo() {
             ))}
             </div>
             </div>
+            </>}
 
       </Grid>
     </React.Fragment>
