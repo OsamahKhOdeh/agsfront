@@ -17,25 +17,26 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     flexGrow: 1,
   },
-  no: { width: "5%", borderRightColor: borderColor, borderRightWidth: 1 },
+  no: { width: "5%", borderRightColor: borderColor, borderRightWidth: 1 ,height : "100%"  ,paddingTop : 4},
   description: {
+    
     width: "45%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 4
   },
 
   qty: {
     width: "15%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 4
   },
   price: {
     width: "20%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 4
   },
   amount: {
-    width: "15%",
+    width: "15%",height : "100%"  ,paddingTop : 4
   },
 });
 

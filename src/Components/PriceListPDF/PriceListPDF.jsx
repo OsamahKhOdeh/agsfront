@@ -4,11 +4,13 @@ import Invoice from './Invoice/Invoice'
 import { PDFViewer } from '@react-pdf/renderer';
 import invoice from '../../data/invoice-data'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPiEmployee, setPiProudcts } from '../../store/piSlice';
+import { setIsPI, setPiEmployee, setPiProudcts } from '../../store/piSlice';
 import { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const PriceListPDF = () => {
+  const navigate = useNavigate();
   const cart = useSelector((state)=>state.cart.cart);
   const {username , status} = useAuth();
   const dispatch = useDispatch();
@@ -26,7 +28,11 @@ const PriceListPDF = () => {
 
 
   return (
-    <div style={{width:"100%"}}>
+    <div style={{width:"90%" ,margin: "auto" }}>
+       <div style={{marginBottom : "15px"}} className="next_div"  >
+              <button className="btn_next success_prev" onClick={()=>{ navigate('/user/pricelistinfo')}} >PREVIOUS</button>
+              <button className="btn_next success_next" onClick={()=>{navigate('/user/pricelistpdf')}} >Finish</button>
+            </div>
    <PDFViewer width="100%" height="1200" className="app" >
                 <Invoice pi={pi} currency={currency} location={location}  usdToAedRate={usdToAedRate} />
    </PDFViewer>

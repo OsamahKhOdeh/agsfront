@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingRight: 8,
+    paddingRight: 8,height : "100%"  ,paddingTop : 4
   },
   total: {
     fontSize: "10px",
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,
+    paddingRight: 8,height : "100%"  ,paddingTop : 4
   },
 });
 

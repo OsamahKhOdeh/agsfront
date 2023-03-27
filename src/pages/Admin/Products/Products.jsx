@@ -193,7 +193,7 @@ function Items({ currentItems }) {
         showFilters ?
         (
 
-          <PaginatedItems itemsPerPage={100} />
+          <PaginatedItems itemsPerPage={200} />
           
         )
 

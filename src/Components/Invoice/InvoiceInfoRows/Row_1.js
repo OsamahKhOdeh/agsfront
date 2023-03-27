@@ -3,17 +3,10 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 const borderColor = "black";
 const styles = StyleSheet.create({
-  tableContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 24,
-    borderWidth: 1,
-    borderColor: "black",
-  },
+ 
   container: {
     flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
+   
     borderColor: "black",
     backgroundColor: "white",
     borderBottomWidth: 1,
@@ -25,6 +18,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   exporter: {
+    height : "100%"  ,
     width: "50%",
     borderRightColor: borderColor,
     borderRight: 1,
@@ -34,10 +28,12 @@ const styles = StyleSheet.create({
     width: "30%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    height : "100%"  ,paddingTop : 1
   },
   date: {
     width: "20%",
     borderRightColor: borderColor,
+    height : "100%"  ,paddingTop : 1
   },
 });
 

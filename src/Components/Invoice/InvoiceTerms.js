@@ -27,19 +27,17 @@ const styles = StyleSheet.create({
     textAlign: "left",
     flexGrow: 1,
   },
-  no: { width: "4%", textAlign: "center", borderRightColor: borderColor, borderRightWidth: 1 },
+  no: { width: "4%", textAlign: "center", borderRightColor: borderColor, borderRightWidth: 1 ,height : "100%"  ,paddingTop : 4},
   description: {
     paddingLeft: "5px",
     fontSize: "9px",
     width: "96%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+  
   },
   header: {
     paddingLeft: "5px",
     width: "100%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+   
   },
   seller: {
     textAlign: "center",

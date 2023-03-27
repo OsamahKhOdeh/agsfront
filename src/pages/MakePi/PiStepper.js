@@ -15,6 +15,7 @@ import invoiceData from "../../data/invoice-data";
 import ProformaInvoice from "../../Components/PoformaInvoice/ProformaInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import { createProformaInvoice } from "../../actions/proformaInvoice";
+import { setIsPI } from "../../store/piSlice";
 
 const steps = ["Select Products", "Select PI Information", "Make and Download PI"];
 
@@ -40,7 +41,7 @@ export default function PiStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
-
+  dispatch(setIsPI(true))
   return (
     <Box sx={{ width: "100%" ,paddingLeft : "20px" , paddingRight : "20px" }}>
       <Stepper activeStep={activeStep}>

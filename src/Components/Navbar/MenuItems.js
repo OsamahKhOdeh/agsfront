@@ -5,7 +5,7 @@ export const AdminMenuItems = [
     cName: 'dropdown-link'
   },
   {
-    title: 'Make Countation',
+    title: 'PriceList/Quotation',
     path: '/user/warranty',
     cName: 'dropdown-link'
   },

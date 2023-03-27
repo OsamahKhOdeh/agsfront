@@ -5,8 +5,7 @@ const borderColor = "black";
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
+    border: 1,
     borderColor: "black",
     backgroundColor: "white",
     borderBottomWidth: 1,
@@ -17,9 +16,10 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     flexGrow: 1,
   },
-  no: { width: "5%", borderRightColor: borderColor, borderRightWidth: 1 },
+  no: { width: "5%", height : "100%", paddingTop : 4,  borderRightColor: borderColor, borderRightWidth: 1 },
   description: {
-    width: "45%",
+     height : "100%", paddingTop : 4,
+    width: "46.2%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   price: {
-    width: "20%",
+    
+    width: "20.5%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1, height : "100%", paddingTop : 4
   },
   image: {
-    width: "30%",
+    width: "30%", height : "100%", paddingTop : 4
   },
 });
 

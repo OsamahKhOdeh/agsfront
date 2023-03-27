@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
   consignee: {
     width: "50%",
     borderRightColor: borderColor,
-    borderRight: 1,
+    borderRight: 1,height : "100%"  ,paddingTop : 1
   },
 
   notify_party: {
     width: "50%",
-    borderRightColor: borderColor,
+    borderRightColor: borderColor,height : "100%"  ,paddingTop : 1
   },
 });
 

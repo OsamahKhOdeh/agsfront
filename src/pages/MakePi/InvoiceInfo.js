@@ -40,6 +40,8 @@ function InvoiceInfo() {
     finalDistination: "",
     discount: 0,
     additions:0,
+    phoneNumber : "",
+    note : "",
   });
   
   const handleChange = (event) => {
@@ -91,9 +93,7 @@ function InvoiceInfo() {
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
-      {!pi && <div className="next_div"  >
-              <button className="btn_next success_next" onClick={()=>{navigate('/user/pricelistpdf')}} >NEXT</button>
-            </div>}
+     
       <Grid container spacing={4}>
       
         <Grid style={{ paddingBottom: "30px" }} item xs={12} sm={6}>
@@ -110,8 +110,11 @@ function InvoiceInfo() {
           <TextField name="buyerAdress" value={invoiceInfo.buyerAdress} onChange={handleChange} label="BUYER ADDRESS" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField name="consignee" value={invoiceInfo.consignee} onChange={handleChange} label="CONSIGNEE" fullWidth></TextField>
+          <TextField name="phoneNumber" value={invoiceInfo.phoneNumber} onChange={handleChange} label="Phone Number" fullWidth></TextField>
         </Grid>
+        {pi && <Grid item xs={12} sm={6}>
+          <TextField name="consignee" value={invoiceInfo.consignee} onChange={handleChange} label="CONSIGNEE" fullWidth></TextField>
+        </Grid>}
        {pi && <><Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">NOTIFY PARTY</InputLabel>
@@ -133,6 +136,8 @@ function InvoiceInfo() {
             </Select>
           </FormControl>{" "}
         </Grid>
+        </>
+       }
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">FINAL DESTINATION</InputLabel>
@@ -143,6 +148,7 @@ function InvoiceInfo() {
             </Select>
           </FormControl>{" "}
         </Grid>
+        {pi && <>
         <Grid item xs={12} sm={6}>
           <TextField name="invoiceNo" value={invoiceNumber} label="INVOICE NUMBER" fullWidth></TextField>
         </Grid>
@@ -155,6 +161,9 @@ function InvoiceInfo() {
         </> }
         <Grid item xs={12} sm={6}>
           <TextField name="date" value={invoiceInfo.date} label="DATE MM/DD/YYYY" fullWidth></TextField>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField name="note" value={invoiceInfo.note} onChange={handleChange} label="Notes" fullWidth></TextField>
         </Grid>
         
        {pi && <><Grid item xs={12} sm={12}>

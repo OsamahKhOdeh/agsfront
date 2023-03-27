@@ -16,7 +16,9 @@ export const piSlice = createSlice({
       discount: 0,
       additions : 0,
       terms : [],
-      employee : ""
+      employee : "",
+      phoneNumber : "",
+      note : ""
     },
     isPi : true
   },

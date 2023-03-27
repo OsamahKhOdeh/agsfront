@@ -19,32 +19,33 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     textAlign: "right",
     paddingRight: 8,
+    height : "100%"  ,paddingTop : 4
   },
   description: {
     width: "45%",
     textAlign: "left",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingLeft: 8,
+    paddingLeft: 8,height : "100%"  ,paddingTop : 4
   },
   qty: {
     width: "15%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "right",
-    paddingRight: 8,
+    paddingRight: 8,height : "100%"  ,paddingTop : 4
   },
   price: {
     width: "20%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "right",
-    paddingRight: 8,
+    paddingRight: 8,height : "100%"  ,paddingTop : 4
   },
   amount: {
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,
+    paddingRight: 8,height : "100%"  ,paddingTop : 4
   },
 });
 

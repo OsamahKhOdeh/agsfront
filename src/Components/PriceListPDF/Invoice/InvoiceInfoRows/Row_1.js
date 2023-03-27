@@ -3,21 +3,10 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 const borderColor = "black";
 const styles = StyleSheet.create({
-  tableContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 24,
-    borderWidth: 1,
-    borderColor: "black",
-  },
   container: {
     flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
     borderColor: "black",
     backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
     alignItems: "center",
     height: 21,
     textAlign: "center",
@@ -25,28 +14,45 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   exporter: {
+    paddingTop : 4,
+    height : "100%",
     width: "50%",
     borderRightColor: borderColor,
     borderRight: 1,
+    textAlign : "left",
+    paddingLeft : 4 
+  },
+  phone: {
+    paddingTop : 4,
+    height : "100%",
+    width: "30%",
+    borderRightColor: borderColor,
+    borderRight: 1,
+    textAlign : "left",
+    paddingLeft : 4 
   },
 
   invoice_no: {
+    paddingTop : 4,
+    height : "100%",
     width: "30%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+    
   },
   date: {
+    paddingTop : 4,
+    height : "100%",
     width: "20%",
     borderRightColor: borderColor,
   },
 });
 
-const Row_1 = ({ items }) => {
+const Row_1 = ({ piInfo }) => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.exporter}>EXPORTER</Text>
-        <Text style={styles.invoice_no}>NO</Text>
+        <Text style={styles.exporter}>CUSTOMER : &nbsp; {piInfo.buyerAdress} </Text>
+        <Text style={styles.phone}>Phone : &nbsp; {piInfo.phoneNumber} </Text>
+
         <Text style={styles.date}>DATE</Text>
       </View>
     </>

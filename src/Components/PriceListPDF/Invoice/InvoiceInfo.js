@@ -21,107 +21,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderWidth: 1,
     borderColor: "black",
-  },
-  container1: {
-    flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    alignItems: "center",
-    height: 21,
-    textAlign: "center",
-    fontStyle: "bold",
-    flexGrow: 1,
-  },
-  container2: {
-    width: "100%",
-    marginTop: 0,
-    flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    alignItems: "center",
-    height: 60,
-    textAlign: "center",
-    fontStyle: "bold",
-    flexGrow: 1,
-  },
-  container2_1: {
-    width: "100%",
-    marginTop: 0,
-
-    flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    alignItems: "center",
-    height: 21,
-    textAlign: "center",
-    fontStyle: "bold",
-    flexGrow: 1,
-  },
-  container2_2: {
-    width: "100%",
-
-    flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    alignItems: "center",
-    height: 21,
-    textAlign: "center",
-    fontStyle: "bold",
-    flexGrow: 1,
-  },
-  exporter: {
-    width: "50%",
-    borderRightColor: borderColor,
-    borderRight: 1,
-  },
-
-  invoice_no: {
-    width: "30%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  date: {
-    width: "20%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  invoice_no_val: {
-    width: "60%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  date_val: {
-    width: "40%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  buyer_address: {
-    width: "100%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
+  }
 });
 
 const InvoiceInfo = ({ piInfo }) => (
   <View style={styles.tableContainer}>
-    <Row_1 />
+    <Row_1 piInfo={piInfo} />
     <Row_2 piInfo={piInfo} />
+    <Row_3 piInfo={piInfo} />
     
   </View>
 );

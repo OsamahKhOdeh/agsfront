@@ -44,14 +44,15 @@ const styles = StyleSheet.create({
   },
 
   invoice_no: {
+
     width: "159px",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 1
   },
   date: {
     alignItems: "center",
     textAlign: "center",
-    borderRightColor: borderColor,
+    borderRightColor: borderColor,height : "100%"  ,paddingTop : 1
   },
   invoice_no_val: {
     width: "60%",

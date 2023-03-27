@@ -314,7 +314,7 @@ const Warranty = () => {
             </Paper>
           )}
 
-            <div className="next_div"  >
+            <div className="next_div" style={{justifyContent : "flex-end"}}  >
               <button className="btn_next success_next" onClick={()=>{dispatch(setIsPI(false)); navigate('/user/pricelistinfo')}} >NEXT</button>
             </div>
 

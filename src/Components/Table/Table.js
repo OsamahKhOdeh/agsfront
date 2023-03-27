@@ -111,7 +111,7 @@ calcTotal();
                     {calcPrice(item)?.toFixed(2)}
                   </p>
                 </td>
-                <td className="pl-12" style={{padding : "0px" , width : "5%"}}>
+                <td className="pl-12" style={{padding : "0px" , width : "8%"}}>
 
 
 

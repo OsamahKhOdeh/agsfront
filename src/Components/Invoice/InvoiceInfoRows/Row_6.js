@@ -29,20 +29,20 @@ const styles = StyleSheet.create({
 
     width: "50%",
     borderRightColor: borderColor,
-    borderRight: 1,
+    borderRight: 1,height : "100%"  ,paddingTop : 4
   },
 
   invoice_no: {
     width: "30%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 4
   },
   date: {
     width: "20%",
     fontSize: "7px",
     padding: "2px",
 
-    borderRightColor: borderColor,
+    borderRightColor: borderColor,height : "100%"  ,paddingTop : 4
   },
 });
 
