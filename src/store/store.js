@@ -7,6 +7,7 @@ import priceListSlice from "./priceListSlice";
 import priceListsSlice from "./priceListsSlice";
 import productReducer from "./productSlice";
 import productsSlice from "./productsSlice";
+import proformaInvoicesSlice from "./proformaInvoicesSlice";
 import showingSlice from "./showingSlice";
 import usersSlice from "./usersSlice";
 import warrantySlice from "./warrantySlice";
@@ -25,5 +26,6 @@ export default configureStore({
     auth : authSlice,
     users :usersSlice,
     priceLists : priceListsSlice,
+    proformaInvoices : proformaInvoicesSlice
   },
 });

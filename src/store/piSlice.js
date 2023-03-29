@@ -18,11 +18,19 @@ export const piSlice = createSlice({
       terms : [],
       employee : "",
       phoneNumber : "",
-      note : ""
+      note : "",
+      currency : "USD",
+      location : "freezone"
+
     },
     isPi : true
   },
   reducers: {
+    setPICurrencyLocation : (state, action) => {
+      state.piInfo.currency = action.payload.currency;
+      state.piInfo.location = action.payload.location;
+    },
+
     setIsPI : (state, action) => {
       state.isPi = action.payload;
     },
@@ -45,6 +53,6 @@ export const piSlice = createSlice({
   },
 });
 
-export const { setPiInfo, setPiProudcts, setPiNo ,setPiEmployee ,setIsPI } = piSlice.actions;
+export const { setPiInfo, setPiProudcts, setPiNo ,setPiEmployee ,setIsPI ,setPICurrencyLocation } = piSlice.actions;
 
 export default piSlice.reducer;

@@ -339,7 +339,7 @@ p {
 }
 
 .search__list {
-  justify-content: space-between;
+    justify-content: space-between;
   align-items: center;
   width: 100%;
 }

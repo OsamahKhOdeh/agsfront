@@ -12,13 +12,13 @@ function calcPrice(price, freezoneToLocalPercentage, additionOnLocalPercentage,l
       if (currency === "USD") {
         return freezonePrice;
       } else {
-        return (Math.round(freezonePrice * usdToAedRate * 100) / 100).toFixed(2);
+        return ((freezonePrice * usdToAedRate * 100) / 100).toFixed(3);
       }
     } else {
       if (currency === "USD") {
-        return localPrice.toFixed(2);
+        return localPrice.toFixed(3);
       } else {
-        return ((localPrice * usdToAedRate * 100) / 100).toFixed(2);
+        return ((localPrice * usdToAedRate * 100) / 100).toFixed(3);
       }
     }
   }
@@ -46,7 +46,7 @@ function CheckCustomer() {
         <div class="description__price">
           <div>
             <div class="price">
-              <label for=""> Price: </label>&nbsp;&nbsp; {calcPrice(item.price,item.freezonePrice, item.LocalPrice,location,currency,usdToAedRate).toFixed(2)}&nbsp;{currency === "USD" ? "USD" : "AED"}
+              <label for=""> Price: </label>&nbsp;&nbsp; {calcPrice(item.price,item.freezonePrice, item.LocalPrice,location,currency,usdToAedRate).toFixed(3)}&nbsp;{currency === "USD" ? "USD" : "AED"}
             </div>
            
           </div>

@@ -16,6 +16,7 @@ import ProformaInvoice from "../../Components/PoformaInvoice/ProformaInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import { createProformaInvoice } from "../../actions/proformaInvoice";
 import { setIsPI } from "../../store/piSlice";
+import SuccessPage from "../SuccessPage/SuccessPage";
 
 const steps = ["Select Products", "Select PI Information", "Make and Download PI"];
 
@@ -83,7 +84,7 @@ export default function PiStepper() {
               <Table />
             </>
           )}
-          {activeStep === 2 && <ProformaInvoice />}
+          {activeStep === 2 && <SuccessPage/>}
         </React.Fragment>
       )}
     </Box>

@@ -24,6 +24,11 @@ export const AdminMenuItems = [
     title: 'Edit Items',
     path: '/user/admin',
     cName: 'dropdown-link'
+  },
+  {
+    title: 'Show all PI/s',
+    path: '/user/piadmin',
+    cName: 'dropdown-link'
   }
 ];
 export const EmployeeMenuItems = [

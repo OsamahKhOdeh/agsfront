@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@material-ui/core";
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setPiInfo, setPiNo } from "../../store/piSlice";
+import { setPICurrencyLocation, setPiInfo, setPiNo } from "../../store/piSlice";
 import { exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +18,15 @@ function InvoiceInfo() {
   const dispatch = useDispatch();
   const [piNoState, setPiNoState] = useState(0);
   const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
+  const currency = useSelector((state)=>state.filters.currency);
+   const location =useSelector((state)=>state.filters.location);
   useEffect(() => {
     async function getLast() {
       const lasto = await api.getLastPiNo();
       console.log(lasto.data);
       setPiNoState(lasto.data+1);
       dispatch(setPiNo(lasto.data));
+     
     }
     getLast();
   }, [dispatch]);
@@ -42,6 +45,8 @@ function InvoiceInfo() {
     additions:0,
     phoneNumber : "",
     note : "",
+    location : location,
+    currency : currency
   });
   
   const handleChange = (event) => {
@@ -126,7 +131,7 @@ function InvoiceInfo() {
             </Select>
           </FormControl>{" "}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">PARTY OF DISCHARGE</InputLabel>
             <Select name="partyOfDischarge" value={invoiceInfo.partyOfDischarge} onChange={handleChange} displayEmpty inputProps={{ "aria-label": "Without label" }}>
@@ -136,9 +141,12 @@ function InvoiceInfo() {
             </Select>
           </FormControl>{" "}
         </Grid>
+        <Grid item xs={12} sm={3}>
+          <TextField name="partyOfDischarge" value={invoiceInfo.partyOfDischarge} onChange={handleChange} label="PARTY OF DISCHARGE" fullWidth></TextField>
+        </Grid>
         </>
        }
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">FINAL DESTINATION</InputLabel>
             <Select name="finalDistination" value={invoiceInfo.finalDistination} onChange={handleChange} displayEmpty inputProps={{ "aria-label": "Without label" }}>
@@ -147,6 +155,9 @@ function InvoiceInfo() {
               <MenuItem value={final_distination[2].value}>{final_distination[2].name}</MenuItem>
             </Select>
           </FormControl>{" "}
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <TextField name="finalDistination" value={invoiceInfo.finalDistination} onChange={handleChange} label="FINAL DESTINATION" fullWidth></TextField>
         </Grid>
         {pi && <>
         <Grid item xs={12} sm={6}>

@@ -21,6 +21,10 @@ export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
 export const getLastPiNo = () => API.get("/pi/last");
 
+export const getProformaInvoices = (id) => API.get(`/pi`);
+
+export const updateProformaInvoiceStatus = ({id, newStatus}) => API.patch(`/pi/${id}`,  {newStatus} );
+
 export const login = ({username , password}) => API.post("/auth", {username, password});
 
 export const uploadDatasheet = (datasheet) => API.post("/upload", datasheet);
@@ -32,6 +36,9 @@ export const updateUser = (id, {...updatedUser}) => API.patch(`/users/${id}`, up
 export const createUser = (newUser) => API.post("/users", newUser);
 
 export const deleteUser = (id) => API.delete(`/users/${id}`);
+
+
+
 
 
 

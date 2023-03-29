@@ -26,6 +26,7 @@ import Employees from "./pages/Employees/Employees";
 import NewUser from "./pages/NewUser/NewUser";
 import PriceListInfo from "./pages/Warranty/PriceListInfo/PriceListInfo";
 import PriceListPDF from "./Components/PriceListPDF/PriceListPDF";
+import PIActionsAdmin from "./pages/PIActions/PIActionsAdmin/PIActionsAdmin";
 function App() {
   console.log( useAuth());
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route index element={<Warranty />}></Route>
         <Route path="pricelist" element={<PriceList />}></Route>
         <Route path="pdf" element={<ProformaInvoice />}></Route>
+        <Route path="piadmin" element={<PIActionsAdmin />}></Route>
         <Route path="addproduct" element={<ProductForm />}></Route>
         <Route path="makepi" element={<PiStepper />}></Route>
         <Route path="table" element={<ProformaInvoice />}></Route>

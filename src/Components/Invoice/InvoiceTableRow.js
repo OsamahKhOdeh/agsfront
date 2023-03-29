@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
 
 const InvoiceTableRow = ({ products, currency ,location, usdToAedRate}) => {
   
-console.log("LOOOOOOOOOO"+location);
+  
+console.log({ products, currency ,location, usdToAedRate});
 function calcPrice(item) {
   let price =0;
   if(location === "freezone" && currency === "AED"){
@@ -78,12 +79,12 @@ function calcPrice(item) {
       </Text>
       <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
-        {calcPrice(item).toFixed(2)}
+        {calcPrice(item)?.toFixed(3)}
           &nbsp;&nbsp;
         {currency}
       </Text>
       <Text style={styles.amount}>
-        {item.qty>0 ? (item.qty * calcPrice(item))?.toFixed(2) : 0}&nbsp;&nbsp;
+        {item.qty>0 ? (item.qty * calcPrice(item))?.toFixed(3) : 0}&nbsp;&nbsp;
         {currency}
       </Text>
     </View>

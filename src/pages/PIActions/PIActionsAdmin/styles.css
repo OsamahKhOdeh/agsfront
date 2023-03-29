@@ -1,0 +1,26 @@
+.container {
+    padding: 2rem 0rem;
+  }
+  
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+.pi__table{
+  border-color: rgba(0, 0, 0, 0.384);
+    width: 75%;
+    margin: auto;
+}
+
+.btn{
+width: 80px;
+margin-left: 20px;
+}
+
+.btn:hover {
+width: 80px;
+}
+
+.page_container{
+    align-content: center;
+}

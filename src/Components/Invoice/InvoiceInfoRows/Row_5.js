@@ -20,17 +20,17 @@ const styles = StyleSheet.create({
   exporter: {
     width: "50%",
     borderRightColor: borderColor,
-    borderRight: 1,height : "100%"  ,paddingTop : 4
+    borderRight: 1,height : "100%"  ,paddingTop : 1
   },
 
   invoice_no: {
     width: "30%",
     borderRightColor: borderColor,
-    borderRightWidth: 1,height : "100%"  ,paddingTop : 4
+    borderRightWidth: 1,height : "100%"  ,paddingTop : 1
   },
   date: {
     width: "20%",
-    borderRightColor: borderColor,height : "100%"  ,paddingTop : 4
+    borderRightColor: borderColor,height : "100%"  ,paddingTop : 1
   },
 });
 

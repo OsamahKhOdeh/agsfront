@@ -1,10 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
 import "./index.css";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/store";
 import { Provider } from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

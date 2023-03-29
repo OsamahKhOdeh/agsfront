@@ -1,10 +1,14 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletProductformCart, setProductQty, modifyProductPrice, modifyProductPriceFreezone, modifyProductPriceLocal, modifyProductPriceFreezoneAED, modifyProductPriceLocalAED } from "../../store/cartSlice";
+import { setPICurrencyLocation } from "../../store/piSlice";
 import './styles.css'
 import { contents } from "./test";
 const TablePage = () => {
+
+ 
   const pi =useSelector((state) => state.pi.isPi);
   function calcPrice(item) {
     let price =0;
@@ -23,11 +27,15 @@ const TablePage = () => {
     return price;
   }
   const dispatch = useDispatch();
+  
   let totalAmount = 0;
   const selectedProducts = useSelector((state) => state.cart.cart);
   const location = useSelector((state) => state.filters.location);
   const currency = useSelector((state) => state.filters.currency);
   const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
+  useEffect(() => {
+    dispatch(setPICurrencyLocation({currency,location}))
+  },[])
 
   const [qty, setQty] = useState("");
   
@@ -108,14 +116,14 @@ calcTotal();
                   <p className="font-medium">
                     {" "}
                     {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item)?.toFixed(2)}
+                    {calcPrice(item)?.toFixed(3)}
                   </p>
                 </td>
                 <td className="pl-12" style={{padding : "0px" , width : "8%"}}>
 
 
 
-                <input id="new_price" placeholder={calcPrice(item)?.toFixed(2)}   type="text" className="new_price_txt"
+                <input id="new_price" placeholder={calcPrice(item)?.toFixed(3)}   type="text" className="new_price_txt"
                 value={newPrice[index]}
                  onChange={(e)=>{ let newPriceArray = [...newPrice];
                   newPriceArray[index] =parseFloat(e.target.value);
@@ -128,7 +136,7 @@ calcTotal();
                 {pi && <td className="pl-12">
                   <p className="font-medium">
                     {currency === "USD" ? " $ " : " AED "}
-                    {item.qty >0 ? (calcPrice(item) * item.qty)?.toFixed(2) : 0}
+                    {item.qty >0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
                   </p>
                 </td>}
                 {pi && <td className="pl-12">
@@ -177,7 +185,7 @@ calcTotal();
                 <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
               </td>
               <td className="pl-12">
-                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount?.toFixed(2)}</p>
+                <p className="text-sm font-medium leading-none text-gray-800">{totalAmount?.toFixed(3)}</p>
               </td>
             </tr>}
           </tbody>

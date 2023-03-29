@@ -93,7 +93,7 @@ function calcPrice(item) {
         {item.code}&nbsp;/&nbsp;{item.capacity}
       </Text>
       <Text style={styles.price}>
-        {calcPrice(item).toFixed(2)}
+        {calcPrice(item).toFixed(3)}
           &nbsp;&nbsp;
         {currency}
       </Text>
