@@ -32,7 +32,6 @@ function useQuery() {
 }
 
 const Warranty = () => {
-
   const countriesProducts = useSelector((state)=>state.products.productsForCountries)
   let countries = [];
     countriesProducts.map((product)=> {
@@ -42,7 +41,6 @@ const Warranty = () => {
     })
     console.log(countries);
  
-
 
   const handleSearch = () => {
     let companies = [...new Set(choosenCompanies)];
@@ -120,8 +118,6 @@ const Warranty = () => {
     });
     handleSearch();
   };
-
-  useEffect(() => {}, []);
 
   let toggled = [];
 
@@ -248,7 +244,6 @@ const Warranty = () => {
               <div className='search__list'>
                 <div className='change__'>
                   {/* end of header */}
-
                   <div>
                     <div className='search__withfilters'>
                       <div style={{ display: "flex", gap: 20 }}>
@@ -298,11 +293,8 @@ const Warranty = () => {
                               />
                             </div>
                         )) */}
-
-                        
                     </div>
                   </div>
-
                   <SideFilters />
                 </div>
               </div>

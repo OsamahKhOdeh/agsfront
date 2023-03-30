@@ -1,8 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import useAuth from '../../hooks/useAuth';
+import { setPiEmployee, setPiProudcts } from '../../store/piSlice';
 import './styles.css'
 
 const SuccessPage = () => {
+    const cart = useSelector((state)=>state.cart.cart);
+  const {username , status} = useAuth();
+  const dispatch = useDispatch();
+  useEffect(() => {dispatch(setPiProudcts(cart))
+ dispatch(setPiEmployee(username))  
+  },[])
+  
     const location = useSelector((state) => state.filters.location);
   const currency = useSelector((state) => state.filters.currency);
     const piInfo = useSelector((state)=>state.pi.piInfo)

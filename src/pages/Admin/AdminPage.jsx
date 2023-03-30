@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-
-
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Grow, Paper } from "@material-ui/core";
 import { Button } from "@mui/material";
@@ -17,12 +14,14 @@ import {setFiltersState } from "../../store/filtersSlice";
 import "./style/warranty.css";
 import Category from "./Category";
 import CountryItem from "./Country";
-import { categories, countries } from "../../data";
+import { categories } from "../../data";
 import { getFilteredProducts } from "../../actions/products";
 import { useEffect } from "react";
 import SideFilters from "./SideFilters/SideFilters";
 import DropDown from "./DropDown";
 import { setShowFilters } from "../../store/showingSlice";
+import Brands from "../Warranty/Brands/Brands";
+import { setIsPI } from "../../store/piSlice";
 
 let choosenCompanies = [];
 let choosenBrands = [];
@@ -33,6 +32,16 @@ function useQuery() {
 }
 
 const AdminPage = () => {
+  const countriesProducts = useSelector((state)=>state.products.productsForCountries)
+  let countries = [];
+    countriesProducts.map((product)=> {
+        if(!countries.includes(product.country)){
+          countries.push(product.country)
+        }
+    })
+    console.log(countries);
+
+
   const handleSearch = () => {
     let companies = [...new Set(choosenCompanies)];
     let brands = [...new Set(choosenBrands)];
@@ -42,7 +51,14 @@ const AdminPage = () => {
       }
       return unique;
     }, []);
-    dispatch(setFiltersState({ ...filters, companies: companies, brands: brands, capacities: capacities }));
+    dispatch(
+      setFiltersState({
+        ...filters,
+        companies: companies,
+        brands: brands,
+        capacities: capacities,
+      })
+    );
     choosenCompanies = [];
     choosenBrands = [];
   };
@@ -65,7 +81,6 @@ const [chosenCompanies , setChosenCompanies] = useState([]);
 
   let allCompanies = [];
 
-
   let choosenBrands = [];
   let choosenCapacities = [];
 
@@ -81,7 +96,6 @@ function onAction(node, action) {
     Object.keys(selectedNodes).forEach((k) => {
       const node = selectedNodes[k];
       if (node._depth === 0) {
-
         choosenCompanies.push(node.label);
       }
       if (node._depth === 1) {
@@ -104,10 +118,6 @@ function onAction(node, action) {
     });
     handleSearch();
   };
-
-  useEffect(()=>{
-
-  },[])
 
   let toggled = [];
 
@@ -187,6 +197,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
           setFiltersState({
             ...filters,
             countries: selectedItems2.filter((_, i) => i !== index),
+            brands :[""]
           })
         );
         setSelectedItems(selectedItems2.filter((_, i) => i !== index));
@@ -226,24 +237,14 @@ const showFilters = useSelector((state)=>state.show.showFilters)
 
   return (
     <div style={{ width: "100%"  }}>
-
-      <Grow in>
+      <Grow in sx={{ width: "100%"}}>
         <Container maxWidth='xl' >
-          <div>
-            <Button onClick={() =>
-               {
-               dispatch(setShowFilters(!showFilters))
-               //setShowFilters(!showFilters)
-               }
-               }>
-              <ExpandCircleDownIcon />
-            </Button>
-          </div>
-
-          {showFilters && (
+              {showFilters && (
             <>
               <div className='search__list'>
+              <div className='change__'>
                 {/* end of header */}
+                <div>
                 <div className='search__withfilters'>
                   <div style={{ display: "flex", gap: 20 }}>
                     {categories.map((item, i) => (
@@ -267,7 +268,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
                         <>
                           <CountryItem
                             key={i}
-                            title={item.label}
+                            title={item}
                             img={item.img}
                             onClick={handleCountryChange}
                           />
@@ -275,49 +276,28 @@ const showFilters = useSelector((state)=>state.show.showFilters)
                       ))}
                     </div>
                   )}
+
               <div className='list__filter'>
-                {selectedItems.length !== 0
-                  ? selectedItems.map((item , i) => (
-                      <div className='select__list'>
-                        <DropDown
-                            item={item}
-                            onChange={onChange}
-                            onNodeToggle={onNodeToggle}
-                            onAction={onAction}
-                          />
-                      </div>
-                    ))
-                  : null}
-              </div>
-
-                  {/* end of quiz_content_area */}
-
-                  {/* end of col12 */}
-
-                  {/* end of row */}
-
-                  {/* end of container */}
-
-                  {/* end of quiz_section */}
-
-                  {/* {selectedCategories.length !== 0 && (
-                    <div className='filter__search'>
-                      {countries.map((item, i) => (
-                        <>
-                          <CountryItem
-                            key={i}
-                            title={item.label}
-                            img={item.img}
-                            onClick={handleCountryChange}
-                          />
-                        </>
-                      ))}
+                      {(selectedItems.length !== 0 && !selectedItems.includes("All"))
+                        ? 
+                        <Brands/>
+                        : null}
+                       
+                        {/*selectedItems.map((item, i) => (
+                            <div className='select__list'>
+                              <DropDown
+                                item={item}
+                                onChange={onChange}
+                                onNodeToggle={onNodeToggle}
+                                onAction={onAction}
+                              />
+                            </div>
+                        )) */}   
                     </div>
-                  )} */}
-              
+                  </div>
+                  {/*<SideFilters/>*/}
                 </div>
-           
-            
+                </div> 
             </>
           )}
           {!showFilters && (
@@ -326,8 +306,8 @@ const showFilters = useSelector((state)=>state.show.showFilters)
             </Paper>
           )}
 
+           
           
-
           <Products filters={filters} />
         </Container>
       </Grow>

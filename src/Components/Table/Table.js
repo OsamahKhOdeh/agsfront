@@ -124,10 +124,10 @@ calcTotal();
 
 
                 <input id="new_price" placeholder={calcPrice(item)?.toFixed(3)}   type="text" className="new_price_txt"
-                value={newPrice[index]}
+                value={newPrice[index]?.toFixed(3)}
                  onChange={(e)=>{ let newPriceArray = [...newPrice];
-                  newPriceArray[index] =parseFloat(e.target.value);
-                  setNewPrice(newPriceArray);}} 
+                  newPriceArray[index] =(e.target.value);
+                  setNewPrice(parseFloat(newPriceArray));}} 
                 onBlur={(e)=>{handleNewPriceChange(e,item._id)}}/>
                 </td>
 

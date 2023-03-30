@@ -45,7 +45,7 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
   const tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
   const high = ["hundred ", "thousand ", "million ", "billion "];
   const tensOnes = (t, o) => (+t == 0 ? ones[+o] : +t == 1 ? teen[+o] : +t > 1 && +o == 0 ? tens[+t - 2] : tens[+t - 2] + "-" + ones[+o]);
-  const fltN = (float) => [...parseFloat(float)?.toFixed(3)];
+  const fltN = (float) => [...parseFloat(float)?.toFixed(2)];
   const stepper = (array) => {
     const D = array[0];
     const C = array[1];
@@ -151,7 +151,7 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
       <View style={styles.row}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total)?.toFixed(3)}&nbsp;{currency}
+          {Number.parseFloat(total)?.toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
       <View style={styles.row}>
@@ -168,7 +168,7 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
       <View style={styles.row}>
         <Text style={styles.description}>{moneyToEng((total - discount) +parseInt(additions))}&nbsp;only</Text>
         <Text style={styles.total}>
-          {Number.parseFloat((total - discount) +parseInt(additions))?.toFixed(3)}&nbsp;{currency}
+          {Number.parseFloat((total - discount) +parseInt(additions))?.toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
     </>

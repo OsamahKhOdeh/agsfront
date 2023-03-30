@@ -19,7 +19,7 @@ const Price = ({ price , freezoneToLocalPercentage ,additionOnLocalPercentage })
             ) : (
               <>{currency === "USD" ?
                (localPriceAfterAddition)?.toFixed(3) + "  $" 
-              : ((localPriceAfterAddition * usdToAedRate * 100) / 100)?.toFixed(3) + "  AED"}</>
+              : ((localPriceAfterAddition * usdToAedRate * 100) / 100)?.toFixed(2) + "  AED"}</>
             )}
           </b></>
   )

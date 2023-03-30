@@ -80,12 +80,23 @@ const Product = ({ product, index }) => {
         className={exist ? "product__item background_color" : "product__item"}
         style={{}}>
         <div className='product__image '>
-          <img
+          {exist ? <img
+           onClick={() => {
+            removefromcart(product, index);
+          }}
             src={
                   product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  product.image  :   process.env.PUBLIC_URL+`images/${product._id}_1.png` ||  `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
             }
             alt=''
-          />
+          /> :<img
+          onClick={() => {
+            addTocart({...product,LocalPriceAED : product.LocalPrice * usdToAedRate , freezonePriceAED : product.freezonePrice * usdToAedRate});
+          }} 
+          src={
+                product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png" ?  product.image  :   process.env.PUBLIC_URL+`images/${product._id}_1.png` ||  `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
+          }
+          alt=''
+        /> }
           {exist ? (
             <div
               className='check__product'
@@ -101,7 +112,8 @@ const Product = ({ product, index }) => {
               className='check__product'
               onClick={() => {
                 addTocart({...product,LocalPriceAED : product.LocalPrice * usdToAedRate , freezonePriceAED : product.freezonePrice * usdToAedRate});
-              }}>
+              }}
+              >
                 <span className='check__product__icon_unchecked'>
                   +
                 </span>
@@ -119,7 +131,7 @@ const Product = ({ product, index }) => {
             {showPrice && (
               <div>
                 {currency === "AED" 
-                ? <>{location === "freezone" ? (product.freezonePrice * usdToAedRate)?.toFixed(3) : (product.LocalPrice * usdToAedRate)?.toFixed(3)}&nbsp;{currency}</>
+                ? <>{location === "freezone" ? (product.freezonePrice * usdToAedRate)?.toFixed(2) : (product.LocalPrice * usdToAedRate)?.toFixed(2)}&nbsp;{currency}</>
                 :<>{location === "freezone" ? product.freezonePrice : product.LocalPrice}&nbsp;{currency}</>
                 }
                 

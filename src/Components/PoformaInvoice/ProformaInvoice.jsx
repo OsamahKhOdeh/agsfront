@@ -14,7 +14,7 @@ const ProformaInvoice = ({adminPi}) => {
   const {username , status} = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username+" "+status))  
+ dispatch(setPiEmployee(username))  
   },[])
   
   

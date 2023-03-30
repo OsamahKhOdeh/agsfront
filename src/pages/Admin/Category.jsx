@@ -10,12 +10,14 @@ function Category(props) {
       <div className='checkbox'>
         <label className='checkbox-wrapper'>
           <input
+           checked ={filters.categories.includes(title)}
             type='checkbox'
             className='checkbox-input'
+            onChange={()=>{}}
             onClick={() => props.onClick(title)}
           />
           <span className='checkbox-tile'>
-            <img src={img} alt='' srcSet='' className='logo__level1' />
+            <img src={img} alt='' className='logo__level1' />
           </span>
         </label>
       </div>

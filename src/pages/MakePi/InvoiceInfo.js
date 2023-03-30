@@ -72,18 +72,18 @@ function InvoiceInfo() {
     switch (value) {
       case "EXWAREHOUSE":
        // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
-       setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)]);
-       dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms)] }));
+       setTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms);
+       dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms}));
 
         break;
         case "FOB":
-        setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms)] }));
+        setTerms(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms);
+        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms}));
 
         break;
         case "CIF":
-        setTerms([...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)]);
-        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms.concat(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms)] }));
+        setTerms(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms);
+        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms}));
 
         break;
     
@@ -186,9 +186,9 @@ function InvoiceInfo() {
               name="row-radio-buttons-group"
               onChange={handleCollectionChange}
             >
-             <FormControlLabel disabled={terms?.length>5} value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
-             <FormControlLabel disabled={terms?.length>5} value="FOB" control={<Radio />} label="FOB" />
-             <FormControlLabel disabled={terms?.length>5}value="CIF" control={<Radio />} label="CIF" />
+             <FormControlLabel  value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
+             <FormControlLabel  value="FOB" control={<Radio />} label="FOB" />
+             <FormControlLabel  value="CIF" control={<Radio />} label="CIF" />
             </RadioGroup>
            </FormControl>
         </Grid>

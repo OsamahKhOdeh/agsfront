@@ -3,8 +3,12 @@ import { EmployeeMenuItems, AdminMenuItems } from './MenuItems';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { emptyCart } from '../../store/cartSlice';
+import { clearFilters } from '../../store/filtersSlice';
 
 function Dropdown() {
+  const dispatch =useDispatch();
   const [click, setClick] = useState(false);
   const {isAdmin} = useAuth();
 
@@ -26,7 +30,7 @@ function Dropdown() {
               <Link
                 className={item.cName}
                 to={item.path}
-                onClick={() => setClick(false)}
+                onClick={() =>  {setClick(false);dispatch(emptyCart()); dispatch(clearFilters())}}
               >
                 {item.title}
               </Link>

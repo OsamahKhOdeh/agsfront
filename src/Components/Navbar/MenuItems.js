@@ -29,6 +29,11 @@ export const AdminMenuItems = [
     title: 'Show all PI/s',
     path: '/user/piadmin',
     cName: 'dropdown-link'
+  },
+  {
+    title: 'Orders',
+    path: '/user/orders',
+    cName: 'dropdown-link'
   }
 ];
 export const EmployeeMenuItems = [
@@ -40,6 +45,11 @@ export const EmployeeMenuItems = [
   {
     title: 'Make Countation',
     path: '/user/warranty',
+    cName: 'dropdown-link'
+  },
+  {
+    title: 'Orders',
+    path: '/user/orders',
     cName: 'dropdown-link'
   }
 ];

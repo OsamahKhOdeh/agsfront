@@ -35,17 +35,32 @@ export const getProformaInvoicesAction = () => async (dispatch) => {
   }
 };
 
-export const updateProformaInvoiceStatus = ({id, newStatus}) => async (dispatch) => {
-  console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus)
+export const updateProformaInvoiceStatus = ({id, newStatus , managerMessage}) => async (dispatch) => {
+  console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus , managerMessage);
   console.log("here");
   console.log(id);
 
   try {
-   const { data } = await api.updateProformaInvoiceStatus({id, newStatus});
+   const { data } = await api.updateProformaInvoiceStatus({id, newStatus , managerMessage});
    console.log(data);
-   dispatch(changeProformaInvoiceStatus({id , status : newStatus}))
+   dispatch(changeProformaInvoiceStatus({id , status : newStatus , managerMessage}))
     //  dispatch({ type: UPDATE, payload: data });
     //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+export const getEmployeeProformaInvoicesAction = (employee) => async (dispatch) => {
+  console.log("🚀 ~ file: proformaInvoice.js:26 ~ getProformaInvoicesAction ~ getProformaInvoicesAction:")
+  try {
+    dispatch(setIsLoading(true));
+    const {data} = await api.getEmployeeProformaInvoices(employee);
+     console.log(data);
+    dispatch(fetchAllProformaInvoices(data));
+    dispatch(setIsLoading(false));
   } catch (error) {
     console.log(error);
   }
