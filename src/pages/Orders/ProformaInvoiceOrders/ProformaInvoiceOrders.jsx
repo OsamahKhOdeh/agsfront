@@ -142,9 +142,15 @@ const {username} = useAuth();
           <td>{proformaInvoice.buyer_address}</td>
           <td className={colorByStatus(proformaInvoice?.status)} >{proformaInvoice?.status}</td>
           <td>{proformaInvoice.status==="Approved" ? 
-             <button type="button" className="btn btn-primary" onClick={()=>handlePDF(proformaInvoice)}>PDF</button> :
-             proformaInvoice.status==="Rejected" ?
-              proformaInvoice?.managerMessage : 
+             <button type="button" className="btn btn-primary" onClick={()=>handlePDF(proformaInvoice)}>PDF</button>
+              :
+             proformaInvoice.status==="Rejected" 
+             ?
+             <>
+             <button type="button" className="btn btn-primary" onClick={()=>navigate(`/user/editpi/${proformaInvoice._id}`)}>Edit</button>
+              {proformaInvoice?.managerMessage} 
+              </>
+              : 
               "Waiting for manager approval" }
             </td>
         </tr>

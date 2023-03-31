@@ -66,6 +66,17 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
     }
   }
 
+  function colorByUpdate(createdAt , updatedAt) {
+    const status = (createdAt === updatedAt)
+    switch (status) {
+      case true:
+        return 'table-secondary';
+      case false:
+        return'table-success';
+      
+    }
+  }
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -167,7 +178,7 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
         <tr key={index}>
           <th scope="row">{proformaInvoice.no}</th>
           <td>{proformaInvoice.employee}</td>
-          <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
+          <td>{timeAgo(new Date(proformaInvoice.updatedAt))}</td>
           <td>{proformaInvoice.buyer_address}</td>
           <td className={colorByStatus(proformaInvoice?.status)} >{proformaInvoice?.status}</td>
           <td><button type="button" className="btn btn-primary" onClick={()=>handlePDF(proformaInvoice)}>PDF</button></td>
@@ -177,7 +188,7 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
               <button type="button" className="btn btn-success" onClick={()=>handleApprove(proformaInvoice._id)}>Approve</button>
               </div>
           </td>
-          <td>
+          <td className={colorByUpdate(proformaInvoice.createdAt , proformaInvoice.updatedAt)}>
             {proformaInvoice.managerMessage}
           </td>
         </tr>

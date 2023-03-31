@@ -65,3 +65,19 @@ export const getEmployeeProformaInvoicesAction = (employee) => async (dispatch) 
     console.log(error);
   }
 };
+
+
+
+export const updateProformaInvoice = (id, pi) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProformaInvoice(id, pi);
+    console.log(data);
+    //  dispatch({ type: UPDATE, payload: data });
+    //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};

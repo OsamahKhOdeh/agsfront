@@ -1,6 +1,6 @@
 import axios from "axios";
 console.log("From api");
-export const BASE_URL = " http://143.42.61.215:5000";
+export const BASE_URL = "http://143.42.61.215:5000";
 const API = axios.create({ baseURL: BASE_URL });
 // http://143.42.61.215:5000
 //"http://localhost:5000"
@@ -26,6 +26,8 @@ export const getProformaInvoices = (id) => API.get(`/pi`);
 export const getEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/employee?employeename=${empolyee_name}`);
 
 export const updateProformaInvoiceStatus = ({id, newStatus, managerMessage}) => API.patch(`/pi/${id}`,  {newStatus , managerMessage} );
+
+export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 
 export const login = ({username , password}) => API.post("/auth", {username, password});
 

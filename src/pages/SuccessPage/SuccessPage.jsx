@@ -131,6 +131,15 @@ const SuccessPage = () => {
                     <td  style={{textAlign : "center"}} colSpan={4}>Total</td>
                     
                     <td >{total.toFixed(3)}</td>
+                </tr><tr>
+                    <td  style={{textAlign : "center"}} colSpan={4}>Discount</td>
+                    <td >{piInfo.discount}</td>
+                </tr><tr>
+                    <td  style={{textAlign : "center"}} colSpan={4}>Additions</td>
+                    <td >{piInfo.additions}</td>
+                </tr><tr>
+                    <td  style={{textAlign : "center"}} colSpan={4}>Final</td>
+                    <td >{total.toFixed(3) - -(piInfo.additions) - piInfo.discount}</td>
                 </tr>
             </tfoot>
           </table>
