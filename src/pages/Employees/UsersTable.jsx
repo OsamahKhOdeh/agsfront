@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, updateUser } from "../../actions/users";
-import { changeUserPassword, changeUserStatus } from "../../store/usersSlice";
+import { changeUserPassword, changeUserPhoneNumber, changeUserStatus } from "../../store/usersSlice";
 import { ToastContainer, toast } from "react-toastify";
 
 const UsersTable = () => {
@@ -90,6 +90,11 @@ const UsersTable = () => {
                       dispatch(changeUserPassword({id :user._id, password : e.target.value}));
                     }}/>
                  
+                </td>
+                <td>
+                <input className="password_txt" style={{width: "180px"}} type="text" placeholder="Phone Number" value={user.phone} onChange={(e) => {
+                      dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
+                    }}/>
                 </td>
                 <td className="pl-12"> <Button
                     onClick={() => {

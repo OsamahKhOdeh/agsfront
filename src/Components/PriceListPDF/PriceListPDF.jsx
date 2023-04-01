@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 const PriceListPDF = () => {
   const navigate = useNavigate();
   const cart = useSelector((state)=>state.cart.cart);
-  const {username , status} = useAuth();
+  const {username , status , phone} = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username+" "+status))  
+ dispatch(setPiEmployee(username))  
   },[])
   
   

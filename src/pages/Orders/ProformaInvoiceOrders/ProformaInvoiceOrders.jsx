@@ -55,7 +55,7 @@ const ProformaInvoiceOrders = () => {
 const [isPdf , setIsPdf] = useState(false)
 const [currentPi , setCurrentPi] = useState({})
 
-const {username} = useAuth();
+const {username , phone} = useAuth();
 
   function colorByStatus(status) {
     switch (status) {
@@ -121,7 +121,7 @@ const {username} = useAuth();
   <label className="btn btn-outline-primary" htmlFor="btnradio4">Rejected</label>
 </div>
     </>
-    <table className="pi__table table table-bordered">
+ <table className="pi__table table table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>

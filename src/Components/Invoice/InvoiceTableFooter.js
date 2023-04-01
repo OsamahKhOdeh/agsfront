@@ -8,24 +8,24 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     alignItems: "center",
-    height: 24,
-    fontSize: 12,
+    height: 18,
+    fontSize: 10,
     fontStyle: "bold",
   },
   description: {
-    fontSize: "10px",
+    fontSize: "8px",
 
     width: "85%",
     textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingRight: 8,height : "100%"  ,paddingTop : 4
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
   total: {
-    fontSize: "10px",
+    fontSize: "8px",
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 4
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
 });
 

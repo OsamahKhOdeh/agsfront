@@ -11,10 +11,10 @@ import useAuth from '../../hooks/useAuth';
 const ProformaInvoice = ({adminPi}) => {
   console.log(adminPi);
   const cart = useSelector((state)=>state.cart.cart);
-  const {username , status} = useAuth();
+  const {username , status , phone} = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username))  
+ dispatch(setPiEmployee(username));  
   },[])
   
   

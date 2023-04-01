@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   date: {
     alignItems: "center",
     textAlign: "center",
-    borderRightColor: borderColor,height : "100%"  ,paddingTop : 1
+   height : "100%"  ,paddingTop : 1
   },
   invoice_no_val: {
     width: "60%",
@@ -61,20 +61,9 @@ const styles = StyleSheet.create({
   },
   date_val: {
     width: "40%",
-    borderRightColor: borderColor,
   },
 });
 
-const Row_2_1 = () => {
-  return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.invoice_no}>INVOICE NO</Text>
-        <Text style={styles.date}>DATE</Text>
-      </View>
-    </>
-  );
-};
 
 const Row_2 = ({ piInfo }) => {
   return (

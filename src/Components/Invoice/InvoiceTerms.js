@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     borderLeft: 1,
     borderRight: 1,
     alignItems: "center",
-    height: 20,
-    fontSize: "10px",
+    height: 16,
+    fontSize: "8px",
     fontStyle: "bold",
   },
   container: {
@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     textAlign: "left",
     flexGrow: 1,
   },
-  no: { width: "4%", textAlign: "center", borderRightColor: borderColor, borderRightWidth: 1 ,height : "100%"  ,paddingTop : 4},
+  no: { width: "4%", textAlign: "center", borderRightColor: borderColor, borderRightWidth: 1 ,height : "100%"  ,paddingTop : 0},
   description: {
     paddingLeft: "5px",
-    fontSize: "9px",
+    fontSize: "8px",
     width: "96%",
   
   },
@@ -52,23 +52,19 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceTerms = ({ terms }) => (
-  <>
+  <View wrap={true}>
     <View style={styles.row}>
       <Text style={styles.header}>Terms and Conditions : </Text>
     </View>
     {terms?.length > 0 ? 
       (terms.map((item, index) => (
-        <View key={index} style={styles.row}>
+        <View wrap={false} key={index} style={styles.row}>
           <Text style={styles.no}>{index + 1}</Text>
           <Text style={styles.description}>{item}</Text>
         </View>))
       ) : null
     }
-    <View style={styles.row}>
-      <Text style={styles.buyer}>Seller :</Text>
-      <Text style={styles.buyer}>Buyer : </Text>
-    </View>
-  </>
+  </View>
 );
 
 export default InvoiceTerms;

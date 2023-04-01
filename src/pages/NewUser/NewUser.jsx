@@ -24,6 +24,7 @@ const NewUser = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [phone , setPhone] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState('Employee');
     const handleSubmit = (e) => {
@@ -31,7 +32,7 @@ const NewUser = () => {
         let roles =[];
         roles.push(role);
         if(password === confirmPassword) {
-        dispatch(createUser({ username, password,roles}));
+        dispatch(createUser({ username, password,roles,phone}));
         showToastMessage(`User ${username} created successfully`);
     }else{
         alert('Password do not match');
@@ -53,6 +54,9 @@ const NewUser = () => {
          <input type="text" id="psws" name="password" placeholder="*************" onChange={(e)=>{setPassword(e.target.value)}} />
          <label for="password">Confirm Password</label>
          <input type="text" id="c_psws" name="c_password" placeholder="*************" onChange={(e)=>{setConfirmPassword(e.target.value)}} />
+
+         <label for="phone">Phone Number</label>
+         <input type="text" id="phone" name="phone" placeholder="Enter mobile number" onChange={(e)=>{setPhone(e.target.value)}}/>
 
          <label for="role">Role</label>
          <select id="role" name="role" onChange={(e)=>{setRole(e.target.value)}}>

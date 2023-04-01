@@ -57,6 +57,7 @@ export const getEmployeeProformaInvoicesAction = (employee) => async (dispatch) 
   console.log("🚀 ~ file: proformaInvoice.js:26 ~ getProformaInvoicesAction ~ getProformaInvoicesAction:")
   try {
     dispatch(setIsLoading(true));
+    console.log(employee);
     const {data} = await api.getEmployeeProformaInvoices(employee);
      console.log(data);
     dispatch(fetchAllProformaInvoices(data));

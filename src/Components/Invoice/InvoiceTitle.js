@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   reportTitle: {
+    margin : "auto",
     color: "black",
     fontSize: 18,
     textAlign: "center",

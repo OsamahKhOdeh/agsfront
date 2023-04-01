@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, Document, Image, StyleSheet } from "@react-pdf/renderer";
+import { Page, Document, Image, StyleSheet, Text, View } from "@react-pdf/renderer";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
@@ -14,6 +14,7 @@ import piFooter from "./pifooter.png";
 import InvoiceInfo from "./InvoiceInfo";
 import { useSelector } from "react-redux";
 import InvoiceTerms from "./InvoiceTerms";
+import SellerBuyer from "./SellerBuyer";
 
 const styles = StyleSheet.create({
   page: {
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 35,
     paddingRight: 35,
+    paddingBottom : 40,
     lineHeight: 1.5,
     flexDirection: "column",
   },
@@ -36,6 +38,23 @@ const styles = StyleSheet.create({
     marginLeft: "0",
     marginRight: "0",
   },
+  pageNumber: {
+    position: 'absolute',
+    fontSize: 10,
+    top: 3,
+    right: 10,
+    textAlign: 'center',
+    color: 'black',
+  },
+  salesEngineer :{
+    paddingTop : "3px",
+    position: 'relative',
+    fontSize: 8,
+    top: 3,
+    right: 10,
+    textAlign: "left",
+    color: '#575454',
+  }
 });
 
 const Invoice = ({ pi, currency , location, usdToAedRate }) => {
@@ -46,16 +65,25 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
     logo = logo_ajc;
     stamp = ajc_stamp;
   }
+  
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
-        <Image style={styles.logo} src={logo} />
+      
+      <Page s ize="A4" style={styles.page}>
+      <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+        `page ${pageNumber} of ${totalPages}` 
+      )} fixed />
+        <Image  style={styles.logo} src={logo} />
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
         <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
-        <InvoiceTerms terms={pi.piInfo.terms} />
-        <Image style={styles.pi_footer} src={stamp} />
+        <InvoiceTerms terms={pi.piInfo.terms}  />
+        <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
+        <Image  style={styles.logo} src={stamp} />
+        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : +971 524886321 </Text>
       </Page>
+
+      
     </Document>
   );
 };

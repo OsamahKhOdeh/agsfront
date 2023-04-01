@@ -26,11 +26,16 @@ export const usersSlice = createSlice({
         if (user._id === action.payload.id) {
           user.password = action.payload.password;
         } })
-    
+    },
+    changeUserPhoneNumber: (state, action) => {
+      state.users.map((user) => {
+        if (user._id === action.payload.id) {
+          user.phone = action.payload.phone;
+        } })
     }
   },
 });
 
-export const { fetchAllUsers ,changeUserStatus ,changeUserPassword} = usersSlice.actions;
+export const { fetchAllUsers ,changeUserStatus ,changeUserPassword ,changeUserPhoneNumber} = usersSlice.actions;
 
 export default usersSlice.reducer;

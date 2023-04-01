@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     alignItems: "center",
-    height: 24,
+    height: 20,
     fontStyle: "bold",
-    fontSize: "10px",
+    fontSize: "9px",
   },
   no: {
     width: "5%",
@@ -26,26 +26,26 @@ const styles = StyleSheet.create({
     textAlign: "left",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingLeft: 8,height : "100%"  ,paddingTop : 4
+    paddingLeft: 8,height : "100%"  ,paddingTop : 2
   },
   qty: {
     width: "15%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 4
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
   price: {
     width: "20%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 4
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
   amount: {
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 4
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
 });
 

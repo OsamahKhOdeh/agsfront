@@ -8,7 +8,7 @@ import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, Ra
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setPICurrencyLocation, setPiInfo, setPiNo } from "../../store/piSlice";
-import { exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
+import { bank_details, exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -177,7 +177,7 @@ function InvoiceInfo() {
           <TextField name="note" value={invoiceInfo.note} onChange={handleChange} label="Notes" fullWidth></TextField>
         </Grid>
         
-       {pi && <><Grid item xs={12} sm={12}>
+       {pi && <><Grid item xs={12} sm={6}>
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label">Terms Collections : </FormLabel>
             <RadioGroup
@@ -192,6 +192,23 @@ function InvoiceInfo() {
             </RadioGroup>
            </FormControl>
         </Grid>
+        <Grid item xs={12} sm={6}>
+        <InputLabel id="demo-simple-select-label">Bank Details : </InputLabel>
+        <div>
+          <div style={{display : "flex" , flexDirection : "row"}} className="col-md-12">
+            {bank_details.map((item, i) => (
+              <div className="form-check m-3" key={i}>
+                <input className="form-check-input" type="checkbox" name="bank" value={item.collection} id="flexCheckDefault" onChange={handelTermsChange} />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  {item.collection}
+                </label>
+              </div>
+            ))}
+            </div>
+            </div>
+        </Grid>
+      
+      
         <div>
           <div className="col-md-12">
             {terms_and_conditions.map((term, i) => (
@@ -204,6 +221,7 @@ function InvoiceInfo() {
             ))}
             </div>
             </div>
+
             </>}
 
       </Grid>

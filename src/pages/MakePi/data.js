@@ -1220,3 +1220,49 @@ export const terms_collections =[
       "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
   }
 ]
+
+export const bank_details = [
+  {collection : "AGS USD" ,
+   terms : [
+    "Payment will be made either Cheque / Transfer",
+    "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+    "Deposit is not refundable in any circumtance",
+    "Currency Exchange Rate USD Against AED 3.674",
+    "Goods will be delivered with in 7 days after completion of full payment",
+    "We are not responsible any delay happened due to delay from manufacturer / shipment",
+    "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"
+  ] } ,{
+    collection : "AGS AED",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"]
+  },{
+    collection : "Abduljalil Chhada / USD",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
+      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+  },{
+    collection : "Abduljalil Chhada / AED",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
+      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+  }
+]
+;

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceInfo = ({ piInfo }) => (
-  <View style={styles.tableContainer}>
+  <View fixed style={styles.tableContainer}>
     <Row_1 />
     <Row_2 piInfo={piInfo} />
     <Row_3 />

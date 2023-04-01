@@ -6,10 +6,12 @@ import './styles.css'
 
 const SuccessPage = () => {
     const cart = useSelector((state)=>state.cart.cart);
-  const {username , status} = useAuth();
+  const {username , status , phone} = useAuth();
+  console.log(username );
+  console.log(phone);
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username))  
+ dispatch(setPiEmployee(username));  
   },[])
   
     const location = useSelector((state) => state.filters.location);
