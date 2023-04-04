@@ -3,6 +3,10 @@ export const AdminMenuItems = [
     title: 'Make PI',
     path: '/user/makepi',
     cName: 'dropdown-link'
+  },{
+    title: 'Make PO',
+    path: '/user/makepo',
+    cName: 'dropdown-link'
   },
   {
     title: 'PriceList/Quotation',
@@ -52,5 +56,34 @@ export const EmployeeMenuItems = [
     path: '/user/orders',
     cName: 'dropdown-link'
   }
+];
+
+
+export const SalesManagerMenuItems = [
+  {
+    title: 'Make PI',
+    path: '/user/makepi',
+    cName: 'dropdown-link'
+  },
+  {
+    title: 'Make Countation',
+    path: '/user/warranty',
+    cName: 'dropdown-link'
+  },
+  {
+    title: 'Orders',
+    path: '/user/orders',
+    cName: 'dropdown-link'
+  },{
+    title: 'Make PO',
+    path: '/user/makepo',
+    cName: 'dropdown-link'
+  },
+  {
+    title: 'Show all PI/s',
+    path: '/user/piadmin',
+    cName: 'dropdown-link'
+  },
+  
 ];
 

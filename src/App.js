@@ -29,6 +29,7 @@ import PriceListPDF from "./Components/PriceListPDF/PriceListPDF";
 import PIActionsAdmin from "./pages/PIActions/PIActionsAdmin/PIActionsAdmin";
 import ProformaInvoiceOrders from "./pages/Orders/ProformaInvoiceOrders/ProformaInvoiceOrders";
 import EditProforamaInvoice from "./pages/EditProformaInvoice/EditProforamaInvoice";
+import MakePo from "./pages/MakePo/MakePo";
 function App() {
   console.log( useAuth());
   return (
@@ -47,7 +48,10 @@ function App() {
         <Route path="orders" element={<ProformaInvoiceOrders />}></Route>
         <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
         <Route path="addproduct" element={<ProductForm />}></Route>
+        
         <Route path="makepi" element={<PiStepper />}></Route>
+        <Route path="makepo" element={<MakePo />}></Route>
+
         <Route path="table" element={<ProformaInvoice />}></Route>
         <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
         <Route path="pricelistpdf" element={<PriceListPDF />}></Route>

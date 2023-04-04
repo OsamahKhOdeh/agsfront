@@ -176,7 +176,7 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
     {
       proformaInvoices.map((proformaInvoice, index) => (
         <tr key={index}>
-          <th scope="row">{proformaInvoice.no}</th>
+          <th scope="row">{proformaInvoice.pi_no}</th>
           <td>{proformaInvoice?.employee?.split("/")[0]}</td>
           <td>{timeAgo(new Date(proformaInvoice.updatedAt))}</td>
           <td>{proformaInvoice.buyer_address}</td>

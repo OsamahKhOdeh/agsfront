@@ -15,7 +15,7 @@ const PriceListPDF = () => {
   const {username , status , phone} = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username))  
+ dispatch(setPiEmployee({employeeName: username , employeePhone: phone}))  
   },[])
   
   

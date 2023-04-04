@@ -15,6 +15,7 @@ import InvoiceInfo from "./InvoiceInfo";
 import { useSelector } from "react-redux";
 import InvoiceTerms from "./InvoiceTerms";
 import SellerBuyer from "./SellerBuyer";
+import BankDetails from "./BankDetails";
 
 const styles = StyleSheet.create({
   page: {
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
 });
 
 const Invoice = ({ pi, currency , location, usdToAedRate }) => {
+  console.log("🚀 ~ file: Invoice.js:62 ~ Invoice ~ pi:", pi.piInfo.bankDetails)
   let logo = logo_ags;
   let stamp = ags_stamp;
   console.log(location);
@@ -65,6 +67,8 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
     logo = logo_ajc;
     stamp = ajc_stamp;
   }
+
+  
   
   return (
     <Document>
@@ -77,10 +81,13 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
         <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
-        <InvoiceTerms terms={pi.piInfo.terms}  />
-        <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
-        <Image  style={styles.logo} src={stamp} />
-        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : +971 524886321 </Text>
+        <InvoiceTerms terms={pi.piInfo.terms}  />     
+        <BankDetails bankDetails={pi.piInfo.bankDetails} />
+        <View wrap={false}>
+         <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
+         <Image  style={styles.logo} src={stamp} />
+        </View>
+        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : {pi.piInfo.employeePhone} </Text>
       </Page>
 
       

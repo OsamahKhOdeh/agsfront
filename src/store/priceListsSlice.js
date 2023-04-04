@@ -27,6 +27,7 @@ export const priceListsSlice = createSlice({
       state.piInfo = action.payload;
     },
     setPiNo: (state, action) => {
+      if(action.payload)
       state.piInfo.invoiceNo = action.payload + 1;
     },
     setPriceListEmployee: (state, action) => {

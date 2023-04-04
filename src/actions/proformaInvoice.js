@@ -17,7 +17,8 @@ export const createProformaInvoice = (newProformaInvoice) => async (dispatch) =>
 
 export const getLastPiNo = () => async (dispatch) => {
   const lastPiNo = await api.getLastPiNo();
-  console.log(lastPiNo);
+  console.log(lastPiNo.data);
+  
   dispatch(setPiNo(lastPiNo.data));
 };
 

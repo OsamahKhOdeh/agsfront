@@ -1185,6 +1185,7 @@ export const final_distination = [
 ];
 
 export const terms_and_conditions = [{ term: "Advance Payment 10% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 20% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 30% Balance to be paid time providing copy of BL."}];
+export const terms_and_conditions_pricelist = [{ term: "All prices valid for 3 days from quotation date ."},{ term: "All prices valid for 7 days from quotation date ."},{ term: "All prices valid for 10 days from quotation date ."}];
 
 
 export const terms_collections =[
@@ -1224,45 +1225,47 @@ export const terms_collections =[
 export const bank_details = [
   {collection : "AGS USD" ,
    terms : [
-    "Payment will be made either Cheque / Transfer",
-    "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-    "Deposit is not refundable in any circumtance",
-    "Currency Exchange Rate USD Against AED 3.674",
-    "Goods will be delivered with in 7 days after completion of full payment",
-    "We are not responsible any delay happened due to delay from manufacturer / shipment",
-    "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"
-  ] } ,{
+    "BENEFICIARY BANK:	BANQUE MISR",
+    "BENEFICIARY NAME:	ABDULJALIL CHHADA AUTO SPARE PARTS TRADING L.L.C",
+    "CURRENCY:	USD",
+    "ACCOUNT NO: 	80415000000208" ,   
+    "SWIFT CODE :	BMISAEAA" ,
+    "IBAN :	AE930150080415000000208" ,
+    "BANK ADDRESS :	THIRD -41 27TH ST - PORT SAEED-DUBAI-U.A.E" 
+    ] } ,{
     collection : "AGS AED",
-    terms : [
-      "Payment will be made either Cheque / Transfer",
-      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-      "Deposit is not refundable in any circumtance",
-      "Currency Exchange Rate USD Against AED 3.674",
-      "Goods will be delivered with in 7 days after completion of full payment",
-      "We are not responsible any delay happened due to delay from manufacturer / shipment",
-      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"]
+    terms :[
+      "BENEFICIARY BANK:	BANQUE MISR",
+      "BENEFICIARY NAME:	ABDULJALIL CHHADA AUTO SPARE PARTS TRADING L.L.C",
+      "CURRENCY:	AED",
+      "ACCOUNT NO: 	80402400001998" ,   
+      "SWIFT CODE :	BMISAEAA" ,
+      "IBAN :	AE540150080402400001998" ,
+      "BANK ADDRESS :	THIRD -41 27TH ST - PORT SAEED-DUBAI-U.A.E" 
+      ]
   },{
     collection : "Abduljalil Chhada / USD",
     terms : [
-      "Payment will be made either Cheque / Transfer",
-      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-      "Deposit is not refundable in any circumtance",
-      "Currency Exchange Rate USD Against AED 3.674",
-      "Goods will be delivered with in 7 days after completion of full payment",
-      "We are not responsible any delay happened due to delay from manufacturer / shipment",
-      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
-      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+      "BENEFICIARY BANK:	BANQUE MISR",
+      "BENEFICIARY NAME:	ABDULJALIL CHHADA AUTO SPARE PARTS TRADING L.L.C",
+      "CURRENCY:	USD",
+      "ACCOUNT NO: 	80315000005331" ,   
+      "SWIFT CODE :	BMISAEAA" ,
+      "IBAN :	AE350150080315000005331" ,
+      "BANK ADDRESS :	THIRD -41 27TH ST - PORT SAEED-DUBAI-U.A.E" 
+      ]
   },{
     collection : "Abduljalil Chhada / AED",
     terms : [
-      "Payment will be made either Cheque / Transfer",
-      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
-      "Deposit is not refundable in any circumtance",
-      "Currency Exchange Rate USD Against AED 3.674",
-      "Goods will be delivered with in 7 days after completion of full payment",
-      "We are not responsible any delay happened due to delay from manufacturer / shipment",
-      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
-      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+      "BENEFICIARY BANK:	BANQUE MISR",
+      "BENEFICIARY NAME:	ABDULJALIL CHHADA AUTO SPARE PARTS TRADING L.L.C",
+      "CURRENCY:	AED",
+      "ACCOUNT NO: 	80302400008196" ,   
+      "SWIFT CODE :	BMISAEAA" ,
+      "IBAN :	AE710150080302400008196" ,
+      "BANK ADDRESS :	THIRD -41 27TH ST - PORT SAEED-DUBAI-U.A.E" 
+      ]
   }
 ]
 ;
+

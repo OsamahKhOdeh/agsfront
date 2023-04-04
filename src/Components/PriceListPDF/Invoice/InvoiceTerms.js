@@ -16,12 +16,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    borderLeft: 1,
-    borderRight: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
     alignItems: "center",
     height: 15,
     textAlign: "left",
@@ -31,9 +25,8 @@ const styles = StyleSheet.create({
   description: {
     paddingLeft: "5px",
     fontSize: "9px",
-    width: "96%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+    width: "100%",
+   
   },
   header: {
     paddingLeft: "5px",
@@ -55,21 +48,15 @@ const styles = StyleSheet.create({
 
 const InvoiceTerms = ({ terms }) => (
   <>
-    <View style={styles.row}>
-      <Text style={styles.header}>Terms and Conditions : </Text>
-    </View>
+    
     {terms?.length > 0 ? 
       (terms.map((item, index) => (
         <View key={index} style={styles.row}>
-          <Text style={styles.no}>{index + 1}</Text>
           <Text style={styles.description}>{item}</Text>
         </View>))
       ) : null
     }
-    <View style={styles.row}>
-      <Text style={styles.buyer}>Seller :</Text>
-      <Text style={styles.buyer}>Buyer : </Text>
-    </View>
+   
   </>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, Document, Image, StyleSheet } from "@react-pdf/renderer";
+import { Page, Document, Image, StyleSheet, Text } from "@react-pdf/renderer";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
@@ -36,6 +36,15 @@ const styles = StyleSheet.create({
     marginLeft: "0",
     marginRight: "0",
   },
+  salesEngineer :{
+    paddingTop : "3px",
+    position: 'relative',
+    fontSize: 8,
+    top: 3,
+    right: 10,
+    textAlign: "left",
+    color: '#575454',
+  },
 });
 
 const Invoice = ({ pi, currency , location, usdToAedRate }) => {
@@ -53,6 +62,9 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
         <InvoiceTitle title="Price List" />
         <InvoiceInfo piInfo={pi.piInfo} />
         <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
+        <InvoiceTerms terms={pi.piInfo.terms}  />     
+        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : {pi.piInfo.employeePhone} </Text>
+
       </Page>
     </Document>
   );

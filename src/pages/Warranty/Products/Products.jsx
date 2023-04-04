@@ -173,7 +173,7 @@ offsetVal =newOffset;
 
         {products ? (
           showFilters ? (
-            <PaginatedItems itemsPerPage={35} />
+            <PaginatedItems itemsPerPage={200} />
           ) : (
             products?.map((product, index) => (
               

@@ -10,11 +10,13 @@ import useAuth from '../../hooks/useAuth';
 
 const ProformaInvoice = ({adminPi}) => {
   console.log(adminPi);
+  console.log("🚀 ~ file: ProformaInvoice.jsx:13 ~ ProformaInvoice ~ adminPi:", adminPi.pi_no)
   const cart = useSelector((state)=>state.cart.cart);
   const {username , status , phone} = useAuth();
+  console.log({username , status , phone});
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username));  
+ dispatch(setPiEmployee({employeeName: username , employeePhone: phone}));  
   },[])
   
   
@@ -27,6 +29,7 @@ if(adminPi){
     newPi = {
     piProducts: adminPi.products,
     piInfo: {
+      pi_no : adminPi.pi_no,
       invoiceNo: adminPi.no,
       date: new Date(adminPi.date).toLocaleDateString({ year: 'numeric', month: 'numeric', day: 'numeric' }),
       exporter: adminPi.exporter,
@@ -39,8 +42,9 @@ if(adminPi){
       additions : adminPi.additions,
       terms : adminPi.terms,
       employee : adminPi.employee,
-      phoneNumber : adminPi.phone_number,
+      employeePhone : adminPi.phone_number,
       note : adminPi.note,
+      bankDetails : adminPi.bankDetails,
       currency : adminPi.currency,
       location : adminPi.location
 

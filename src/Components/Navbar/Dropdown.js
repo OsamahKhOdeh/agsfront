@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EmployeeMenuItems, AdminMenuItems } from './MenuItems';
+import { EmployeeMenuItems, AdminMenuItems, SalesManagerMenuItems } from './MenuItems';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -10,13 +10,16 @@ import { clearFilters } from '../../store/filtersSlice';
 function Dropdown() {
   const dispatch =useDispatch();
   const [click, setClick] = useState(false);
-  const {isAdmin} = useAuth();
+  const {isAdmin , roles} = useAuth();
 
 
   const handleClick = () => setClick(!click);
    let MenuItems = EmployeeMenuItems;
    if(isAdmin){
     MenuItems = AdminMenuItems;
+   }
+   if(roles.includes("Sales Manager")){
+    MenuItems = SalesManagerMenuItems;
    }
   return (
     <>

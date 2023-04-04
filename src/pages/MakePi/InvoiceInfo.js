@@ -7,10 +7,11 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@material-ui/core";
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setPICurrencyLocation, setPiInfo, setPiNo } from "../../store/piSlice";
-import { bank_details, exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_collections } from "./data";
+import { setPiAdditions, setPiBankDetails, setPiBuyerAdress, setPiConsignee, setPICurrencyLocation, setPiDiscount, setPiExporter, setPiFinalDistination, setPiInfo, setPinNotifyParty, setPiNo, setPiNote, setPiPartyOfDischarge, setPiPhoneNumber, setPiTerms } from "../../store/piSlice";
+import { bank_details, exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_and_conditions_pricelist, terms_collections } from "./data";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getLastPiNo } from "../../actions/proformaInvoice.js";
 
 function InvoiceInfo() {
   const navigate = useNavigate();
@@ -23,49 +24,119 @@ function InvoiceInfo() {
   useEffect(() => {
     async function getLast() {
       const lasto = await api.getLastPiNo();
+      dispatch(getLastPiNo())
       console.log(lasto.data);
       setPiNoState(lasto.data+1);
       dispatch(setPiNo(lasto.data));
      
     }
     getLast();
-  }, [dispatch]);
+
+  }, []);
+
+  let terms_and_conditions_pi_pricelist = [];
+  if(pi){
+    terms_and_conditions_pi_pricelist = terms_and_conditions;
+  }else
+  terms_and_conditions_pi_pricelist = terms_and_conditions_pricelist;
+
+  useEffect(() => {dispatch(getLastPiNo())},[])
   const [exporter, setExporter] = useState("");
   const [invoiceInfo, setInvoiceInfo] = useState({
     //   piProducts: [],
     invoiceNo: useSelector((state) => state.pi.piInfo.invoiceNo),
     date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
-    exporter: "",
-    buyerAdress: "",
-    consignee: "",
-    notifyParty: "",
-    partyOfDischarge: "",
-    finalDistination: "",
-    discount: 0,
-    additions:0,
-    phoneNumber : "",
-    note : "",
+    exporter: useSelector((state) => state.pi.piInfo.exporter),
+    buyerAdress: useSelector((state) => state.pi.piInfo.buyerAdress),
+    consignee: useSelector((state) => state.pi.piInfo.consignee),
+    notifyParty: useSelector((state) => state.pi.piInfo.notifyParty),
+    partyOfDischarge: useSelector((state) => state.pi.piInfo.partyOfDischarge),
+    finalDistination: useSelector((state) => state.pi.piInfo.finalDistination),
+    discount: useSelector((state) => state.pi.piInfo.discount),
+    additions:useSelector((state) => state.pi.piInfo.additions),
+    phoneNumber : useSelector((state) => state.pi.piInfo.invoiceNo),
+    note : useSelector((state) => state.pi.piInfo.invoiceNo),
+    terms : useSelector((state) => state.pi.piInfo.terms),
     location : location,
     currency : currency
   });
   
   const handleChange = (event) => {
+    dispatch(getLastPiNo());
     setInvoiceInfo({ ...invoiceInfo,invoiceNo : piNoState ,[event.target.name]: event.target.value });
-    dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
+    let propertyName = event.target.name;
+    let propertyValue = event.target.value;
+    switch (propertyName) {
+      case "exporter":
+        dispatch(setPiExporter(propertyValue))
+        break;
+      case "buyerAdress" :
+        dispatch(setPiBuyerAdress(propertyValue));
+        break;
+      case "phoneNumber" : 
+        dispatch(setPiPhoneNumber(propertyValue))
+        break;
+      case "consignee" : 
+        dispatch(setPiConsignee(propertyValue))
+        break;
+      case "notifyParty" :
+        dispatch(setPinNotifyParty(propertyValue))
+        break
+      case "partyOfDischarge" : 
+        dispatch(setPiPartyOfDischarge(propertyValue))
+        break;
+      case "finalDistination" : 
+        dispatch(setPiFinalDistination(propertyValue))
+        break
+      case "discount" : 
+        dispatch(setPiDiscount(propertyValue))
+        break
+      case "additions" :
+        dispatch(setPiAdditions(propertyValue))
+        break
+      case "terms" :
+        dispatch(setPiTerms(propertyValue))
+        break
+      case "note" :
+        dispatch(setPiNote(propertyValue))
+        break;
+      
+      default:
+        break;
+    }
+    //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
   };
 
   const [terms, setTerms] = useState([]);
+  const [bankDetailsCollection, setBankDetailsCollection] = useState([]);
   const handelTermsChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       setTerms([...terms, value]);
-      dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms, value]   }));
+      dispatch(setPiTerms([...terms, value]))
+     // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms, value]   }));
     } else {
       setTerms(terms.filter((e) => e !== value));
-      dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms.filter((e) => e !== value)  }));
+      dispatch(setPiTerms(terms.filter((e) => e !== value)))
+
+    //  dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms.filter((e) => e !== value)  }));
 
     }
   };
+  const handelBankDetailsChange = (e) => {
+    const { value, checked } = e.target;
+    console.log(value, checked);
+
+    if (checked) {
+      setBankDetailsCollection([...bankDetailsCollection, value]);
+      dispatch(setPiBankDetails([...bankDetailsCollection, value]))
+    } else {
+      setBankDetailsCollection(bankDetailsCollection.filter((e) => e !== value));
+      dispatch(setPiBankDetails(bankDetailsCollection.filter((e) => e !== value)))
+
+    }
+  };
+  console.log(bankDetailsCollection);
 
   const handleCollectionChange = (e) => {
     const { value } = e.target;
@@ -73,17 +144,20 @@ function InvoiceInfo() {
       case "EXWAREHOUSE":
        // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
        setTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms);
-       dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms}));
+       dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms))
+       //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms}));
 
         break;
         case "FOB":
         setTerms(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms);
-        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms}));
+        dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms))
+       // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms}));
 
         break;
         case "CIF":
         setTerms(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms);
-        dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms}));
+        dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms))
+       // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms}));
 
         break;
     
@@ -93,6 +167,9 @@ function InvoiceInfo() {
     console.log((terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" }))[0]);
     console.log(terms_collections);
   };
+
+ 
+
 
   console.log(terms);
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
@@ -159,6 +236,7 @@ function InvoiceInfo() {
         <Grid item xs={12} sm={3}>
           <TextField name="finalDistination" value={invoiceInfo.finalDistination} onChange={handleChange} label="FINAL DESTINATION" fullWidth></TextField>
         </Grid>
+       
         {pi && <>
         <Grid item xs={12} sm={6}>
           <TextField name="invoiceNo" value={invoiceNumber} label="INVOICE NUMBER" fullWidth></TextField>
@@ -198,7 +276,7 @@ function InvoiceInfo() {
           <div style={{display : "flex" , flexDirection : "row"}} className="col-md-12">
             {bank_details.map((item, i) => (
               <div className="form-check m-3" key={i}>
-                <input className="form-check-input" type="checkbox" name="bank" value={item.collection} id="flexCheckDefault" onChange={handelTermsChange} />
+                <input className="form-check-input" type="checkbox" name="bank" value={item.collection} id="flexCheckDefault" onChange={handelBankDetailsChange} />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   {item.collection}
                 </label>
@@ -208,10 +286,12 @@ function InvoiceInfo() {
             </div>
         </Grid>
       
-      
-        <div>
+        
+
+            </>}
+            <div>
           <div className="col-md-12">
-            {terms_and_conditions.map((term, i) => (
+            {terms_and_conditions_pi_pricelist.map((term, i) => (
               <div className="form-check m-3" key={i}>
                 <input className="form-check-input" type="checkbox" name="terms" value={term.term} id="flexCheckDefault" onChange={handelTermsChange} />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -219,10 +299,8 @@ function InvoiceInfo() {
                 </label>
               </div>
             ))}
-            </div>
-            </div>
-
-            </>}
+           </div>
+        </div>
 
       </Grid>
     </React.Fragment>

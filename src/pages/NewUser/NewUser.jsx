@@ -61,8 +61,9 @@ const NewUser = () => {
          <label for="role">Role</label>
          <select id="role" name="role" onChange={(e)=>{setRole(e.target.value)}}>
          <option value="Admin">Admin</option>
-         <option value="Sales">Sales</option>
-         <option selected={true} value="Employee">Employee</option>
+         <option selected={true} value="Sales">Sales</option>
+         <option value="Sales Manager">Sales Manager</option>
+         <option  value="Employee">Employee</option>
          </select>
         <input type="submit" value="Create New User"/>
       </form>

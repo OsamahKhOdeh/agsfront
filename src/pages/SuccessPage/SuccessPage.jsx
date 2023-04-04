@@ -11,7 +11,8 @@ const SuccessPage = () => {
   console.log(phone);
   const dispatch = useDispatch();
   useEffect(() => {dispatch(setPiProudcts(cart))
- dispatch(setPiEmployee(username));  
+ dispatch(setPiEmployee({employeeName: username , employeePhone: phone}));  
+ console.log(phone);
   },[])
   
     const location = useSelector((state) => state.filters.location);
@@ -55,14 +56,7 @@ const SuccessPage = () => {
   return (
     <div style={{width : "75%" , margin : "auto" , paddingBottom : "150px"}}>
  <div className="sucess_container">
-    <div className="success_card">
-      <div className='success_div'>
-        <i className="success_i">✓</i>
-      </div>
-        <h1 className='success_h1'>Success</h1> 
-        <p className='success_p'>Your Proforma Invoice will be sent to the manager waiting for approval<br/>Press <b style={{color : "blue"}}>FINISH</b> to send</p>
-        <p className='success_p' style={{textAlign : "center" ,paddingTop : "40px"}}>Keep refreshing your orders page </p>
-    </div>
+   
           </div>
             <div style={{paddingTop : "30px"}}>
             <table style={{border : 1}} class="table table-bordered table-sm">
@@ -122,7 +116,7 @@ const SuccessPage = () => {
                     return <tr key={index}>
                         <td>{index+1}</td>
                         <td>{product.brand}{product.code}</td>
-                        <td>{product.qty}</td>
+                        <td className={product.qty <= 0 && "table-danger" }>{product.qty}</td>
                         <td>{(calcPrice(product)).toFixed(3)}</td>
                         <td>{(calcPrice(product)*product.qty).toFixed(3)}</td>
                     </tr>
