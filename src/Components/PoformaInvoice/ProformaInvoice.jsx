@@ -45,15 +45,17 @@ if(adminPi){
       employeePhone : adminPi.phone_number,
       note : adminPi.note,
       bankDetails : adminPi.bankDetails,
+      paymentPercentage : adminPi.paymentPercentage,
       currency : adminPi.currency,
-      location : adminPi.location
+      location : adminPi.location,
+      manager : adminPi.manager
 
     },
     isPi : true
   }
    console.log(newPi);
 }
-   console.log(pi);
+   console.log();
 
 
   return (

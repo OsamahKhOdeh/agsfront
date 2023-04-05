@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@material-ui/core";
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setPiAdditions, setPiBankDetails, setPiBuyerAdress, setPiConsignee, setPICurrencyLocation, setPiDiscount, setPiExporter, setPiFinalDistination, setPiInfo, setPinNotifyParty, setPiNo, setPiNote, setPiPartyOfDischarge, setPiPhoneNumber, setPiTerms } from "../../store/piSlice";
+import { setPaymentPercentage, setPiAdditions, setPiBankDetails, setPiBuyerAdress, setPiConsignee, setPICurrencyLocation, setPiDiscount, setPiExporter, setPiFinalDistination, setPiInfo, setPinNotifyParty, setPiNo, setPiNote, setPiPartyOfDischarge, setPiPhoneNumber, setPiTerms } from "../../store/piSlice";
 import { bank_details, exporters, final_distination, notify_partys, party_of_discharge, terms_and_conditions, terms_and_conditions_pricelist, terms_collections } from "./data";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,22 +18,25 @@ function InvoiceInfo() {
   const pi = useSelector((state) => state.pi.isPi);
   const dispatch = useDispatch();
   const [piNoState, setPiNoState] = useState(0);
+  const [paymentPercentageState , setPaymentPercentageState] = useState(useSelector((state) => state.pi.piInfo?.paymentPercentage));
   const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
   const currency = useSelector((state)=>state.filters.currency);
    const location =useSelector((state)=>state.filters.location);
+
+   /** 
   useEffect(() => {
     async function getLast() {
       const lasto = await api.getLastPiNo();
       dispatch(getLastPiNo())
       console.log(lasto.data);
       setPiNoState(lasto.data+1);
-      dispatch(setPiNo(lasto.data));
+     // dispatch(setPiNo(lasto.data));
      
     }
     getLast();
 
   }, []);
-
+*/
   let terms_and_conditions_pi_pricelist = [];
   if(pi){
     terms_and_conditions_pi_pricelist = terms_and_conditions;
@@ -54,7 +57,7 @@ function InvoiceInfo() {
     finalDistination: useSelector((state) => state.pi.piInfo.finalDistination),
     discount: useSelector((state) => state.pi.piInfo.discount),
     additions:useSelector((state) => state.pi.piInfo.additions),
-    phoneNumber : useSelector((state) => state.pi.piInfo.invoiceNo),
+    phoneNumber : useSelector((state) => state.pi.piInfo.phoneNumber),
     note : useSelector((state) => state.pi.piInfo.invoiceNo),
     terms : useSelector((state) => state.pi.piInfo.terms),
     location : location,
@@ -107,42 +110,27 @@ function InvoiceInfo() {
     //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
   };
 
-  const [terms, setTerms] = useState([]);
-  const [bankDetailsCollection, setBankDetailsCollection] = useState([]);
+  const [terms, setTerms] = useState(useSelector((state) => state?.pi.piInfo.terms));
+  const [bankDetailsCollection, setBankDetailsCollection] = useState(useSelector((state) => state?.pi?.piInfo?.bankDetails));
+  console.log(bankDetailsCollection);
   const handelTermsChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setTerms([...terms, value]);
-      dispatch(setPiTerms([...terms, value]))
-     // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :[...terms, value]   }));
-    } else {
-      setTerms(terms.filter((e) => e !== value));
-      dispatch(setPiTerms(terms.filter((e) => e !== value)))
-
-    //  dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms.filter((e) => e !== value)  }));
-
-    }
+        dispatch(setPaymentPercentage(paymentPercentageState))
   };
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
     console.log(value, checked);
 
-    if (checked) {
-      setBankDetailsCollection([...bankDetailsCollection, value]);
-      dispatch(setPiBankDetails([...bankDetailsCollection, value]))
-    } else {
-      setBankDetailsCollection(bankDetailsCollection.filter((e) => e !== value));
-      dispatch(setPiBankDetails(bankDetailsCollection.filter((e) => e !== value)))
-
-    }
+     
   };
   console.log(bankDetailsCollection);
 
   const handleCollectionChange = (e) => {
     const { value } = e.target;
-    switch (value) {
+    setTerms(value);
+    dispatch(setPiTerms(value))
+   {/* switch (value) {
       case "EXWAREHOUSE":
-       // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
+        // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
        setTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms);
        dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms))
        //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms}));
@@ -165,7 +153,7 @@ function InvoiceInfo() {
         break;
     }
     console.log((terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" }))[0]);
-    console.log(terms_collections);
+  console.log(terms_collections); */}
   };
 
  
@@ -263,6 +251,7 @@ function InvoiceInfo() {
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
               onChange={handleCollectionChange}
+              value={terms}
             >
              <FormControlLabel  value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
              <FormControlLabel  value="FOB" control={<Radio />} label="FOB" />
@@ -276,7 +265,7 @@ function InvoiceInfo() {
           <div style={{display : "flex" , flexDirection : "row"}} className="col-md-12">
             {bank_details.map((item, i) => (
               <div className="form-check m-3" key={i}>
-                <input className="form-check-input" type="checkbox" name="bank" value={item.collection} id="flexCheckDefault" onChange={handelBankDetailsChange} />
+                <input className="form-check-input" type="checkbox" name="bank" checked={bankDetailsCollection?.includes(item.collection)} value={item.collection} id="flexCheckDefault" onChange={handelBankDetailsChange} />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   {item.collection}
                 </label>
@@ -289,18 +278,18 @@ function InvoiceInfo() {
         
 
             </>}
-            <div>
-          <div className="col-md-12">
-            {terms_and_conditions_pi_pricelist.map((term, i) => (
-              <div className="form-check m-3" key={i}>
-                <input className="form-check-input" type="checkbox" name="terms" value={term.term} id="flexCheckDefault" onChange={handelTermsChange} />
+            <Grid item xs={12} sm={12}>
+          <div className="">
+            
                 <label className="form-check-label" htmlFor="flexCheckDefault">
-                  {term.term}
+                Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid time providing copy of BL
                 </label>
+                <input value={paymentPercentageState} onChange={(e)=>{setPaymentPercentageState(e.target.value)}} type="text" 
+                onBlur={handelTermsChange} style={{border : "solid" , padding : "10px" , width : "75px" , marginLeft : "20px"}} ></input>
               </div>
-            ))}
-           </div>
-        </div>
+              
+            
+           </Grid>
 
       </Grid>
     </React.Fragment>

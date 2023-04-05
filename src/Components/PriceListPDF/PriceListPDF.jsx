@@ -8,6 +8,8 @@ import { setIsPI, setPiEmployee, setPiProudcts } from '../../store/piSlice';
 import { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { emptyCart } from '../../store/cartSlice';
+import { clearFilters } from '../../store/filtersSlice';
 
 const PriceListPDF = () => {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const PriceListPDF = () => {
     <div style={{width:"90%" ,margin: "auto" }}>
        <div style={{marginBottom : "15px"}} className="next_div"  >
               <button className="btn_next success_prev" onClick={()=>{ navigate('/user/pricelistinfo')}} >PREVIOUS</button>
-              <button className="btn_next success_next" onClick={()=>{navigate('/user/pricelistpdf')}} >Finish</button>
+              <button className="btn_next success_next" onClick={()=>{navigate('/user/warranty');dispatch(emptyCart());dispatch(clearFilters())}} >Finish</button>
             </div>
    <PDFViewer width="100%" height="1200" className="app" >
                 <Invoice pi={pi} currency={currency} location={location}  usdToAedRate={usdToAedRate} />

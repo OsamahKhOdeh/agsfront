@@ -86,7 +86,7 @@ const Products = () => {
     return (
       <div className="grid">         
       {currentItems?.map((product, index) => (
-                 <Product product={product} index={index} />
+                 <Product product={product} key={index} index={index} />
                         ))}
  </div>    );
   }

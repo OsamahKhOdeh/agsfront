@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useNavigation } from "react-router-dom";
 import styled from "styled-components";
 import { login } from "../../actions/auth";
@@ -113,6 +113,28 @@ function LoginPage() {
     .login > img {
       height: auto;
     }
+
+    
+.login__failure {
+  border: solid;
+  border-width : 1px;
+  border-color: red;
+  background-color: lightpink;
+}
+
+.login_failure_message {
+  padding: 21px;
+  margin:0;
+}
+.login_failure_message_header {
+  padding: 21px;
+  padding-bottom: 0px;
+  margin:0;
+  font-size:24px;
+  color : red;
+    text-align : center;
+}
+}
   `;
 
   
@@ -123,6 +145,16 @@ function LoginPage() {
   const dispatch = useDispatch();
   const psswd = useRef();
   const username = useRef();
+  let autherized = true;
+  const [isAutherized , setIsAutherized] = useState(true)
+  const authState = useSelector((state)=>state.auth.autherized)
+  useEffect(()=>{
+    if(authState === false) {
+      setIsAutherized(false)
+     }
+  },[authState])
+
+  console.log(isAutherized);
 
   const handleSubmit =  (event) => {
     event.preventDefault();
@@ -155,6 +187,10 @@ function LoginPage() {
         <input className='submit' type='submit' value='Log In' />
         
       </form>
+      {!isAutherized && <div className="login__failure">
+        <p className="login_failure_message_header">Login failed</p>
+        <p className="login_failure_message">Wrong credentials or missing access rights to application</p>
+        </div>}
     </SigninPage>
   );
 }

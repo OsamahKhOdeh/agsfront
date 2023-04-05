@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import { setCredentials } from '../store/authSlice.js';
+import { setAutherized, setCredentials } from '../store/authSlice.js';
 
 export const login = (formData , navigate) => async (dispatch) => {
   const { username, password } = formData;
@@ -7,11 +7,13 @@ export const login = (formData , navigate) => async (dispatch) => {
   try {
     const { data } = await api.login({username , password});
     dispatch(setCredentials(data))
+    dispatch(setAutherized(true))
     navigate('/user/warranty');
     console.log(data);
    // router.push('/');
   } catch (error) {
     console.log(error.response.data.message);
+    dispatch(setAutherized(false))
   }
 };
 /*

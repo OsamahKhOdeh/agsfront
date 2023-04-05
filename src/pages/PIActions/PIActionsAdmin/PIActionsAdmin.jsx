@@ -8,6 +8,7 @@ import { changeProformaInvoiceStatus } from '../../../store/proformaInvoicesSlic
 import { useNavigate } from 'react-router-dom';
 import ProformaInvoice from '../../../Components/PoformaInvoice/ProformaInvoice';
 import { useState } from 'react';
+import useAuth from '../../../hooks/useAuth';
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -51,6 +52,7 @@ const PIActionsAdmin = () => {
 const [isPdf , setIsPdf] = useState(false)
 const [currentPi , setCurrentPi] = useState({})
 const [ popupClass ,setPopupClass]= useState("form-popup hidden");
+const {username} = useAuth();
 
 
   function colorByStatus(status) {
@@ -87,7 +89,7 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
   const proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices)
 
   const handleApprove = (id) => {
-    dispatch(updateProformaInvoiceStatus({id, newStatus : 'Approved'}))
+    dispatch(updateProformaInvoiceStatus({id, newStatus : 'Approved' , manager : username }))
   }
   const handleReject = (id) => {
     setPopupClass("form-popup showing")
@@ -100,7 +102,7 @@ const [ popupClass ,setPopupClass]= useState("form-popup hidden");
     event.preventDefault();
     console.log(event.target.rej_msg.value);
     const id = currentPi._id;
-    dispatch(updateProformaInvoiceStatus({id, newStatus : 'Rejected' , managerMessage : event.target.rej_msg.value}))
+    dispatch(updateProformaInvoiceStatus({id, newStatus : 'Rejected' , managerMessage : event.target.rej_msg.value ,  manager : username}))
     setPopupClass("form-popup hidden")
     event.target.rej_msg.value = "";
   }

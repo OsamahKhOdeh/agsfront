@@ -19,6 +19,7 @@ const SuccessPage = () => {
   const currency = useSelector((state) => state.filters.currency);
     const piInfo = useSelector((state)=>state.pi.piInfo)
     const products = useSelector((state)=>state.cart.cart)
+    
     const res = Object.entries(piInfo).map(([name, obj]) => ({ name, ...obj }))
     console.log(Object.values(piInfo));
     function calcPrice(item) {
@@ -54,7 +55,7 @@ const SuccessPage = () => {
       }
 
   return (
-    <div style={{width : "75%" , margin : "auto" , paddingBottom : "150px"}}>
+    <div style={{width : "75%" , margin : "auto" }}>
  <div className="sucess_container">
    
           </div>
@@ -97,7 +98,11 @@ const SuccessPage = () => {
                 </tr>
                 <tr>
                     <td className='property table-secondary'>Terms</td>
-                    <td className={colorByStatus(piInfo.terms )}>{piInfo?.terms?.map((term)=>{return(<><p>{term}</p></>)})}</td>
+                    <td className={colorByStatus(piInfo.terms )}>
+{/*                    Advance Payment {piInfo.paymentPercentage}% Balance to be paid time providing copy of BL
+*/}                        
+                            {piInfo.terms}
+                     </td>
                 </tr>
             </tbody>
           </table>

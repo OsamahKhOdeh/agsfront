@@ -21,6 +21,7 @@ export const proformaInvoicesSlice = createSlice({
         if (proformaInvoice._id === action.payload.id) {
           proformaInvoice.status = action.payload.status;
           proformaInvoice.managerMessage = action.payload.managerMessage;
+          proformaInvoice.manager  = action.payload.manager;
         } })
     },
     changeUserPassword: (state, action) => {

@@ -81,7 +81,7 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
         <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
-        <InvoiceTerms terms={pi.piInfo.terms}  />     
+        <InvoiceTerms terms={pi.piInfo.terms} paymentPercentage={pi.piInfo.paymentPercentage} />     
         <BankDetails bankDetails={pi.piInfo.bankDetails} />
         <View wrap={false}>
          <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />

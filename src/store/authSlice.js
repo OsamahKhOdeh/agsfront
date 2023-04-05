@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const authSlice = createSlice({
     name: 'auth',
     initialState: { token: null },
+    autherized: true,
+    authentaicated: false,
     reducers: {
         setCredentials: (state, action) => {
             const { accessToken } = action.payload
@@ -15,10 +17,13 @@ const authSlice = createSlice({
             localStorage.clear();
 
         },
+        setAutherized: (state, action) =>{
+            state.autherized = action.payload;
+        }
     }
 })
 
-export const { setCredentials, logOut } = authSlice.actions
+export const { setCredentials, logOut ,setAutherized } = authSlice.actions
 
 export default authSlice.reducer
 

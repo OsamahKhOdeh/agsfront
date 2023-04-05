@@ -40,7 +40,7 @@ const SellerBuyer = ({exporter , buyer}) => {
     <>
       <View style={styles.row}>
       <Text style={styles.buyer}>Seller :</Text>
-      <Text style={styles.buyer}>Buyer : </Text>
+      <Text style={styles.buyer}>Buyer :  {buyer}</Text>
     </View>
    
     </>

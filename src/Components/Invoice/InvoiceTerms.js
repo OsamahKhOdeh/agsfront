@@ -1,5 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { terms_collections } from "../../data/invoice-data";
+import { useEffect } from "react";
 
 const borderColor = "black";
 const styles = StyleSheet.create({
@@ -51,13 +53,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTerms = ({ terms }) => (
+const InvoiceTerms = ({ terms , paymentPercentage }) =>{
+  console.log(terms[0]); 
+  let allTerms = terms_collections.filter(coll=>{return coll.collection === terms[0] })[0].terms;
+  useEffect(()=>{ let aditionali_term = `Advance Payment ${paymentPercentage}% Balance to be paid time providing copy of BL`
+  allTerms.unshift(aditionali_term);},[])
+ 
+  console.log(allTerms);
+ 
+  return(
   <View wrap={true}>
     <View style={styles.row}>
       <Text style={styles.header}>Terms and Conditions : </Text>
     </View>
-    {terms?.length > 0 ? 
-      (terms.map((item, index) => (
+    {allTerms?.length > 0 ? 
+      (allTerms.map((item, index) => (
         <View wrap={false} key={index} style={styles.row}>
           <Text style={styles.no}>{index + 1}</Text>
           <Text style={styles.description}>{item}</Text>
@@ -65,6 +75,6 @@ const InvoiceTerms = ({ terms }) => (
       ) : null
     }
   </View>
-);
+);}
 
 export default InvoiceTerms;

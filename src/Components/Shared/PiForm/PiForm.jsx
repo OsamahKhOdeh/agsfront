@@ -3,6 +3,9 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from "react-toastify";
 import { updateProformaInvoice } from '../../../actions/proformaInvoice';
+import './styles.css'
+import { bank_details } from '../../Invoice/data';
+import { exporters, notify_partys } from '../../../data/invoice-data';
 
 const PiForm = ({oldPi}) => {
     const showToastMessage = () => {
@@ -19,7 +22,6 @@ const PiForm = ({oldPi}) => {
       };
 
     const dispatch = useDispatch();
-    console.log(oldPi);
  const location = oldPi?.location;
  const currency = oldPi?.currency;
     function calcPrice(item) {
@@ -43,6 +45,8 @@ const PiForm = ({oldPi}) => {
       
 
     const [inputs , setInputs] = useState(oldPi ? oldPi : {});
+    console.log(inputs);
+
     function calcTotal(){
         inputs.products?.map((product) => {
             total +=(calcPrice(product)*product.qty) 
@@ -54,6 +58,20 @@ const PiForm = ({oldPi}) => {
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
       }
+
+    const handleBankDetailsChange = (e) => {
+      const { value, checked } = e.target;
+      console.log({ value, checked }  );
+      if (checked) {
+        let newBankDetails = [...inputs.bankDetails]
+        newBankDetails.push(value)
+        setInputs(values => ({...values, bankDetails: newBankDetails}))
+      } else {
+        setInputs(values => ({...values, bankDetails: inputs.bankDetails.filter((e) => e !== value)}))
+      }
+
+      
+    }
     const handleProductQtyChange = (event , id) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -110,14 +128,13 @@ const PiForm = ({oldPi}) => {
     <form  onSubmit={handleSubmit}>
     <div>
     <label for="exp" class="label">Exporter:</label>
-    <input 
-    id='exp'
-      class="form-control"
-      type="text" 
-      name="exporter" 
-      value={inputs.exporter || ""} 
-      onChange={handleChange}
-    />
+    <select className='select__class' id="exporter" name="exporter" onChange={handleChange}>
+      {
+        exporters.map((exporter) =>
+        <option selected={oldPi.exporter === exporter.value} value={exporter.value}>{exporter.name}</option>
+        )
+      }
+     </select>
 
     </div>
     <label class="label">Buyer Address:</label>
@@ -137,13 +154,13 @@ const PiForm = ({oldPi}) => {
       onChange={handleChange}
     />
     <label class="label">Notify Party :</label>
-    <input 
-      class="form-control"
-      type="text" 
-      name="notify_party" 
-      value={inputs.notify_party || ""} 
-      onChange={handleChange}
-    />
+    <select className='select__class' id="notify_party" name="notify_party" onChange={handleChange}>
+      {
+        notify_partys.map((notifyparty) =>
+        <option selected={oldPi.notify_party === notifyparty.value} value={notifyparty.value}>{notifyparty.name}</option>
+        )
+      }
+     </select>
     <label class="label">Party of Discharge :</label>
     <input 
       class="form-control"
@@ -185,7 +202,31 @@ const PiForm = ({oldPi}) => {
       value={inputs.phone_number || ""} 
       onChange={handleChange}
     />
-    
+    <label class="label">Terms and condtions :</label>
+    <p>{inputs.terms}</p>
+    <select className='select__class' id="terms" name="terms" onChange={handleChange}>
+         <option selected={oldPi?.terms[0] === "FOB"} value="FOB">FOB</option>
+         <option selected={oldPi?.terms[0] === "CIF"} value="CIF">CIF</option>
+         <option selected={oldPi?.terms[0] === "EXWAREHOUSE"} value="EXWAREHOUSE">EXWAREHOUSE</option>
+         </select>
+     <label class="label">Advance Payment condition  :</label>
+     <input 
+      class="form-control"
+      type="text" 
+      name="paymentPercentage" 
+      value={inputs.paymentPercentage || ""} 
+      onChange={handleChange}
+    />
+
+    <label class="label">Advance Payment condition  :</label>
+    {bank_details.map((item, i) => (
+              <div className="form-check m-3" key={i}>
+                <input className="form-check-input" type="checkbox" name="bankDetails" checked={inputs.bankDetails?.includes(item.collection)} value={item.collection} id="flexCheckDefault" onChange={handleBankDetailsChange} />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  {item.collection}
+                </label>
+              </div>
+            ))}
     
       {/*<input style={{width : "100%" , height : "56px"}} class="btn btn-primary" type="submit" />*/}
       
@@ -201,7 +242,7 @@ const PiForm = ({oldPi}) => {
                 </tr>
             </thead>
             <tbody>
-                {inputs.products.map((product,index) =>{
+                {inputs?.products?.map((product,index) =>{
                     return <tr key={index}>
                         <td>{index+1}</td>
                         <td>{product.brand}{product.code}</td>

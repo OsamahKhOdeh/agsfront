@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProformaInvoice } from "../../actions/proformaInvoice";
 import { setIsPI } from "../../store/piSlice";
 import SuccessPage from "../SuccessPage/SuccessPage";
+import { emptyCart } from "../../store/cartSlice";
+import { clearFilters } from "../../store/filtersSlice";
 
 const steps = ["Select Products", "Select PI Information", "Make and Download PI"];
 
@@ -51,7 +53,10 @@ export default function PiStepper() {
   };
 
   const handleReset = () => {
+    dispatch(emptyCart());
+    dispatch(clearFilters())
     setActiveStep(0);
+    
   };
   dispatch(setIsPI(true))
   return (
@@ -88,23 +93,47 @@ export default function PiStepper() {
         </React.Fragment>
       ) : (
         <React.Fragment>
+          
+          {activeStep === 0 &&
+          <>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 ,paddingBottom : "20px" , alignItems : "flex-end" }}>
             <Button variant="contained"  size="large"  color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
               {activeStep === steps.length - 1 ? 
-              <Button disabled ={!canNext} variant="contained" onClick={handleNext}> Finish</Button> :
+              <Button disabled ={!canNext} variant="contained" onClick={handleNext}> Send</Button> :
               <Button variant="contained" onClick={handleNext}> Next</Button>}
-          </Box>
-          {activeStep === 0 && <MakiPi />}
+             </Box>
+           <MakiPi />
+          </>
+           }
           {activeStep === 1 && (
             <>
               <InvoiceInfo />
               <Table />
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 ,paddingBottom : "150px" , alignItems : "flex-end" , position : "absolute" ,right : "136px" }}>
+            <Button variant="contained"  size="large"  color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+              Back
+            </Button>
+              {activeStep === steps.length - 1 ? 
+              <Button disabled ={!canNext} variant="contained" onClick={handleNext}> Send</Button> :
+              <Button size="large" variant="contained" onClick={handleNext}> Next</Button>}
+             </Box>
             </>
           )}
-          {activeStep === 2 && <SuccessPage/>}
+          {activeStep === 2 && 
+          <>
+          <SuccessPage/>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 ,paddingBottom : "150px" , alignItems : "flex-end" , position : "absolute" ,right : "136px" }}>
+            <Button variant="contained"  size="large"  color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+              Back
+            </Button>
+              {activeStep === steps.length - 1 ? 
+              <Button size="large"disabled ={!canNext} variant="contained" onClick={handleNext}> Send</Button> :
+              <Button size="large" variant="contained" onClick={handleNext}> Next</Button>}
+             </Box>
+          </>}
         </React.Fragment>
       )}
     </Box>

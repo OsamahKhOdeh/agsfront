@@ -1184,7 +1184,7 @@ export const final_distination = [
   { name: "AQABA , JORDAN", value: "AQABA , JORDAN" },
 ];
 
-export const terms_and_conditions = [{ term: "Advance Payment 10% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 20% Balance to be paid time providing copy of BL."},{ term: "Advance Payment 30% Balance to be paid time providing copy of BL."}];
+export const terms_and_conditions = [{ term: "Advance Payment 30% Balance to be paid time providing copy of BL."}];
 export const terms_and_conditions_pricelist = [{ term: "All prices valid for 3 days from quotation date ."},{ term: "All prices valid for 7 days from quotation date ."},{ term: "All prices valid for 10 days from quotation date ."}];
 
 

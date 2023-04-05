@@ -6,6 +6,8 @@ import Dropdown from './Dropdown';
 import useAuth from '../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/authSlice';
+import { emptyCart } from '../../store/cartSlice';
+import { clearFilters } from '../../store/filtersSlice';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -16,6 +18,8 @@ function Navbar() {
 
   const logout = () => {
     dispatch(logOut());
+    dispatch(emptyCart());
+    dispatch(clearFilters())
 
     navigate('/');
 
@@ -27,7 +31,11 @@ function Navbar() {
   const [dropdown, setDropdown] = useState(false);
 
   const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
+  const closeMobileMenu = () => {
+    dispatch(emptyCart());
+    dispatch(clearFilters())
+    setClick(false);
+  }
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {

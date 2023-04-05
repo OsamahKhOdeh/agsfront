@@ -71,7 +71,7 @@ const Row_2 = ({ piInfo }) => {
       <Text style={styles.exporter_val}>{piInfo.exporter} </Text>
       <View style={styles.col_container}>
         <View style={styles.container2}>
-          <Text style={styles.invoice_no}>{piInfo.pi_no}</Text>
+          <Text style={styles.invoice_no}>{piInfo.manager.charAt(0).toUpperCase()}{piInfo.manager.charAt(1).toUpperCase()}&nbsp;&nbsp;/&nbsp;{piInfo.pi_no}</Text>
           <Text style={styles.date}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{piInfo.date}</Text>
         </View>
         <Text style={{ width: "264px", border: 1, paddingTop: "3px" }}>BUYER ADDRESS</Text>

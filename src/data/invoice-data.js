@@ -1,45 +1,48 @@
-const invoiceData = {
-  id: "5df3180a09ea16dc4b95f910",
-  invoice_no: "201906-28",
-  balance: "$2,283.74",
-  company: "MANTRIX",
-  email: "susanafuentes@mantrix.com",
-  phone: "+1 (872) 588-3809",
-  address: "922 Campus Road, Drytown, Wisconsin, 1986",
-  trans_date: "2019-09-12",
-  due_date: "2019-10-12",
-  items: [
-    {
-      sno: 1,
-      desc: "ad sunt culpa occaecat qui",
-      qty: 5,
-      rate: 405.89,
-    },
-    {
-      sno: 2,
-      desc: "cillum quis sunt qui aute",
-      qty: 5,
-      rate: 373.11,
-    },
-    {
-      sno: 3,
-      desc: "ea commodo labore culpa irure",
-      qty: 5,
-      rate: 458.61,
-    },
-    {
-      sno: 4,
-      desc: "nisi consequat et adipisicing dolor",
-      qty: 10,
-      rate: 725.24,
-    },
-    {
-      sno: 5,
-      desc: "proident cillum anim elit esse",
-      qty: 4,
-      rate: 141.02,
-    },
-  ],
-};
 
-export default invoiceData;
+export const terms_collections =[
+  {collection : "EXWAREHOUSE" ,
+   terms : [
+    "Payment will be made either Cheque / Transfer",
+    "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+    "Deposit is not refundable in any circumtance",
+    "Currency Exchange Rate USD Against AED 3.674",
+    "Goods will be delivered with in 7 days after completion of full payment",
+    "We are not responsible any delay happened due to delay from manufacturer / shipment",
+    "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"
+  ] } ,{
+    collection : "FOB",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice"]
+  },{
+    collection : "CIF",
+    terms : [
+      "Payment will be made either Cheque / Transfer",
+      "PI is not including vat. Vat is applicable for with in UAE or GCC Countries",
+      "Deposit is not refundable in any circumtance",
+      "Currency Exchange Rate USD Against AED 3.674",
+      "Goods will be delivered with in 7 days after completion of full payment",
+      "We are not responsible any delay happened due to delay from manufacturer / shipment",
+      "Quotation is valid for 7 days from the date of PI date and it would be changed without any prior notice",
+      "Any variation in shipment and insurance charges  to be added with exising PI for balance amount"]
+  }
+]
+
+export const exporters = [
+  { name: "AGS", value: "AGS INTERNATIONAL GENERAL TRADING LLC DEIRA NAIF,AL MAKTOUM HOSPITAL ROAD CONTACT:+971 558952656, Email: info@jalil.ae" },
+  { name: "AJC", value: "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae" },
+  { name: "lONGI", value: "LONGI SOLAR TECHNOLOGY Co.,Ltd NO. 8369 SHANGYUAN ROAD, ECO- INDUSTRIAL PARK, ECONOMIC AND TECHNOLOGICAL DEVELOPMENT ZONE, XIAN, CHINA" },
+];
+
+
+export const notify_partys = [
+  { name: "HMC", value: "HMC INTERNATIONAL FZCO JEBEL ALI FREE ZONE- DUBAI- UNITED ARAB EMIRATES CONTACT : +971565527684, EMAIL : info@HMCFZ.CO" },
+  { name: "CHARTER PARTY", value: "CHARTER PARTY DWC LLC DWC - Dubai - UAE Tel : 042420808 Email: info@azalshipping.com" },
+  { name: "Alkawareer", value: "Alkawareer establishment for export and import TEl 00962798330333 ALEMAIL :qalam.clearance@gmail.com Address:Alzarqa Free Zone,Jordan" },
+  { name: "BLUE LOGISTICS", value: "BLUE LOGISTICS SERVICES SARL PATRIARCHE MEOUCHY STREET NBR 4, KAHALE BLDG NBR 44, 2ND FLOOR, HORCH TABET,SIN EL FIL - LEBANONTEL: +9613242412 Email : riad.abdou@bluelogistics-lb.com VAT NBR# 601-3369083" },
+];

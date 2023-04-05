@@ -25,7 +25,7 @@ export const getProformaInvoices = (id) => API.get(`/pi`);
 
 export const getEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/employee?employeename=${empolyee_name}`);
 
-export const updateProformaInvoiceStatus = ({id, newStatus, managerMessage}) => API.patch(`/pi/${id}`,  {newStatus , managerMessage} );
+export const updateProformaInvoiceStatus = ({id, newStatus, managerMessage , manager}) => API.patch(`/pi/${id}`,  {newStatus , managerMessage , manager} );
 
 export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 

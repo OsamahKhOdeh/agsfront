@@ -1,0 +1,9 @@
+.select__class {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: solid;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }

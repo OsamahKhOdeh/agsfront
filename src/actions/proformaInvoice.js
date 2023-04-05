@@ -36,15 +36,15 @@ export const getProformaInvoicesAction = () => async (dispatch) => {
   }
 };
 
-export const updateProformaInvoiceStatus = ({id, newStatus , managerMessage}) => async (dispatch) => {
-  console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus , managerMessage);
+export const updateProformaInvoiceStatus = ({id, newStatus , managerMessage , manager}) => async (dispatch) => {
+  console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus , managerMessage , manager);
   console.log("here");
   console.log(id);
 
   try {
-   const { data } = await api.updateProformaInvoiceStatus({id, newStatus , managerMessage});
+   const { data } = await api.updateProformaInvoiceStatus({id, newStatus , managerMessage ,manager});
    console.log(data);
-   dispatch(changeProformaInvoiceStatus({id , status : newStatus , managerMessage}))
+   dispatch(changeProformaInvoiceStatus({id , status : newStatus , managerMessage , manager}))
     //  dispatch({ type: UPDATE, payload: data });
     //instant change
   } catch (error) {
