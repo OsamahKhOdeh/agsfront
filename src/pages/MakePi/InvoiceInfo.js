@@ -118,7 +118,16 @@ function InvoiceInfo() {
   };
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
-    console.log(value, checked);
+    console.log({ value, checked }  );
+   {/* if (checked) {
+      let newBankDetails = [...inputs.bankDetails]
+      newBankDetails.push(value)
+      setInputs(values => ({...values, bankDetails: newBankDetails}))
+    } else {
+      setInputs(values => ({...values, bankDetails: inputs.bankDetails.filter((e) => e !== value)}))
+    }
+  */}
+
 
      
   };

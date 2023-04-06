@@ -21,12 +21,59 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
+  total_word :  {
+    fontSize: "8px",
+
+    width: "50%",
+    textAlign: "center",
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
+  },
+  total_pcs :{
+    width: "15%",
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+    textAlign: "right",
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
+  },
+  empty_space :{
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+    textAlign: "center",
+    paddingRight: 8,height : "100%"  ,paddingTop : 2,
+    width : "20%"
+  },
   total: {
     fontSize: "8px",
     width: "15%",
     textAlign: "right",
     paddingRight: 8,height : "100%"  ,paddingTop : 2
+  },total_pcs_word : {
+
   },
+  total_wieght_word : {
+
+  },
+  total_wieght : {
+
+  },
+   weight_word : {
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+    fontSize: "8px",
+    width: "12.5%",
+    textAlign: "center",
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
+  },
+   weight_val : {
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+    fontSize: "8px",
+    width: "12.5%",
+    textAlign: "center",
+    paddingRight: 8,height : "100%"  ,paddingTop : 2
+   }
 });
 
 const InvoiceTableFooter = ({ products, currency, location,  discount ,additions ,usdToAedRate }) => {
@@ -117,6 +164,9 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
   //End cents/////////////////////////////////////////////////////////////////////////////////
 
   let total = 0;
+  let totalPcs = 0;
+  let totalGross = 0;
+  let totalNet = 0;
   let UAERATE = 1;
   let price =0;
 
@@ -139,20 +189,30 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
       }if(location === "local" && currency === "USD"){
         total += item.LocalPrice* item.qty;
       }
+      totalPcs+= item.qty;
+      totalGross += item.qty * item.grossWeight;
+      totalNet += item.qty * item.netWeight;
     });
 
   }
   calcTotal();
   console.log(total);
+  console.log(totalPcs);
 
  
   return (
     <>
       <View style={styles.row}>
-        <Text style={styles.description}>TOTAL</Text>
-        <Text style={styles.total}>
-          {Number.parseFloat(total)?.toFixed(2)}&nbsp;{currency}
-        </Text>
+        <Text style={styles.weight_word}>Net Weight</Text>
+        <Text style={styles.weight_val}>{totalNet} Kg</Text>
+
+        <Text style={styles.weight_word}>Gross Weight</Text>
+        <Text style={styles.weight_val}>{totalGross} Kg</Text>
+
+
+        <Text style={styles.total_pcs}>{totalPcs} PCs</Text>
+        <Text style={styles.empty_space}>Total</Text>
+        <Text style={styles.total}>{Number.parseFloat(total)?.toFixed(2)}&nbsp;{currency} </Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.description}>DISCOUNT</Text>

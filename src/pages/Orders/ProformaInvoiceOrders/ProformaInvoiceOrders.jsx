@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { getEmployeeProformaInvoicesAction } from '../../../actions/proformaInvoice';
 import useAuth from '../../../hooks/useAuth';
 import ProformaInvoice from '../../../Components/PoformaInvoice/ProformaInvoice';
+import UploadPdf from './UploadPdf';
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -51,6 +52,16 @@ export const timeAgo = (date) => {
 
 
 const ProformaInvoiceOrders = () => {
+
+  const [pdfFiles , setPdfFiles] = useState([{id : "" , pdfFile : null}])
+
+  function onPdfChange(id , file){
+    console.log(id);
+    const newPdfFiles = pdfFiles.map((item)=>
+    item.id === id ? {...item , pdfFile: file } : item
+    )
+   setPdfFiles(newPdfFiles);
+  }
 
 const [isPdf , setIsPdf] = useState(false)
 const [currentPi , setCurrentPi] = useState({})
@@ -129,14 +140,16 @@ const {username , phone} = useAuth();
       <th scope="col">Date/Time</th>
       <th scope="col">Customer</th>
       <th scope="col">Status</th>
-      <th scope="col">PDF</th>
+      <th scope="col">From manager</th>
+      <th scope="col">Upload Signed</th>
+      <th scope='col' >Download Signed</th>
     </tr>
   </thead>
   <tbody>
     {
       proformaInvoices.map((proformaInvoice, index) => (
         <tr key={index}>
-          <th scope="row">{proformaInvoice.no}</th>
+          <th scope="row">{proformaInvoice.pi_no}</th>
           <td>{proformaInvoice.employee}</td>
           <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
           <td>{proformaInvoice.buyer_address}</td>
@@ -152,6 +165,12 @@ const {username , phone} = useAuth();
               </>
               : 
               "Waiting for manager approval" }
+            </td>
+            <td>
+              {proformaInvoice.status === "Approved" ? <UploadPdf onFatherChange ={onPdfChange} id={proformaInvoice._id}  pi={proformaInvoice}/> : ""}
+            </td>
+            <td>
+              {""}
             </td>
         </tr>
       ))

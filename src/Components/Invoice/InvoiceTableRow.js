@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     width: "15%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    textAlign: "right",
+    textAlign: "center",
     paddingRight: 8,height : "100%"  ,paddingTop : 2
   },
   price: {
