@@ -11,6 +11,7 @@ import { getEmployeeProformaInvoicesAction } from '../../../actions/proformaInvo
 import useAuth from '../../../hooks/useAuth';
 import ProformaInvoice from '../../../Components/PoformaInvoice/ProformaInvoice';
 import UploadPdf from './UploadPdf';
+import DownloadPDFButton from './DownloadPDFButton';
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -53,18 +54,13 @@ export const timeAgo = (date) => {
 
 const ProformaInvoiceOrders = () => {
 
-  const [pdfFiles , setPdfFiles] = useState([{id : "" , pdfFile : null}])
-
-  function onPdfChange(id , file){
-    console.log(id);
-    const newPdfFiles = pdfFiles.map((item)=>
-    item.id === id ? {...item , pdfFile: file } : item
-    )
-   setPdfFiles(newPdfFiles);
-  }
-
 const [isPdf , setIsPdf] = useState(false)
 const [currentPi , setCurrentPi] = useState({})
+const [isLoading, setIsLoading] = useState(false);
+
+const handleLoading = (isLoading) =>{
+  setIsLoading(isLoading);
+}
 
 const {username , phone} = useAuth();
 
@@ -72,6 +68,8 @@ const {username , phone} = useAuth();
     switch (status) {
       case 'Pending':
         return 'table-secondary';
+        case 'Signed':
+          return 'table-info';
       case 'Approved':
         return'table-success';
       case 'Rejected':
@@ -141,7 +139,7 @@ const {username , phone} = useAuth();
       <th scope="col">Customer</th>
       <th scope="col">Status</th>
       <th scope="col">From manager</th>
-      <th scope="col">Upload Signed</th>
+      <th scope="col">Signed by Customer</th>
       <th scope='col' >Download Signed</th>
     </tr>
   </thead>
@@ -154,7 +152,7 @@ const {username , phone} = useAuth();
           <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
           <td>{proformaInvoice.buyer_address}</td>
           <td className={colorByStatus(proformaInvoice?.status)} >{proformaInvoice?.status}</td>
-          <td>{proformaInvoice.status==="Approved" ? 
+          <td>{proformaInvoice.status==="Approved" || proformaInvoice.status==="Signed" ? 
              <button type="button" className="btn btn-primary" onClick={()=>handlePDF(proformaInvoice)}>PDF</button>
               :
              proformaInvoice.status==="Rejected" 
@@ -167,10 +165,14 @@ const {username , phone} = useAuth();
               "Waiting for manager approval" }
             </td>
             <td>
-              {proformaInvoice.status === "Approved" ? <UploadPdf onFatherChange ={onPdfChange} id={proformaInvoice._id}  pi={proformaInvoice}/> : ""}
+              <>
+              {proformaInvoice.status === "Signed" ?
+                <DownloadPDFButton pi_id={proformaInvoice._id} pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}/> : proformaInvoice.status==="Approved" ?
+                 <UploadPdf pi={proformaInvoice} setLoading={handleLoading}/> : ""}
+              </>
             </td>
             <td>
-              {""}
+              ""
             </td>
         </tr>
       ))
