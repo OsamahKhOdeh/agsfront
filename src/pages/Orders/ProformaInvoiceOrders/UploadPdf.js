@@ -47,7 +47,7 @@ function UploadPdf({pi , setLoading}) {
     dispatch(updateProformaInvoiceStatus({id : pi._id , newStatus : 'Signed'}))
 
     const formData = new FormData();
-    formData.append('pdf', pdfFile , `signed_${pi.pi_no}_${pi.employee}_${pi.manager}_${pi._id}`);
+    formData.append('pdf', pdfFile , `signed_${pi.pi_no}_${pi.employee}_${pi.manager}_${pi._id}_${pi.buyer_address}`);
 
     axios.post( `${BASE_URL}/pi/pisigned`, formData, {
       headers: {

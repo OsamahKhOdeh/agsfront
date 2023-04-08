@@ -24,6 +24,16 @@ export const proformaInvoicesSlice = createSlice({
           proformaInvoice.manager  = action.payload.manager;
         } })
     },
+    changeSignedProformaInvoiceStatus: (state, action) => {
+      console.log(action.payload);
+      state.proformaInvoices.map((proformaInvoice) => {
+        if (proformaInvoice.pi_id === action.payload.id) {
+          proformaInvoice.status = action.payload.status;
+          proformaInvoice.pi_done_status.push(proformaInvoice.status)
+        }else{
+          console.log("not changed status");
+        } })
+    },
     changeUserPassword: (state, action) => {
       state.users.map((user) => {
         if (user._id === action.payload.id) {
@@ -34,6 +44,6 @@ export const proformaInvoicesSlice = createSlice({
   },
 });
 
-export const { fetchAllProformaInvoices ,changeProformaInvoiceStatus ,changeUserPassword} = proformaInvoicesSlice.actions;
+export const { fetchAllProformaInvoices ,changeProformaInvoiceStatus ,changeUserPassword ,changeSignedProformaInvoiceStatus} = proformaInvoicesSlice.actions;
 
 export default proformaInvoicesSlice.reducer;

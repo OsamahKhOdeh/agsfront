@@ -30,6 +30,7 @@ import PIActionsAdmin from "./pages/PIActions/PIActionsAdmin/PIActionsAdmin";
 import ProformaInvoiceOrders from "./pages/Orders/ProformaInvoiceOrders/ProformaInvoiceOrders";
 import EditProforamaInvoice from "./pages/EditProformaInvoice/EditProforamaInvoice";
 import MakePo from "./pages/MakePo/MakePo";
+import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/SignedProformaInvoices";
 function App() {
   console.log( useAuth());
   return (
@@ -46,6 +47,8 @@ function App() {
         <Route path="pdf" element={<ProformaInvoice />}></Route>
         <Route path="piadmin" element={<PIActionsAdmin />}></Route>
         <Route path="orders" element={<ProformaInvoiceOrders />}></Route>
+        <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
+
         <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
         <Route path="addproduct" element={<ProductForm />}></Route>
         

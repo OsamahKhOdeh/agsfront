@@ -29,6 +29,10 @@ export const updateProformaInvoiceStatus = ({id, newStatus, managerMessage , man
 
 export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 
+export const getSignedProformaInvoices = (id) => API.get(`/pi/pisigned`);
+
+export const getSignedEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/pisigned/employee/${empolyee_name}`);
+
 export const login = ({username , password}) => API.post("/auth", {username, password});
 
 export const uploadDatasheet = (datasheet) => API.post("/upload", datasheet);

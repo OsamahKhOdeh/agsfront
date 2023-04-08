@@ -119,14 +119,14 @@ function InvoiceInfo() {
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
     console.log({ value, checked }  );
-   {/* if (checked) {
+    {/*if (checked) {
       let newBankDetails = [...inputs.bankDetails]
       newBankDetails.push(value)
+      dispatch(setPiBankDetails())
       setInputs(values => ({...values, bankDetails: newBankDetails}))
     } else {
       setInputs(values => ({...values, bankDetails: inputs.bankDetails.filter((e) => e !== value)}))
-    }
-  */}
+    }*/}
 
 
      
