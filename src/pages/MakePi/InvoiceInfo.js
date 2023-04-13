@@ -60,6 +60,7 @@ function InvoiceInfo() {
     phoneNumber : useSelector((state) => state.pi.piInfo.phoneNumber),
     note : useSelector((state) => state.pi.piInfo.invoiceNo),
     terms : useSelector((state) => state.pi.piInfo.terms),
+    bankDetails : useSelector((state) => state.pi.piInfo.bankDetails),
     location : location,
     currency : currency
   });
@@ -119,15 +120,22 @@ function InvoiceInfo() {
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
     console.log({ value, checked }  );
-    {/*if (checked) {
-      let newBankDetails = [...inputs.bankDetails]
+    let newBankDetails = [...invoiceInfo.bankDetails]
+    if (checked) {
       newBankDetails.push(value)
-      dispatch(setPiBankDetails())
-      setInputs(values => ({...values, bankDetails: newBankDetails}))
-    } else {
-      setInputs(values => ({...values, bankDetails: inputs.bankDetails.filter((e) => e !== value)}))
-    }*/}
+      console.log(newBankDetails);
+    //  setInputs(values => ({...values, bankDetails: newBankDetails}))
+      setInvoiceInfo(values => ({...values, bankDetails: newBankDetails}));
+      dispatch(setPiBankDetails(newBankDetails))
 
+    } else {
+
+    //  setInputs(values => ({...values, bankDetails: inputs.bankDetails.filter((e) => e !== value)}))
+      setInvoiceInfo(values => ({...values, bankDetails: newBankDetails.filter((e) => e !== value)}));
+      dispatch(setPiBankDetails(newBankDetails.filter((e) => e !== value)))
+
+
+    }
 
      
   };
@@ -274,7 +282,7 @@ function InvoiceInfo() {
           <div style={{display : "flex" , flexDirection : "row"}} className="col-md-12">
             {bank_details.map((item, i) => (
               <div className="form-check m-3" key={i}>
-                <input className="form-check-input" type="checkbox" name="bank" checked={bankDetailsCollection?.includes(item.collection)} value={item.collection} id="flexCheckDefault" onChange={handelBankDetailsChange} />
+                <input className="form-check-input" type="checkbox" name="bank" checked={invoiceInfo.bankDetails?.includes(item.collection)} value={item.collection} id="flexCheckDefault" onChange={handelBankDetailsChange} />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   {item.collection}
                 </label>

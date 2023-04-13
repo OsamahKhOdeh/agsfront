@@ -31,6 +31,7 @@ import ProformaInvoiceOrders from "./pages/Orders/ProformaInvoiceOrders/Proforma
 import EditProforamaInvoice from "./pages/EditProformaInvoice/EditProforamaInvoice";
 import MakePo from "./pages/MakePo/MakePo";
 import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/SignedProformaInvoices";
+import Finance from "./pages/Finance/Finance";
 function App() {
   console.log( useAuth());
   return (
@@ -54,6 +55,7 @@ function App() {
         
         <Route path="makepi" element={<PiStepper />}></Route>
         <Route path="makepo" element={<MakePo />}></Route>
+        <Route path="finance" element={<Finance/>}></Route>
 
         <Route path="table" element={<ProformaInvoice />}></Route>
         <Route path="pricelistinfo" element={<PriceListInfo />}></Route>

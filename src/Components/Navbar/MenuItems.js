@@ -87,3 +87,13 @@ export const SalesManagerMenuItems = [
   
 ];
 
+
+export const FinancialMenuItems = [
+  
+  {
+    title: 'Finance/Payments',
+    path: '/user/finance',
+    cName: 'dropdown-link'
+  },
+  
+];

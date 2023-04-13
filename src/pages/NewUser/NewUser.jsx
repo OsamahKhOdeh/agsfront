@@ -63,6 +63,7 @@ const NewUser = () => {
          <option value="Admin">Admin</option>
          <option selected={true} value="Sales">Sales</option>
          <option value="Sales Manager">Sales Manager</option>
+         <option value="Financial">Financial</option>
          <option  value="Employee">Employee</option>
          </select>
         <input type="submit" value="Create New User"/>

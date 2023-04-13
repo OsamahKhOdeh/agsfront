@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EmployeeMenuItems, AdminMenuItems, SalesManagerMenuItems } from './MenuItems';
+import { EmployeeMenuItems, AdminMenuItems, SalesManagerMenuItems, FinancialMenuItems } from './MenuItems';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -20,6 +20,9 @@ function Dropdown() {
    }
    if(roles.includes("Sales Manager")){
     MenuItems = SalesManagerMenuItems;
+   }
+   if(roles.includes("Financial")){
+    MenuItems = FinancialMenuItems;
    }
   return (
     <>

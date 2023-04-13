@@ -54,6 +54,14 @@ const SuccessPage = () => {
          return 'table-danger';
       }
 
+      function colorByStatusArray(val) {
+        console.log(val);
+        if(val.length > 0){
+            return'table-success';
+        }else
+           return 'table-danger';
+      }
+
   return (
     <div style={{width : "75%" , margin : "auto" }}>
  <div className="sucess_container">
@@ -100,9 +108,13 @@ const SuccessPage = () => {
                     <td className='property table-secondary'>Terms</td>
                     <td className={colorByStatus(piInfo.terms )}>
 {/*                    Advance Payment {piInfo.paymentPercentage}% Balance to be paid time providing copy of BL
-*/}                        
+*/}          
                             {piInfo.terms}
                      </td>
+                </tr>
+                <tr>
+                 <td className='property table-secondary'>Bank Details</td>
+                 <td className={colorByStatusArray(piInfo.bankDetails )}>{piInfo.bankDetails}</td>
                 </tr>
             </tbody>
           </table>

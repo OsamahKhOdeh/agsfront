@@ -10,12 +10,20 @@ export const createProduct = (newProduct) => API.post("/products", newProduct);
 
 export const fetchProducts = (page) => API.get(`/products?page=${page}`);
 
-export const fetchFilteredProducts = (filters) => API.get(`/products/search?categories=${filters.categories || ""}&countries=${filters.countries || ""}&companies=${filters.companies || ""}&brands=${filters.brands || ""}&capacities=${JSON.stringify(filters.capacities) || ""}`);
+export const fetchFilteredProducts = (filters) =>
+  API.get(
+    `/products/search?categories=${filters.categories || ""}&countries=${
+      filters.countries || ""
+    }&companies=${filters.companies || ""}&brands=${
+      filters.brands || ""
+    }&capacities=${JSON.stringify(filters.capacities) || ""}`
+  );
 
+export const updateProduct = (id, updatedProduct) =>
+  API.patch(`/products/${id}`, updatedProduct);
 
-export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
-
-export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
+export const createProformaInvoice = (newProformaInvoice) =>
+  API.post("/pi", newProformaInvoice);
 
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
@@ -23,34 +31,40 @@ export const getLastPiNo = () => API.get("/pi/last");
 
 export const getProformaInvoices = (id) => API.get(`/pi`);
 
-export const getEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/employee?employeename=${empolyee_name}`);
+export const getEmployeeProformaInvoices = (empolyee_name) =>
+  API.get(`/pi/employee?employeename=${empolyee_name}`);
 
-export const updateProformaInvoiceStatus = ({id, newStatus, managerMessage , manager}) => API.patch(`/pi/${id}`,  {newStatus , managerMessage , manager} );
+export const updateProformaInvoiceStatus = ({
+  id,
+  newStatus,
+  managerMessage,
+  manager,
+}) => API.patch(`/pi/${id}`, { newStatus, managerMessage, manager });
 
-export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
+export const updateProformaInvoice = (id, updatedProformaInvoice) =>
+  API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 
 export const getSignedProformaInvoices = (id) => API.get(`/pi/pisigned`);
 
-export const getSignedEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/pisigned/employee/${empolyee_name}`);
+export const getSignedEmployeeProformaInvoices = (empolyee_name) =>
+  API.get(`/pi/pisigned/employee/${empolyee_name}`);
 
-export const login = ({username , password}) => API.post("/auth", {username, password});
+export const updateSignedProformaInvoiceStatus = ({ id, status }) =>
+  API.patch(`/pi/pisigned/${id}`, { status });
+
+export const login = ({ username, password }) =>
+  API.post("/auth", { username, password });
 
 export const uploadDatasheet = (datasheet) => API.post("/upload", datasheet);
 
 export const fetchUsersApi = () => API.get("/users");
 
-export const updateUser = (id, {...updatedUser}) => API.patch(`/users/${id}`, updatedUser);
+export const updateUser = (id, { ...updatedUser }) =>
+  API.patch(`/users/${id}`, updatedUser);
 
 export const createUser = (newUser) => API.post("/users", newUser);
 
 export const deleteUser = (id) => API.delete(`/users/${id}`);
-
-
-
-
-
-
-
 
 /*
 export const fetchPost = (id) => API.get(`/posts/${id}`);
