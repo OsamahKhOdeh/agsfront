@@ -21,6 +21,7 @@ import SideFilters from "../Warranty/SideFilters/SideFilters";
 import DropDown from "../Warranty/DropDown";
 import { setShowFilters } from "../../store/showingSlice";
 import Brands from "../Warranty/Brands/Brands";
+import SearchBox from "../../Components/SearchBox/SearchBox";
 
 let choosenCompanies = [];
 let choosenBrands = [];
@@ -31,7 +32,14 @@ function useQuery() {
 }
 
 const Warranty = () => {
-  const countriesProducts = useSelector((state) => state.products.productsForCountries);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchBoxChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const countriesProducts = useSelector(
+    (state) => state.products.productsForCountries
+  );
   let countries = [];
   countriesProducts.map((product) => {
     if (!countries.includes(product.country)) {
@@ -177,7 +185,9 @@ const Warranty = () => {
     const isALL = selectedItems.includes("All");
     const index = selectedItems.indexOf(item);
     if (item === "All") {
-      dispatch(setFiltersState({ ...filters, countries: ["All"], brands: [""] }));
+      dispatch(
+        setFiltersState({ ...filters, countries: ["All"], brands: [""] })
+      );
       setSelectedItems(["All"]);
       return;
     }
@@ -186,7 +196,13 @@ const Warranty = () => {
       if (isALL) selectedItems2.splice(selectedItems.indexOf("All", 1));
       // If the item is not in the array, add it
       if (index === -1) {
-        dispatch(setFiltersState({ ...filters, countries: [...selectedItems2, item], brands: [""] }));
+        dispatch(
+          setFiltersState({
+            ...filters,
+            countries: [...selectedItems2, item],
+            brands: [""],
+          })
+        );
         setSelectedItems([...selectedItems2, item]);
       } else {
         // If the item is already in the array, remove it
@@ -206,7 +222,9 @@ const Warranty = () => {
     const isALL = selectedCategories.includes("All");
     const index = selectedCategories.indexOf(item);
     if (item === "All") {
-      dispatch(setFiltersState({ ...filters, categories: ["All"], brands: [""] }));
+      dispatch(
+        setFiltersState({ ...filters, categories: ["All"], brands: [""] })
+      );
       setSelectedCategories(["All"]);
       return;
     }
@@ -215,7 +233,13 @@ const Warranty = () => {
       if (isALL) selectedItems2.splice(selectedCategories.indexOf("All", 1));
       // If the item is not in the array, add it
       if (index === -1) {
-        dispatch(setFiltersState({ ...filters, categories: [...selectedItems2, item], brands: [""] }));
+        dispatch(
+          setFiltersState({
+            ...filters,
+            categories: [...selectedItems2, item],
+            brands: [""],
+          })
+        );
         setSelectedCategories([...selectedItems2, item]);
       } else {
         // If the item is already in the array, remove it
@@ -235,7 +259,7 @@ const Warranty = () => {
     <>
       <Grow in>
         <Container maxWidth="xl">
-                   {showFilters && (
+          {showFilters && (
             <>
               <div className="search__list">
                 <div className="change__">
@@ -263,14 +287,22 @@ const Warranty = () => {
                       <div className="filter__search">
                         {countries.map((item, i) => (
                           <>
-                            <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
+                            <CountryItem
+                              key={i}
+                              title={item}
+                              img={item.img}
+                              onClick={handleCountryChange}
+                            />
                           </>
                         ))}
                       </div>
                     )}
 
                     <div className="list__filter">
-                      {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
+                      {selectedItems.length !== 0 &&
+                      !selectedItems.includes("All") ? (
+                        <Brands />
+                      ) : null}
                     </div>
                   </div>
 
@@ -284,8 +316,8 @@ const Warranty = () => {
               <Pagination page={page} />
             </Paper>
           )}
-
-          <Products filters={filters} />
+          <SearchBox onChange={handleSearchBoxChange} />
+          <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>
     </>

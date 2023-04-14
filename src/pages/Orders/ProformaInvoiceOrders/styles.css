@@ -8,7 +8,7 @@
   
 .pi__table{
   border-color: rgba(0, 0, 0, 0.384);
-    width: 95%;
+    width: 100%;
     margin: auto;
 }
 
@@ -23,4 +23,11 @@ width: 80px;
 
 .page_container{
     align-content: center;
+    width: 95%;
+    margin: auto;
+}
+
+.search_container{
+  display: flex;
+  padding-bottom: 15px;
 }

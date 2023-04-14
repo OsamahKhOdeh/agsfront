@@ -5,7 +5,7 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
-import './products_styles.css'
+import "./products_styles.css";
 import { AiFillCloseCircle, AiTwotoneDelete } from "react-icons/ai";
 import Product from "./Product/Product";
 import useStyles from "./styles";
@@ -21,7 +21,7 @@ import { FaCarBattery } from "react-icons/fa";
 import FilteredPagination from "../FilteredPagination";
 import ReactPaginate from "react-paginate";
 import { setOffset } from "../../../store/productsSlice";
-const Products = () => {
+const Products = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
@@ -84,56 +84,70 @@ const Products = () => {
 
   function Items({ currentItems }) {
     return (
-      <div className="grid">         
-      {currentItems?.map((product, index) => (
-                 <Product product={product} key={index} index={index} />
-                        ))}
- </div>    );
+      <div className="grid">
+        {currentItems?.map((product, index) => (
+          <Product product={product} key={index} index={index} />
+        ))}
+      </div>
+    );
   }
-  
-  let offsetVal = 0 ;
-  const changOffsetVal = (newOffset) =>{
-offsetVal =newOffset;
-  }
-     
 
-  function PaginatedItems({ itemsPerPage }) {
-    const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
+  let offsetVal = 0;
+  const changOffsetVal = (newOffset) => {
+    offsetVal = newOffset;
+  };
+
+  function PaginatedItems({ itemsPerPage, searchQuery }) {
+    const [itemOffset, setItemOffset] = useState(
+      useSelector((state) => state.products.itemOffset)
+    );
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = products.slice(itemOffset, endOffset);
+    let currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
     const handlePageClick = (event) => {
       console.log("Clicked");
       const newOffset = (event.selected * itemsPerPage) % products.length;
-     console.log(
+      console.log(
         `User requested page number ${event.selected}, which is offset ${newOffset}`
       );
       setItemOffset(newOffset);
-        dispatch(setOffset(newOffset))
+      dispatch(setOffset(newOffset));
     };
+
+    /* ------------------------------- searchQuery ------------------------------ */
+    if (searchQuery?.length > 1) {
+      currentItems = currentItems.filter(
+        (item) =>
+          item.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.capacity.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.company.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    /* -------------------------------------------------------------------------- */
 
     return (
       <>
         <Items currentItems={currentItems} />
         <ReactPaginate
-          nextLabel='next >'
+          nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           marginPagesDisplayed={2}
           pageCount={pageCount}
-          previousLabel='< previous'
-          pageClassName='page-item'
-          pageLinkClassName='page-link'
-          previousClassName='page-item'
-          previousLinkClassName='page-link'
-          nextClassName='page-item'
-          nextLinkClassName='page-link'
-          breakLabel='...'
-          breakClassName='page-item'
-          breakLinkClassName='page-link'
-          containerClassName='pagination'
-          activeClassName='active'
+          previousLabel="< previous"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
           renderOnZeroPageCount={null}
         />
       </>
@@ -142,91 +156,90 @@ offsetVal =newOffset;
 
   //New Pagination ////////////////
 
- // console.log(totalPages);
+  // console.log(totalPages);
 
   return isLoading ? (
     <Container
-      alignitems='center'
-      style={{ alignItems: "center", width: "100%" }}>
+      alignitems="center"
+      style={{ alignItems: "center", width: "100%" }}
+    >
       <CircularProgress
         style={{ alignSelf: "auto", marginLeft: "50%", marginTop: "10%" }}
       />
     </Container>
   ) : (
-    <div className='app__container'>
-      {
-        showFilters && (
-          <div className='search__'>
-            {products.length < 1 && !isLoading ? (
-              "No products Found"
-            ) : (
-              <p>
-                {" "}
-                There are <b> {`${productsCount}`} </b> products found{" "}
-              </p>
-            )}
-          </div>
-        )
-      }
-
-     
-
-        {products ? (
-          showFilters ? (
-            <PaginatedItems itemsPerPage={200} />
+    <div className="app__container">
+      {showFilters && (
+        <div className="search__">
+          {products.length < 1 && !isLoading ? (
+            "No products Found"
           ) : (
-            products?.map((product, index) => (
-              
-                <Product product={product} index={index} />
-            ))
-          )
-        ) : (
-          <h1>Loading</h1>
-        )}
+            <p>
+              {" "}
+              There are <b> {`${productsCount}`} </b> products found{" "}
+            </p>
+          )}
+        </div>
+      )}
 
-      <div className='battery__bottom' onClick={showList}>
-        <div className='bottom'>
-          <img src='/images/cart.png' width={80} height={80} />
-          <div className='battery__coutn'>{cart.length}</div>
+      {products ? (
+        showFilters ? (
+          <PaginatedItems itemsPerPage={200} searchQuery={searchQuery} />
+        ) : (
+          products?.map((product, index) => (
+            <Product product={product} index={index} />
+          ))
+        )
+      ) : (
+        <h1>Loading</h1>
+      )}
+
+      <div className="battery__bottom" onClick={showList}>
+        <div className="bottom">
+          <img src="/images/cart.png" width={80} height={80} />
+          <div className="battery__coutn">{cart.length}</div>
         </div>
       </div>
 
       {cartLength.length > 0 ? (
-        <div className='modal'>
-          <div className='sidebar'>
-            <div className='list__modal'>
-              <div className='list__'>
+        <div className="modal">
+          <div className="sidebar">
+            <div className="list__modal">
+              <div className="list__">
                 <span>List of Items : {cart.length} </span>
-                <div className='close__' onClick={() => closeside()}>
-                  <AiFillCloseCircle color='' size={40} />
+                <div className="close__" onClick={() => closeside()}>
+                  <AiFillCloseCircle color="" size={40} />
                 </div>
               </div>
-              <ul className='list__ofItems'>
+              <ul className="list__ofItems">
                 {cart.map((item, index) => (
-                  <div className='card__item' key={index}>
-                    <div>{item.brand}&nbsp;{item.code}</div>
+                  <div className="card__item" key={index}>
+                    <div>
+                      {item.brand}&nbsp;{item.code}
+                    </div>
                     <div
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         spliceCart(item);
-                      }}>
-                      <AiTwotoneDelete color='#E34A44' size={26} />
+                      }}
+                    >
+                      <AiTwotoneDelete color="#E34A44" size={26} />
                     </div>
                   </div>
                 ))}
               </ul>
             </div>
 
-            <div className='sidebar__buttons'>
+            <div className="sidebar__buttons">
               <div
-                className='next'
+                className="next"
                 onClick={() => {
-
                   navigate("/user/checkCustomer");
-                }}>
+                }}
+              >
                 <span> Next </span>
               </div>
-              <div className='delete' onClick={() => deleteALl()}>
+              <div className="delete" onClick={() => deleteALl()}>
                 <span> Delete all </span>
               </div>
             </div>

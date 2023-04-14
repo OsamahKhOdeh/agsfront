@@ -22,6 +22,7 @@ import DropDown from "./DropDown";
 import { setShowFilters } from "../../store/showingSlice";
 import Brands from "./Brands/Brands";
 import { setIsPI } from "../../store/piSlice";
+import SearchBox from "../../Components/SearchBox/SearchBox";
 
 let choosenCompanies = [];
 let choosenBrands = [];
@@ -32,15 +33,22 @@ function useQuery() {
 }
 
 const Warranty = () => {
-  const countriesProducts = useSelector((state)=>state.products.productsForCountries)
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchBoxChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const countriesProducts = useSelector(
+    (state) => state.products.productsForCountries
+  );
   let countries = [];
-    countriesProducts.map((product)=> {
-        if(!countries.includes(product.country)){
-          countries.push(product.country)
-        }
-    })
-    console.log(countries);
- 
+  countriesProducts.map((product) => {
+    if (!countries.includes(product.country)) {
+      countries.push(product.country);
+    }
+  });
+  console.log(countries);
 
   const handleSearch = () => {
     let companies = [...new Set(choosenCompanies)];
@@ -178,7 +186,9 @@ const Warranty = () => {
     const isALL = selectedItems.includes("All");
     const index = selectedItems.indexOf(item);
     if (item === "All") {
-      dispatch(setFiltersState({ ...filters, countries: ["All"], brands :[""] }));
+      dispatch(
+        setFiltersState({ ...filters, countries: ["All"], brands: [""] })
+      );
       setSelectedItems(["All"]);
       return;
     }
@@ -188,7 +198,11 @@ const Warranty = () => {
       // If the item is not in the array, add it
       if (index === -1) {
         dispatch(
-          setFiltersState({ ...filters, countries: [...selectedItems2, item] ,brands : [""] })
+          setFiltersState({
+            ...filters,
+            countries: [...selectedItems2, item],
+            brands: [""],
+          })
         );
         setSelectedItems([...selectedItems2, item]);
       } else {
@@ -197,7 +211,7 @@ const Warranty = () => {
           setFiltersState({
             ...filters,
             countries: selectedItems2.filter((_, i) => i !== index),
-            brands :[""]
+            brands: [""],
           })
         );
         setSelectedItems(selectedItems2.filter((_, i) => i !== index));
@@ -209,7 +223,9 @@ const Warranty = () => {
     const isALL = selectedCategories.includes("All");
     const index = selectedCategories.indexOf(item);
     if (item === "All") {
-      dispatch(setFiltersState({ ...filters, categories: ["All"], brands :[""] }));
+      dispatch(
+        setFiltersState({ ...filters, categories: ["All"], brands: [""] })
+      );
       setSelectedCategories(["All"]);
       return;
     }
@@ -219,7 +235,11 @@ const Warranty = () => {
       // If the item is not in the array, add it
       if (index === -1) {
         dispatch(
-          setFiltersState({ ...filters, categories: [...selectedItems2, item], brands :[""] })
+          setFiltersState({
+            ...filters,
+            categories: [...selectedItems2, item],
+            brands: [""],
+          })
         );
         setSelectedCategories([...selectedItems2, item]);
       } else {
@@ -227,7 +247,8 @@ const Warranty = () => {
         dispatch(
           setFiltersState({
             ...filters,
-            categories: selectedItems2.filter((_, i) => i !== index), brands :[""]
+            categories: selectedItems2.filter((_, i) => i !== index),
+            brands: [""],
           })
         );
         setSelectedCategories(selectedItems2.filter((_, i) => i !== index));
@@ -236,16 +257,16 @@ const Warranty = () => {
   };
 
   return (
-    <div style={{width: "100%" }}>
-      <Grow in sx={{ width: "100%"}}>
-        <Container maxWidth='xl'>
+    <div style={{ width: "100%" }}>
+      <Grow in sx={{ width: "100%" }}>
+        <Container maxWidth="xl">
           {showFilters && (
             <>
-              <div className='search__list'>
-                <div className='change__'>
+              <div className="search__list">
+                <div className="change__">
                   {/* end of header */}
                   <div>
-                    <div className='search__withfilters'>
+                    <div className="search__withfilters">
                       <div style={{ display: "flex", gap: 20 }}>
                         {categories.map((item, i) => (
                           <Category
@@ -263,7 +284,7 @@ const Warranty = () => {
                       {/* end of quiz_section */}
                     </div>
                     {selectedCategories.length !== 0 && (
-                      <div className='filter__search'>
+                      <div className="filter__search">
                         {countries.map((item, i) => (
                           <>
                             <CountryItem
@@ -277,13 +298,13 @@ const Warranty = () => {
                       </div>
                     )}
 
-                    <div className='list__filter'>
-                      {(selectedItems.length !== 0 && !selectedItems.includes("All"))
-                        ? 
-                        <Brands/>
-                        : null}
-                       
-                        {/*selectedItems.map((item, i) => (
+                    <div className="list__filter">
+                      {selectedItems.length !== 0 &&
+                      !selectedItems.includes("All") ? (
+                        <Brands />
+                      ) : null}
+
+                      {/*selectedItems.map((item, i) => (
                             <div className='select__list'>
                               <DropDown
                                 item={item}
@@ -306,11 +327,20 @@ const Warranty = () => {
             </Paper>
           )}
 
-            <div className="next_div" style={{justifyContent : "flex-end"}}  >
-              <button className="btn_next success_next" onClick={()=>{dispatch(setIsPI(false)); navigate('/user/pricelistinfo')}} >NEXT</button>
-            </div>
+          <div className="next_div" style={{ justifyContent: "space-between" }}>
+            <SearchBox onChange={handleSearchBoxChange} />
+            <button
+              className="btn_next success_next"
+              onClick={() => {
+                dispatch(setIsPI(false));
+                navigate("/user/pricelistinfo");
+              }}
+            >
+              NEXT
+            </button>
+          </div>
 
-          <Products filters={filters} />
+          <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>
     </div>

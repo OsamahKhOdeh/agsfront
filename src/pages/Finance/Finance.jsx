@@ -6,14 +6,20 @@ import DownloadPDFButton from "../Orders/ProformaInvoiceOrders/DownloadPDFButton
 import { colorByStatus } from "../../helpers/piOrdersFunctions";
 import PaymentsModal from "./Paynemts/PaymentsModal";
 import StatusSelect from "./StatusSelect";
+import SearchBox from "../../Components/SearchBox/SearchBox";
+import DropDownSelect from "../../Components/DropDownSelect/DropDownSelect";
 
 const Finance = () => {
   const [popupClass, setPopupClass] = useState("form-popup hidden");
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("");
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSignedProformaInvoicesAction());
   }, [dispatch]);
-  const proformaInvoices = useSelector(
+  let proformaInvoices = useSelector(
     (state) => state.proformaInvoices.proformaInvoices
   );
 
@@ -32,6 +38,37 @@ const Finance = () => {
     setPopupClass("form-popup hidden");
     event.target.rej_msg.value = "";
   };
+  /* -------------------------------------------------------------------------- */
+
+  /* ------------------------------- searchQuery ------------------------------ */
+  console.log(filter);
+
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  if (filter.length > 0 && searchQuery.length > 0) {
+    proformaInvoices = proformaInvoices.filter((item) =>
+      item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  if (searchQuery.length > 0 && filter.length === 0) {
+    proformaInvoices = proformaInvoices.filter((item) =>
+      item.pi_no.toString().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  const options = [
+    { name: "PI Number", value: "pi_no" },
+    { name: "Employee", value: "employee" },
+    { name: "Customer", value: "buyer_address" },
+    { name: "Status", value: "status" },
+  ];
+
   /* -------------------------------------------------------------------------- */
 
   return (
@@ -63,6 +100,11 @@ const Finance = () => {
             Close
           </button>
         </form>
+      </div>
+
+      <div className="search_container">
+        <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+        <DropDownSelect onChange={handleFilterChange} options={options} />
       </div>
 
       <table className="pi__table table table-bordered">

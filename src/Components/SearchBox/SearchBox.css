@@ -1,0 +1,15 @@
+
+.search_box {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 100%;
+  background: #f1f1f1;
+  margin-left: 40px;
+}
+
+
+.search_div{
+    width: 20%;
+}
