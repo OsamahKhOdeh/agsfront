@@ -3,10 +3,7 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProformaInvoicesAction,
-  updateProformaInvoiceStatus,
-} from "../../../actions/proformaInvoice";
+import { getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
 import { changeProformaInvoiceStatus } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -88,9 +85,7 @@ const ProformaInvoiceOrders = () => {
     dispatch(getEmployeeProformaInvoicesAction(username));
   }, [dispatch]);
 
-  let proformaInvoices = useSelector(
-    (state) => state.proformaInvoices.proformaInvoices
-  );
+  let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
   /* ------------------------------- searchQuery ------------------------------ */
   console.log(filter);
 
@@ -108,9 +103,7 @@ const ProformaInvoiceOrders = () => {
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    proformaInvoices = proformaInvoices.filter((item) =>
-      item.pi_no.toString().includes(searchQuery.toLowerCase())
-    );
+    proformaInvoices = proformaInvoices.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
@@ -167,7 +160,6 @@ const ProformaInvoiceOrders = () => {
               <th scope="col">Status</th>
               <th scope="col">From manager</th>
               <th scope="col">Signed by Customer</th>
-              <th scope="col">Download Signed</th>
             </tr>
           </thead>
           <tbody>
@@ -177,17 +169,10 @@ const ProformaInvoiceOrders = () => {
                 <td>{proformaInvoice.employee}</td>
                 <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
                 <td>{proformaInvoice.buyer_address}</td>
-                <td className={colorByStatus(proformaInvoice?.status)}>
-                  {proformaInvoice?.status}
-                </td>
+                <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</td>
                 <td>
-                  {proformaInvoice.status === "Approved" ||
-                  proformaInvoice.status === "Signed" ? (
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => handlePDF(proformaInvoice)}
-                    >
+                  {proformaInvoice.status === "Approved" || proformaInvoice.status === "Signed" ? (
+                    <button type="button" className="btn btn-primary" onClick={() => handlePDF(proformaInvoice)}>
                       PDF
                     </button>
                   ) : proformaInvoice.status === "Rejected" ? (
@@ -195,9 +180,7 @@ const ProformaInvoiceOrders = () => {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() =>
-                          navigate(`/user/editpi/${proformaInvoice._id}`)
-                        }
+                        onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}
                       >
                         Edit
                       </button>
@@ -215,16 +198,12 @@ const ProformaInvoiceOrders = () => {
                         pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
                       />
                     ) : proformaInvoice.status === "Approved" ? (
-                      <UploadPdf
-                        pi={proformaInvoice}
-                        setLoading={handleLoading}
-                      />
+                      <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
                     ) : (
                       ""
                     )}
                   </>
                 </td>
-                <td>""</td>
               </tr>
             ))}
           </tbody>

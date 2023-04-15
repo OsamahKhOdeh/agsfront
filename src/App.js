@@ -20,7 +20,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Layout from "./pages/Layout/Layout";
 import UserLayout from "./pages/Layout/UserLayout";
 import useAuth from "./hooks/useAuth";
-import {ROLES} from './config/roles'
+import { ROLES } from "./config/roles";
 import RequireAuth from "./actions/RequireAuth";
 import Employees from "./pages/Employees/Employees";
 import NewUser from "./pages/NewUser/NewUser";
@@ -32,53 +32,50 @@ import EditProforamaInvoice from "./pages/EditProformaInvoice/EditProforamaInvoi
 import MakePo from "./pages/MakePo/MakePo";
 import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/SignedProformaInvoices";
 import Finance from "./pages/Finance/Finance";
+import Orders from "./pages/Orders/Orders";
 function App() {
-  console.log( useAuth());
+  console.log(useAuth());
   return (
-    <>    
-   
-    <BrowserRouter>
-      <Routes>
-    <Route path="/" element={<Layout />}>
-     <Route index  element={<LoginPage />}></Route>
-     <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>   
-        <Route path="user" element={<UserLayout/>}>
-        <Route index element={<Warranty />}></Route>
-        <Route path="pricelist" element={<PriceList />}></Route>
-        <Route path="pdf" element={<ProformaInvoice />}></Route>
-        <Route path="piadmin" element={<PIActionsAdmin />}></Route>
-        <Route path="orders" element={<ProformaInvoiceOrders />}></Route>
-        <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<LoginPage />}></Route>
+            <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+              <Route path="user" element={<UserLayout />}>
+                <Route index element={<Warranty />}></Route>
+                <Route path="pricelist" element={<PriceList />}></Route>
+                <Route path="pdf" element={<ProformaInvoice />}></Route>
+                <Route path="piadmin" element={<PIActionsAdmin />}></Route>
+                <Route path="orders" element={<Orders />}></Route>
+                <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
 
-        <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
-        <Route path="addproduct" element={<ProductForm />}></Route>
-        
-        <Route path="makepi" element={<PiStepper />}></Route>
-        <Route path="makepo" element={<MakePo />}></Route>
-        <Route path="finance" element={<Finance/>}></Route>
+                <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
+                <Route path="addproduct" element={<ProductForm />}></Route>
 
-        <Route path="table" element={<ProformaInvoice />}></Route>
-        <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
-        <Route path="pricelistpdf" element={<PriceListPDF />}></Route>
+                <Route path="makepi" element={<PiStepper />}></Route>
+                <Route path="makepo" element={<MakePo />}></Route>
+                <Route path="finance" element={<Finance />}></Route>
 
-        <Route path="warranty" element={<Warranty />}></Route>
-       
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-         <Route path="admin" element={<AdminPage />}></Route>
-         <Route path="employees" element={<Employees />}></Route>
-         <Route path="new_user" element={<NewUser />}></Route>
+                <Route path="table" element={<ProformaInvoice />}></Route>
+                <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
+                <Route path="pricelistpdf" element={<PriceListPDF />}></Route>
 
+                <Route path="warranty" element={<Warranty />}></Route>
 
-        </Route>
-        <Route path="warranty-check" element={<WarrantyCheck />}></Route>
-        <Route path="customer-price-list" element={<CustomerPriceList />}></Route>
-        <Route path="checkCustomer" element={<CheckCustomer />}></Route>
-      </Route>
-      </Route>
-    </Route>
-
-      </Routes>
-    </BrowserRouter>
+                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+                  <Route path="admin" element={<AdminPage />}></Route>
+                  <Route path="employees" element={<Employees />}></Route>
+                  <Route path="new_user" element={<NewUser />}></Route>
+                </Route>
+                <Route path="warranty-check" element={<WarrantyCheck />}></Route>
+                <Route path="customer-price-list" element={<CustomerPriceList />}></Route>
+                <Route path="checkCustomer" element={<CheckCustomer />}></Route>
+              </Route>
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

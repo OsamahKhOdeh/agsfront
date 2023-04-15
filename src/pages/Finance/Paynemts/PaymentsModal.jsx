@@ -67,8 +67,6 @@ const PaymentsModal = ({ pi }) => {
   const [data, setData] = useState([]);
   const [showAddPaymentForm, setShowAddPaymentForm] = useState(false);
 
-  useEffect(() => {}, []);
-
   let total = 0;
   data.forEach((item, i) => {
     total += parseFloat(item.amount);

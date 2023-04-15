@@ -1,0 +1,12 @@
+.btn_nav{
+    padding: 10px 20px;
+    border: solid;
+    border-width: thick ;
+    border-color: #dce2e6;
+    background-color: #ebf1f5;
+}
+
+.navigation_bar{
+    margin: auto;
+    width: 95%;
+}

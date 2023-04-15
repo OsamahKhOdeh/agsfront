@@ -92,9 +92,7 @@ const SignedProformaInvoices = () => {
     dispatch(getSignedEmployeeProformaInvoicesAction(username));
   }, [dispatch]);
 
-  let proformaInvoices = useSelector(
-    (state) => state.proformaInvoices.proformaInvoices
-  );
+  let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
 
   /* ------------------------------- searchQuery ------------------------------ */
   console.log(filter);
@@ -107,15 +105,13 @@ const SignedProformaInvoices = () => {
     setFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    proformaInvoices = proformaInvoices?.filter((item) =>
+    proformaInvoices = proformaInvoices.filter((item) =>
       item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    proformaInvoices = proformaInvoices?.filter((item) =>
-      item.pi_no.toString().includes(searchQuery.toLowerCase())
-    );
+    proformaInvoices = proformaInvoices.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
@@ -196,9 +192,7 @@ const SignedProformaInvoices = () => {
                 <td>
                   <StatusTracker pi={proformaInvoice} />
                 </td>
-                <td className={colorByStatus(proformaInvoice?.status)}>
-                  {proformaInvoice.status}
-                </td>
+                <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice.status}</td>
               </tr>
             ))}
           </tbody>

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 35,
     paddingRight: 35,
-    paddingBottom : 40,
+    paddingBottom: 40,
     lineHeight: 1.5,
     flexDirection: "column",
   },
@@ -40,57 +40,67 @@ const styles = StyleSheet.create({
     marginRight: "0",
   },
   pageNumber: {
-    position: 'absolute',
+    position: "absolute",
     fontSize: 10,
     top: 3,
     right: 10,
-    textAlign: 'center',
-    color: 'black',
+    textAlign: "center",
+    color: "black",
   },
-  salesEngineer :{
-    paddingTop : "3px",
-    position: 'relative',
+  salesEngineer: {
+    paddingTop: "3px",
+    position: "relative",
     fontSize: 8,
     top: 3,
     right: 10,
     textAlign: "left",
-    color: '#575454',
-  }
+    color: "#575454",
+  },
 });
 
-const Invoice = ({ pi, currency , location, usdToAedRate }) => {
-  console.log("🚀 ~ file: Invoice.js:62 ~ Invoice ~ pi:", pi.piInfo.bankDetails)
+const Invoice = ({ pi, currency, location, usdToAedRate }) => {
+  console.log("🚀 ~ file: Invoice.js:62 ~ Invoice ~ pi:", pi.piInfo.bankDetails);
   let logo = logo_ags;
   let stamp = ags_stamp;
   console.log(location);
-  if (pi.piInfo.exporter === "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae") {
+  if (
+    pi.piInfo.exporter ===
+    "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
+  ) {
     logo = logo_ajc;
     stamp = ajc_stamp;
   }
 
-  
-  
   return (
-    <Document>
-      
-      <Page s ize="A4" style={styles.page}>
-      <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
-        `page ${pageNumber} of ${totalPages}` 
-      )} fixed />
-        <Image  style={styles.logo} src={logo} />
+    <Document compress={true}>
+      <Page size="A4" style={styles.page}>
+        <Text
+          style={styles.pageNumber}
+          render={({ pageNumber, totalPages }) => `page ${pageNumber} of ${totalPages}`}
+          fixed
+        />
+        <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
-        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
-        <InvoiceTerms terms={pi.piInfo.terms} paymentPercentage={pi.piInfo.paymentPercentage} />     
+        <InvoiceItemsTable
+          products={pi.piProducts}
+          discount={pi.piInfo.discount}
+          location={location}
+          usdToAedRate={usdToAedRate}
+          currency={currency}
+          additions={pi.piInfo.additions}
+        />
+        <InvoiceTerms terms={pi.piInfo.terms} paymentPercentage={pi.piInfo.paymentPercentage} />
         <BankDetails bankDetails={pi.piInfo.bankDetails} />
         <View wrap={false}>
-         <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
-         <Image  style={styles.logo} src={stamp} />
+          <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
+          <Image style={styles.logo} src={stamp} />
         </View>
-        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : {pi.piInfo.employeePhone} </Text>
+        <Text style={styles.salesEngineer}>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number
+          : {pi.piInfo.employeePhone}{" "}
+        </Text>
       </Page>
-
-      
     </Document>
   );
 };

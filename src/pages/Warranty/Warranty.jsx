@@ -39,9 +39,7 @@ const Warranty = () => {
     setSearchQuery(e.target.value);
   };
 
-  const countriesProducts = useSelector(
-    (state) => state.products.productsForCountries
-  );
+  const countriesProducts = useSelector((state) => state.products.productsForCountries);
   let countries = [];
   countriesProducts.map((product) => {
     if (!countries.includes(product.country)) {
@@ -186,9 +184,7 @@ const Warranty = () => {
     const isALL = selectedItems.includes("All");
     const index = selectedItems.indexOf(item);
     if (item === "All") {
-      dispatch(
-        setFiltersState({ ...filters, countries: ["All"], brands: [""] })
-      );
+      dispatch(setFiltersState({ ...filters, countries: ["All"], brands: [""] }));
       setSelectedItems(["All"]);
       return;
     }
@@ -223,9 +219,7 @@ const Warranty = () => {
     const isALL = selectedCategories.includes("All");
     const index = selectedCategories.indexOf(item);
     if (item === "All") {
-      dispatch(
-        setFiltersState({ ...filters, categories: ["All"], brands: [""] })
-      );
+      dispatch(setFiltersState({ ...filters, categories: ["All"], brands: [""] }));
       setSelectedCategories(["All"]);
       return;
     }
@@ -287,22 +281,14 @@ const Warranty = () => {
                       <div className="filter__search">
                         {countries.map((item, i) => (
                           <>
-                            <CountryItem
-                              key={i}
-                              title={item}
-                              img={item.img}
-                              onClick={handleCountryChange}
-                            />
+                            <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
                           </>
                         ))}
                       </div>
                     )}
 
                     <div className="list__filter">
-                      {selectedItems.length !== 0 &&
-                      !selectedItems.includes("All") ? (
-                        <Brands />
-                      ) : null}
+                      {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
 
                       {/*selectedItems.map((item, i) => (
                             <div className='select__list'>

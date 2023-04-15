@@ -14,7 +14,17 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import useStyles from "./styles";
-import { companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } from "./data.js";
+import {
+  companyBrandCapacity,
+  categories,
+  china,
+  countries,
+  india,
+  oman,
+  southkorea,
+  thailand,
+  veitnam,
+} from "./data.js";
 import { createProduct } from "../../actions/products.js";
 import { useDispatch } from "react-redux";
 //import { INITIAL_STATE, producReducer } from "./productReducer";
@@ -37,13 +47,12 @@ const ProductForm = ({ currentId, setCurrentId }) => {
     netWeight: "",
     grossWeight: "",
     palatSize: "",
-    LocalPrice:"9", 
-    freezonePrice :"10"
+    LocalPrice: "9",
+    freezonePrice: "10",
   });
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
 
-  
   let choosenCountry = productData.country.toLowerCase();
   let companies = ["None", "Choose Company"];
   switch (choosenCountry) {
@@ -71,19 +80,38 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   let choosenCompany = productData.company.toLowerCase();
   let brands = ["None", "Choose Brand"];
   if (choosenCompany) {
-    brands = companyBrandCapacity.filter((item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase())[0]?.brands?.map((i) => i.brandName);
+    brands = companyBrandCapacity
+      .filter((item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase())[0]
+      ?.brands?.map((i) => i.brandName);
   }
   let choosenBrand = productData.brand.toLowerCase();
   let capacities = ["None", "Choose Brand"];
   if (choosenBrand) {
-    let brandsForCap = companyBrandCapacity.filter((item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase())[0].brands;
-    capacities = brandsForCap.filter((item) => item.brandName.toLocaleLowerCase() === choosenBrand.toLowerCase())[0]?.capacities;
+    let brandsForCap = companyBrandCapacity.filter(
+      (item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase()
+    )[0].brands;
+    capacities = brandsForCap.filter((item) => item.brandName.toLocaleLowerCase() === choosenBrand.toLowerCase())[0]
+      ?.capacities;
   }
 
   const classes = useStyles();
 
   const clear = () => {
-    setProductData({ category: "", country: "", company: "", code: "", brand: "", price: 0, capacity: "", image: "", description: "", netWeight: 0, grossWeight: 0, palatSize: 0, bl: [] });
+    setProductData({
+      category: "",
+      country: "",
+      company: "",
+      code: "",
+      brand: "",
+      price: 0,
+      capacity: "",
+      image: "",
+      description: "",
+      netWeight: 0,
+      grossWeight: 0,
+      palatSize: 0,
+      bl: [],
+    });
   };
 
   const handleUpload = async () => {
@@ -102,7 +130,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     console.log(productData);
     try {
-      dispatch(createProduct(productData))
+      dispatch(createProduct(productData));
       showToastMessage();
       clear();
     } catch (e) {
@@ -135,7 +163,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
       theme: "light",
     });
   };
-/*
+  /*
   const handeleDatasheetSubmit = (e) => {
     e.preventDefault(); 
     const formData = new FormData()
@@ -146,182 +174,265 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   }
 */
   return (
-    <div style={{paddingLeft:"20px" , paddingRight: "20px"}}>
-    <Paper className={classes.paper} elevation={6}>
-      <ToastContainer />
-      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h3" style={{ backgroundColor: "" }}>
-          Adding Product
-        </Typography>
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
-          <Select required labelId="demo-simple-select-helper-label" id="demo-simple-select-helper" value={productData.category} label="Category" onChange={(e) => setProductData({ ...productData, category: e.target.value })}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {categories?.map((cat, i) => {
-              return (
-                <MenuItem value={cat} key={i}>
-                  {cat}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-          <Select required labelId="demo-simple-select-helper-label" id="demo-simple-select-helper" value={productData.country} label="Country" onChange={(e) => setProductData({ ...productData, country: e.target.value })}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {countries?.map((count, i) => {
-              return (
-                <MenuItem value={count} key={i}>
-                  {count}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Company</InputLabel>
-          <Select required labelId="demo-simple-select-helper-label" id="demo-simple-select-helper" value={productData.company} label="Company" onChange={(e) => setProductData({ ...productData, company: e.target.value })}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {choosenCountry}
-            {companies?.map((comp, i) => {
-              return (
-                <MenuItem value={comp} key={i}>
-                  {comp}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Brand</InputLabel>
-          <Select required labelId="demo-simple-select-helper-label" id="demo-simple-select-helper" value={productData.brand} label="Brand" onChange={(e) => setProductData({ ...productData, brand: e.target.value })}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {brands?.map((brand, i) => {
-              return (
-                <MenuItem value={brand} key={i}>
-                  {brand}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Capacity</InputLabel>
-          <Select required labelId="demo-simple-select-helper-label" id="demo-simple-select-helper" value={productData.capacity} label="Capacity" onChange={(e) => setProductData({ ...productData, capacity: e.target.value })}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {capacities?.map((cap, i) => {
-              return (
-                <MenuItem value={cap} key={i}>
-                  {cap}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+    <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+      <Paper className={classes.paper} elevation={6}>
+        <ToastContainer />
+        <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+          <Typography variant="h3" style={{ backgroundColor: "" }}>
+            Adding Product
+          </Typography>
+          <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
+            <Select
+              required
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={productData.category}
+              label="Category"
+              onChange={(e) => setProductData({ ...productData, category: e.target.value })}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {categories?.map((cat, i) => {
+                return (
+                  <MenuItem value={cat} key={i}>
+                    {cat}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+            <Select
+              required
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={productData.country}
+              label="Country"
+              onChange={(e) => setProductData({ ...productData, country: e.target.value })}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {countries?.map((count, i) => {
+                return (
+                  <MenuItem value={count} key={i}>
+                    {count}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Company</InputLabel>
+            <Select
+              required
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={productData.company}
+              label="Company"
+              onChange={(e) => setProductData({ ...productData, company: e.target.value })}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {choosenCountry}
+              {companies?.map((comp, i) => {
+                return (
+                  <MenuItem value={comp} key={i}>
+                    {comp}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Brand</InputLabel>
+            <Select
+              required
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={productData.brand}
+              label="Brand"
+              onChange={(e) => setProductData({ ...productData, brand: e.target.value })}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {brands?.map((brand, i) => {
+                return (
+                  <MenuItem value={brand} key={i}>
+                    {brand}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Capacity</InputLabel>
+            <Select
+              required
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={productData.capacity}
+              label="Capacity"
+              onChange={(e) => setProductData({ ...productData, capacity: e.target.value })}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {capacities?.map((cap, i) => {
+                return (
+                  <MenuItem value={cap} key={i}>
+                    {cap}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
 
-        <TextField name="code" variant="outlined" label="Product Code" fullWidth value={productData.code} onChange={(e) => setProductData({ ...productData, code: e.target.value })} />
-        <TextField
-          name="netWeight"
-          variant="outlined"
-          label="Net Weight"
-          fullWidth
-          value={productData.netWeight}
-          onChange={(e) => {
-            if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setProductData({ ...productData, netWeight: e.target.value });
-          }}
-        />
-        <TextField
-          name="grossWeight"
-          variant="outlined"
-          label="Gross Weight"
-          fullWidth
-          value={productData.grossWeight}
-          onChange={(e) => {
-            if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, grossWeight: e.target.value });
-          }}
-        />
-        <TextField
-          name="paletSize"
-          variant="outlined"
-          label="Palet Size"
-          fullWidth
-          value={productData.palatSize}
-          onChange={(e) => {
-            if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, palatSize: e.target.value });
-          }}
-        />
-        <TextField
-      name="price"
-      variant="outlined"
-      label="Net Price"
-      fullWidth
-      value={productData.price}
-      onChange={(e) => {
-        if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, price: e.target.value });
-      }}
-    />
-        <TextField
-      name="freezonePrice"
-      variant="outlined"
-      label="Freezone Price"
-      fullWidth
-      value={productData.freezonePrice}
-      onChange={(e) => {
-        if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, freezonePrice: e.target.value });
-      }}
-    /><TextField
-        name="LocalPrice"
-        variant="outlined"
-        label="Local Price"
-        fullWidth
-        value={productData.LocalPrice}
-        onChange={(e) => {
-          if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, LocalPrice: e.target.value });
-        }}
-      />
-        
-        <TextField name="description" variant="outlined" label="DESECRIPTION" fullWidth multiline minRows={4} value={productData.description} onChange={(e) => setProductData({ ...productData, description: e.target.value })} />
-       
-        <div className={classes.fileInput}>
-          <input
-            style={{ color: "red" ,width :"25%" ,height :"30px" }}
-            type="file"
-            name="img"
+          <TextField
+            name="code"
+            variant="outlined"
+            label="Product Code"
+            fullWidth
+            value={productData.code}
+            onChange={(e) => setProductData({ ...productData, code: e.target.value })}
+          />
+          <TextField
+            name="netWeight"
+            variant="outlined"
+            label="Net Weight"
+            fullWidth
+            value={productData.netWeight}
             onChange={(e) => {
-              setImage(e.target.files[0]);
-              setIsUploading(true);
+              if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/))
+                setProductData({ ...productData, netWeight: e.target.value });
             }}
           />
-          <button type="button" style={{ color: "white" ,width :"12%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} onClick={handleUpload}>
-            Upload image
-          </button>
-        </div>
-       {/* <div className={classes.fileInput} >
+          <TextField
+            name="grossWeight"
+            variant="outlined"
+            label="Gross Weight"
+            fullWidth
+            value={productData.grossWeight}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, grossWeight: e.target.value });
+            }}
+          />
+          <TextField
+            name="paletSize"
+            variant="outlined"
+            label="Palet Size"
+            fullWidth
+            value={productData.palatSize}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, palatSize: e.target.value });
+            }}
+          />
+          <TextField
+            name="price"
+            variant="outlined"
+            label="Net Price"
+            fullWidth
+            value={productData.price}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, price: e.target.value });
+            }}
+          />
+          <TextField
+            name="freezonePrice"
+            variant="outlined"
+            label="Freezone Price"
+            fullWidth
+            value={productData.freezonePrice}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, freezonePrice: e.target.value });
+            }}
+          />
+          <TextField
+            name="LocalPrice"
+            variant="outlined"
+            label="Local Price"
+            fullWidth
+            value={productData.LocalPrice}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, LocalPrice: e.target.value });
+            }}
+          />
+
+          <TextField
+            name="description"
+            variant="outlined"
+            label="DESECRIPTION"
+            fullWidth
+            multiline
+            minRows={4}
+            value={productData.description}
+            onChange={(e) => setProductData({ ...productData, description: e.target.value })}
+          />
+
+          <div className={classes.fileInput}>
+            <input
+              style={{ color: "red", width: "25%", height: "30px" }}
+              type="file"
+              name="img"
+              accept="image/x-png, image/gif, image/jpeg"
+              onChange={(e) => {
+                if (e.target.files[0].size > 15e4) {
+                  window.alert("Please upload a file smaller than 150 Kb");
+                  return false;
+                } else {
+                  setImage(e.target.files[0]);
+                  setIsUploading(true);
+                }
+              }}
+            />
+            <button
+              type="button"
+              style={{
+                color: "white",
+                width: "12%",
+                backgroundColor: "red",
+                height: "30px",
+                marginLeft: "20px",
+                borderRadius: "5%",
+              }}
+              onClick={handleUpload}
+            >
+              Upload image
+            </button>
+          </div>
+          {/* <div className={classes.fileInput} >
                     <form onSubmit={handeleDatasheetSubmit}> 
                             <input  style={{ color: "red" ,width :"25%" ,height :"30px" }} type="file" />
                             <button  style={{ color: "white" ,width :"12%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} className="btn btn-primary" type="submit">Upload Datasheet</button>
                     </form>
             </div>
        */}
-       <Button className={classes.buttonSubmit} disabled={isUploading} variant="contained" color="primary" size="large" type="submit" fullWidth>
-          Submit
-        </Button>
-        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>
-          Clear
-        </Button>
-      </form>
-    </Paper>
+          <Button
+            className={classes.buttonSubmit}
+            disabled={isUploading}
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+            fullWidth
+          >
+            Submit
+          </Button>
+          <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>
+            Clear
+          </Button>
+        </form>
+      </Paper>
     </div>
   );
 };

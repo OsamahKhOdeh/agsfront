@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { china, india, south_korea, oman, veitnam, thailand } from "./data";
 import useStyles from "./styles";
 import Products from "./Products/Products";
-import {setFiltersState } from "../../store/filtersSlice";
+import { setFiltersState } from "../../store/filtersSlice";
 
 import "./style/warranty.css";
 import Category from "./Category";
@@ -22,6 +22,7 @@ import DropDown from "./DropDown";
 import { setShowFilters } from "../../store/showingSlice";
 import Brands from "../Warranty/Brands/Brands";
 import { setIsPI } from "../../store/piSlice";
+import SearchBox from "../../Components/SearchBox/SearchBox";
 
 let choosenCompanies = [];
 let choosenBrands = [];
@@ -32,15 +33,19 @@ function useQuery() {
 }
 
 const AdminPage = () => {
-  const countriesProducts = useSelector((state)=>state.products.productsForCountries)
-  let countries = [];
-    countriesProducts.map((product)=> {
-        if(!countries.includes(product.country)){
-          countries.push(product.country)
-        }
-    })
-    console.log(countries);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const handleSearchBoxChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const countriesProducts = useSelector((state) => state.products.productsForCountries);
+  let countries = [];
+  countriesProducts.map((product) => {
+    if (!countries.includes(product.country)) {
+      countries.push(product.country);
+    }
+  });
 
   const handleSearch = () => {
     let companies = [...new Set(choosenCompanies)];
@@ -63,10 +68,10 @@ const AdminPage = () => {
     choosenBrands = [];
   };
 
-//Osama///////////
-   const query = useQuery();
-    const page = query.get("page") || 1;
-///////////////////////////
+  //Osama///////////
+  const query = useQuery();
+  const page = query.get("page") || 1;
+  ///////////////////////////
   const dispatch = useDispatch();
   const classes = useStyles();
   const shows = useSelector((state) => state.show.showPrice);
@@ -75,23 +80,20 @@ const AdminPage = () => {
 
   ///////////////////////////////////////////////////////////////////////
   let arrayOfSelectedNodes = [];
- 
-let choosenCompanies = [];
-const [chosenCompanies , setChosenCompanies] = useState([]);
+
+  let choosenCompanies = [];
+  const [chosenCompanies, setChosenCompanies] = useState([]);
 
   let allCompanies = [];
 
   let choosenBrands = [];
   let choosenCapacities = [];
 
-function onAction(node, action) {
-  console.log('onAction::', action, node)
-}
+  function onAction(node, action) {}
   const onChange = (currentNode, selectedNodes) => {
-    console.log("im the best in the world");
     //choosenCompanies = [];
-   // choosenBrands = []; 
-   // choosenCapacities = [];
+    // choosenBrands = [];
+    // choosenCapacities = [];
 
     Object.keys(selectedNodes).forEach((k) => {
       const node = selectedNodes[k];
@@ -162,8 +164,8 @@ function onAction(node, action) {
   };
 
   //Hid & Show Filters //////////////////////////////////////////////////////////////
- // const [showFilters, setShowFilters] = useState(true);
-const showFilters = useSelector((state)=>state.show.showFilters)
+  // const [showFilters, setShowFilters] = useState(true);
+  const showFilters = useSelector((state) => state.show.showFilters);
   useEffect(() => {
     if (showFilters) {
       dispatch(getFilteredProducts(filters));
@@ -187,9 +189,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
       if (isALL) selectedItems2.splice(selectedItems.indexOf("All", 1));
       // If the item is not in the array, add it
       if (index === -1) {
-        dispatch(
-          setFiltersState({ ...filters, countries: [...selectedItems2, item] })
-        );
+        dispatch(setFiltersState({ ...filters, countries: [...selectedItems2, item] }));
         setSelectedItems([...selectedItems2, item]);
       } else {
         // If the item is already in the array, remove it
@@ -197,7 +197,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
           setFiltersState({
             ...filters,
             countries: selectedItems2.filter((_, i) => i !== index),
-            brands :[""]
+            brands: [""],
           })
         );
         setSelectedItems(selectedItems2.filter((_, i) => i !== index));
@@ -218,9 +218,7 @@ const showFilters = useSelector((state)=>state.show.showFilters)
       if (isALL) selectedItems2.splice(selectedCategories.indexOf("All", 1));
       // If the item is not in the array, add it
       if (index === -1) {
-        dispatch(
-          setFiltersState({ ...filters, categories: [...selectedItems2, item] })
-        );
+        dispatch(setFiltersState({ ...filters, categories: [...selectedItems2, item] }));
         setSelectedCategories([...selectedItems2, item]);
       } else {
         // If the item is already in the array, remove it
@@ -236,54 +234,46 @@ const showFilters = useSelector((state)=>state.show.showFilters)
   };
 
   return (
-    <div style={{ width: "100%"  }}>
-      <Grow in sx={{ width: "100%"}}>
-        <Container maxWidth='xl' >
-              {showFilters && (
+    <div style={{ width: "100%" }}>
+      <Grow in sx={{ width: "100%" }}>
+        <Container maxWidth="xl">
+          {showFilters && (
             <>
-              <div className='search__list'>
-              <div className='change__'>
-                {/* end of header */}
-                <div>
-                <div className='search__withfilters'>
-                  <div style={{ display: "flex", gap: 20 }}>
-                    {categories.map((item, i) => (
-                      <Category
-                        title={item.label}
-                        img={item.img}
-                        onClick={handleCategoryChange}
-                        key={i}
-                        //  checklevel1={checklevel1}
-                        // setcheck={setcheck}
-                      />
-                    ))}
-                  </div>
-                  {/* end of container */}
-               
-                {/* end of quiz_section */}
-              </div>
-              {selectedCategories.length !== 0 && (
-                    <div className='filter__search'>
-                      {countries.map((item, i) => (
-                        <>
-                          <CountryItem
-                            key={i}
-                            title={item}
+              <div className="search__list">
+                <div className="change__">
+                  {/* end of header */}
+                  <div>
+                    <div className="search__withfilters">
+                      <div style={{ display: "flex", gap: 20 }}>
+                        {categories.map((item, i) => (
+                          <Category
+                            title={item.label}
                             img={item.img}
-                            onClick={handleCountryChange}
+                            onClick={handleCategoryChange}
+                            key={i}
+                            //  checklevel1={checklevel1}
+                            // setcheck={setcheck}
                           />
-                        </>
-                      ))}
-                    </div>
-                  )}
+                        ))}
+                      </div>
+                      {/* end of container */}
 
-              <div className='list__filter'>
-                      {(selectedItems.length !== 0 && !selectedItems.includes("All"))
-                        ? 
-                        <Brands/>
-                        : null}
-                       
-                        {/*selectedItems.map((item, i) => (
+                      {/* end of quiz_section */}
+                    </div>
+                    {selectedCategories.length !== 0 && (
+                      <div className="filter__search">
+                        {countries.map((item, i) => (
+                          <>
+                            <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
+                          </>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="list__filter">
+                      {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
+
+                      {/*selectedItems.map((item, i) => (
                             <div className='select__list'>
                               <DropDown
                                 item={item}
@@ -292,12 +282,12 @@ const showFilters = useSelector((state)=>state.show.showFilters)
                                 onAction={onAction}
                               />
                             </div>
-                        )) */}   
+                        )) */}
                     </div>
                   </div>
                   {/*<SideFilters/>*/}
                 </div>
-                </div> 
+              </div>
             </>
           )}
           {!showFilters && (
@@ -305,10 +295,8 @@ const showFilters = useSelector((state)=>state.show.showFilters)
               <Pagination page={page} />
             </Paper>
           )}
-
-           
-          
-          <Products filters={filters} />
+          <SearchBox onChange={handleSearchBoxChange} />
+          <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>
     </div>

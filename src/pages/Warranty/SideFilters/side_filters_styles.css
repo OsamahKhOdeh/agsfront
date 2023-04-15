@@ -47,6 +47,7 @@
 .cat label {
   float: left; line-height: 3.0em;
   width: 8.0em; height: 3.0em;
+  padding: 0;
 }
 
 .cat label span {
