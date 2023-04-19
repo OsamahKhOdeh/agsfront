@@ -4,6 +4,10 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getLastPiNo } from "../../actions/proformaInvoice.js";
+
 import {
   FormControl,
   FormHelperText,
@@ -44,9 +48,6 @@ import {
   terms_and_conditions_pricelist,
   terms_collections,
 } from "./data";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getLastPiNo } from "../../actions/proformaInvoice.js";
 
 function InvoiceInfo() {
   const navigate = useNavigate();
@@ -60,20 +61,6 @@ function InvoiceInfo() {
   const currency = useSelector((state) => state.filters.currency);
   const location = useSelector((state) => state.filters.location);
 
-  /** 
-  useEffect(() => {
-    async function getLast() {
-      const lasto = await api.getLastPiNo();
-      dispatch(getLastPiNo())
-      console.log(lasto.data);
-      setPiNoState(lasto.data+1);
-     // dispatch(setPiNo(lasto.data));
-     
-    }
-    getLast();
-
-  }, []);
-*/
   let terms_and_conditions_pi_pricelist = [];
   if (pi) {
     terms_and_conditions_pi_pricelist = terms_and_conditions;
@@ -102,10 +89,16 @@ function InvoiceInfo() {
     location: location,
     currency: currency,
   });
+  const [terms, setTerms] = useState(useSelector((state) => state?.pi.piInfo.terms));
+  const [bankDetailsCollection, setBankDetailsCollection] = useState(
+    useSelector((state) => state?.pi?.piInfo?.bankDetails)
+  );
+
+  /* ------------------------------ data handling ------------------------------ */
 
   const handleChange = (event) => {
-    dispatch(getLastPiNo());
-    setInvoiceInfo({ ...invoiceInfo, invoiceNo: piNoState, [event.target.name]: event.target.value });
+    // dispatch(getLastPiNo());
+    setInvoiceInfo({ ...invoiceInfo, [event.target.name]: event.target.value });
     let propertyName = event.target.name;
     let propertyValue = event.target.value;
     switch (propertyName) {
@@ -148,22 +141,14 @@ function InvoiceInfo() {
     }
     //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, [event.target.name]: event.target.value }));
   };
-
-  const [terms, setTerms] = useState(useSelector((state) => state?.pi.piInfo.terms));
-  const [bankDetailsCollection, setBankDetailsCollection] = useState(
-    useSelector((state) => state?.pi?.piInfo?.bankDetails)
-  );
-  console.log(bankDetailsCollection);
   const handelTermsChange = (e) => {
     dispatch(setPaymentPercentage(paymentPercentageState));
   };
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
-    console.log({ value, checked });
     let newBankDetails = [...invoiceInfo.bankDetails];
     if (checked) {
       newBankDetails.push(value);
-      console.log(newBankDetails);
       //  setInputs(values => ({...values, bankDetails: newBankDetails}))
       setInvoiceInfo((values) => ({ ...values, bankDetails: newBankDetails }));
       dispatch(setPiBankDetails(newBankDetails));
@@ -173,43 +158,14 @@ function InvoiceInfo() {
       dispatch(setPiBankDetails(newBankDetails.filter((e) => e !== value)));
     }
   };
-  console.log(bankDetailsCollection);
 
   const handleCollectionChange = (e) => {
     const { value } = e.target;
     setTerms(value);
     dispatch(setPiTerms(value));
-    {
-      /* switch (value) {
-      case "EXWAREHOUSE":
-        // setTerms([...terms,[...terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms]]);
-       setTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms);
-       dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms))
-       //dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" })[0].terms}));
-
-        break;
-        case "FOB":
-        setTerms(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms);
-        dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms))
-       // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "FOB" })[0].terms}));
-
-        break;
-        case "CIF":
-        setTerms(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms);
-        dispatch(setPiTerms(terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms))
-       // dispatch(setPiInfo({ ...invoiceInfo,invoiceNo : piNoState, terms :terms_collections.filter(coll=>{return coll.collection === "CIF" })[0].terms}));
-
-        break;
-    
-      default:
-        break;
-    }
-    console.log((terms_collections.filter(coll=>{return coll.collection === "EXWAREHOUSE" }))[0]);
-  console.log(terms_collections); */
-    }
   };
+  /* ---------------------------- end data handling --------------------------- */
 
-  console.log(terms);
   // const invoiceNo = useSelector((state)=>state.pi.piInfo.invoiceNo) console.log();
   return (
     <React.Fragment>
@@ -224,9 +180,11 @@ function InvoiceInfo() {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              <MenuItem value={exporters[0].value}>{exporters[0].name}</MenuItem>
-              <MenuItem value={exporters[1].value}>{exporters[1].name}</MenuItem>
-              <MenuItem value={exporters[2].value}>{exporters[2].name}</MenuItem>
+              {exporters.map((exporter) => (
+                <MenuItem key={exporter.name} value={exporter.value}>
+                  {exporter.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>{" "}
         </Grid>{" "}
@@ -271,10 +229,11 @@ function InvoiceInfo() {
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value={notify_partys[0].value}>{notify_partys[0].name}</MenuItem>
-                  <MenuItem value={notify_partys[1].value}>{notify_partys[1].name}</MenuItem>
-                  <MenuItem value={notify_partys[2].value}>{notify_partys[2].name}</MenuItem>
-                  <MenuItem value={notify_partys[3].value}>{notify_partys[3].name}</MenuItem>
+                  {notify_partys.map((notify_party) => (
+                    <MenuItem key={notify_party.name} value={notify_party.value}>
+                      {notify_party.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>{" "}
             </Grid>
@@ -288,9 +247,11 @@ function InvoiceInfo() {
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value={party_of_discharge[0].value}>{party_of_discharge[0].name}</MenuItem>
-                  <MenuItem value={party_of_discharge[1].value}>{party_of_discharge[1].name}</MenuItem>
-                  <MenuItem value={party_of_discharge[2].value}>{party_of_discharge[2].name}</MenuItem>
+                  {party_of_discharge.map((party) => (
+                    <MenuItem key={party.name} value={party.value}>
+                      {party.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>{" "}
             </Grid>
@@ -315,9 +276,11 @@ function InvoiceInfo() {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              <MenuItem value={final_distination[0].value}>{final_distination[0].name}</MenuItem>
-              <MenuItem value={final_distination[1].value}>{final_distination[1].name}</MenuItem>
-              <MenuItem value={final_distination[2].value}>{final_distination[2].name}</MenuItem>
+              {final_distination.map((dest) => (
+                <MenuItem key={dest.name} value={dest.value}>
+                  {dest.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>{" "}
         </Grid>

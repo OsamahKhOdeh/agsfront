@@ -44,11 +44,7 @@ function UploadPdf({ pi, setLoading }) {
     dispatch(updateProformaInvoiceStatus({ id: pi._id, newStatus: "Signed" }));
 
     const formData = new FormData();
-    formData.append(
-      "pdf",
-      pdfFile,
-      `signed_${pi.pi_no}_${pi.employee}_${pi.manager}_${pi._id}_${pi.buyer_address}`
-    );
+    formData.append("pdf", pdfFile, `signed_${pi.pi_no}_${pi.employee}_${pi.manager}_${pi._id}_${pi.buyer_address}`);
 
     axios
       .post(`${BASE_URL}/pi/pisigned`, formData, {
@@ -80,7 +76,7 @@ function UploadPdf({ pi, setLoading }) {
           onChange={handleFileChange}
         />
         <button
-          className={pdfFile ? `upload__btn is_file` : `upload__btn no_file`}
+          className={pdfFile ? `button_edit_pdf button_edit is_file` : `button_edit_pdf button_edit no_file`}
           type="submit"
           disabled={!pdfFile}
         >

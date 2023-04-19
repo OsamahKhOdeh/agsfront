@@ -388,9 +388,8 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               onChange={(e) => {
                 if (e.target.files[0].size > 15e4) {
                   window.alert("Please upload a file smaller than 150 Kb");
-                  return false;
                 } else {
-                  setImage(e.target.files[0]);
+                  //setImage(e.target.files[0]);
                   setIsUploading(true);
                 }
               }}

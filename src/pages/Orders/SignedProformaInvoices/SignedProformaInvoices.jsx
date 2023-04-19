@@ -159,27 +159,56 @@ const SignedProformaInvoices = () => {
           <DropDownSelect onChange={handleFilterChange} options={options} />
         </div>
         <table className="pi__table table table-bordered">
-          <thead>
+          <thead className="th_style">
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Employee</th>
-              <th scope="col">Approved by</th>
-              <th scope="col">Date/Time</th>
-              <th scope="col">Customer</th>
-              <th scope="col">Signed by Customer</th>
-              <th scope="col">Action</th>
-              <th scope="col">Progress</th>
-              <th scope="col">Current Status</th>
+              <th scope="col">
+                <div className="th_cell_div">#</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Employee</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Approved by</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Date/Time</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Customer</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Signed by Customer</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Action</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Progress</div>
+              </th>
             </tr>
           </thead>
           <tbody>
             {proformaInvoices.map((proformaInvoice, index) => (
-              <tr key={index}>
-                <th scope="row">{proformaInvoice.pi_no}</th>
-                <td>{proformaInvoice.employee}</td>
-                <td>{proformaInvoice.manager}</td>
-                <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
-                <td>{proformaInvoice.buyer_address}</td>
+              <tr className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={index}>
+                <td scope="row">
+                  <div style={{ fontWeight: "bold" }} className="td_padding">
+                    {proformaInvoice.pi_no}
+                  </div>
+                </td>
+                <td>
+                  <div className="td_padding employee_cell">{proformaInvoice.employee}</div>
+                </td>
+                <td>
+                  {" "}
+                  <div className="td_padding">{proformaInvoice.manager}</div>
+                </td>
+                <td>
+                  {" "}
+                  <div className="td_padding">{timeAgo(new Date(proformaInvoice.createdAt))}</div>
+                </td>
+                <td>
+                  <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
+                </td>
                 <td>
                   <DownloadPDFButton
                     pi_id={proformaInvoice.pi_id}
@@ -192,7 +221,6 @@ const SignedProformaInvoices = () => {
                 <td>
                   <StatusTracker pi={proformaInvoice} />
                 </td>
-                <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice.status}</td>
               </tr>
             ))}
           </tbody>

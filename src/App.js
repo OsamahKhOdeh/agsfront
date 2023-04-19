@@ -34,9 +34,8 @@ import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/Signed
 import Finance from "./pages/Finance/Finance";
 import Orders from "./pages/Orders/Orders";
 function App() {
-  console.log(useAuth());
   return (
-    <>
+    <div style={{ background: "#f7f7f7" }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -76,7 +75,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

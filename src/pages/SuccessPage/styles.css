@@ -35,9 +35,8 @@
   }
 
   .sucess_container{
-    margin: auto;display: flex;
-    align-items: center;
-  }
+    display: flex;
+justify-content: center;  }
 
   .property {
     font-weight: bold ;

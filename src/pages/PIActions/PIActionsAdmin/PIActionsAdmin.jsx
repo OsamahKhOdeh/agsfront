@@ -3,10 +3,7 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProformaInvoicesAction,
-  updateProformaInvoiceStatus,
-} from "../../../actions/proformaInvoice";
+import { getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
 import { changeProformaInvoiceStatus } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
@@ -62,11 +59,11 @@ const PIActionsAdmin = () => {
   function colorByStatus(status) {
     switch (status) {
       case "Pending":
-        return "table-secondary";
+        return "pending_status";
       case "Approved":
-        return "table-success";
+        return "success_status";
       case "Rejected":
-        return "table-danger";
+        return "rejected_status";
       default:
         return "table-secondary";
     }
@@ -89,9 +86,7 @@ const PIActionsAdmin = () => {
     dispatch(getProformaInvoicesAction());
   }, [dispatch]);
 
-  let proformaInvoices = useSelector(
-    (state) => state.proformaInvoices.proformaInvoices
-  );
+  let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
 
   /* ------------------------------- searchQuery ------------------------------ */
   console.log(filter);
@@ -110,9 +105,7 @@ const PIActionsAdmin = () => {
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    proformaInvoices = proformaInvoices.filter((item) =>
-      item.pi_no.toString().includes(searchQuery.toLowerCase())
-    );
+    proformaInvoices = proformaInvoices.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
@@ -180,11 +173,7 @@ const PIActionsAdmin = () => {
     return (
       <div className="page_container">
         <>
-          <div
-            className="btn-group"
-            role="group"
-            aria-label="Basic radio toggle button group"
-          >
+          <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
             <div className={popupClass} id="myForm">
               <form onSubmit={handleRejectMessage} class="form-container">
                 <h1>Reject with note</h1>
@@ -192,11 +181,7 @@ const PIActionsAdmin = () => {
                 <label for="rej_msg">
                   <b>Rejection message</b>
                 </label>
-                <input
-                  type="text"
-                  placeholder="Enter why you reject this proforma invoice"
-                  name="rej_msg"
-                />
+                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg" />
 
                 <button type="submit" class="btn">
                   Send
@@ -220,48 +205,69 @@ const PIActionsAdmin = () => {
           <DropDownSelect onChange={handleFilterChange} options={options} />
         </div>
         <table className="pi__table table table-bordered">
-          <thead>
+          <thead className="th_style">
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Employee</th>
-              <th scope="col">Date/Time</th>
-              <th scope="col">Customer</th>
-              <th scope="col">Status</th>
+              <th scope="col">
+                <div className="th_cell_div">#</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Employee</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Date/Time</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Customer</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Status</div>
+              </th>
               <th style={{ width: "140px" }} scope="col">
-                PDF
+                <div className="th_cell_div"> PDF</div>
               </th>
               <th style={{ width: "225px" }} scope="col">
-                Handle
+                <div className="th_cell_div"> Handle</div>
               </th>
               <th style={{ width: "28 0px" }} scope="col">
-                Manager Note
+                <div className="th_cell_div"> Manager Note</div>
               </th>
             </tr>
           </thead>
           <tbody>
             {proformaInvoices.map((proformaInvoice, index) => (
-              <tr key={index}>
-                <th scope="row">{proformaInvoice.pi_no}</th>
-                <td>{proformaInvoice?.employee?.split("/")[0]}</td>
-                <td>{timeAgo(new Date(proformaInvoice.updatedAt))}</td>
-                <td>{proformaInvoice.buyer_address}</td>
-                <td className={colorByStatus(proformaInvoice?.status)}>
-                  {proformaInvoice?.status}
+              <tr className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={index}>
+                <td scope="row">
+                  {" "}
+                  <div style={{ fontWeight: "bold" }} className="td_padding">
+                    {proformaInvoice.pi_no}
+                  </div>
+                </td>
+                <td>
+                  <div className="td_padding employee_cell">{proformaInvoice?.employee?.split("/")[0]}</div>
+                </td>
+                <td>
+                  <div className="td_padding">{timeAgo(new Date(proformaInvoice.updatedAt))}</div>
+                </td>
+                <td>
+                  <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
+                </td>
+                <td>
+                  <div className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</div>
                 </td>
                 <td>
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="button_edit_pdf button_pdf"
                     onClick={() => handlePDF(proformaInvoice)}
                   >
                     PDF
                   </button>
                 </td>
                 <td>
-                  <div>
+                  <div style={{ display: "flex" }}>
                     <button
                       type="button"
-                      className="fixed_width btn btn-outline-danger"
+                      className="button_edit_pdf button_reject"
                       onClick={() => {
                         setCurrentPi(proformaInvoice);
                         handleReject(proformaInvoice._id);
@@ -271,19 +277,14 @@ const PIActionsAdmin = () => {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="button_edit_pdf button_approve"
                       onClick={() => handleApprove(proformaInvoice._id)}
                     >
                       Approve
                     </button>
                   </div>
                 </td>
-                <td
-                  className={colorByUpdate(
-                    proformaInvoice.createdAt,
-                    proformaInvoice.updatedAt
-                  )}
-                >
+                <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>
                   {proformaInvoice.managerMessage}
                 </td>
               </tr>

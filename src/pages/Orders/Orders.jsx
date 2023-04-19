@@ -19,13 +19,13 @@ const Orders = () => {
       break;
   }
   return (
-    <div>
+    <div style={{ width: "85%", margin: "auto" }}>
       <div className="navigation_bar">
         <button className="btn_nav" onClick={() => setPage("orders")}>
-          Orders Page
+          PI Orders
         </button>
         <button className="btn_nav" onClick={() => setPage("confirmedOrders")}>
-          confirmedOrders
+          Confirmed Orders
         </button>
       </div>
 

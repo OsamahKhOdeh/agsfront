@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  CircularProgress,
-  Container,
-  Typography,
-} from "@material-ui/core";
+import { Grid, CircularProgress, Container, Typography } from "@material-ui/core";
 import "./products_styles.css";
 import { AiFillCloseCircle, AiTwotoneDelete } from "react-icons/ai";
 import Product from "./Product/Product";
 import useStyles from "./styles";
 import { staticProducts } from "../../../data";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addProducttocart,
-  deletProductformCart,
-  deleteAll,
-} from "../../../store/cartSlice";
+import { addProducttocart, deletProductformCart, deleteAll } from "../../../store/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { FaCarBattery } from "react-icons/fa";
 import FilteredPagination from "../FilteredPagination";
@@ -98,19 +89,14 @@ const Products = ({ searchQuery }) => {
   };
 
   function PaginatedItems({ itemsPerPage, searchQuery }) {
-    const [itemOffset, setItemOffset] = useState(
-      useSelector((state) => state.products.itemOffset)
-    );
+    const [itemOffset, setItemOffset] = useState(useSelector((state) => state.products.itemOffset));
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     let currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
     const handlePageClick = (event) => {
       console.log("Clicked");
       const newOffset = (event.selected * itemsPerPage) % products.length;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
+      console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
       setItemOffset(newOffset);
       dispatch(setOffset(newOffset));
     };
@@ -159,13 +145,8 @@ const Products = ({ searchQuery }) => {
   // console.log(totalPages);
 
   return isLoading ? (
-    <Container
-      alignitems="center"
-      style={{ alignItems: "center", width: "100%" }}
-    >
-      <CircularProgress
-        style={{ alignSelf: "auto", marginLeft: "50%", marginTop: "10%" }}
-      />
+    <Container alignitems="center" style={{ alignItems: "center", width: "100%" }}>
+      <CircularProgress style={{ alignSelf: "auto", marginLeft: "50%", marginTop: "10%" }} />
     </Container>
   ) : (
     <div className="app__container">
@@ -186,9 +167,7 @@ const Products = ({ searchQuery }) => {
         showFilters ? (
           <PaginatedItems itemsPerPage={200} searchQuery={searchQuery} />
         ) : (
-          products?.map((product, index) => (
-            <Product product={product} index={index} />
-          ))
+          products?.map((product, index) => <Product product={product} index={index} />)
         )
       ) : (
         <h1>Loading</h1>

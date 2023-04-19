@@ -43,21 +43,21 @@ const initialState = {
   productsForCountries: [],
   condition: 0,
   itemOffset: 0,
-}
+};
 export const productsSlice = createSlice({
   name: "product",
   initialState: initialState,
   reducers: {
     deleteProductState: (state, action) => {
       state.products = state.products.filter((item) => {
-        return item._id!== action.payload;
+        return item._id !== action.payload;
       });
     },
     clearProductsState(state) {
       state = initialState;
     },
     setOffset(state, action) {
-     state.itemOffset =action.payload;
+      state.itemOffset = action.payload;
     },
     fetchAll: (state, action) => {
       const { data, currentPage, numberOfPages } = action.payload;
@@ -71,7 +71,6 @@ export const productsSlice = createSlice({
       // console.log(state.products);
       const { data } = action.payload;
       state.products = data;
-      console.log(state.products);
       for (var i = 0; i < state.products.length; i++) {
         //iterate through each object in an array
         if (JSON.stringify(state.products[i]) === JSON.stringify(checkforallbrands)) {
@@ -95,6 +94,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands ,setOffset ,deleteProductState } = productsSlice.actions;
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState } = productsSlice.actions;
 
 export default productsSlice.reducer;

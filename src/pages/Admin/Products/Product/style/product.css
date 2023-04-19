@@ -2,13 +2,14 @@
   border: 0.3px solid rgb(231, 225, 225) ;
   box-shadow: 1px 1px 1px 1px rgba(124, 118, 118, 0.1);
   max-width: 300px;
-  width: 240px;
+  width: 260px;
   margin: auto;
   text-align: center;
   font-family: arial;
   background-color: #fff;
   padding: 0px;
   transition: 0.5s;
+  margin-top: 11px;
 }
 .item_card:hover{
   border: 0.9px solid rgb(201, 192, 192) ;

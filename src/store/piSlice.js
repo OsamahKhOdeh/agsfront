@@ -14,52 +14,62 @@ export const piSlice = createSlice({
       partyOfDischarge: "",
       finalDistination: "",
       discount: 0,
-      additions : 0,
-      terms : [],
-      employee : "",
-      employeePhone : "",
-      phoneNumber : "",
-      note : "",
-      currency : "USD",
-      location : "freezone",
-      bankDetails : [],
-      paymentPercentage : "30",
-
+      additions: 0,
+      terms: [],
+      employee: "",
+      employeePhone: "",
+      phoneNumber: "",
+      note: "",
+      currency: "USD",
+      location: "freezone",
+      bankDetails: [],
+      paymentPercentage: "30",
     },
-    isPi : true
+    isPi: true,
   },
   reducers: {
-    setPiExporter : (state , action) => {
+    setPiExporter: (state, action) => {
       state.piInfo.exporter = action.payload;
-    },setPiBuyerAdress : (state , action) => {
+    },
+    setPiBuyerAdress: (state, action) => {
       state.piInfo.buyerAdress = action.payload;
-    },setPiConsignee : (state , action) => {
+    },
+    setPiConsignee: (state, action) => {
       state.piInfo.consignee = action.payload;
-    },setPinNotifyParty : (state , action) => {
+    },
+    setPinNotifyParty: (state, action) => {
       state.piInfo.notifyParty = action.payload;
-    },setPiPartyOfDischarge : (state , action) => {
+    },
+    setPiPartyOfDischarge: (state, action) => {
       state.piInfo.partyOfDischarge = action.payload;
-    },setPiFinalDistination : (state , action) => {
+    },
+    setPiFinalDistination: (state, action) => {
       state.piInfo.finalDistination = action.payload;
-    },setPiDiscount : (state , action) => {
+    },
+    setPiDiscount: (state, action) => {
       state.piInfo.discount = action.payload;
-    },setPiAdditions : (state , action) => {
+    },
+    setPiAdditions: (state, action) => {
       state.piInfo.additions = action.payload;
-    },setPiTerms : (state , action) => {
+    },
+    setPiTerms: (state, action) => {
       state.piInfo.terms = action.payload;
-    },setPiPhoneNumber : (state , action) => {
+    },
+    setPiPhoneNumber: (state, action) => {
       state.piInfo.phoneNumber = action.payload;
-    },setPiNote: (state , action) => {
+    },
+    setPiNote: (state, action) => {
       state.piInfo.note = action.payload;
-    },setPaymentPercentage: (state , action) => {
+    },
+    setPaymentPercentage: (state, action) => {
       state.piInfo.paymentPercentage = action.payload;
     },
-    setPICurrencyLocation : (state, action) => {
+    setPICurrencyLocation: (state, action) => {
       state.piInfo.currency = action.payload.currency;
       state.piInfo.location = action.payload.location;
     },
 
-    setIsPI : (state, action) => {
+    setIsPI: (state, action) => {
       state.isPi = action.payload;
     },
     setPiProudcts: (state, action) => {
@@ -75,9 +85,8 @@ export const piSlice = createSlice({
       state.piInfo.invoiceNo = action.payload + 1;
     },
     setPiEmployee: (state, action) => {
-      console.log(action.payload);
       state.piInfo.employee = action.payload.employeeName;
-      state.piInfo.employeePhone = action.payload.employeePhone
+      state.piInfo.employeePhone = action.payload.employeePhone;
     },
 
     addProducttocart: (state, action) => {
@@ -86,7 +95,26 @@ export const piSlice = createSlice({
   },
 });
 
-export const {setPiExporter , setPiAdditions , setPiBuyerAdress ,setPiConsignee ,setPiDiscount , setPiFinalDistination , setPiNote , setPiPartyOfDischarge,
-  setPinNotifyParty , setPiPhoneNumber , setPiTerms,  setPiInfo, setPiProudcts, setPiNo ,setPiEmployee ,setIsPI ,setPICurrencyLocation ,setPiBankDetails , setPaymentPercentage } = piSlice.actions;
+export const {
+  setPiExporter,
+  setPiAdditions,
+  setPiBuyerAdress,
+  setPiConsignee,
+  setPiDiscount,
+  setPiFinalDistination,
+  setPiNote,
+  setPiPartyOfDischarge,
+  setPinNotifyParty,
+  setPiPhoneNumber,
+  setPiTerms,
+  setPiInfo,
+  setPiProudcts,
+  setPiNo,
+  setPiEmployee,
+  setIsPI,
+  setPICurrencyLocation,
+  setPiBankDetails,
+  setPaymentPercentage,
+} = piSlice.actions;
 
 export default piSlice.reducer;

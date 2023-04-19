@@ -20,9 +20,7 @@ const StatusSelect = ({ pi }) => {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    dispatch(
-      changeSignedProformaInvoiceStatus({ id: pi.pi_id, status: value })
-    );
+    dispatch(changeSignedProformaInvoiceStatus({ id: pi.pi_id, status: value }));
     //setInputs(values => ({...values, [name]: value}))
   };
 
@@ -44,9 +42,7 @@ const StatusSelect = ({ pi }) => {
       <button
         disabled={pi.status === "DONE_DEAL"}
         class={
-          pi.status === "DONE_DEAL"
-            ? "button_next_stage_done"
-            : "button_next_stage"
+          pi.status === "DONE_DEAL" ? "button_edit_pdf button_next_stage_done" : "button_edit_pdf button_next_stage"
         }
         onClick={handleNextStage}
       >

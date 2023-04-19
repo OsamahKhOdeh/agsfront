@@ -66,13 +66,13 @@ const ProformaInvoiceOrders = () => {
   function colorByStatus(status) {
     switch (status) {
       case "Pending":
-        return "table-secondary";
+        return "pending_status";
       case "Signed":
-        return "table-info";
+        return "signed_status";
       case "Approved":
-        return "table-success";
+        return "success_status";
       case "Rejected":
-        return "table-danger";
+        return "rejected_status";
       default:
         return "table-secondary";
     }
@@ -152,57 +152,89 @@ const ProformaInvoiceOrders = () => {
         </div>
         <table className="pi__table table table-bordered">
           <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Employee</th>
-              <th scope="col">Date/Time</th>
-              <th scope="col">Customer</th>
-              <th scope="col">Status</th>
-              <th scope="col">From manager</th>
-              <th scope="col">Signed by Customer</th>
+            <tr className="th_style">
+              <th scope="col">
+                <div className="th_cell_div">#</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Employee</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Date/Time</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Customer</div>
+              </th>
+
+              <th scope="col">
+                <div className="th_cell_div">From manager</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Signed by Customer</div>
+              </th>
+              <th scope="col">
+                <div className="th_cell_div">Status</div>
+              </th>
             </tr>
           </thead>
           <tbody>
             {proformaInvoices.map((proformaInvoice, index) => (
-              <tr key={index}>
-                <th scope="row">{proformaInvoice.pi_no}</th>
-                <td>{proformaInvoice.employee}</td>
-                <td>{timeAgo(new Date(proformaInvoice.createdAt))}</td>
-                <td>{proformaInvoice.buyer_address}</td>
-                <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</td>
+              <tr className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={index}>
                 <td>
-                  {proformaInvoice.status === "Approved" || proformaInvoice.status === "Signed" ? (
-                    <button type="button" className="btn btn-primary" onClick={() => handlePDF(proformaInvoice)}>
-                      PDF
-                    </button>
-                  ) : proformaInvoice.status === "Rejected" ? (
-                    <>
+                  <div style={{ fontWeight: "bold" }} className="td_padding">
+                    {proformaInvoice.pi_no}
+                  </div>
+                </td>
+                <td>
+                  <div className="td_padding employee_cell">{proformaInvoice.employee}</div>
+                </td>
+                <td>
+                  <div className="td_padding">{timeAgo(new Date(proformaInvoice.createdAt))}</div>
+                </td>
+                <td>
+                  <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
+                </td>
+
+                <td>
+                  <div style={{ overflow: "hidden" }}>
+                    {proformaInvoice.status === "Approved" || proformaInvoice.status === "Signed" ? (
                       <button
                         type="button"
-                        className="btn btn-primary"
-                        onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}
+                        className="button_edit_pdf button_pdf"
+                        onClick={() => handlePDF(proformaInvoice)}
                       >
-                        Edit
+                        PI ( pdf )
                       </button>
-                      {proformaInvoice?.managerMessage}
-                    </>
+                    ) : proformaInvoice.status === "Rejected" ? (
+                      <>
+                        <button
+                          type="button"
+                          className="button_edit_pdf button_edit"
+                          onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}
+                        >
+                          Edit
+                        </button>
+                        <p style={{ color: "red", padding: 0, margin: 0 }}>{proformaInvoice?.managerMessage}</p>
+                      </>
+                    ) : (
+                      "Waiting for manager approval"
+                    )}
+                  </div>
+                </td>
+                <td>
+                  {proformaInvoice.status === "Signed" ? (
+                    <DownloadPDFButton
+                      pi_id={proformaInvoice._id}
+                      pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
+                    />
+                  ) : proformaInvoice.status === "Approved" ? (
+                    <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
                   ) : (
-                    "Waiting for manager approval"
+                    ""
                   )}
                 </td>
                 <td>
-                  <>
-                    {proformaInvoice.status === "Signed" ? (
-                      <DownloadPDFButton
-                        pi_id={proformaInvoice._id}
-                        pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
-                      />
-                    ) : proformaInvoice.status === "Approved" ? (
-                      <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
-                    ) : (
-                      ""
-                    )}
-                  </>
+                  <div className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</div>
                 </td>
               </tr>
             ))}
