@@ -9,9 +9,8 @@ height: inherit;
 background-color: rgb(231, 243, 243);
 }
 
-.project_tasks{
-            position: relative;
-    width: 70%;
+.project_tasks_all{
+    width: 100%;
     height: inherit;
     background-color:#f9f9f9;
     margin-top: 18px;
@@ -134,12 +133,12 @@ background-color: rgb(252, 252, 252);
 
 .new_Modal {
        position: absolute;
-    top: 171px;
-    left: 20%;
-    right: 20%;
-    bottom: 398px;
+    top: 10%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
     background-color: rgb(235, 232, 232);
-    text-align: center;
+    text-align: left;
     border: solid;
     border-color: aliceblue;
     border-radius: 12px;
@@ -182,9 +181,32 @@ background-color: #dbdbdb;  }
 
 
 .project_employee{
-
+width: 15%;
 }
 
 .project_name{
-width: 75%;
+width: 30%;
+}
+
+
+.project_time{
+width: 140px;
+}
+
+.project_last_task{
+width: 30%;
+}
+
+
+.exit_butt{
+        right: 2px;
+    padding: 3px;
+    position: absolute;
+    color: red;
+    ma: 21px;
+    border: solid;
+    background-color: #ff9d9f;
+    border-radius: 67%;
+    border-width: thin;
+    cursor: pointer;
 }

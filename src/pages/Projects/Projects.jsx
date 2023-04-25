@@ -52,6 +52,8 @@ const Projects = () => {
           //  setLoading(false)
           //toastWithMessage("Payment added successfully","success")
           showToastMessage("Task added successfully", "success");
+          setNewTask("");
+
           setTimeout(() => {
             //  setShowNewPaymentForm(false)
           }, 1000);
@@ -138,12 +140,12 @@ const Projects = () => {
               <input
                 type="text"
                 className="new_task_text"
-                placeholder="add task here"
+                placeholder="update task here"
                 onChange={(e) => setNewTask(e.target.value)}
                 style={{ width: "85%", borderRadius: "0px", margin: "0px", height: "55px" }}
               ></input>
               <div className="new_task" onClick={handleNewTask}>
-                Add task
+                Add
               </div>
             </div>
           )}
