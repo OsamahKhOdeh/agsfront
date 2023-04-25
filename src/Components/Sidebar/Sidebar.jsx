@@ -2,7 +2,13 @@ import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { AdminMenuItems, EmployeeMenuItems, FinancialMenuItems, SalesManagerMenuItems } from "../Navbar/MenuItems";
+import {
+  AdminMenuItems,
+  EmployeeMenuItems,
+  FinancialMenuItems,
+  SalesManagerMenuItems,
+  LogisticsMenuItems,
+} from "../Navbar/MenuItems";
 
 const Sidebar = () => {
   const { isAdmin, roles } = useAuth();
@@ -15,6 +21,9 @@ const Sidebar = () => {
   }
   if (roles.includes("Financial")) {
     MenuItems = FinancialMenuItems;
+  }
+  if (roles.includes("Logistics")) {
+    MenuItems = LogisticsMenuItems;
   }
 
   return (

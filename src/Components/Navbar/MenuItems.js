@@ -124,3 +124,11 @@ export const FinancialMenuItems = [
     cName: "dropdown-link",
   },
 ];
+
+export const LogisticsMenuItems = [
+  {
+    title: "Projects",
+    path: "/user/projects",
+    cName: "dropdown-link",
+  },
+];
