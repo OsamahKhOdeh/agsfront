@@ -174,7 +174,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   }
 */
   return (
-    <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+    <div style={{ paddingLeft: "20px", paddingRight: "20px", width: "80%" }}>
       <Paper className={classes.paper} elevation={6}>
         <ToastContainer />
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
@@ -389,7 +389,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
                 if (e.target.files[0].size > 15e4) {
                   window.alert("Please upload a file smaller than 150 Kb");
                 } else {
-                  //setImage(e.target.files[0]);
+                  setImage(e.target.files[0]);
                   setIsUploading(true);
                 }
               }}

@@ -1,5 +1,5 @@
 .side_bar{
-    width: 187px;
+    width: 207px;
     background-color: #f8fdfc;
 }
 
@@ -26,3 +26,8 @@
     background-color:#e9ebea ;
 }
 
+
+
+.side_bar__items{
+    position: fixed;
+}

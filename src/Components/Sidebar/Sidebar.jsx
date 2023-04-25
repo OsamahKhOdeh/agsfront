@@ -19,22 +19,24 @@ const Sidebar = () => {
 
   return (
     <div className="side_bar">
-      {MenuItems.map((item, index) => {
-        return (
-          <div className="sidebar__item" key={index}>
-            <NavLink
-              className="side_bar__navlink"
-              to={item.path}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f1515" : "#00000078",
-              })}
-              onClick={() => {}}
-            >
-              {item.title}
-            </NavLink>
-          </div>
-        );
-      })}
+      <div className="side_bar__items">
+        {MenuItems.map((item, index) => {
+          return (
+            <div className="sidebar__item" key={index}>
+              <NavLink
+                className="side_bar__navlink"
+                to={item.path}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f1515" : "#00000078",
+                })}
+                onClick={() => {}}
+              >
+                {item.title}
+              </NavLink>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

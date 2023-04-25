@@ -60,11 +60,8 @@ export const productsSlice = createSlice({
       state.itemOffset = action.payload;
     },
     fetchAll: (state, action) => {
-      const { data, currentPage, numberOfPages } = action.payload;
-      // console.log(data, currentPage, numberOfPages);
+      const { data } = action.payload;
       state.products = data;
-      state.currentPage = currentPage;
-      state.numberOfPages = numberOfPages;
     },
     fetchFilterd: (state, action) => {
       //console.log("Setting filtered");

@@ -1,0 +1,146 @@
+.project_page_container{
+    display: contents;
+    height: 800px;
+    width: 85%;
+}
+.projects_list{
+width: 30%;
+height: inherit;
+background-color: rgb(231, 243, 243);
+}
+
+.project_tasks{
+width: 70%;height: inherit;
+
+background-color: rgb(252, 252, 252);
+}
+
+.project_item{
+          height: 64px;
+    padding-left: 22px;
+    background-color: #cbdceb;
+    margin: auto;
+    padding-top: 7px;
+    color: #4563f9;
+    cursor: pointer;
+    border-bottom: solid;
+    border-width: unset;
+    border-color: aliceblue;
+}
+
+.add_project_button{
+        height: 64px;
+    padding-left: 22px;
+    background-color: #000000;
+    margin: auto;
+    padding-top: 7px;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    font-size: x-large;
+    font-family: cursive;
+    margin-top: 80px;
+}
+
+.task{
+      display: flex;
+    /* justify-content: space-around; */
+    height: 34px;
+    background-color: aliceblue;
+    padding: 3px;
+    padding-left: 25px;
+    border-bottom: solid;
+    border-width: thin;
+}
+
+.task_date{
+    width: 25%;
+    border-right: solid;
+    border-width: thin;}
+
+.task_text{
+padding-left: 20px;
+}
+
+.new_task{
+    margin-top: 20px;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(44, 148, 238);
+    text-align: center;
+    height: 40px;
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+    padding: auto;
+    cursor: pointer;
+}
+
+.task_text{
+
+}
+
+.new_task_text{
+       border: solid;
+    border-width: thin;
+    margin-top: 21px;
+}
+
+
+.add_task{
+    margin-top: 20px;
+}
+
+
+.new_project{
+    background-color: red;
+
+}
+
+
+
+.new_Modal {
+       position: absolute;
+    top: 171px;
+    left: 20%;
+    right: 20%;
+    bottom: 398px;
+    background-color: rgb(235, 232, 232);
+    text-align: center;
+    border: solid;
+    border-color: aliceblue;
+    border-radius: 12px;
+  }
+
+  .new_Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+
+  .new_Modal > h2 {
+    color: blue;
+    padding: 20px;
+  }
+
+
+
+  .add_proj{
+           /* border: solid; */
+    background-color: #b0c3b0;
+    width: 30%;
+    margin: auto;
+    height: 35px;
+    font-size: larger;
+    cursor: pointer;
+    border: solid;
+    border-width: thin;
+    border-color: cadetblue;
+    border-radius: -9%;
+  }
+  

@@ -12,6 +12,7 @@ import { FaCarBattery } from "react-icons/fa";
 import FilteredPagination from "../FilteredPagination";
 import ReactPaginate from "react-paginate";
 import { setOffset } from "../../../store/productsSlice";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 const Products = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -145,9 +146,11 @@ const Products = ({ searchQuery }) => {
   // console.log(totalPages);
 
   return isLoading ? (
-    <Container alignitems="center" style={{ alignItems: "center", width: "100%" }}>
-      <CircularProgress style={{ alignSelf: "auto", marginLeft: "50%", marginTop: "10%" }} />
-    </Container>
+    <div>
+      <div style={{ width: "200px", height: "200px", margin: "auto" }}>
+        <LoadingSpinner />
+      </div>
+    </div>
   ) : (
     <div className="app__container">
       {showFilters && (

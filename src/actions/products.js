@@ -12,13 +12,12 @@ export const createProduct = (newProduct) => async (dispatch) => {
     console.log(error);
   }
 };
-export const getProducts = (page) => async (dispatch) => {
+export const getProducts = () => async (dispatch) => {
   try {
-    // console.log("page : " + page);
     dispatch(setIsLoading(true));
-    const data = await api.fetchProducts(page);
-    //  console.log(data);
-    dispatch(fetchAll(data.data, data.currentPage, data.numberOfPages));
+    const data = await api.fetchProducts();
+    console.log(data);
+    dispatch(fetchAll(data.data));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.log(error);
@@ -54,7 +53,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
   }
 };
 
-export const uploadDatasheet = async (datasheet) =>  {
+export const uploadDatasheet = async (datasheet) => {
   console.log("here");
 
   try {
@@ -67,33 +66,31 @@ export const uploadDatasheet = async (datasheet) =>  {
   }
 };
 
-export const downloadDatasheet = async (id,fileName) =>  {
+export const downloadDatasheet = async (id, fileName) => {
   console.log("here");
 
   try {
     // using Java Script method to get PDF file
-    fetch(api.BASE_URL+"/download/"+id).then(response => {
-      response.blob().then(blob => {
-          // Creating new object of PDF file
-          const fileURL = window.URL.createObjectURL(blob);
-          // Setting various property values
-          let alink = document.createElement('a');
-          alink.href = fileURL;
-          alink.download = `${fileName.trim()}.pdf`;
-          alink.click();
-      })
-  })
+    fetch(api.BASE_URL + "/download/" + id).then((response) => {
+      response.blob().then((blob) => {
+        // Creating new object of PDF file
+        const fileURL = window.URL.createObjectURL(blob);
+        // Setting various property values
+        let alink = document.createElement("a");
+        alink.href = fileURL;
+        alink.download = `${fileName.trim()}.pdf`;
+        alink.click();
+      });
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-
-
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-     await api.deleteProduct(id);
-   // dispatch(deleteProductState(id))
+    await api.deleteProduct(id);
+    // dispatch(deleteProductState(id))
     //dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error);

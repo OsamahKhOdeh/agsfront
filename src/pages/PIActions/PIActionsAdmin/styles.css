@@ -23,6 +23,8 @@ width: 80px;
 
 .page_container{
     align-content: center;
+    width: 85%;
+    margin: auto;
 }
 
 

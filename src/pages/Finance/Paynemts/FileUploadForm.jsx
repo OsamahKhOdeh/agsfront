@@ -98,22 +98,12 @@ function FileUploadForm({ pi, setShowNewPaymentForm, toastWithMessage }) {
             <label htmlFor="filep">Inoice file (PDF) : </label>
           </div>
           <div class="col-75">
-            <input
-              id="filep"
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileChange}
-            />
+            <input id="filep" type="file" accept="application/pdf" onChange={handleFileChange} />
           </div>
         </div>
 
         <div>
-          <button
-            className={
-              pdfFile ? `upload__btn is_file_pay` : `upload__btn no_file_pay`
-            }
-            type="submit"
-          >
+          <button className={pdfFile ? `upload__btn is_file_pay` : `upload__btn no_file_pay`} type="submit">
             Add Payment
           </button>
         </div>

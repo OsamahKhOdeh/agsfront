@@ -33,6 +33,7 @@ import MakePo from "./pages/MakePo/MakePo";
 import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/SignedProformaInvoices";
 import Finance from "./pages/Finance/Finance";
 import Orders from "./pages/Orders/Orders";
+import Projects from "./pages/Projects/Projects";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -47,6 +48,7 @@ function App() {
                 <Route path="pdf" element={<ProformaInvoice />}></Route>
                 <Route path="piadmin" element={<PIActionsAdmin />}></Route>
                 <Route path="orders" element={<Orders />}></Route>
+                <Route path="projects" element={<Projects />}></Route>
                 <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
 
                 <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>

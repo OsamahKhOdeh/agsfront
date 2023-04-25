@@ -1,41 +1,40 @@
-import React, { useState } from 'react';
-import { Button } from './Button';
-import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css';
-import Dropdown from './Dropdown';
-import useAuth from '../../hooks/useAuth';
-import { useDispatch } from 'react-redux';
-import { logOut } from '../../store/authSlice';
-import { emptyCart } from '../../store/cartSlice';
-import { clearFilters } from '../../store/filtersSlice';
+import React, { useState } from "react";
+import { Button } from "./Button";
+import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css";
+import Dropdown from "./Dropdown";
+import useAuth from "../../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../store/authSlice";
+import { emptyCart } from "../../store/cartSlice";
+import { clearFilters } from "../../store/filtersSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {username , status} = useAuth();
-  const [user, setUser] = useState(useAuth()?.username);  
+  const { username, status } = useAuth();
+  const [user, setUser] = useState(useAuth()?.username);
 
   const logout = () => {
     dispatch(logOut());
     dispatch(emptyCart());
-    dispatch(clearFilters())
+    dispatch(clearFilters());
 
-    navigate('/');
+    navigate("/");
 
     setUser(null);
   };
 
-  
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
     dispatch(emptyCart());
-    dispatch(clearFilters())
+    dispatch(clearFilters());
     setClick(false);
-  }
+  };
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -55,65 +54,42 @@ function Navbar() {
 
   return (
     <>
-      <nav className='navbar'>
-      <Link to='/user/warranty' className='nav-links' onClick={closeMobileMenu} >
-                <img className="logo_image" src='/images/logo_nav.png' alt="icon" height="40px" />
-      </Link>
-  
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+      <nav style={{ position: "fixed", width: "100%", zIndex: 999 }} className="navbar">
+        <Link to="/user/warranty" className="nav-links" onClick={closeMobileMenu}>
+          <img className="logo_image" src="/images/logo_nav.png" alt="icon" height="40px" />
+        </Link>
+
+        <div className="menu-icon" onClick={handleClick}>
+          <i className={click ? "fas fa-times" : "fas fa-bars"} />
         </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/user/warranty' className='nav-links' onClick={closeMobileMenu}>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+            <Link to="/user/warranty" className="nav-links" onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
-          <li
-            className='nav-item'
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
-            <Link
-              to='/user/makepi'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-             Options <i className='fas fa-caret-down' />
+          <li className="nav-item" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <Link to="/user/makepi" className="nav-links" onClick={closeMobileMenu}>
+              Options <i className="fas fa-caret-down" />
             </Link>
             {dropdown && <Dropdown />}
           </li>
-          <li className='nav-item'>
-            <Link
-              to='/products'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
+          <li className="nav-item">
+            <Link to="/products" className="nav-links" onClick={closeMobileMenu}>
               Products
             </Link>
           </li>
-          
-          <li className='nav-item' >
-            <Link
-             style={{backgroundColor : "gray"}}
-              className='nav-links'
-              onClick={()=>{}}
-            >
-             <div> {user}</div>
+
+          <li className="nav-item">
+            <Link style={{ backgroundColor: "gray" }} className="nav-links" onClick={() => {}}>
+              <div> {user}</div>
             </Link>
           </li>
-          <li className='nav-item'>
-            <Link
-              
-              className='nav-links'
-              onClick={logout}
-            >
+          <li className="nav-item">
+            <Link className="nav-links" onClick={logout}>
               Logout
             </Link>
           </li>
-
-        
-          
         </ul>
       </nav>
     </>
@@ -121,7 +97,6 @@ function Navbar() {
 }
 
 export default Navbar;
-
 
 /*
 import React, { useState, useEffect } from 'react';

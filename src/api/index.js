@@ -7,7 +7,7 @@ const API = axios.create({ baseURL: BASE_URL });
 //export const createProduct = (newProduct) => axios.post("https://server1-ustg.onrender.com/products", newProduct);
 export const createProduct = (newProduct) => API.post("/products", newProduct);
 
-export const fetchProducts = (page) => API.get(`/products?page=${page}`);
+export const fetchProducts = () => API.get(`/products`);
 
 export const fetchFilteredProducts = (filters) =>
   API.get(
@@ -51,6 +51,8 @@ export const updateUser = (id, { ...updatedUser }) => API.patch(`/users/${id}`, 
 export const createUser = (newUser) => API.post("/users", newUser);
 
 export const deleteUser = (id) => API.delete(`/users/${id}`);
+
+export const getEmployeeProjects = (empolyee_name) => API.get(`/projects/employee/${empolyee_name}`);
 
 /*
 export const fetchPost = (id) => API.get(`/posts/${id}`);

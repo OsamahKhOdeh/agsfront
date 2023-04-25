@@ -155,7 +155,7 @@ const Products = ({ searchQuery }) => {
 
       {products ? (
         showFilters ? (
-          <PaginatedItems itemsPerPage={200} searchQuery={searchQuery} />
+          <PaginatedItems itemsPerPage={500} searchQuery={searchQuery} />
         ) : (
           products?.map((product, index) => (
             <Grid item key={product._id} xs={12} sm={12} md={6} lg={3}>

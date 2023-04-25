@@ -41,9 +41,7 @@ function PaymentsTable(props) {
             <td>
               <DownloadPDFButton
                 paymentId={payment._id}
-                pdfName={`inovice_${index + 1}_${props.pi_no}_${formatDate(
-                  payment.createdAt
-                )}_${payment.customer}`}
+                pdfName={`inovice_${index + 1}_${props.pi_no}_${formatDate(payment.createdAt)}_${payment.customer}`}
               />
             </td>
           </tr>
@@ -113,18 +111,8 @@ const PaymentsModal = ({ pi }) => {
       >
         {" "}
         <button class="btn-close close__button" onClick={closeModal}></button>
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-          All payments for pi number {pi.pi_no}
-        </h2>
-        {!isLoading ? (
-          <PaymentsTable
-            data={data}
-            total={total}
-            pi_no={pi.pi_no}
-          ></PaymentsTable>
-        ) : (
-          <h1>LOADING</h1>
-        )}
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>All payments for pi number {pi.pi_no}</h2>
+        {!isLoading ? <PaymentsTable data={data} total={total} pi_no={pi.pi_no}></PaymentsTable> : <h1>LOADING</h1>}
         <div>
           <button
             className="new_payment"

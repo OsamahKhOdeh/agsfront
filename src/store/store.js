@@ -11,6 +11,7 @@ import proformaInvoicesSlice from "./proformaInvoicesSlice";
 import showingSlice from "./showingSlice";
 import usersSlice from "./usersSlice";
 import warrantySlice from "./warrantySlice";
+import projectSlice from "./projectSlice";
 
 export default configureStore({
   reducer: {
@@ -23,9 +24,10 @@ export default configureStore({
     show: showingSlice,
     filters: filtersSlice,
     warranty: warrantySlice,
-    auth : authSlice,
-    users :usersSlice,
-    priceLists : priceListsSlice,
-    proformaInvoices : proformaInvoicesSlice
+    auth: authSlice,
+    users: usersSlice,
+    priceLists: priceListsSlice,
+    proformaInvoices: proformaInvoicesSlice,
+    project: projectSlice,
   },
 });
