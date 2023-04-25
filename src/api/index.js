@@ -54,6 +54,8 @@ export const deleteUser = (id) => API.delete(`/users/${id}`);
 
 export const getEmployeeProjects = (empolyee_name) => API.get(`/projects/employee/${empolyee_name}`);
 
+export const getAllProjects = () => API.get(`/projects`);
+
 /*
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);

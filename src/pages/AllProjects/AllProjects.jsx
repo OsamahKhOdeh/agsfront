@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Projects.css";
+import "./AllProjects.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeProjects } from "../../actions/projects";
+import { getAllProjects, getEmployeeProjects } from "../../actions/projects";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { BASE_URL } from "../../api/index";
@@ -10,7 +10,7 @@ import Modal from "react-modal";
 import { ToastContainer } from "react-toastify";
 import { addProject, addTask } from "../../store/projectSlice";
 
-const Projects = () => {
+const AllProjects = () => {
   const { username, isAdmin, status } = useAuth();
   const [refresh, setRefresh] = useState(0);
 
@@ -36,7 +36,7 @@ const Projects = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getEmployeeProjects(username));
+    dispatch(getAllProjects(username));
   }, []);
 
   const projects = useSelector((state) => state.project.projects);
@@ -45,7 +45,7 @@ const Projects = () => {
   const handleNewTask = () => {
     if (newTask.length > 10 && newTask.length <= 150) {
       axios
-        .patch(`${BASE_URL}/projects/${currentProject._id}`, { task: newTask })
+        .patch(`${BASE_URL}/projects/${currentProject._id}`, { task: newTask, admin: isAdmin, username: username })
         .then((response) => {
           console.log(response.data);
           dispatch(addTask(response.data));
@@ -105,14 +105,19 @@ const Projects = () => {
     <>
       <ToastContainer />
       <div className="project_page_container">
-        <div className="projects_list">
+        <div className="projects_list" style={{ width: "25%" }}>
           <div className="add_project_button" onClick={openModal}>
             Add new Project
           </div>
           {projects?.map((project) => (
             <>
-              <div className="project_item" onClick={() => setCurrentProject(project)}>
-                <h5>{project.projectName}</h5>
+              <div style={{ display: "flex" }} className="project_item" onClick={() => setCurrentProject(project)}>
+                <div className="project_name">
+                  <h5>{project.projectName}</h5>
+                </div>{" "}
+                <div className="project_employee">
+                  <b style={{ color: "red" }}> {project.employee}</b>
+                </div>
               </div>
             </>
           ))}
@@ -122,7 +127,7 @@ const Projects = () => {
           {currentProject?.tasks?.map((task, index) => (
             <div
               className={index % 2 === 0 ? `task` : `task dark_row`}
-              style={task?.adminTask ? { backgroundColor: "#ff9595" } : null}
+              style={task?.adminTask ? { backgroundColor: "#8aff91" } : null}
               key={index}
             >
               <div className="task_date">{new Date(task.date).toLocaleString()}</div>
@@ -171,9 +176,8 @@ const Projects = () => {
           Add Project
         </div>
       </Modal>
-      <p>{refresh}</p>
     </>
   );
 };
 
-export default Projects;
+export default AllProjects;

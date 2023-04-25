@@ -34,6 +34,7 @@ import SignedProformaInvoices from "./pages/Orders/SignedProformaInvoices/Signed
 import Finance from "./pages/Finance/Finance";
 import Orders from "./pages/Orders/Orders";
 import Projects from "./pages/Projects/Projects";
+import AllProjects from "./pages/AllProjects/AllProjects";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -49,6 +50,8 @@ function App() {
                 <Route path="piadmin" element={<PIActionsAdmin />}></Route>
                 <Route path="orders" element={<Orders />}></Route>
                 <Route path="projects" element={<Projects />}></Route>
+                <Route path="allprojects" element={<AllProjects />}></Route>
+
                 <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
 
                 <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
