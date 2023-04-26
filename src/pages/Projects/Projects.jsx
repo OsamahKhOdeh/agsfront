@@ -43,7 +43,9 @@ const Projects = () => {
   console.log(projects);
 
   const handleNewTask = () => {
-    if (newTask.length > 10 && newTask.length <= 150) {
+    setNewTask("");
+
+    if (newTask.length >= 2 && newTask.length <= 150) {
       axios
         .patch(`${BASE_URL}/projects/${currentProject._id}`, { task: newTask })
         .then((response) => {
@@ -51,8 +53,7 @@ const Projects = () => {
           dispatch(addTask(response.data));
           //  setLoading(false)
           //toastWithMessage("Payment added successfully","success")
-          showToastMessage("Task added successfully", "success");
-          setNewTask("");
+          showToastMessage("Task added successfullyfdfffffffffffff", "success");
 
           setTimeout(() => {
             //  setShowNewPaymentForm(false)
@@ -69,9 +70,11 @@ const Projects = () => {
           console.error(error);
         });
     } else {
+      setNewTask("");
+
       showToastMessage("Task must be less than 150 characters and more than 10 ", "reject");
     }
-    setRefresh(Math.floor(Math.random() * 100 + 1));
+    setNewTask("");
   };
 
   const handleNewProject = () => {
@@ -127,6 +130,8 @@ const Projects = () => {
               style={task?.adminTask ? { backgroundColor: "#ff9595" } : null}
               key={index}
             >
+              {" "}
+              {console.log(task)}
               <div className="task_date">{new Date(task.date).toLocaleString()}</div>
               <div className="task_text">
                 {task?.adminTask && <h6>From Admin : {task.adminName}</h6>}
@@ -141,6 +146,7 @@ const Projects = () => {
                 type="text"
                 className="new_task_text"
                 placeholder="update task here"
+                value={newTask}
                 onChange={(e) => setNewTask(e.target.value)}
                 style={{ width: "85%", borderRadius: "0px", margin: "0px", height: "55px" }}
               ></input>
@@ -173,7 +179,6 @@ const Projects = () => {
           Add Project
         </div>
       </Modal>
-      <p>{refresh}</p>
     </>
   );
 };

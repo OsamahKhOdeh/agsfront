@@ -9,6 +9,8 @@ import { showToastMessage } from "../../helpers/toaster";
 import Modal from "react-modal";
 import { ToastContainer } from "react-toastify";
 import { addProject, addTask } from "../../store/projectSlice";
+import SearchBox from "../../Components/SearchBox/SearchBox";
+import DropDownSelect from "../../Components/DropDownSelect/DropDownSelect";
 
 export const timeAgo = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
@@ -46,6 +48,9 @@ export const timeAgo = (date) => {
 function ProjectTasks(props) {
   return (
     <div className="project_tasks_all">
+      <div className="modal_title">
+        {props.currentProject.projectName} ({props.currentProject.employee})
+      </div>
       {props.currentProject?.tasks?.map((task, index) => (
         <div
           className={index % 2 === 0 ? `task` : `task dark_row`}
@@ -90,6 +95,8 @@ function ProjectTasks(props) {
 }
 
 const AllProjects = () => {
+  const today = new Date();
+
   const { username, isAdmin, status } = useAuth();
   const [refresh, setRefresh] = useState(0);
 
@@ -97,6 +104,11 @@ const AllProjects = () => {
   const [newTask, setNewTask] = useState("");
   const [newProject, setNewProject] = useState("");
   const [currentProject, setCurrentProject] = useState({});
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("employee");
+  const [dateFilter, setDateFilter] = useState(today);
+
   console.log(currentProject.projectName);
   let subtitle;
 
@@ -118,7 +130,7 @@ const AllProjects = () => {
     dispatch(getAllProjects(username));
   }, []);
 
-  const projects = useSelector((state) => state.project.projects);
+  let projects = useSelector((state) => state.project.projects);
   console.log(projects);
 
   const handleNewTask = () => {
@@ -181,11 +193,67 @@ const AllProjects = () => {
       closeModal();
     }
   };
+
+  /* ------------------------------- searchQuery ------------------------------ */
+  console.log(filter.length);
+  console.log(searchQuery);
+
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const handleDateChange = (e) => {
+    setDateFilter(e.target.value);
+  };
+  if (filter.length > 0 && searchQuery.length > 0) {
+    projects = projects.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
+  }
+
+  if (dateFilter !== "All") {
+    projects = projects.filter((item) => {
+      if (
+        new Date(dateFilter).getFullYear() === new Date(item.updatedAt).getFullYear() &&
+        new Date(dateFilter).getMonth() === new Date(item.updatedAt).getMonth() &&
+        new Date(dateFilter).getDay() === new Date(item.updatedAt).getDay()
+      ) {
+        return item;
+      }
+    });
+  }
+
+  if (searchQuery.length > 0 && filter.length === 0) {
+    projects = projects.filter((item) => item["employee"].toString().includes(searchQuery.toLowerCase()));
+  }
+
+  const options = [
+    { name: "Employee", value: "employee" },
+    { name: "Project Name", value: "projectName" },
+
+    { name: "Task", value: "tasks" },
+  ];
+
+  const dateOptions = [
+    { name: "Today", value: today },
+    { name: "Last 2 hours", value: Date(new Date().valueOf() - 3 * 1000 * 60 * 60) },
+
+    { name: "Yesterday", value: new Date(new Date().valueOf() - 1000 * 60 * 60 * 24) },
+    { name: "All", value: "All" },
+  ];
+
+  /* -------------------------------------------------------------------------- */
   return (
     <>
       <ToastContainer />
-      <div className="project_page_container">
-        <div className="projects_list" style={{ width: "90%", margin: "auto" }}>
+      <div className="project_page_container_all">
+        <div className="projects_filters_container">
+          <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+          <DropDownSelect onChange={handleFilterChange} options={options} />
+          <DropDownSelect onChange={handleDateChange} options={dateOptions} />
+        </div>
+        <div className="projects_list" style={{ width: "100%", margin: "auto" }}>
           {projects?.map((project) => (
             <>
               <div

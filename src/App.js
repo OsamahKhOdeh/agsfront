@@ -35,6 +35,7 @@ import Finance from "./pages/Finance/Finance";
 import Orders from "./pages/Orders/Orders";
 import Projects from "./pages/Projects/Projects";
 import AllProjects from "./pages/AllProjects/AllProjects";
+import SharedProjects from "./pages/AllProjects/SharedProjects";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -51,6 +52,7 @@ function App() {
                 <Route path="orders" element={<Orders />}></Route>
                 <Route path="projects" element={<Projects />}></Route>
                 <Route path="allprojects" element={<AllProjects />}></Route>
+                <Route path="sharedprojects" element={<SharedProjects />}></Route>
 
                 <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
 

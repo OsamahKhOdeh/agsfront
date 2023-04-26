@@ -3,6 +3,7 @@ import { fetchAll } from "../store/projectSlice.js";
 import { setIsLoading } from "../store/showingSlice.js";
 
 export const getAllProjects = () => async (dispatch) => {
+  console.log("now7777");
   try {
     dispatch(setIsLoading(true));
     const { data } = await api.getAllProjects();

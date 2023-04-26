@@ -1,5 +1,5 @@
-.project_page_container{
-    display: contents;
+.project_page_container_all{
+    display: block;
     height: 900px;
     width: 85%;
 }
@@ -7,6 +7,14 @@
 width: 20%;
 height: inherit;
 background-color: rgb(231, 243, 243);
+}
+
+
+.projects_filters_container{
+            background-color: #dddddd;
+    height: 68px;
+    padding-left: 22px;
+    display: flex;
 }
 
 .project_tasks_all{
@@ -194,7 +202,7 @@ width: 140px;
 }
 
 .project_last_task{
-width: 30%;
+width: 44%;
 }
 
 
@@ -209,4 +217,12 @@ width: 30%;
     border-radius: 67%;
     border-width: thin;
     cursor: pointer;
+}
+
+.modal_title{
+        /* background-color: blueviolet; */
+    height: 40px;
+    color: #ef0000;
+    text-align: center;
+    font-size: 21px;
 }

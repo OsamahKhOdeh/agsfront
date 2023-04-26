@@ -45,6 +45,11 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
   },
   {
+    title: "Shared Projects",
+    path: "/user/sharedprojects",
+    cName: "dropdown-link",
+  },
+  {
     title: "My Projects",
     path: "/user/projects",
     cName: "dropdown-link",
@@ -102,6 +107,11 @@ export const SalesManagerMenuItems = [
   {
     title: "Emplyees Projects",
     path: "/user/allprojects",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Shared Projects",
+    path: "/user/sharedprojects",
     cName: "dropdown-link",
   },
   {
