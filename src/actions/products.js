@@ -16,7 +16,7 @@ export const getProducts = () => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const data = await api.fetchProducts();
-    console.log(data);
+    console.log(data.data.data);
     dispatch(fetchAll(data.data));
     dispatch(setIsLoading(false));
   } catch (error) {

@@ -19,10 +19,10 @@ background-color: rgb(231, 243, 243);
 
 .project_tasks_all{
     width: 100%;
-    height: inherit;
+    height: 79%;
     background-color:#f9f9f9;
     margin-top: 18px;
-
+overflow-y: scroll;
 background-color: rgb(252, 252, 252);
 }
 
@@ -121,7 +121,7 @@ background-color: rgb(252, 252, 252);
 .add_task{
         margin-top: 20px;
     position: absolute;
-    bottom: 35px;
+    bottom: 10px;
     width: 100%;
     padding: 29px;
     left: 0;
@@ -140,16 +140,18 @@ background-color: rgb(252, 252, 252);
 
 
 .new_Modal {
-       position: absolute;
-    top: 10%;
-    left: 5%;
-    right: 5%;
-    bottom: 5%;
-    background-color: rgb(235, 232, 232);
-    text-align: left;
+          background-color: #ebe8e8;
     border: solid;
-    border-color: aliceblue;
+    border-color: #f0f8ff;
     border-radius: 12px;
+    bottom: 18%;
+    left: 5%;
+    position: absolute;
+    right: 5%;
+    text-align: left;
+    top: 10%;
+    height: 82%;
+    overflow-y: scroll;
   }
 
   .new_Overlay {

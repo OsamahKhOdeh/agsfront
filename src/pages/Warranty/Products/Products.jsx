@@ -176,13 +176,6 @@ const Products = ({ searchQuery }) => {
         <h1>Loading</h1>
       )}
 
-      <div className="battery__bottom" onClick={showList}>
-        <div className="bottom">
-          <img src="/images/cart.png" width={80} height={80} />
-          <div className="battery__coutn">{cart.length}</div>
-        </div>
-      </div>
-
       {cartLength.length > 0 ? (
         <div className="modal">
           <div className="sidebar">

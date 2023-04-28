@@ -1,0 +1,15 @@
+.products_container{
+    width: 100%;
+}
+
+.spinner_container{
+    margin: auto;
+    width: 100%;
+}
+
+.grid{
+        display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
+    grid-gap: 10px;
+    align-items: stretch;
+}

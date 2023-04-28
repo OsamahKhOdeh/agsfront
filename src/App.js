@@ -36,11 +36,13 @@ import Orders from "./pages/Orders/Orders";
 import Projects from "./pages/Projects/Projects";
 import AllProjects from "./pages/AllProjects/AllProjects";
 import SharedProjects from "./pages/AllProjects/SharedProjects";
+import WebsitePage from "./pages/WebsitePage/WebsitePage";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
       <BrowserRouter>
         <Routes>
+          <Route path="/website" element={<WebsitePage />}></Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>

@@ -12,6 +12,7 @@ import showingSlice from "./showingSlice";
 import usersSlice from "./usersSlice";
 import warrantySlice from "./warrantySlice";
 import projectSlice from "./projectSlice";
+import poSlice from "./poSlice";
 
 export default configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export default configureStore({
     products1: productReducer,
     cart: cartSlice,
     pi: piSlice,
+    po: poSlice,
     // products: productReducer,
     show: showingSlice,
     filters: filtersSlice,

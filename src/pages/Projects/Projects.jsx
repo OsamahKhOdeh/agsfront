@@ -141,7 +141,7 @@ const Projects = () => {
           ))}
 
           {currentProject.projectName && (
-            <div className="add_task">
+            <div style={{ position: "inherit" }} className="add_task">
               <input
                 type="text"
                 className="new_task_text"
