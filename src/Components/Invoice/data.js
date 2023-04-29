@@ -47,4 +47,15 @@ export const bank_details = [
       "BANK ADDRESS :	THIRD -41 27TH ST - PORT SAEED-DUBAI-U.A.E",
     ],
   },
+  {
+    collection: "AGS SIB",
+    terms: [
+      "BENEFICIARY BANK:	SHARJAH ISLAMIC BANK",
+      "BENEFICIARY NAME:	AGS INTERNATIONAL GENERAL TR LLC",
+      "CURRENCY:	AED",
+      "ACCOUNT NO: 	0012159684001",
+      "SWIFT CODE :	NBSHAEASXXX",
+      "IBAN :	AE510410000012159684001",
+    ],
+  },
 ];
