@@ -25,15 +25,22 @@ const ProductNew = ({ product, index }) => {
                 `images/${product._id}_1.JPG`
           }
           class="mouse"
+          alt={product.category}
         />
       </div>
 
       <div class="contentBox">
-        <h3>
-          {product.brand}&nbsp;{product.code}
+        <h3 style={{ fontSize: "25px", fontWeight: "700", color: "#ff0000" }}>{product.brand}</h3>
+        <h3 style={{ fontSize: "21px", fontFamily: "monospace", fontWeight: "600", color: "rgb(197 19 19)" }}>
+          {product.code}
         </h3>
-        <h2 class="price">{product.capacity}</h2>
-        <a href="#" onClick={onButtonClick} class="buy">
+        <h2
+          style={{ fontSize: "20px", color: "rgb(110 51 51)", fontWeight: "700", letterSpacing: "1px" }}
+          class="price"
+        >
+          {product.capacity}
+        </h2>
+        <a onClick={() => onButtonClick(product._id, product.code)} class="buy">
           Download Datasheet
         </a>
       </div>

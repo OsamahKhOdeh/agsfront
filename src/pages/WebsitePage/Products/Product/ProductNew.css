@@ -96,14 +96,20 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .card:hover .contentBox .buy {
   top: 0;
   opacity: 1;
+
 }
 
 .mouse {
   height: 250px;
   width: auto;
+}
+
+.card:hover{
+  border: 2px solid rgb(255, 0, 0) ;
 }

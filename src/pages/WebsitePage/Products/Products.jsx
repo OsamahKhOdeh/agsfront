@@ -29,7 +29,7 @@ const Products = ({ searchQuery }) => {
     </div>
   ) : (
     <div className="products_container">
-      <div className="grid">
+      <div className="grid_web">
         {products?.map((product, index) => (
           <ProductNew product={product} key={index} index={index} />
         ))}

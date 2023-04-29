@@ -19,13 +19,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
   total: {
     fontSize: "8px",
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
   buyer: {
     textAlign: "center",
@@ -34,15 +38,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const SellerBuyer = ({exporter , buyer}) => {
-  
+const SellerBuyer = ({ exporter, buyer }) => {
   return (
     <>
       <View style={styles.row}>
-      <Text style={styles.buyer}>Seller :</Text>
-      <Text style={styles.buyer}>Buyer :  {buyer}</Text>
-    </View>
-   
+        <Text style={styles.buyer}>Seller :</Text>
+        <Text style={styles.buyer}>Buyer : {buyer.split(" ").slice(0, 6).join(" ")}</Text>
+      </View>
     </>
   );
 };

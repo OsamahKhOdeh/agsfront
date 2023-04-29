@@ -6,7 +6,8 @@
     display: block;
     margin: auto;
     padding: 20px;
-    background-color:  #ffffff;
+    background-color:  #d9d9d9;
+    padding: 0px;
 }
 
 
@@ -21,15 +22,39 @@
 
 
 .search_div_po{
-      width: 50%;
+      width: 81%;
     margin: auto;
+    display: flex;
 }
 
+.filter_div{
+  
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.filter_but{
+    width: 24%;
+    background-color: red;
+    color: #eddbdb;
+    padding: 16px 16px;
+    margin: 7px 19px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+.filter_but:hover{
+    background-color: rgb(236, 236, 236);
+    color: #fc0000;
+}
 
 .po_filters{
-    width: 100%;
+       width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-top: 0.5%;
+    padding-bottom: 1.2%;
 }
 
 
@@ -52,4 +77,43 @@
 .right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .search_div_po{
+    display: block;
+  }
+
+  
+.filter_but{
+       width: 30%;
+    background-color: red;
+    color: #eddbdb;
+    padding: 5px 14px;
+    margin: 7px 19px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+}
+
+
+@media only screen and (max-width: 460px) {
+  /* For mobile phones: */
+  .search_div_po{
+    display: block;
+  }
+
+  
+.filter_but{
+       width: 30%;
+    background-color: red;
+    color: #eddbdb;
+    padding: 5px 14px;
+    margin: 7px 19px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+}
 }

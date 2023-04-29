@@ -19,64 +19,73 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
-  total_word :  {
+  total_word: {
     fontSize: "8px",
 
     width: "50%",
     textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
-  total_pcs :{
+  total_pcs: {
     width: "15%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
-  empty_space :{
+  empty_space: {
     borderRightColor: borderColor,
     borderRightWidth: 1,
     textAlign: "center",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2,
-    width : "20%"
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
+    width: "20%",
   },
   total: {
     fontSize: "8px",
     width: "15%",
     textAlign: "right",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
-  },total_pcs_word : {
-
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
-  total_wieght_word : {
-
-  },
-  total_wieght : {
-
-  },
-   weight_word : {
+  total_pcs_word: {},
+  total_wieght_word: {},
+  total_wieght: {},
+  weight_word: {
     borderRightColor: borderColor,
     borderRightWidth: 1,
     fontSize: "8px",
     width: "12.5%",
     textAlign: "center",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
   },
-   weight_val : {
+  weight_val: {
     borderRightColor: borderColor,
     borderRightWidth: 1,
     fontSize: "8px",
     width: "12.5%",
     textAlign: "center",
-    paddingRight: 8,height : "100%"  ,paddingTop : 2
-   }
+    paddingRight: 8,
+    height: "100%",
+    paddingTop: 2,
+  },
 });
 
-const InvoiceTableFooter = ({ products, currency, location,  discount ,additions ,usdToAedRate }) => {
+const InvoiceTableFooter = ({ products, currency, location, discount, additions, usdToAedRate }) => {
   let currency_word = "";
   let sub_currency_word = "";
   if (currency === "USD") {
@@ -88,10 +97,22 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
   }
   //New with cents//////////////////////////////////////////////////////////////////////////////////
   const ones = ["", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ", "nine "];
-  const teen = ["ten ", "eleven ", "twelve ", "thirteen ", "fourteen ", "fifteen ", "sixteen ", "seventeen ", "eighteen ", "nineteen "];
+  const teen = [
+    "ten ",
+    "eleven ",
+    "twelve ",
+    "thirteen ",
+    "fourteen ",
+    "fifteen ",
+    "sixteen ",
+    "seventeen ",
+    "eighteen ",
+    "nineteen ",
+  ];
   const tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
   const high = ["hundred ", "thousand ", "million ", "billion "];
-  const tensOnes = (t, o) => (+t == 0 ? ones[+o] : +t == 1 ? teen[+o] : +t > 1 && +o == 0 ? tens[+t - 2] : tens[+t - 2] + "-" + ones[+o]);
+  const tensOnes = (t, o) =>
+    +t == 0 ? ones[+o] : +t == 1 ? teen[+o] : +t > 1 && +o == 0 ? tens[+t - 2] : tens[+t - 2] + "-" + ones[+o];
   const fltN = (float) => [...parseFloat(float)?.toFixed(2)];
   const stepper = (array) => {
     const D = array[0];
@@ -118,19 +139,78 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
         word = tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
         break;
       case 6:
-        word = tensOnes(0, D[5]) + high[0] + tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
+        word =
+          tensOnes(0, D[5]) +
+          high[0] +
+          tensOnes(D[4], D[3]) +
+          high[1] +
+          tensOnes(0, D[2]) +
+          high[0] +
+          tensOnes(D[1], D[0]) +
+          currency_word +
+          C;
         break;
       case 7:
-        word = tensOnes(0, D[6]) + high[2] + tensOnes(0, D[5]) + high[0] + tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
+        word =
+          tensOnes(0, D[6]) +
+          high[2] +
+          tensOnes(0, D[5]) +
+          high[0] +
+          tensOnes(D[4], D[3]) +
+          high[1] +
+          tensOnes(0, D[2]) +
+          high[0] +
+          tensOnes(D[1], D[0]) +
+          currency_word +
+          C;
         break;
       case 8:
-        word = tensOnes(D[7], D[6]) + high[2] + tensOnes(0, D[5]) + high[0] + tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
+        word =
+          tensOnes(D[7], D[6]) +
+          high[2] +
+          tensOnes(0, D[5]) +
+          high[0] +
+          tensOnes(D[4], D[3]) +
+          high[1] +
+          tensOnes(0, D[2]) +
+          high[0] +
+          tensOnes(D[1], D[0]) +
+          currency_word +
+          C;
         break;
       case 9:
-        word = tensOnes(0, D[8]) + high[0] + tensOnes(D[7], D[6]) + high[2] + tensOnes(0, D[5]) + high[0] + tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
+        word =
+          tensOnes(0, D[8]) +
+          high[0] +
+          tensOnes(D[7], D[6]) +
+          high[2] +
+          tensOnes(0, D[5]) +
+          high[0] +
+          tensOnes(D[4], D[3]) +
+          high[1] +
+          tensOnes(0, D[2]) +
+          high[0] +
+          tensOnes(D[1], D[0]) +
+          currency_word +
+          C;
         break;
       case 10:
-        word = tensOnes(0, D[9]) + high[3] + tensOnes(0, D[8]) + high[0] + tensOnes(D[7], D[6]) + high[2] + tensOnes(0, D[5]) + high[0] + tensOnes(D[4], D[3]) + high[1] + tensOnes(0, D[2]) + high[0] + tensOnes(D[1], D[0]) + currency_word + C;
+        word =
+          tensOnes(0, D[9]) +
+          high[3] +
+          tensOnes(0, D[8]) +
+          high[0] +
+          tensOnes(D[7], D[6]) +
+          high[2] +
+          tensOnes(0, D[5]) +
+          high[0] +
+          tensOnes(D[4], D[3]) +
+          high[1] +
+          tensOnes(0, D[2]) +
+          high[0] +
+          tensOnes(D[1], D[0]) +
+          currency_word +
+          C;
         break;
       default:
         break;
@@ -168,38 +248,36 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
   let totalGross = 0;
   let totalNet = 0;
   let UAERATE = 1;
-  let price =0;
+  let price = 0;
 
   console.log(usdToAedRate);
-  if(currency === "AED"){
+  if (currency === "AED") {
     UAERATE = usdToAedRate;
   }
 
-  
   function calcTotal() {
     products.map((item) => {
-      if(location === "freezone" && currency === "AED"){
-        total += item.freezonePriceAED * item.qty ;
+      if (location === "freezone" && currency === "AED") {
+        total += item.freezonePriceAED * item.qty;
       }
-      if(location === "local" && currency === "AED"){
-        total += item.LocalPriceAED* item.qty;
+      if (location === "local" && currency === "AED") {
+        total += item.LocalPriceAED * item.qty;
       }
-      if(location === "freezone" && currency === "USD"){
-        total += item.freezonePrice* item.qty;
-      }if(location === "local" && currency === "USD"){
-        total += item.LocalPrice* item.qty;
+      if (location === "freezone" && currency === "USD") {
+        total += item.freezonePrice * item.qty;
       }
-      totalPcs+= item.qty;
+      if (location === "local" && currency === "USD") {
+        total += item.LocalPrice * item.qty;
+      }
+      totalPcs += item.qty;
       totalGross += item.qty * item.grossWeight;
       totalNet += item.qty * item.netWeight;
     });
-
   }
   calcTotal();
   console.log(total);
   console.log(totalPcs);
 
- 
   return (
     <>
       <View style={styles.row}>
@@ -209,26 +287,28 @@ const InvoiceTableFooter = ({ products, currency, location,  discount ,additions
         <Text style={styles.weight_word}>Gross Weight</Text>
         <Text style={styles.weight_val}>{totalGross} Kg</Text>
 
-
-        <Text style={styles.total_pcs}>{totalPcs} PCs</Text>
+        <Text style={styles.total_pcs}>{totalPcs} </Text>
         <Text style={styles.empty_space}>Total</Text>
-        <Text style={styles.total}>{Number.parseFloat(total)?.toFixed(2)}&nbsp;{currency} </Text>
+        <Text style={styles.total}>
+          {Number.parseFloat(total)?.toFixed(2)}&nbsp;{currency}{" "}
+        </Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.description}>DISCOUNT</Text>
         <Text style={styles.total}>
           {discount}&nbsp;{currency}
         </Text>
-      </View> <View style={styles.row}>
+      </View>{" "}
+      <View style={styles.row}>
         <Text style={styles.description}>ADDITIONS</Text>
         <Text style={styles.total}>
           {additions}&nbsp;{currency}
         </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.description}>{moneyToEng((total - discount) +parseInt(additions))}&nbsp;only</Text>
+        <Text style={styles.description}>{moneyToEng(total - discount + parseInt(additions))}&nbsp;only</Text>
         <Text style={styles.total}>
-          {Number.parseFloat((total - discount) +parseInt(additions))?.toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat(total - discount + parseInt(additions))?.toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
     </>
