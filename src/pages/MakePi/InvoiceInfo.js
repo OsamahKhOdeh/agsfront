@@ -21,6 +21,7 @@ import {
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setDeliveryDate,
   setPaymentPercentage,
   setPiAdditions,
   setPiBankDetails,
@@ -57,6 +58,7 @@ function InvoiceInfo() {
   const [paymentPercentageState, setPaymentPercentageState] = useState(
     useSelector((state) => state.pi.piInfo?.paymentPercentage)
   );
+  const [deliveryDateState, setDeliveryDateState] = useState(useSelector((state) => state.pi.piInfo?.deliveryDate));
   const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
   const currency = useSelector((state) => state.filters.currency);
   const location = useSelector((state) => state.filters.location);
@@ -143,6 +145,9 @@ function InvoiceInfo() {
   };
   const handelTermsChange = (e) => {
     dispatch(setPaymentPercentage(paymentPercentageState));
+  };
+  const handelDeliveryDateChange = (e) => {
+    dispatch(setDeliveryDate(deliveryDateState));
   };
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
@@ -367,6 +372,22 @@ function InvoiceInfo() {
             </Grid>
           </>
         )}
+        <Grid item xs={12} sm={12}>
+          <div className="">
+            <label className="form-check-label" htmlFor="flexCheckDefault">
+              Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment
+            </label>
+            <input
+              value={deliveryDateState}
+              onChange={(e) => {
+                setDeliveryDateState(e.target.value);
+              }}
+              type="text"
+              onBlur={handelDeliveryDateChange}
+              style={{ border: "solid", padding: "10px", width: "75px", marginLeft: "20px" }}
+            ></input>
+          </div>
+        </Grid>
         <Grid item xs={12} sm={12}>
           <div className="">
             <label className="form-check-label" htmlFor="flexCheckDefault">

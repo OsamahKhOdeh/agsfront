@@ -7,6 +7,23 @@
     margin: auto;
 }
 
+.next_button_fixed{
+        position: fixed;
+    z-index: 99;
+    right: 0px;
+    top: 50%;
+    border-radius: 50%;
+    background-color: #3bc763;
+    padding: 22px;
+    cursor: pointer;
+    opacity: 0.5;
+    /* color: white; */
+}
+
+.next_button_fixed:hover{
+  opacity: 1;
+}
+
 
 .search_box_po {
   padding: 10px;
@@ -31,12 +48,17 @@
 
 
 .no_of_items{
-           margin-top: auto;
+             position: fixed;
+    right: 0;
+    top: 80px;
+    margin-top: auto;
     margin-bottom: auto;
     background-color: #c9e1f5;
     padding: 15px;
     color: #56606a;
     font-family: monospace;
+    z-index: 10;
+    opacity: 0.7;
 }
 
 .arrow {

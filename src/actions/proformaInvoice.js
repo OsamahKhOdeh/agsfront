@@ -2,11 +2,8 @@ import { setIsLoading } from "../store/showingSlice";
 
 import * as api from "../api/index.js";
 import { setPiNo } from "../store/piSlice";
-import {
-  changeProformaInvoiceStatus,
-  changeSignedProformaInvoiceStatus,
-  fetchAllProformaInvoices,
-} from "../store/proformaInvoicesSlice";
+import { changeProformaInvoiceStatus, changeSignedProformaInvoiceStatus, fetchAllProformaInvoices } from "../store/proformaInvoicesSlice";
+import { deleteProductState } from "../store/productsSlice";
 
 export const createProformaInvoice = (newProformaInvoice) => async (dispatch) => {
   dispatch(setIsLoading(true));
@@ -30,12 +27,7 @@ export const getLastPiNo = () => async (dispatch) => {
 export const updateProformaInvoiceStatus =
   ({ id, newStatus, managerMessage, manager }) =>
   async (dispatch) => {
-    console.log(
-      "🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:",
-      newStatus,
-      managerMessage,
-      manager
-    );
+    console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus, managerMessage, manager);
     console.log("here");
     console.log(id);
 
@@ -148,3 +140,13 @@ export const updateSignedProformaInvoiceStatus =
       console.log(error);
     }
   };
+
+export const deleteProformaInvoice = (id) => async (dispatch) => {
+  try {
+    await api.deleteProformaInvoice(id);
+    dispatch(deleteProductState(id));
+    //dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};

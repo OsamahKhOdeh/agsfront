@@ -8,8 +8,12 @@ import "./MakePo.css";
 import { useState } from "react";
 import SearchBox from "./SearchBox";
 import arrowRight from "./right-arrow.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 const MakePo = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector((state) => state.show.isLoading);
   const poProucts = useSelector((state) => state.po.products);
   useEffect(() => {
@@ -28,13 +32,18 @@ const MakePo = () => {
     </div>
   ) : (
     <div className="po_page_container">
-      <div>
-        <img src={arrowRight}></img>
+      <div
+        onClick={() => {
+          navigate("/user/poinfo");
+        }}
+        className="next_button_fixed"
+      >
+        <FontAwesomeIcon icon={faChevronRight} fade style={{ color: "#ffffff", width: "45px", height: "45px" }} />{" "}
       </div>
       <div className="po_filters">
         <SearchBox onChange={handleSearchBoxChange} />
         <div className="no_of_items">
-          No of items :<b style={{ color: "red" }}> {poProucts?.length} </b>
+          items :<b style={{ color: "red" }}> {poProucts?.length} </b>
         </div>
         {console.log(poProucts)}
       </div>

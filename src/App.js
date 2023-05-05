@@ -37,6 +37,9 @@ import Projects from "./pages/Projects/Projects";
 import AllProjects from "./pages/AllProjects/AllProjects";
 import SharedProjects from "./pages/AllProjects/SharedProjects";
 import WebsitePage from "./pages/WebsitePage/WebsitePage";
+import PoInfo from "./pages/MakePo/PoInfo/PoInfo";
+import Invoice from "./Components/PurchaseOrderPdf/Invoice";
+import PurchaseOrderPdf from "./Components/PurchaseOrderPdf/PurchaseOrderPdf";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -63,6 +66,8 @@ function App() {
 
                 <Route path="makepi" element={<PiStepper />}></Route>
                 <Route path="makepo" element={<MakePo />}></Route>
+                <Route path="poinfo" element={<PoInfo />}></Route>
+                <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
 
                 <Route path="table" element={<ProformaInvoice />}></Route>

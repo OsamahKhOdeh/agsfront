@@ -1,5 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "http://143.42.61.215:5000";
+export const BASE_URL = "http://localhost:5000";
 const API = axios.create({ baseURL: BASE_URL });
 // http://143.42.61.215:5000
 //"http://localhost:5000"
@@ -20,6 +20,12 @@ export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`
 
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
+export const deleteProformaInvoice = (id) => API.delete(`/pi/${id}`);
+
+export const createPurchaseOrder = (newPurchaseOrder) => API.post("/purchaseorder", newPurchaseOrder);
+
+export const getPurchaseOrders = () => API.get(`/purchaseorder`);
+
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
 export const getLastPiNo = () => API.get("/pi/last");
@@ -31,8 +37,7 @@ export const getEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/emplo
 export const updateProformaInvoiceStatus = ({ id, newStatus, managerMessage, manager }) =>
   API.patch(`/pi/${id}`, { newStatus, managerMessage, manager });
 
-export const updateProformaInvoice = (id, updatedProformaInvoice) =>
-  API.patch(`/pi/update/${id}`, updatedProformaInvoice);
+export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 
 export const getSignedProformaInvoices = (id) => API.get(`/pi/pisigned`);
 

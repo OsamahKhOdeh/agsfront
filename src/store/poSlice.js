@@ -6,7 +6,7 @@ const initialState = {
   notifyParty: "",
   buyerAddress: "",
   consignee: "",
-  portOfOrigin: "",
+  portOfOrigin: "CHINA",
   portOfDischarge: "",
   products: [],
   employee: "",
@@ -35,9 +35,7 @@ export const poSlice = createSlice({
   initialState,
   reducers: {
     addProductToPo: (state, action) => {
-      state.products.some((item) => item._id === action.payload._id)
-        ? null
-        : state.products.push({ ...action.payload, totalQty: 0, price: 0 });
+      state.products.some((item) => item._id === action.payload._id) ? null : state.products.push({ ...action.payload, qty: 0, price: 0 });
     },
     deleteProductFromPo: (state, action) => {
       let index = state.products.findIndex((obj) => obj._id === action.payload._id);

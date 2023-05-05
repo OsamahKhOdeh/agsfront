@@ -24,6 +24,7 @@ export const piSlice = createSlice({
       location: "freezone",
       bankDetails: [],
       paymentPercentage: "30",
+      deliveryDate: 7,
     },
     isPi: true,
   },
@@ -63,6 +64,9 @@ export const piSlice = createSlice({
     },
     setPaymentPercentage: (state, action) => {
       state.piInfo.paymentPercentage = action.payload;
+    },
+    setDeliveryDate: (state, action) => {
+      state.piInfo.deliveryDate = action.payload;
     },
     setPICurrencyLocation: (state, action) => {
       state.piInfo.currency = action.payload.currency;
@@ -115,6 +119,7 @@ export const {
   setPICurrencyLocation,
   setPiBankDetails,
   setPaymentPercentage,
+  setDeliveryDate,
 } = piSlice.actions;
 
 export default piSlice.reducer;

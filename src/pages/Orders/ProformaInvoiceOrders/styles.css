@@ -108,7 +108,11 @@ height: 62px;
 background-color: #02b402;
 color: white;
 }
-
+.button_delete{
+height: 62px;
+    background-color: #5c5c5c;
+    color: aliceblue;
+}
 
 .button_edit_pdf:hover {
   background-color: rgb(146, 153, 173);

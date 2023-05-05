@@ -8,6 +8,11 @@ export const proformaInvoicesSlice = createSlice({
   name: "proformaInvoices",
   initialState: initialState,
   reducers: {
+    deleteProformaInvoiceState: (state, action) => {
+      state.proformaInvoices = state.proformaInvoices.filter((item) => {
+        return item._id !== action.payload;
+      });
+    },
     fetchAllProformaInvoices: (state, action) => {
       const data = action.payload;
       console.log(data);
@@ -28,12 +33,8 @@ export const proformaInvoicesSlice = createSlice({
       console.log(action.payload);
       state.proformaInvoices.map((proformaInvoice) => {
         if (proformaInvoice.pi_id === action.payload.id) {
-          const current_stage_no = orderStatus.filter(
-            (item) => item.status === proformaInvoice.status
-          )[0].stage_no;
-          const nextStage = orderStatus.filter(
-            (status) => status.stage_no === current_stage_no + 1
-          )[0].status;
+          const current_stage_no = orderStatus.filter((item) => item.status === proformaInvoice.status)[0].stage_no;
+          const nextStage = orderStatus.filter((status) => status.stage_no === current_stage_no + 1)[0].status;
 
           proformaInvoice.status = nextStage;
           proformaInvoice.pi_done_status.push(nextStage);
@@ -63,6 +64,7 @@ export const {
   changeUserPassword,
   changeSignedProformaInvoiceStatus,
   changeSignedProformaInvoiceStatusSelect,
+  deleteProformaInvoiceState,
 } = proformaInvoicesSlice.actions;
 
 export default proformaInvoicesSlice.reducer;

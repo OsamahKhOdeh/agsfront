@@ -3,14 +3,20 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
-import { changeProformaInvoiceStatus } from "../../../store/proformaInvoicesSlice";
+import {
+  deleteProformaInvoice,
+  getProformaInvoicesAction,
+  updateProformaInvoiceStatus,
+} from "../../../actions/proformaInvoice";
+import { changeProformaInvoiceStatus, deleteProformaInvoiceState } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import SearchBox from "../../../Components/SearchBox/SearchBox";
 import DropDownSelect from "../../../Components/DropDownSelect/DropDownSelect";
+import Modal from "react-bootstrap/Modal";
+import { Button, TextField } from "@material-ui/core";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -148,11 +154,25 @@ const PIActionsAdmin = () => {
   };
 
   const handleDelete = (id) => {};
+
   const handlePDF = (pi) => {
     setCurrentPi(pi);
     setIsPdf(true);
     console.log(isPdf);
   };
+
+  /* ------------------------------ Delete Modal ------------------------------ */
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleConfirmDelete = () => {
+    setShow(false);
+    dispatch(deleteProformaInvoiceState(currentPi._id));
+
+    dispatch(deleteProformaInvoice(currentPi._id));
+  };
+  const handleShow = () => setShow(true);
+  /* -------------------------------------------------------------------------- */
+
   if (isPdf) {
     return (
       <>
@@ -172,6 +192,24 @@ const PIActionsAdmin = () => {
   } else
     return (
       <div style={{ width: "85%", margin: "auto" }}>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete PI</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Are you sure you want to delete PI : </h4>{" "}
+            <h4 style={{ color: "red", textAlign: "center" }}>{currentPi.pi_no}</h4>
+            <h4 style={{ color: "red" }}> for Customer : {currentPi.buyer_address}</h4>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <>
           <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
             <div className={popupClass} id="myForm">
@@ -281,6 +319,16 @@ const PIActionsAdmin = () => {
                       onClick={() => handleApprove(proformaInvoice._id)}
                     >
                       Approve
+                    </button>
+                    <button
+                      type="button"
+                      className="button_edit_pdf button_delete"
+                      onClick={() => {
+                        setCurrentPi(proformaInvoice);
+                        handleShow();
+                      }}
+                    >
+                      DELETE
                     </button>
                   </div>
                 </td>
