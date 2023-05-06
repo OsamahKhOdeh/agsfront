@@ -48,6 +48,13 @@ export const productsSlice = createSlice({
   name: "product",
   initialState: initialState,
   reducers: {
+    updateProductStockState: (state, action) => {
+      state.products.map((product) => {
+        if (product._id === action.payload.id) {
+          product[action.payload.newStock.property] = action.payload.newStock.value;
+        }
+      });
+    },
     deleteProductState: (state, action) => {
       state.products = state.products.filter((item) => {
         return item._id !== action.payload;
@@ -60,6 +67,7 @@ export const productsSlice = createSlice({
       state.itemOffset = action.payload;
     },
     fetchAll: (state, action) => {
+      console.log(action.payload);
       const { data } = action.payload;
       state.products = data;
     },
@@ -91,6 +99,7 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState } = productsSlice.actions;
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState, updateProductStockState } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

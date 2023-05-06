@@ -30,8 +30,19 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
   },
   {
+    title: "Edit Stock",
+    path: "/user/editstock",
+    cName: "dropdown-link",
+  },
+
+  {
     title: "Show all PI/s",
     path: "/user/piadmin",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Show all PO/s",
+    path: "/user/allpo",
     cName: "dropdown-link",
   },
   {
@@ -76,6 +87,11 @@ export const EmployeeMenuItems = [
     path: "/user/projects",
     cName: "dropdown-link",
   },
+  {
+    title: "Edit Stock",
+    path: "/user/editstock",
+    cName: "dropdown-link",
+  },
 ];
 
 export const SalesManagerMenuItems = [
@@ -100,6 +116,11 @@ export const SalesManagerMenuItems = [
     cName: "dropdown-link",
   },
   {
+    title: "Edit Stock",
+    path: "/user/editstock",
+    cName: "dropdown-link",
+  },
+  {
     title: "Show all PI/s",
     path: "/user/piadmin",
     cName: "dropdown-link",
@@ -119,6 +140,11 @@ export const SalesManagerMenuItems = [
     path: "/user/projects",
     cName: "dropdown-link",
   },
+  {
+    title: "Edit Stock",
+    path: "/user/editstock",
+    cName: "dropdown-link",
+  },
 ];
 
 export const FinancialMenuItems = [
@@ -133,12 +159,22 @@ export const FinancialMenuItems = [
     path: "/user/projects",
     cName: "dropdown-link",
   },
+  {
+    title: "Edit Stock",
+    path: "/user/editstock",
+    cName: "dropdown-link",
+  },
 ];
 
 export const LogisticsMenuItems = [
   {
     title: "Projects",
     path: "/user/projects",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Edit Stock",
+    path: "/user/editstock",
     cName: "dropdown-link",
   },
 ];

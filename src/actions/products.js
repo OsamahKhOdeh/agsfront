@@ -1,7 +1,7 @@
 import { setIsLoading } from "../store/showingSlice";
 
 import * as api from "../api/index.js";
-import { deleteProductState, fetchAll, fetchFilterd } from "../store/productsSlice";
+import { deleteProductState, fetchAll, fetchFilterd, updateProductStockState } from "../store/productsSlice";
 
 export const createProduct = (newProduct) => async (dispatch) => {
   console.log(newProduct);
@@ -13,6 +13,7 @@ export const createProduct = (newProduct) => async (dispatch) => {
   }
 };
 export const getProducts = () => async (dispatch) => {
+  console.log("herrrrrrrrrrrrrrrr");
   try {
     dispatch(setIsLoading(true));
     const data = await api.fetchProducts();
@@ -48,6 +49,19 @@ export const updateProduct = (id, product) => async (dispatch) => {
     console.log(data);
     //  dispatch({ type: UPDATE, payload: data });
     //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductStock = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProductStock(id, newStock);
+    console.log(data);
+    dispatch(updateProductStockState(id, newStock)); //instant change
   } catch (error) {
     console.log(error);
   }

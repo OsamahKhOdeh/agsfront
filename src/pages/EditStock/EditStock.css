@@ -1,0 +1,10 @@
+.product_image_td{    height: 75px;
+    width: 75px;  }
+
+    .stock_zero{
+        background-color: #ff8585;
+    }
+
+    .stock_available{
+        background-color:#a2e690
+    }

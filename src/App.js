@@ -40,6 +40,8 @@ import WebsitePage from "./pages/WebsitePage/WebsitePage";
 import PoInfo from "./pages/MakePo/PoInfo/PoInfo";
 import Invoice from "./Components/PurchaseOrderPdf/Invoice";
 import PurchaseOrderPdf from "./Components/PurchaseOrderPdf/PurchaseOrderPdf";
+import PurchaseOrdersAll from "./pages/PurchaseOrdersAll/PurchaseOrdersAll";
+import EditStock from "./pages/EditStock/EditStock";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -54,6 +56,7 @@ function App() {
                 <Route path="pricelist" element={<PriceList />}></Route>
                 <Route path="pdf" element={<ProformaInvoice />}></Route>
                 <Route path="piadmin" element={<PIActionsAdmin />}></Route>
+                <Route path="allpo" element={<PurchaseOrdersAll />}></Route>
                 <Route path="orders" element={<Orders />}></Route>
                 <Route path="projects" element={<Projects />}></Route>
                 <Route path="allprojects" element={<AllProjects />}></Route>
@@ -69,6 +72,7 @@ function App() {
                 <Route path="poinfo" element={<PoInfo />}></Route>
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
+                <Route path="editstock" element={<EditStock />}></Route>
 
                 <Route path="table" element={<ProformaInvoice />}></Route>
                 <Route path="pricelistinfo" element={<PriceListInfo />}></Route>

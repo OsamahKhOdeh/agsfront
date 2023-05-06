@@ -1,5 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "http://143.42.61.215:5000";
 const API = axios.create({ baseURL: BASE_URL });
 // http://143.42.61.215:5000
 //"http://localhost:5000"
@@ -18,6 +18,8 @@ export const fetchFilteredProducts = (filters) =>
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
 
+export const updateProductStock = (id, newStock) => API.patch(`/products/stock/${id}`, newStock);
+
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
 export const deleteProformaInvoice = (id) => API.delete(`/pi/${id}`);
@@ -25,6 +27,13 @@ export const deleteProformaInvoice = (id) => API.delete(`/pi/${id}`);
 export const createPurchaseOrder = (newPurchaseOrder) => API.post("/purchaseorder", newPurchaseOrder);
 
 export const getPurchaseOrders = () => API.get(`/purchaseorder`);
+
+export const getEmployeePurchaseOrders = (empolyee_name) => API.get(`/purchaseorder/employee?employeename=${empolyee_name}`);
+
+export const updatePurchaseOrderStatus = ({ id, newStatus, managerMessage, manager }) =>
+  API.patch(`/purchaseorder/${id}`, { newStatus, managerMessage, manager });
+
+export const deletePurchaseOrder = (id) => API.delete(`/purchaseOrder/${id}`);
 
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
