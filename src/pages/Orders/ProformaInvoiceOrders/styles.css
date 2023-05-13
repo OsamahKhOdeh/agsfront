@@ -51,10 +51,10 @@ width: 80px;
   border-left:#f5f6f7 ;
   border-bottom: 1px solid #f2f2f2;
 }
-.tr_border :hover{
+/*.tr_border :hover{
   background-color:#f1f4f5;
 
-}
+}*/
 
 .tr_border:hover td{
 background-color:hsl(199, 51%, 90%);

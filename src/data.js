@@ -18,7 +18,19 @@ export const countries = [
   { label: "Other", img: "/images/Other.png" },
 ];
 ////////////////////////////////////////////////////////////////////
-export const china = ["Huawei", "Felicity", "Growatt", "SunRay", "Must Power", "Voltronic", "Enkeel", "Dongjin", "Longi", "Jinhua Jujiang", "Suoer"];
+export const china = [
+  "Huawei",
+  "Felicity",
+  "Growatt",
+  "SunRay",
+  "Must Power",
+  "Voltronic",
+  "Enkeel",
+  "Dongjin",
+  "Longi",
+  "Jinhua Jujiang",
+  "Suoer",
+];
 
 export const india = ["Pacer", "Z Power", "Exide", "LUMINOUS", "Deepak"];
 
@@ -36,7 +48,22 @@ export const companyBrandCapacity = [
     brands: [
       {
         brandName: "Huawei",
-        capacities: ["50 KTL", "60 KTL", "65 KTL", "75 KTL", "100 KTL", "110 KTL", "125 KTL", "25 KTL", "30 KTL", "2 KTL", "3 KTL", "4 KTL", "5 KTL", "6 KTL"],
+        capacities: [
+          "50 KTL",
+          "60 KTL",
+          "65 KTL",
+          "75 KTL",
+          "100 KTL",
+          "110 KTL",
+          "125 KTL",
+          "25 KTL",
+          "30 KTL",
+          "2 KTL",
+          "3 KTL",
+          "4 KTL",
+          "5 KTL",
+          "6 KTL",
+        ],
       },
     ],
   },
@@ -305,3 +332,5 @@ export const companyBrandCapacity = [
     ],
   },
 ];
+
+export const warehouses = ["Azal", "Our WH 1 (Old)", "Our WH 2 (New)", "Airlink", "AZB", "AGS Showroom", "Lebanon WH", "Aqaba WH"];

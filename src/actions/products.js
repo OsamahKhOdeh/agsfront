@@ -1,7 +1,7 @@
 import { setIsLoading } from "../store/showingSlice";
 
 import * as api from "../api/index.js";
-import { deleteProductState, fetchAll, fetchFilterd, updateProductStockState } from "../store/productsSlice";
+import { deleteProductState, fetchAll, fetchFilterd, updateProductStockState, updateStockState } from "../store/productsSlice";
 
 export const createProduct = (newProduct) => async (dispatch) => {
   console.log(newProduct);
@@ -62,6 +62,71 @@ export const updateProductStock = (id, newStock) => async (dispatch) => {
     const { data } = await api.updateProductStock(id, newStock);
     console.log(data);
     dispatch(updateProductStockState(id, newStock)); //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateStock = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateStock(id, newStock);
+    console.log(data);
+    dispatch(updateStockState({ id, data })); //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductWarehouseBlQty = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProductWarehouseBlQty(id, newStock);
+    console.log(data);
+    dispatch(updateStockState({ id, data })); //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductMoveToAvailable = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProductMoveToAvailable(id, newStock);
+    console.log(data);
+    dispatch(updateStockState({ id, data })); //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductMoveToComing = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProductMoveToComing(id, newStock);
+    console.log(data);
+    dispatch(updateStockState({ id, data })); //instant change
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductWarehouseBlBookedQty = (id, newStock) => async (dispatch) => {
+  console.log("here");
+  console.log(id);
+
+  try {
+    const { data } = await api.updateProductWarehouseBlBookedQty(id, newStock);
+    console.log(data);
+    dispatch(updateStockState({ id, data })); //instant change
   } catch (error) {
     console.log(error);
   }

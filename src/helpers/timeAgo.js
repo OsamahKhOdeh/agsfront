@@ -31,3 +31,19 @@ export const timeAgo = (date) => {
 
   return Math.floor(seconds) + " seconds ago";
 };
+
+export function formatDate(dateString) {
+  // Split the date string into an array using "/" as the separator
+  const parts = dateString.split("/");
+
+  // Create a new Date object using the parts of the date string in the "mm/dd/yyyy" format
+  const date = new Date(dateString);
+
+  // Get the day, month, and year values from the date object and convert them to strings
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  // Return the formatted date string in the "dd/mm/yyyy" format
+  return `${day}/${month}/${year}`;
+}

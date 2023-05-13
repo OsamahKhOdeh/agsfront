@@ -38,8 +38,7 @@ export const terms_collections = [
 export const exporters = [
   {
     name: "AGS",
-    value:
-      "AGS INTERNATIONAL GENERAL TRADING LLC DEIRA NAIF,AL MAKTOUM HOSPITAL ROAD CONTACT:+971 558952656, Email: info@jalil.ae",
+    value: "AGS INTERNATIONAL GENERAL TRADING LLC DEIRA NAIF,AL MAKTOUM HOSPITAL ROAD CONTACT:+971 558952656, Email: info@jalil.ae",
   },
   {
     name: "AJC",
@@ -56,8 +55,7 @@ export const exporters = [
 export const notify_partys = [
   {
     name: "HMC",
-    value:
-      "HMC INTERNATIONAL FZCO JEBEL ALI FREE ZONE- DUBAI- UNITED ARAB EMIRATES CONTACT : +971565527684, EMAIL : info@HMCFZ.CO",
+    value: "HMC INTERNATIONAL FZCO JEBEL ALI FREE ZONE- DUBAI- UNITED ARAB EMIRATES CONTACT : +971565527684, EMAIL : info@HMCFZ.CO",
   },
   {
     name: "CHARTER PARTY",
@@ -73,4 +71,59 @@ export const notify_partys = [
     value:
       "BLUE LOGISTICS SERVICES SARL PATRIARCHE MEOUCHY STREET NBR 4, KAHALE BLDG NBR 44, 2ND FLOOR, HORCH TABET,SIN EL FIL - LEBANONTEL: +9613242412 Email : riad.abdou@bluelogistics-lb.com VAT NBR# 601-3369083",
   },
+];
+
+const dat0 = [
+  {
+    warehouse: "azal",
+    bl: [
+      { code: "av1", qty: "44", status: "available", booked: 0, date: "2023-05-11T07:26:36.892Z" },
+      { code: "com1", qty: "66", status: "available", booked: 0, date: "2023-05-11T07:28:34.619Z" },
+    ],
+  },
+  {
+    warehouse: "our wh 1 (old)",
+    bl: [
+      { code: "av wh1 ", qty: "55", status: "available", booked: 0, date: "2023-05-11T07:27:22.132Z" },
+      { date: "2023-05-11T07:38:58.557Z" },
+    ],
+  },
+  { warehouse: "coming", bl: [] },
+];
+
+const dat = [
+  {
+    warehouse: "azal",
+    bl: [
+      { code: "av1", qty: "44", status: "available", booked: 0, date: "2023-05-11T07:26:36.892Z" },
+      { code: "com1", qty: "66", status: "available", booked: 0, date: "2023-05-11T07:28:34.619Z" },
+      { date: "2023-05-11T07:44:22.001Z" },
+    ],
+  },
+  {
+    warehouse: "our wh 1 (old)",
+    bl: [
+      { code: "av wh1 ", qty: "55", status: "available", booked: 0, date: "2023-05-11T07:27:22.132Z" },
+      { date: "2023-05-11T07:38:58.557Z" },
+    ],
+  },
+  { warehouse: "coming", bl: [] },
+];
+
+const dat2 = [
+  {
+    warehouse: "azal",
+    bl: [
+      { code: "av1", qty: "44", status: "available", booked: 0, date: "2023-05-11T07:26:36.892Z" },
+      { code: "com1", qty: "66", status: "available", booked: 0, date: "2023-05-11T07:28:34.619Z" },
+    ],
+  },
+  {
+    warehouse: "our wh 1 (old)",
+    bl: [
+      { code: "av wh1 ", qty: "55", status: "available", booked: 0, date: "2023-05-11T07:27:22.132Z" },
+      { date: "2023-05-11T07:38:58.557Z" },
+    ],
+  },
+  { warehouse: "coming", bl: [] },
 ];

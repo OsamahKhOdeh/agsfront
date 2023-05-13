@@ -35,6 +35,7 @@ const checkforallcountries = {
   bl: [],
   __v: 0,
   stock: 0,
+  stockAll: [{}],
 };
 const initialState = {
   products: [],
@@ -52,6 +53,14 @@ export const productsSlice = createSlice({
       state.products.map((product) => {
         if (product._id === action.payload.id) {
           product[action.payload.newStock.property] = action.payload.newStock.value;
+        }
+      });
+    },
+    updateStockState: (state, action) => {
+      console.log(action.payload);
+      state.products.map((product) => {
+        if (product._id === action.payload.id) {
+          product.bl = action.payload.data;
         }
       });
     },
@@ -99,7 +108,7 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState, updateProductStockState } =
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState, updateProductStockState, updateStockState } =
   productsSlice.actions;
 
 export default productsSlice.reducer;

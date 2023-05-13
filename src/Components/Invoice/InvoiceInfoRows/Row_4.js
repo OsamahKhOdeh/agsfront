@@ -19,16 +19,19 @@ const styles = StyleSheet.create({
   },
   consignee: {
     width: "50%",
-    
+
     borderRightColor: borderColor,
-    borderRight: 1,height : "100%"  ,paddingTop : 4
+    borderRight: 1,
+    height: "100%",
+    paddingTop: 4,
   },
 
   notify_party: {
     fontSize: "9px",
     width: "50%",
     padding: "0px 2px",
-    height : "100%"  ,paddingTop : 4
+    height: "100%",
+    paddingTop: 4,
   },
 });
 

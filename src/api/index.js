@@ -18,7 +18,17 @@ export const fetchFilteredProducts = (filters) =>
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
 
+export const updateProductWarehouseBlQty = (id, newStock) => API.patch(`/products/productqty/${id}`, newStock);
+
+export const updateProductMoveToAvailable = (id, newStock) => API.patch(`/products/productmoveavailable/${id}`, newStock);
+
+export const updateProductMoveToComing = (id, newStock) => API.patch(`/products/productmovecoming/${id}`, newStock);
+
+export const updateProductWarehouseBlBookedQty = (id, newStock) => API.patch(`/products/productbookedqty/${id}`, newStock);
+
 export const updateProductStock = (id, newStock) => API.patch(`/products/stock/${id}`, newStock);
+
+export const updateStock = (id, newStock) => API.patch(`/products/stockall/${id}`, newStock);
 
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
