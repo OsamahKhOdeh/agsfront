@@ -5,8 +5,10 @@ import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 import Product from "./Product/Product";
 import ProductNew from "./Product/ProductNew";
 
-const Products = ({ searchQuery }) => {
+const Products = ({ searchQuery, category }) => {
+  console.log(category);
   let products = useSelector((state) => state.products.products);
+  let allProducts = useSelector((state) => state.products.products);
   const isLoading = useSelector((state) => state.show.isLoading);
 
   /* ------------------------------- searchQuery ------------------------------ */
@@ -17,6 +19,13 @@ const Products = ({ searchQuery }) => {
         item.capacity.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.company.toLowerCase().includes(searchQuery.toLowerCase())
     );
+  }
+
+  if (category.length !== 0) {
+    products = products.filter((item) => item.category.toLowerCase() === category.toLowerCase());
+  }
+  if (category === "all") {
+    products = allProducts;
   }
 
   /* -------------------------------------------------------------------------- */

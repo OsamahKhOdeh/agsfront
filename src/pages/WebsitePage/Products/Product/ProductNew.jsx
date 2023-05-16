@@ -10,9 +10,9 @@ const ProductNew = ({ product, index }) => {
   };
 
   const onGetQuoteClick = (id, code, capacity) => {
-    const phoneNumber = "971565527684"; // Replace with your specific phone number
+    const phoneNumber = "971565527684";
     const message = "Hello AGS, I'm looking for more information about " + code + " with capacity " + capacity;
-    const messageArabic = "الرجاء ارسال عرض سعر للمنتج " + "\n" + code + capacity; // Replace with your desired message
+    const messageArabic = "الرجاء ارسال عرض سعر للمنتج " + "\n" + code + capacity;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
@@ -45,7 +45,7 @@ const ProductNew = ({ product, index }) => {
 
       <div class="contentBox">
         <h3 style={{ fontSize: "25px", fontWeight: "700", color: "#ff0000" }}>{product.brand}</h3>
-        <h3 style={{ fontSize: "21px", fontFamily: "monospace", fontWeight: "600", color: "rgb(197 19 19)" }}>{product.code}</h3>
+        <h3 style={{ fontSize: "16px", fontFamily: "monospace", fontWeight: "600", color: "rgb(197 19 19)" }}>{product.code}</h3>
         <h2 style={{ fontSize: "20px", color: "rgb(110 51 51)", fontWeight: "700", letterSpacing: "1px" }} class="price">
           {product.capacity}
         </h2>
@@ -60,7 +60,6 @@ const ProductNew = ({ product, index }) => {
           >
             Get Quote
           </a>
-          <ReactWhatsapp number="1-212-736-5000" message="Hello World!!!" />
         </div>
       </div>
     </div>

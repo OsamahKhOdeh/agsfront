@@ -16,8 +16,13 @@ const WebsitePage = () => {
   }, [dispatch]);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("");
   const handleSearchBoxChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleCategoryChange = (cat) => {
+    setCategory(cat);
   };
   return isLoading ? (
     <div className="spinner_container">
@@ -28,10 +33,10 @@ const WebsitePage = () => {
   ) : (
     <div className="po_page_container">
       <div className="po_filters">
-        <SearchBox onChange={handleSearchBoxChange} />
+        <SearchBox onChange={handleSearchBoxChange} onCategoeyChange={handleCategoryChange} />
       </div>
 
-      <Products searchQuery={searchQuery} />
+      <Products searchQuery={searchQuery} category={category} />
     </div>
   );
 };

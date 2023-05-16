@@ -5,7 +5,7 @@
 .card {
      position: relative;
     width: 270px;
-    height: 460px;
+    height: 407px;
     background: #fcfafa;
     border-radius: 20px;
     overflow: hidden;
@@ -43,7 +43,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 0px;
   z-index: 1;
 }
 /*

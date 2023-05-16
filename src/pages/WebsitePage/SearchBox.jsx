@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./WebsitePage.css";
+import { set } from "lodash";
 
-const SearchBox = ({ onChange }) => {
-  const [filters, setFilters] = useState([]);
+const SearchBox = ({ onChange, onCategoeyChange }) => {
+  const [category, setCategory] = useState("all");
   const handleFilterClick = (filter) => {
-    filters.map((filter) => {});
+    onCategoeyChange(filter);
+    setCategory(filter);
   };
   return (
     <div className="search_div_po">
@@ -16,7 +18,7 @@ const SearchBox = ({ onChange }) => {
           onClick={() => {
             handleFilterClick("battery");
           }}
-          className="filter_but"
+          className={`filter_but ${category === "battery" ? "chosen_cat" : ""}`}
         >
           Battery
         </div>
@@ -24,7 +26,7 @@ const SearchBox = ({ onChange }) => {
           onClick={() => {
             handleFilterClick("solar");
           }}
-          className="filter_but"
+          className={`filter_but ${category === "solar" ? "chosen_cat" : ""}`}
         >
           Solar
         </div>
@@ -32,9 +34,17 @@ const SearchBox = ({ onChange }) => {
           onClick={() => {
             handleFilterClick("inverter");
           }}
-          className="filter_but"
+          className={`filter_but ${category === "inverter" ? "chosen_cat" : ""}`}
         >
           Inverter
+        </div>
+        <div
+          onClick={() => {
+            handleFilterClick("all");
+          }}
+          className={`filter_but ${category === "all" ? "chosen_cat" : ""}`}
+        >
+          All
         </div>
       </div>
     </div>
