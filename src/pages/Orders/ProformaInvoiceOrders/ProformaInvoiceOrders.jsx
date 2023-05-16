@@ -97,9 +97,7 @@ const ProformaInvoiceOrders = () => {
     setFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    proformaInvoices = proformaInvoices.filter((item) =>
-      item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    proformaInvoices = proformaInvoices.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
@@ -197,15 +195,11 @@ const ProformaInvoiceOrders = () => {
 
                 <td>
                   <div style={{ overflow: "hidden" }}>
-                    {proformaInvoice.status === "Approved" || proformaInvoice.status === "Signed" ? (
-                      <button
-                        type="button"
-                        className="button_edit_pdf button_pdf"
-                        onClick={() => handlePDF(proformaInvoice)}
-                      >
+                    {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
+                      <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
                         PI ( pdf )
                       </button>
-                    ) : proformaInvoice.status === "Rejected" ? (
+                    ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
                       <>
                         <button
                           type="button"
@@ -214,10 +208,18 @@ const ProformaInvoiceOrders = () => {
                         >
                           Edit
                         </button>
-                        <p style={{ color: "red", padding: 0, margin: 0 }}>{proformaInvoice?.managerMessage}</p>
+                        <p style={{ color: "red", padding: 0, margin: 0 }}>
+                          From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
+                          {proformaInvoice?.financeMessage + "/"}
+                          {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
+                          {proformaInvoice?.managerMessage}
+                        </p>
                       </>
                     ) : (
-                      "Waiting for manager approval"
+                      <>
+                        Wating for :{proformaInvoice.managerApproval === "Pending" && " manager approval"} &&nbsp;
+                        {proformaInvoice.financiaApproval === "Pending" && "finance approval"}
+                      </>
                     )}
                   </div>
                 </td>
@@ -227,14 +229,15 @@ const ProformaInvoiceOrders = () => {
                       pi_id={proformaInvoice._id}
                       pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
                     />
-                  ) : proformaInvoice.status === "Approved" ? (
+                  ) : proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
                     <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
                   ) : (
                     ""
                   )}
                 </td>
-                <td>
-                  <div className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</div>
+                <td style={{ fontSize: "12px" }}>
+                  <div className={colorByStatus(proformaInvoice?.managerApproval)}>S/{proformaInvoice?.managerApproval}</div>
+                  <div className={colorByStatus(proformaInvoice?.financiaApproval)}>F/{proformaInvoice?.financiaApproval}</div>
                 </td>
               </tr>
             ))}

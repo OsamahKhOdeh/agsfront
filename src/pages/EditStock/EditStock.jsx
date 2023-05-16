@@ -754,7 +754,7 @@ const EditStock = () => {
           closeModal={closeModal}
           setFilteredProducts={handleSetFilteredProducts}
         />
-        <div>
+        <div className="choose_cols">
           {cols.map((colName) => (
             <label>
               <input type="checkbox" value={colName} checked={selectedOptions.includes(colName)} onChange={handleCheckboxChange} />

@@ -43,6 +43,7 @@
     "react-select": "^5.7.3",
     "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.1",
+    "react-whatsapp": "^0.3.0",
     "react-window": "^1.8.8",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"

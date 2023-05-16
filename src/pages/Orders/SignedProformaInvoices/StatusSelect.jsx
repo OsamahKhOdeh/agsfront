@@ -40,10 +40,8 @@ const StatusSelect = ({ pi }) => {
       }
     </select>*/}
       <button
-        disabled={pi.status === "DONE_DEAL"}
-        class={
-          pi.status === "DONE_DEAL" ? "button_edit_pdf button_next_stage_done" : "button_edit_pdf button_next_stage"
-        }
+        disabled={pi.status !== "disabled"}
+        class={pi.status !== "disabled" ? "button_edit_pdf button_next_stage_done" : "button_edit_pdf button_next_stage"}
         onClick={handleNextStage}
       >
         Next Stage

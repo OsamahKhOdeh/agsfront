@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Finance.css";
-import { getSignedProformaInvoicesAction } from "../../actions/proformaInvoice";
+import { getSignedProformaInvoicesAction, updateSignedProformaInvoiceStatus } from "../../actions/proformaInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import DownloadPDFButton from "../Orders/ProformaInvoiceOrders/DownloadPDFButton";
 import { colorByStatus } from "../../helpers/piOrdersFunctions";
@@ -69,6 +69,8 @@ const Finance = () => {
     axios
       .patch(`${BASE_URL}/products/bookpiproducts/${id}`)
       .then((response) => {
+        dispatch(updateSignedProformaInvoiceStatus({ id, status: "BOOKED" }));
+
         console.log(response.data);
       })
       .catch((error) => {
@@ -140,7 +142,10 @@ const Finance = () => {
                 />
               </td>
               <td>
-                <div className="book_but" onClick={() => handleBookClick(proformaInvoice.pi_id)}>
+                <div
+                  className={`book_but ${proformaInvoice.status !== "CONFIRMED" ? "disabled_booked" : ""}`}
+                  onClick={() => handleBookClick(proformaInvoice.pi_id)}
+                >
                   BOOK
                 </div>
               </td>

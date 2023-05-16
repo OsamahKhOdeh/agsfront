@@ -155,6 +155,12 @@ export const FinancialMenuItems = [
   },
 
   {
+    title: "Show all PI/s",
+    path: "/user/piadmin",
+    cName: "dropdown-link",
+  },
+
+  {
     title: "Projects",
     path: "/user/projects",
     cName: "dropdown-link",

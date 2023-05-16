@@ -1,34 +1,41 @@
 /* eslint-disable no-unused-expressions */
 import { createSlice } from "@reduxjs/toolkit";
+const initialPiState = {
+  piProducts: [],
+  piInfo: {
+    invoiceNo: 0,
+    date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
+    exporter: "",
+    buyerAdress: "",
+    consignee: "",
+    notifyParty: "",
+    partyOfDischarge: "",
+    finalDistination: "",
+    discount: 0,
+    additions: 0,
+    terms: [],
+    employee: "",
+    employeePhone: "",
+    phoneNumber: "",
+    note: "",
+    currency: "USD",
+    location: "freezone",
+    bankDetails: [],
+    paymentPercentage: "30",
+    deliveryDate: 7,
+  },
+  isPi: true,
+};
 export const piSlice = createSlice({
   name: "pi",
-  initialState: {
-    piProducts: [],
-    piInfo: {
-      invoiceNo: 0,
-      date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }),
-      exporter: "",
-      buyerAdress: "",
-      consignee: "",
-      notifyParty: "",
-      partyOfDischarge: "",
-      finalDistination: "",
-      discount: 0,
-      additions: 0,
-      terms: [],
-      employee: "",
-      employeePhone: "",
-      phoneNumber: "",
-      note: "",
-      currency: "USD",
-      location: "freezone",
-      bankDetails: [],
-      paymentPercentage: "30",
-      deliveryDate: 7,
-    },
-    isPi: true,
-  },
+  initialState: initialPiState,
   reducers: {
+    clearPi: (state, action) => {
+      state.piInfo = initialPiState.piInfo;
+      state.piProducts = initialPiState.piProducts;
+      state.isPi = initialPiState.isPi;
+    },
+
     setPiExporter: (state, action) => {
       state.piInfo.exporter = action.payload;
     },
@@ -120,6 +127,7 @@ export const {
   setPiBankDetails,
   setPaymentPercentage,
   setDeliveryDate,
+  clearPi,
 } = piSlice.actions;
 
 export default piSlice.reducer;

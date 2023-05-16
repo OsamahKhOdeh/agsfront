@@ -22,9 +22,27 @@ export const proformaInvoicesSlice = createSlice({
       console.log(action.payload);
       state.proformaInvoices.map((proformaInvoice) => {
         if (proformaInvoice._id === action.payload.id) {
-          proformaInvoice.status = action.payload.status;
-          proformaInvoice.managerMessage = action.payload.managerMessage;
-          proformaInvoice.manager = action.payload.manager;
+          if (action.payload.financiaApproval) {
+            proformaInvoice.financiaApproval = action.payload.financiaApproval;
+          }
+          if (action.payload.managerApproval) {
+            proformaInvoice.managerApproval = action.payload.managerApproval;
+          }
+          if (action.payload.managerMessage) {
+            proformaInvoice.managerMessage = action.payload.managerMessage;
+          }
+          if (action.payload.financeMessage) {
+            proformaInvoice.financeMessage = action.payload.financeMessage;
+          }
+          if (action.payload.manager) {
+            proformaInvoice.manager = action.payload.manager;
+          }
+          if (action.payload.finance) {
+            proformaInvoice.finance = action.payload.finance;
+          }
+          //  proformaInvoice.status = action.payload.status;
+          // proformaInvoice.managerMessage = action.payload.managerMessage;
+          //  proformaInvoice.manager = action.payload.manager;
         }
       });
     },
@@ -33,15 +51,8 @@ export const proformaInvoicesSlice = createSlice({
       console.log(action.payload);
       state.proformaInvoices.map((proformaInvoice) => {
         if (proformaInvoice.pi_id === action.payload.id) {
-          const current_stage_no = orderStatus.filter((item) => item.status === proformaInvoice.status)[0].stage_no;
-          const nextStage = orderStatus.filter((status) => status.stage_no === current_stage_no + 1)[0].status;
-
-          proformaInvoice.status = nextStage;
-          proformaInvoice.pi_done_status.push(nextStage);
-          if (status) {
-            proformaInvoice.status = status;
-            proformaInvoice.pi_done_status.push(status);
-          }
+          proformaInvoice.status = status;
+          proformaInvoice.pi_done_status.push(status);
         } else {
           console.log("not changed status");
         }

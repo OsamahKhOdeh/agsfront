@@ -41,7 +41,7 @@ function UploadPdf({ pi, setLoading }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    dispatch(updateProformaInvoiceStatus({ id: pi._id, newStatus: "Signed" }));
+    //dispatch(updateProformaInvoiceStatus({ id: pi._id, newStatus: "Signed" }));
 
     const formData = new FormData();
     formData.append("pdf", pdfFile, `signed_${pi.pi_no}_${pi.employee}_${pi.manager}_${pi._id}_${pi.buyer_address}`);
@@ -68,13 +68,7 @@ function UploadPdf({ pi, setLoading }) {
     <>
       <ToastContainer />
       <form onSubmit={handleSubmit}>
-        <input
-          id="pi_upload"
-          style={{ width: "100px" }}
-          type="file"
-          accept="application/pdf"
-          onChange={handleFileChange}
-        />
+        <input id="pi_upload" style={{ width: "100px" }} type="file" accept="application/pdf" onChange={handleFileChange} />
         <button
           className={pdfFile ? `button_edit_pdf button_edit is_file` : `button_edit_pdf button_edit no_file`}
           type="submit"

@@ -3,12 +3,12 @@
 
 
 .card {
-  position: relative;
-  width: 320px;
-  height: 480px;
-  background: #fcfafa;
-  border-radius: 20px;
-  overflow: hidden;
+     position: relative;
+    width: 270px;
+    height: 460px;
+    background: #fcfafa;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .card::before {
@@ -59,13 +59,13 @@
 }
 */
 .card .contentBox {
-  position: relative;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 2;
+     position: relative;
+    padding: 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
 }
 
 .card .contentBox h3 {
@@ -87,16 +87,22 @@
   position: relative;
   top: 100px;
   opacity: 0;
-  padding: 10px 30px;
+  padding: 10px 14px;
   margin-top: 15px;
   color: #fcfcfc;
   text-decoration: none;
   background: #ff0000;
-  border-radius: 30px;
+  border-radius: 10px;
+  margin: 3px;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: 0.5s;
   cursor: pointer;
+  font-size: 11px;
+}
+
+.butt_qoute{
+  background: greenyellow;
 }
 
 .card:hover .contentBox .buy {
@@ -112,4 +118,10 @@
 
 .card:hover{
   border: 2px solid rgb(255, 0, 0) ;
+}
+
+
+
+.butt_container{
+  height: 38px;
 }

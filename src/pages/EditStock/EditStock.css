@@ -399,7 +399,9 @@ label {
     display: inline-block;
 }
 
-
+.choose_cols{
+  margin-top: 8px;
+}
 
 
 

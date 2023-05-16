@@ -8811,6 +8811,11 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.0, react-transition-g
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-whatsapp@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-whatsapp/-/react-whatsapp-0.3.0.tgz#1d8909939112b90411a70189be2677bdb6d53ac6"
+  integrity sha512-ZuCKhd30crVVNdLf/3BfDffqEOZLFW6mYRITA4fB6Vk5p3TU1Gl3YfTEfLE/7W+kTuwYPzF6aDnzbNt6GcatiQ==
+
 react-window@^1.8.8:
   version "1.8.8"
   resolved "https://registry.npmjs.org/react-window/-/react-window-1.8.8.tgz"

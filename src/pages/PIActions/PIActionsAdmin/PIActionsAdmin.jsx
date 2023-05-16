@@ -53,7 +53,7 @@ const PIActionsAdmin = () => {
   const [isPdf, setIsPdf] = useState(false);
   const [currentPi, setCurrentPi] = useState({});
   const [popupClass, setPopupClass] = useState("form-popup hidden");
-  const { username } = useAuth();
+  const { username, roles } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
@@ -118,13 +118,25 @@ const PIActionsAdmin = () => {
   /* -------------------------------------------------------------------------- */
 
   const handleApprove = (id) => {
-    dispatch(
-      updateProformaInvoiceStatus({
-        id,
-        newStatus: "Approved",
-        manager: username,
-      })
-    );
+    if (roles.includes("Financial")) {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          // newStatus: "Approved",
+          finally: username,
+          financiaApproval: "Approved",
+        })
+      );
+    } else {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          //  newStatus: "Approved",
+          manager: username,
+          managerApproval: "Approved",
+        })
+      );
+    }
   };
   const handleReject = (id) => {
     setPopupClass("form-popup showing");
@@ -135,14 +147,24 @@ const PIActionsAdmin = () => {
     event.preventDefault();
     console.log(event.target.rej_msg.value);
     const id = currentPi._id;
-    dispatch(
-      updateProformaInvoiceStatus({
-        id,
-        newStatus: "Rejected",
-        managerMessage: event.target.rej_msg.value,
-        manager: username,
-      })
-    );
+    if (roles.includes("Financial")) {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          financeMessage: event.target.rej_msg.value,
+          financiaApproval: "Rejected",
+          finance: username,
+        })
+      );
+    } else
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          managerMessage: event.target.rej_msg.value,
+          managerApproval: "Rejected",
+          manager: username,
+        })
+      );
     setPopupClass("form-popup hidden");
     event.target.rej_msg.value = "";
   };
@@ -283,40 +305,55 @@ const PIActionsAdmin = () => {
                   <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
                 </td>
                 <td>
-                  <div className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice?.status}</div>
+                  <div
+                    className={colorByStatus(
+                      roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
+                    )}
+                  >
+                    {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
+                  </div>
                 </td>
                 <td>
                   <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
                     PDF
                   </button>
                 </td>
-                <td>
-                  <div style={{ display: "flex" }}>
-                    <button
-                      type="button"
-                      className="button_edit_pdf button_reject"
-                      onClick={() => {
-                        setCurrentPi(proformaInvoice);
-                        handleReject(proformaInvoice._id);
-                      }}
-                    >
-                      Reject
-                    </button>
-                    <button type="button" className="button_edit_pdf button_approve" onClick={() => handleApprove(proformaInvoice._id)}>
-                      Approve
-                    </button>
-                    <button
-                      type="button"
-                      className="button_edit_pdf button_delete"
-                      onClick={() => {
-                        setCurrentPi(proformaInvoice);
-                        handleShow();
-                      }}
-                    >
-                      DELETE
-                    </button>
-                  </div>
-                </td>
+                {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
+                  <td>
+                    <div>Waiting for Sales M Approval</div>
+                  </td>
+                ) : (
+                  <td>
+                    <div style={{ display: "flex" }}>
+                      <button
+                        type="button"
+                        className="button_edit_pdf button_reject"
+                        onClick={() => {
+                          setCurrentPi(proformaInvoice);
+                          handleReject(proformaInvoice._id);
+                        }}
+                      >
+                        Reject
+                      </button>
+                      <button type="button" className="button_edit_pdf button_approve" onClick={() => handleApprove(proformaInvoice._id)}>
+                        Approve
+                      </button>
+                      {!roles.includes("Financial") && (
+                        <button
+                          type="button"
+                          className="button_edit_pdf button_delete"
+                          onClick={() => {
+                            setCurrentPi(proformaInvoice);
+                            handleShow();
+                          }}
+                        >
+                          DELETE
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                )}
+
                 <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>{proformaInvoice.managerMessage}</td>
               </tr>
             ))}

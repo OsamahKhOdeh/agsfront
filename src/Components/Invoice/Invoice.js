@@ -74,11 +74,7 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
   return (
     <Document compress={true}>
       <Page size="A4" style={styles.page}>
-        <Text
-          style={styles.pageNumber}
-          render={({ pageNumber, totalPages }) => `page ${pageNumber} of ${totalPages}`}
-          fixed
-        />
+        <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `page ${pageNumber} of ${totalPages}`} fixed />
         <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="PROFORMA INVOICE" />
         <InvoiceInfo piInfo={pi.piInfo} />
@@ -89,20 +85,17 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
           usdToAedRate={usdToAedRate}
           currency={currency}
           additions={pi.piInfo.additions}
+          note={pi.piInfo.note}
         />
-        <InvoiceTerms
-          terms={pi.piInfo.terms}
-          paymentPercentage={pi.piInfo.paymentPercentage}
-          deliveryDate={pi.piInfo.deliveryDate}
-        />
+        <InvoiceTerms terms={pi.piInfo.terms} paymentPercentage={pi.piInfo.paymentPercentage} deliveryDate={pi.piInfo.deliveryDate} />
         <BankDetails bankDetails={pi.piInfo.bankDetails} />
         <View wrap={false}>
           <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />
           <Image style={styles.logo} src={stamp} />
         </View>
         <Text style={styles.salesEngineer}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number
-          : {pi.piInfo.employeePhone}{" "}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number :{" "}
+          {pi.piInfo.employeePhone}{" "}
         </Text>
       </Page>
     </Document>

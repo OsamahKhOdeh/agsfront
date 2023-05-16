@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ products, currency, location, discount, additions, usdToAedRate }) => {
+const InvoiceTableFooter = ({ products, currency, location, discount, additions, usdToAedRate, note }) => {
   let currency_word = "";
   let sub_currency_word = "";
   if (currency === "USD") {
@@ -97,22 +97,10 @@ const InvoiceTableFooter = ({ products, currency, location, discount, additions,
   }
   //New with cents//////////////////////////////////////////////////////////////////////////////////
   const ones = ["", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ", "nine "];
-  const teen = [
-    "ten ",
-    "eleven ",
-    "twelve ",
-    "thirteen ",
-    "fourteen ",
-    "fifteen ",
-    "sixteen ",
-    "seventeen ",
-    "eighteen ",
-    "nineteen ",
-  ];
+  const teen = ["ten ", "eleven ", "twelve ", "thirteen ", "fourteen ", "fifteen ", "sixteen ", "seventeen ", "eighteen ", "nineteen "];
   const tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
   const high = ["hundred ", "thousand ", "million ", "billion "];
-  const tensOnes = (t, o) =>
-    +t == 0 ? ones[+o] : +t == 1 ? teen[+o] : +t > 1 && +o == 0 ? tens[+t - 2] : tens[+t - 2] + "-" + ones[+o];
+  const tensOnes = (t, o) => (+t == 0 ? ones[+o] : +t == 1 ? teen[+o] : +t > 1 && +o == 0 ? tens[+t - 2] : tens[+t - 2] + "-" + ones[+o]);
   const fltN = (float) => [...parseFloat(float)?.toFixed(2)];
   const stepper = (array) => {
     const D = array[0];
@@ -282,10 +270,10 @@ const InvoiceTableFooter = ({ products, currency, location, discount, additions,
     <>
       <View style={styles.row}>
         <Text style={styles.weight_word}>Net Weight</Text>
-        <Text style={styles.weight_val}>{totalNet} Kg</Text>
+        <Text style={styles.weight_val}>{totalNet?.toFixed(1)} Kg</Text>
 
         <Text style={styles.weight_word}>Gross Weight</Text>
-        <Text style={styles.weight_val}>{totalGross} Kg</Text>
+        <Text style={styles.weight_val}>{totalGross?.toFixed(1)} Kg</Text>
 
         <Text style={styles.total_pcs}>{totalPcs} </Text>
         <Text style={styles.empty_space}>Total</Text>
@@ -300,7 +288,7 @@ const InvoiceTableFooter = ({ products, currency, location, discount, additions,
         </Text>
       </View>{" "}
       <View style={styles.row}>
-        <Text style={styles.description}>ADDITIONS</Text>
+        <Text style={styles.description}>ADDITIONS : ({note})</Text>
         <Text style={styles.total}>
           {additions}&nbsp;{currency}
         </Text>

@@ -15,7 +15,7 @@ import invoiceData from "../../data/invoice-data";
 import ProformaInvoice from "../../Components/PoformaInvoice/ProformaInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import { createProformaInvoice } from "../../actions/proformaInvoice";
-import { setIsPI } from "../../store/piSlice";
+import { clearPi, setIsPI } from "../../store/piSlice";
 import SuccessPage from "../SuccessPage/SuccessPage";
 import { emptyCart } from "../../store/cartSlice";
 import { clearFilters } from "../../store/filtersSlice";
@@ -55,6 +55,9 @@ export default function PiStepper() {
     let newSkipped = skipped;
     if (activeStep === 2) {
       dispatch(createProformaInvoice(pi));
+      dispatch(clearPi());
+      dispatch(emptyCart());
+      dispatch(clearFilters());
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
@@ -65,6 +68,7 @@ export default function PiStepper() {
   };
 
   const handleReset = () => {
+    dispatch(clearPi());
     dispatch(emptyCart());
     dispatch(clearFilters());
     setActiveStep(0);
@@ -121,14 +125,7 @@ export default function PiStepper() {
           {activeStep === 0 && (
             <>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2, paddingBottom: "20px", alignItems: "flex-end" }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
+                <Button variant="contained" size="large" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                   Back
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
@@ -162,14 +159,7 @@ export default function PiStepper() {
                   right: "136px",
                 }}
               >
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
+                <Button variant="contained" size="large" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                   Back
                 </Button>
                 {activeStep === steps.length - 1 ? (
@@ -200,14 +190,7 @@ export default function PiStepper() {
                   right: "136px",
                 }}
               >
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
+                <Button variant="contained" size="large" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                   Back
                 </Button>
                 {activeStep === steps.length - 1 ? (

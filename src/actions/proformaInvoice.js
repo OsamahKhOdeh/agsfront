@@ -24,35 +24,15 @@ export const getLastPiNo = () => async (dispatch) => {
   dispatch(setPiNo(lastPiNo.data));
 };
 
-export const updateProformaInvoiceStatus =
-  ({ id, newStatus, managerMessage, manager }) =>
-  async (dispatch) => {
-    console.log("🚀 ~ file: proformaInvoice.js:39 ~ updateProformaInvoiceStatus ~ newStatus:", newStatus, managerMessage, manager);
-    console.log("here");
-    console.log(id);
-
-    try {
-      const { data } = await api.updateProformaInvoiceStatus({
-        id,
-        newStatus,
-        managerMessage,
-        manager,
-      });
-      console.log(data);
-      dispatch(
-        changeProformaInvoiceStatus({
-          id,
-          status: newStatus,
-          managerMessage,
-          manager,
-        })
-      );
-      //  dispatch({ type: UPDATE, payload: data });
-      //instant change
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export const updateProformaInvoiceStatus = (data) => async (dispatch) => {
+  try {
+    const { res_data } = await api.updateProformaInvoiceStatus(data);
+    console.log(res_data);
+    dispatch(changeProformaInvoiceStatus(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getProformaInvoicesAction = () => async (dispatch) => {
   console.log("🚀 ~ file: proformaInvoice.js:26 ~ getProformaInvoicesAction ~ getProformaInvoicesAction:");
@@ -126,13 +106,13 @@ export const updateSignedProformaInvoiceStatus =
     console.log("🚀 ", { id, currentStage, doneStages, stageNumber });
 
     try {
-      // dispatch(changeSignedProformaInvoiceStatus({id}))
+      dispatch(changeSignedProformaInvoiceStatus({ id, status }));
 
-      const { data } = await api.updateSignedProformaInvoiceStatus({
+      /*  const { data } = await api.updateSignedProformaInvoiceStatus({
         id,
         status,
-      });
-      console.log(data);
+      }); */
+      console.log("");
 
       //  dispatch({ type: UPDATE, payload: data });
       //instant change

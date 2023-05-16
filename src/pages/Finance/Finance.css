@@ -56,3 +56,9 @@
     cursor: pointer;
     text-align: center;
   }
+
+
+  .disabled_booked{
+    cursor: not-allowed;
+    pointer-events: none;
+  }
