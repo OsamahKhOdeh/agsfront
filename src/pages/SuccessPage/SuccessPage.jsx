@@ -138,7 +138,8 @@ const SuccessPage = () => {
                   <td>{index + 1}</td>
                   <td>
                     {product.brand}
-                    {product.code}
+                    {product.code}&nbsp;
+                    {product.capacity}
                   </td>
                   <td className={product.qty <= 0 && "table-danger"}>{product.qty}</td>
                   <td>{calcPrice(product).toFixed(3)}</td>

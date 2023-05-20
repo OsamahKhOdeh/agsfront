@@ -42,7 +42,7 @@ function StockInput(props) {
   );
 }
 
-function NewBL({ id, property }) {
+function NewBL({ id, property, productCode, brand, capacity }) {
   const dispatch = useDispatch();
   const [showNewBl, setShowNewBl] = useState(false);
   const [qty, setQty] = useState(0);
@@ -70,6 +70,9 @@ function NewBL({ id, property }) {
         warehouse: warehouse.toLocaleLowerCase().trim(),
         status: blStatus,
         booked: bookedQty,
+        productBrand: brand,
+        productCapacity: capacity,
+        productCode: productCode,
       })
     );
     setShowNewBl(false);
@@ -516,7 +519,13 @@ function ProductRow(props) {
               </div>
               {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
                */}{" "}
-              <NewBL id={props.item._id} property="available"></NewBL>
+              <NewBL
+                id={props.item._id}
+                property="available"
+                productCode={props.item.code}
+                brand={props.item.brand}
+                capacity={props.item.capacity}
+              ></NewBL>
               {showStockDetails && (
                 <div className="warehouses">
                   {available &&
@@ -546,7 +555,13 @@ function ProductRow(props) {
               </div>
               {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
                */}{" "}
-              <NewBL id={props.item._id} property="coming"></NewBL>
+              <NewBL
+                id={props.item._id}
+                property="coming"
+                productCode={props.item.code}
+                brand={props.item.brand}
+                capacity={props.item.capacity}
+              ></NewBL>
               {showComing && (
                 <div className="warehouses">
                   {coming &&
@@ -620,7 +635,13 @@ function ProductRow(props) {
               </div>
               {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
                */}{" "}
-              <NewBL id={props.item._id} property="production"></NewBL>
+              <NewBL
+                id={props.item._id}
+                property="production"
+                productCode={props.item.code}
+                brand={props.item.brand}
+                capacity={props.item.capacity}
+              ></NewBL>
               {showUnderProd && (
                 <div className="warehouses">
                   {production &&
@@ -668,6 +689,11 @@ const EditStock = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
+
+    const interval = setInterval(() => dispatch(getProducts()), 30 * 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [dispatch]);
 
   let products = useSelector((state) => state.products.products);

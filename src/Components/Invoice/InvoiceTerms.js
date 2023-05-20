@@ -67,6 +67,9 @@ const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate }) => {
   useEffect(() => {
     let deliveryDate_term = `Goods will be delivered with in ${deliveryDate} days after completion of full payment`;
     let aditionali_term = `Advance Payment ${paymentPercentage}% Balance to be paid time providing copy of BL`;
+    if (terms[0] === "EXWAREHOUSE") {
+      aditionali_term = `Advance Payment ${paymentPercentage}% Balance to be paid before goods Despatch.`;
+    }
     allTerms.unshift(deliveryDate_term);
     allTerms.unshift(aditionali_term);
   }, []);
@@ -77,7 +80,7 @@ const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate }) => {
   return (
     <View wrap={true}>
       <View style={styles.row}>
-        <Text style={styles.header}>Terms and Conditions : </Text>
+        <Text style={styles.header}>Terms and Conditions : ({terms[0]})</Text>
       </View>
       {allTermsUnique?.length > 0
         ? allTermsUnique.map((item, index) => (

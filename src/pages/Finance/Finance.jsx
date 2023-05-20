@@ -64,12 +64,39 @@ const Finance = () => {
     { name: "Customer", value: "buyer_address" },
     { name: "Status", value: "status" },
   ];
-
+  /* -------------------------------------------------------------------------- */
   const handleBookClick = (id) => {
     axios
       .patch(`${BASE_URL}/products/bookpiproducts/${id}`)
       .then((response) => {
         dispatch(updateSignedProformaInvoiceStatus({ id, status: "BOOKED" }));
+
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsLoading(false);
+      });
+
+    axios
+      .patch(`${BASE_URL}/stock/book/${id}`)
+      .then((response) => {
+        dispatch(updateSignedProformaInvoiceStatus({ id, status: "BOOKED" }));
+
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsLoading(false);
+      });
+  };
+
+  /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
+  const handleUnBookClick = (id) => {
+    axios
+      .patch(`${BASE_URL}/products/unbookpiproducts/${id}`)
+      .then((response) => {
+        dispatch(updateSignedProformaInvoiceStatus({ id, status: "CONFIRMED" }));
 
         console.log(response.data);
       })
@@ -122,6 +149,7 @@ const Finance = () => {
             <th scope="col">Customer</th>
             <th scope="col">Proforma Invoice</th>
             <th scope="col">Book Stock</th>
+            <th scope="col">unBook</th>
             <th scope="col">Reject</th>
             <th scope="col">Payments</th>
             <th scope="col">Change Status</th>
@@ -143,10 +171,20 @@ const Finance = () => {
               </td>
               <td>
                 <div
-                  className={`book_but ${proformaInvoice.status !== "CONFIRMED" ? "disabled_booked" : ""}`}
+                  className={`book_but  ${proformaInvoice.status !== "CONFIRMED" ? "disabled_booked" : ""}`}
+                  style={{ backgroundColor: "#4CAF50" }}
                   onClick={() => handleBookClick(proformaInvoice.pi_id)}
                 >
                   BOOK
+                </div>
+              </td>
+              <td>
+                <div
+                  className={`book_but  ${proformaInvoice.status !== "BOOKED" ? "disabled_booked" : ""}`}
+                  style={{ backgroundColor: " #f44336" }}
+                  onClick={() => handleUnBookClick(proformaInvoice.pi_id)}
+                >
+                  UNBOOK
                 </div>
               </td>
               <td className="rej_cell">

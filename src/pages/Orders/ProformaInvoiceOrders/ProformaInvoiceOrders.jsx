@@ -83,6 +83,10 @@ const ProformaInvoiceOrders = () => {
 
   useEffect(() => {
     dispatch(getEmployeeProformaInvoicesAction(username));
+    const interval = setInterval(() => dispatch(getProformaInvoicesAction()), 10 * 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [dispatch]);
 
   let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);

@@ -105,6 +105,16 @@ const PiForm = ({ oldPi }) => {
     theproducts[index] = clonePro;
     setInputs((values) => ({ ...values, products: theproducts }));
   };
+
+  const handleProductDelete = (id) => {
+    let theproducts = [...inputs.products];
+    const theProduct = theproducts.filter((product) => product._id === id)[0];
+    const index = theproducts.indexOf(theProduct);
+    theproducts.splice(index, 1);
+    setInputs((values) => ({ ...values, products: theproducts }));
+    console.log(inputs);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(inputs);
@@ -120,7 +130,7 @@ const PiForm = ({ oldPi }) => {
       <ToastContainer />
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="pi_prop">
           <label for="exp" class="label">
             Exporter:
           </label>
@@ -132,105 +142,96 @@ const PiForm = ({ oldPi }) => {
             ))}
           </select>
         </div>
-        <label class="label">Buyer Address:</label>
-        <input
-          class="form-control"
-          type="text"
-          name="buyer_address"
-          value={inputs.buyer_address || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Consignee: </label>
-        <input
-          class="form-control"
-          type="text"
-          name="consignee"
-          value={inputs.consignee || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Notify Party :</label>
-        <select className="select__class" id="notify_party" name="notify_party" onChange={handleChange}>
-          {notify_partys.map((notifyparty) => (
-            <option selected={oldPi.notify_party === notifyparty.value} value={notifyparty.value}>
-              {notifyparty.name}
+        <div className="pi_prop">
+          <label class="label">Buyer Address:</label>
+          <input class="form-control" type="text" name="buyer_address" value={inputs.buyer_address || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Consignee: </label>
+          <input class="form-control" type="text" name="consignee" value={inputs.consignee || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Notify Party :</label>
+          <select className="select__class" id="notify_party" name="notify_party" onChange={handleChange}>
+            {notify_partys.map((notifyparty) => (
+              <option selected={oldPi.notify_party === notifyparty.value} value={notifyparty.value}>
+                {notifyparty.name}
+              </option>
+            ))}
+          </select>
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Party of Discharge :</label>
+          <input
+            class="form-control"
+            type="text"
+            name="party_of_discharge"
+            value={inputs.party_of_discharge || ""}
+            onChange={handleChange}
+          />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Final Distenation :</label>
+          <input class="form-control" type="text" name="final_distination" value={inputs.final_distination || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Discount :</label>
+          <input class="form-control" type="text" name="discount" value={inputs.discount || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Additions :</label>
+          <input class="form-control" type="text" name="additions" value={inputs.additions || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Note :</label>
+          <input class="form-control" type="text" name="note" value={inputs.note || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Phone Number :</label>
+          <input class="form-control" type="text" name="phone_number" value={inputs.phone_number || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Terms and condtions :</label>
+          <p>{inputs.terms}</p>
+          <select className="select__class" id="terms" name="terms" onChange={handleChange}>
+            <option selected={oldPi?.terms[0] === "FOB"} value="FOB">
+              FOB
             </option>
+            <option selected={oldPi?.terms[0] === "CIF"} value="CIF">
+              CIF
+            </option>
+            <option selected={oldPi?.terms[0] === "EXWAREHOUSE"} value="EXWAREHOUSE">
+              EXWAREHOUSE
+            </option>
+          </select>
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Advance Payment condition :</label>
+          <input class="form-control" type="text" name="paymentPercentage" value={inputs.paymentPercentage || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label"> Goods will be delivered with in {inputs.deliveryDate || ""} days after completion of full payment :</label>
+          <input class="form-control" type="text" name="deliveryDate" value={inputs.deliveryDate || ""} onChange={handleChange} />
+        </div>{" "}
+        <div className="pi_prop">
+          <label class="label">Advance Payment condition :</label>
+          {bank_details.map((item, i) => (
+            <div className="form-check m-3" key={i}>
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="bankDetails"
+                checked={inputs.bankDetails?.includes(item.collection)}
+                value={item.collection}
+                id="flexCheckDefault"
+                onChange={handleBankDetailsChange}
+              />
+              <label className="form-check-label" htmlFor="flexCheckDefault">
+                {item.collection}
+              </label>
+            </div>
           ))}
-        </select>
-        <label class="label">Party of Discharge :</label>
-        <input
-          class="form-control"
-          type="text"
-          name="party_of_discharge"
-          value={inputs.party_of_discharge || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Final Distenation :</label>
-        <input
-          class="form-control"
-          type="text"
-          name="final_distination"
-          value={inputs.final_distination || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Discount :</label>
-        <input class="form-control" type="text" name="discount" value={inputs.discount || ""} onChange={handleChange} />
-
-        <label class="label">Additions :</label>
-        <input
-          class="form-control"
-          type="text"
-          name="additions"
-          value={inputs.additions || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Phone Number :</label>
-        <input
-          class="form-control"
-          type="text"
-          name="phone_number"
-          value={inputs.phone_number || ""}
-          onChange={handleChange}
-        />
-        <label class="label">Terms and condtions :</label>
-        <p>{inputs.terms}</p>
-        <select className="select__class" id="terms" name="terms" onChange={handleChange}>
-          <option selected={oldPi?.terms[0] === "FOB"} value="FOB">
-            FOB
-          </option>
-          <option selected={oldPi?.terms[0] === "CIF"} value="CIF">
-            CIF
-          </option>
-          <option selected={oldPi?.terms[0] === "EXWAREHOUSE"} value="EXWAREHOUSE">
-            EXWAREHOUSE
-          </option>
-        </select>
-        <label class="label">Advance Payment condition :</label>
-        <input
-          class="form-control"
-          type="text"
-          name="paymentPercentage"
-          value={inputs.paymentPercentage || ""}
-          onChange={handleChange}
-        />
-
-        <label class="label">Advance Payment condition :</label>
-        {bank_details.map((item, i) => (
-          <div className="form-check m-3" key={i}>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="bankDetails"
-              checked={inputs.bankDetails?.includes(item.collection)}
-              value={item.collection}
-              id="flexCheckDefault"
-              onChange={handleBankDetailsChange}
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              {item.collection}
-            </label>
-          </div>
-        ))}
-
+        </div>
         {/*<input style={{width : "100%" , height : "56px"}} class="btn btn-primary" type="submit" />*/}
       </form>
       <table style={{ border: 1 }} class="table table-bordered table-sm">
@@ -241,6 +242,7 @@ const PiForm = ({ oldPi }) => {
             <th>Qty</th>
             <th>Unit Price</th>
             <th>Total</th>
+            <th>DELETE</th>
           </tr>
         </thead>
         <tbody>
@@ -270,6 +272,9 @@ const PiForm = ({ oldPi }) => {
                   />
                 </td>
                 <td>{(calcPrice(product) * product.qty).toFixed(3)}</td>
+                <td onClick={() => handleProductDelete(product._id)}>
+                  <div className="del_but_pi">DELETE</div>
+                </td>
               </tr>
             );
           })}
@@ -280,24 +285,28 @@ const PiForm = ({ oldPi }) => {
               Total
             </td>
             <td>{total.toFixed(3)}</td>
+            <td>{inputs.currency}</td>
           </tr>
           <tr>
             <td style={{ textAlign: "center" }} colSpan={4}>
               Discount
             </td>
             <td>{inputs.discount}</td>
+            <td>{inputs.currency}</td>
           </tr>
           <tr>
             <td style={{ textAlign: "center" }} colSpan={4}>
               Additions
             </td>
             <td>{inputs.additions}</td>
+            <td>{inputs.currency}</td>
           </tr>
           <tr>
             <td style={{ textAlign: "center" }} colSpan={4}>
               Final
             </td>
             <td>{total.toFixed(3) - -inputs.additions - inputs.discount}</td>
+            <td>{inputs.currency}</td>
           </tr>
         </tfoot>
       </table>

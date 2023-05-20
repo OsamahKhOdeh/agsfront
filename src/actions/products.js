@@ -78,6 +78,13 @@ export const updateStock = (id, newStock) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+  try {
+    const { data } = await api.newStockItem(id, newStock);
+    console.log(data);
+    // dispatch(updateStockState({ id, data })); //instant change
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateProductWarehouseBlQty = (id, newStock) => async (dispatch) => {

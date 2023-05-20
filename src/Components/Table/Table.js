@@ -36,6 +36,7 @@ const TablePage = () => {
   const dispatch = useDispatch();
 
   let totalAmount = 0;
+  let totalWeight = 0;
   const selectedProducts = useSelector((state) => state.cart.cart);
   const location = useSelector((state) => state.filters.location);
   const currency = useSelector((state) => state.filters.currency);
@@ -71,6 +72,7 @@ const TablePage = () => {
       if (location === "local" && currency === "USD") {
         totalAmount += item.LocalPrice * item.qty;
       }
+      totalWeight += item?.grossWeight * item?.qty;
     });
   }
   calcTotal();
@@ -101,6 +103,7 @@ const TablePage = () => {
               <th className="font-normal text-left ">UNIT PRICE(USD)</th>
               <th className="font-normal  ">New Price</th>
               {pi && <th className="font-normal ">TOLTAL USD</th>}
+              {pi && <th className="font-normal "> Weight</th>} {pi && <th className="font-normal ">TOLTAL/W</th>}
               {pi && <th className="font-normal">Qty</th>}
               {pi && <th className="font-normal ">ACTIONS</th>}
             </tr>
@@ -151,6 +154,16 @@ const TablePage = () => {
 
                 {pi && (
                   <td className="pl-12">
+                    <p className="font-medium">{item.grossWeight}</p>
+                  </td>
+                )}
+                {pi && (
+                  <td className="pl-12">
+                    <p className="font-medium">{item.grossWeight * item.qty}</p>
+                  </td>
+                )}
+                {pi && (
+                  <td className="pl-12">
                     <p className="font-medium">
                       {currency === "USD" ? " $ " : " AED "}
                       {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
@@ -189,23 +202,39 @@ const TablePage = () => {
               </tr>
             ))}
             {pi && (
-              <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800"></p>
-                </td>
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800"></p>
-                </td>
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800"></p>
-                </td>
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
-                </td>
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800">{totalAmount?.toFixed(3)}</p>
-                </td>
-              </tr>
+              <>
+                <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800"></p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800"></p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800"></p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800"></p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800"></p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800">Total :</p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
+                  </td>{" "}
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
+                  </td>
+                  <td className="pl-12">
+                    <p className="text-sm font-medium leading-none text-gray-800">
+                      {totalAmount?.toFixed(3)} {pi.currency}
+                    </p>
+                  </td>
+                </tr>
+              </>
             )}
           </tbody>
         </table>

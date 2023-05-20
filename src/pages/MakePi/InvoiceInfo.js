@@ -8,16 +8,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getLastPiNo } from "../../actions/proformaInvoice.js";
 
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-} from "@material-ui/core";
+import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@material-ui/core";
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -55,9 +46,7 @@ function InvoiceInfo() {
   const pi = useSelector((state) => state.pi.isPi);
   const dispatch = useDispatch();
   const [piNoState, setPiNoState] = useState(0);
-  const [paymentPercentageState, setPaymentPercentageState] = useState(
-    useSelector((state) => state.pi.piInfo?.paymentPercentage)
-  );
+  const [paymentPercentageState, setPaymentPercentageState] = useState(useSelector((state) => state.pi.piInfo?.paymentPercentage));
   const [deliveryDateState, setDeliveryDateState] = useState(useSelector((state) => state.pi.piInfo?.deliveryDate));
   const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
   const currency = useSelector((state) => state.filters.currency);
@@ -92,9 +81,7 @@ function InvoiceInfo() {
     currency: currency,
   });
   const [terms, setTerms] = useState(useSelector((state) => state?.pi.piInfo.terms));
-  const [bankDetailsCollection, setBankDetailsCollection] = useState(
-    useSelector((state) => state?.pi?.piInfo?.bankDetails)
-  );
+  const [bankDetailsCollection, setBankDetailsCollection] = useState(useSelector((state) => state?.pi?.piInfo?.bankDetails));
 
   /* ------------------------------ data handling ------------------------------ */
 
@@ -194,32 +181,14 @@ function InvoiceInfo() {
           </FormControl>{" "}
         </Grid>{" "}
         <Grid item xs={12} sm={6}>
-          <TextField
-            name="buyerAdress"
-            value={invoiceInfo.buyerAdress}
-            onChange={handleChange}
-            label="BUYER ADDRESS"
-            fullWidth
-          ></TextField>
+          <TextField name="buyerAdress" value={invoiceInfo.buyerAdress} onChange={handleChange} label="BUYER ADDRESS" fullWidth></TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            name="phoneNumber"
-            value={invoiceInfo.phoneNumber}
-            onChange={handleChange}
-            label="Phone Number"
-            fullWidth
-          ></TextField>
+          <TextField name="phoneNumber" value={invoiceInfo.phoneNumber} onChange={handleChange} label="Phone Number" fullWidth></TextField>
         </Grid>
         {pi && (
           <Grid item xs={12} sm={6}>
-            <TextField
-              name="consignee"
-              value={invoiceInfo.consignee}
-              onChange={handleChange}
-              label="CONSIGNEE"
-              fullWidth
-            ></TextField>
+            <TextField name="consignee" value={invoiceInfo.consignee} onChange={handleChange} label="CONSIGNEE" fullWidth></TextField>
           </Grid>
         )}
         {pi && (
@@ -304,22 +273,10 @@ function InvoiceInfo() {
               <TextField name="invoiceNo" value={invoiceNumber} label="INVOICE NUMBER" fullWidth></TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                name="discount"
-                value={invoiceInfo.discount}
-                onChange={handleChange}
-                label="Discount"
-                fullWidth
-              ></TextField>
+              <TextField name="discount" value={invoiceInfo.discount} onChange={handleChange} label="Discount" fullWidth></TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                name="additions"
-                value={invoiceInfo.additions}
-                onChange={handleChange}
-                label="Additions"
-                fullWidth
-              ></TextField>
+              <TextField name="additions" value={invoiceInfo.additions} onChange={handleChange} label="Additions" fullWidth></TextField>
             </Grid>
           </>
         )}
@@ -391,7 +348,7 @@ function InvoiceInfo() {
         <Grid item xs={12} sm={12}>
           <div className="">
             <label className="form-check-label" htmlFor="flexCheckDefault">
-              Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid time providing copy of BL
+              Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)
             </label>
             <input
               value={paymentPercentageState}

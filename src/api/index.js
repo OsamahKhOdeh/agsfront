@@ -1,5 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "http://143.42.61.215:5000";
+export const BASE_URL = "http://localhost:5000";
 const API = axios.create({ baseURL: BASE_URL });
 // http://143.42.61.215:5000
 //"http://localhost:5000"
@@ -29,6 +29,8 @@ export const updateProductWarehouseBlBookedQty = (id, newStock) => API.patch(`/p
 export const updateProductStock = (id, newStock) => API.patch(`/products/stock/${id}`, newStock);
 
 export const updateStock = (id, newStock) => API.patch(`/products/stockall/${id}`, newStock);
+
+export const newStockItem = (id, newStock) => API.post(`/stock/${id}`, newStock);
 
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
