@@ -66,18 +66,19 @@ const Finance = () => {
   ];
   /* -------------------------------------------------------------------------- */
   const handleBookClick = (id) => {
+    /*
     axios
       .patch(`${BASE_URL}/products/bookpiproducts/${id}`)
       .then((response) => {
         dispatch(updateSignedProformaInvoiceStatus({ id, status: "BOOKED" }));
 
-        console.log(response.data);
+        console.log(response.data); q
       })
       .catch((error) => {
         console.log(error);
         // setIsLoading(false);
       });
-
+*/
     axios
       .patch(`${BASE_URL}/stock/book/${id}`)
       .then((response) => {

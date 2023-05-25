@@ -12,6 +12,7 @@ const UserLayout = () => {
   return (
     <>
       <Navbar />
+
       <div style={{ display: "flex", paddingTop: "80px" }}>
         <Sidebar />
         <Outlet />
