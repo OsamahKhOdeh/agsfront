@@ -1,0 +1,449 @@
+import React from "react";
+import "./styles.css";
+import "bootstrap/dist/css/bootstrap.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteProformaInvoice,
+  getProformaInvoicesAction,
+  updateProformaInvoiceStatus,
+} from "../../../actions/proformaInvoice";
+import {
+  changeProformaInvoiceStatus,
+  deleteProformaInvoiceState,
+} from "../../../store/proformaInvoicesSlice";
+import { useNavigate } from "react-router-dom";
+import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
+import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import SearchBox from "../../../Components/SearchBox/SearchBox";
+import DropDownSelect from "../../../Components/DropDownSelect/DropDownSelect";
+import Modal from "react-bootstrap/Modal";
+import { Button, TextField } from "@material-ui/core";
+
+// Define a function that takes a date as an argument
+// and returns a string that represents how long ago the date was
+export const timeAgo = (date) => {
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval > 1) {
+    return interval + " years ago";
+  }
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months ago";
+  }
+
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days ago";
+  }
+
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours ago";
+  }
+
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes ago";
+  }
+
+  if (seconds < 10) return "just now";
+
+  return Math.floor(seconds) + " seconds ago";
+};
+
+const PIActionsAdmin = () => {
+  const [isPdf, setIsPdf] = useState(false);
+  const [currentPi, setCurrentPi] = useState({});
+  const [popupClass, setPopupClass] = useState("form-popup hidden");
+  const { username, roles } = useAuth();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("");
+
+  function colorByStatus(status) {
+    switch (status) {
+      case "Pending":
+        return "pending_status";
+      case "Approved":
+        return "success_status";
+      case "Rejected":
+        return "rejected_status";
+      default:
+        return "table-secondary";
+    }
+  }
+
+  function iconByStatus(status) {
+    switch (status) {
+      case "Pending":
+        return "sync";
+      case "Approved":
+        return "check";
+      case "Rejected":
+        return "times";
+      default:
+        return "times";
+    }
+  }
+  function colorByUpdate(createdAt, updatedAt) {
+    const status = createdAt === updatedAt;
+    switch (status) {
+      case true:
+        return "table-secondary";
+      case false:
+        return "table-success";
+    }
+  }
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getProformaInvoicesAction());
+  }, [dispatch]);
+
+  let proformaInvoices = useSelector(
+    (state) => state.proformaInvoices.proformaInvoices
+  );
+
+  /* ------------------------------- searchQuery ------------------------------ */
+  console.log(filter);
+
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  if (filter.length > 0 && searchQuery.length > 0) {
+    proformaInvoices = proformaInvoices.filter((item) =>
+      item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  if (searchQuery.length > 0 && filter.length === 0) {
+    proformaInvoices = proformaInvoices.filter((item) =>
+      item.pi_no.toString().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  const options = [
+    { name: "PI Number", value: "pi_no" },
+    { name: "Employee", value: "employee" },
+    { name: "Customer", value: "buyer_address" },
+    { name: "Status", value: "status" },
+  ];
+
+  /* -------------------------------------------------------------------------- */
+
+  const handleApprove = (id) => {
+    if (roles.includes("Financial")) {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          // newStatus: "Approved",
+          finally: username,
+          financiaApproval: "Approved",
+        })
+      );
+    } else {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          //  newStatus: "Approved",
+          manager: username,
+          managerApproval: "Approved",
+        })
+      );
+    }
+  };
+  const handleReject = (id) => {
+    setPopupClass("form-popup showing");
+    //dispatch(updateProformaInvoiceStatus({id, newStatus : 'Rejected'}))
+  };
+
+  const handleRejectMessage = (event) => {
+    event.preventDefault();
+    console.log(event.target.rej_msg.value);
+    const id = currentPi._id;
+    if (roles.includes("Financial")) {
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          financeMessage: event.target.rej_msg.value,
+          financiaApproval: "Rejected",
+          finance: username,
+        })
+      );
+    } else
+      dispatch(
+        updateProformaInvoiceStatus({
+          id,
+          managerMessage: event.target.rej_msg.value,
+          managerApproval: "Rejected",
+          manager: username,
+        })
+      );
+    setPopupClass("form-popup hidden");
+    event.target.rej_msg.value = "";
+  };
+
+  const handleDelete = (id) => {};
+
+  const handlePDF = (pi) => {
+    setCurrentPi(pi);
+    setIsPdf(true);
+    console.log(isPdf);
+  };
+
+  /* ------------------------------ Delete Modal ------------------------------ */
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleConfirmDelete = () => {
+    setShow(false);
+    dispatch(deleteProformaInvoiceState(currentPi._id));
+
+    dispatch(deleteProformaInvoice(currentPi._id));
+  };
+  const handleShow = () => setShow(true);
+  /* -------------------------------------------------------------------------- */
+
+  if (isPdf) {
+    return (
+      <>
+        <div className="next_div" style={{ paddingBottom: "20px" }}>
+          <button
+            className="btn_next success_prev"
+            onClick={() => {
+              setIsPdf(false);
+            }}
+          >
+            PREVIOUS
+          </button>
+        </div>
+        <ProformaInvoice adminPi={currentPi} />
+      </>
+    );
+  } else
+    return (
+      <div>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete PI</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Are you sure you want to delete PI : </h4>{" "}
+            <h4 style={{ color: "red", textAlign: "center" }}>
+              {currentPi.pi_no}
+            </h4>
+            <h4 style={{ color: "red" }}>
+              {" "}
+              for Customer : {currentPi.buyer_address}
+            </h4>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <>
+          <div
+            className="btn-group"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <div className={popupClass} id="myForm">
+              <form onSubmit={handleRejectMessage} class="form-container">
+                <h1>Reject with note</h1>
+
+                <label for="rej_msg">
+                  <b>Rejection message</b>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter why you reject this proforma invoice"
+                  name="rej_msg"
+                />
+
+                <button type="submit" class="btn">
+                  Send
+                </button>
+                <button
+                  style={{ position: "absolute", right: "23px" }}
+                  type="button"
+                  class="btn cancel"
+                  onClick={() => {
+                    setPopupClass("form-popup hidden");
+                  }}
+                >
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </>
+        <div className="search_container">
+          <div className="row">
+            <div className="col-lg-6 col-md12">
+              <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+            </div>
+            <div className="col-lg-6 col-md12">
+              <DropDownSelect onChange={handleFilterChange} options={options} />
+            </div>
+          </div>
+        </div>
+      
+      <div>
+      <table className="pi__table table table-bordered">
+          <thead className="th_style">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Employee</th>
+              <th scope="col">Date/Time</th>
+              <th scope="col">
+              Customer
+              </th>
+              <th scope="col">Status</th>
+              <th style={{ width: "140px" }} scope="col">
+                PDF
+              </th>
+              <th style={{ width: "225px" }} scope="col">
+                Handle
+              </th>
+              <th style={{ width: "28 0px" }} scope="col">
+                Manager Note
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {proformaInvoices.map((proformaInvoice, index) => (
+              <tr
+                className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`}
+                key={index}
+              >
+                <td scope="row">
+                  {" "}
+                  <div style={{ fontWeight: "bold" }} className="td_padding">
+                    {proformaInvoice.pi_no}
+                  </div>
+                </td>
+                <td>
+                  <div className="employee_cell">
+                    {proformaInvoice?.employee?.split("/")[0]}
+                  </div>
+                </td>
+                <td>
+                  <div className="time-update">
+                    {timeAgo(new Date(proformaInvoice.updatedAt))}
+                  </div>
+                </td>
+                <td>
+                  <div className=" customer_cell">{proformaInvoice.buyer_address}</div>
+                </td>
+                <td>
+                  <div
+                    className={`status-table-label ${colorByStatus(
+                      roles.includes("Financial")
+                        ? proformaInvoice?.financiaApproval
+                        : proformaInvoice.managerApproval
+                    )}`}
+                  >
+                       <i
+                      className={`uil uil-${iconByStatus(
+                        roles.includes("Financial")
+                          ? proformaInvoice?.financiaApproval
+                          : proformaInvoice.managerApproval
+                      )}`}
+                    ></i>
+                    {roles.includes("Financial")
+                      ? proformaInvoice?.financiaApproval
+                      : proformaInvoice.managerApproval}
+                
+                  </div>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="table-btn-pdf"
+                    onClick={() => handlePDF(proformaInvoice)}
+                  >
+                   <span > <i class="uil uil-import"></i></span>
+                  </button>
+                </td>
+                {roles.includes("Financial") &&
+                proformaInvoice.managerApproval !== "Approved" ? (
+                  <td>
+                    <div>Waiting for Sales M Approval</div>
+                  </td>
+                ) : (
+                  <td>
+                    <div style={{ display: "flex" }}>
+                      <button
+                        type="button"
+                        className="btn-table-status"
+                        onClick={() => {
+                          setCurrentPi(proformaInvoice);
+                          handleReject(proformaInvoice._id);
+                        }}
+                      >
+                        <span>
+                          {" "}
+                          <i class="uil uil-times"></i>Reject
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-table-status"
+                        onClick={() => handleApprove(proformaInvoice._id)}
+                      >
+                        <span>
+                          {" "}
+                          <i class="uil uil-check"></i> Approve
+                        </span>
+                      </button>
+                      {!roles.includes("Financial") && (
+                        <button
+                          type="button"
+                          className="btn-table-status"
+                          onClick={() => {
+                            setCurrentPi(proformaInvoice);
+                            handleShow();
+                          }}
+                        >
+                          <span>
+                            <i class="uil uil-trash-alt"></i> Delete
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                )}
+
+                <td
+                  className={colorByUpdate(
+                    proformaInvoice.createdAt,
+                    proformaInvoice.updatedAt
+                  )}
+                >
+                  {proformaInvoice.managerMessage}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      </div>
+    );
+};
+
+export default PIActionsAdmin;
