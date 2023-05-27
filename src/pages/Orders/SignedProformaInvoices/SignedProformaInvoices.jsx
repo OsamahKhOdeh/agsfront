@@ -155,8 +155,15 @@ const SignedProformaInvoices = () => {
     return (
       <div className="page_container">
         <div className="search_container">
-          <SearchBox onChange={handleSearchQueryChange}></SearchBox>
-          <DropDownSelect onChange={handleFilterChange} options={options} />
+             {/* this is search section  */}
+             <div className="row">
+            <div className="col-lg-6 col-md12">
+            <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+            </div>
+            <div className="col-lg-6 col-md12">
+            <DropDownSelect onChange={handleFilterChange} options={options} />
+            </div>
+          </div>
         </div>
         <table className="pi__table table table-bordered">
           <thead className="th_style">

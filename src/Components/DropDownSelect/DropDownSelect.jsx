@@ -6,7 +6,7 @@ const DropDownSelect = ({ options, onChange }) => {
     <div className="filter_select">
       <div className="form-group">
       <label htmlFor="filter" className="filter_label">
-        Filter by :{" "}
+        Filter by {" "}
       </label>
       <select id="filter"  name="role" onChange={onChange}>
         {options.map((op) => (

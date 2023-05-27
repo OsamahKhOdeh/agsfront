@@ -1,9 +1,20 @@
 import React from "react";
 import "./LoadingSpinner.css";
-import { RotatingLines } from "react-loader-spinner";
+import { RotatingLines, ThreeCircles } from "react-loader-spinner";
 
 const LoadingSpinner = () => {
-  return <RotatingLines strokeColor="grey" strokeWidth="5" animationDuration="0.75" width="200" visible={true} />;
+  return <ThreeCircles
+  height="100"
+  width="100"
+  color="#cf0a2c"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  ariaLabel="three-circles-rotating"
+  outerCircleColor=""
+  innerCircleColor=""
+  middleCircleColor=""
+/>;
 };
 
 export default LoadingSpinner;

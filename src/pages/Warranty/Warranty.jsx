@@ -276,19 +276,26 @@ const Warranty = () => {
               <Pagination page={page} />
             </Paper>
           )}
-
-          <div className="next_div" style={{ justifyContent: "space-between" }}>
-            <SearchBox onChange={handleSearchBoxChange} />                  <SideFilters />
-
-            <button
-              className="btn_next success_next"
+         <div className="section-next-btn">
+              <button
+              className="ags-btn-main-fill"
               onClick={() => {
                 dispatch(setIsPI(false));
                 navigate("/user/pricelistinfo");
               }}
             >
-              NEXT
-            </button>
+              <span>Next <i class="uil uil-angle-right-b"></i></span>  
+            </button></div>
+          <div className="next_div" style={{ justifyContent: "space-between" }}>
+               {/* this is search section  */}
+              <div className="row">
+                <div className="col-lg-6 col-md12">
+                <SearchBox onChange={handleSearchBoxChange} />                  
+                </div>
+                <div className="col-lg-6 col-md12">
+                <SideFilters />
+                </div>
+            </div>
           </div>
 
           <Products filters={filters} searchQuery={searchQuery} />

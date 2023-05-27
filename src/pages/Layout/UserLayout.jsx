@@ -79,7 +79,7 @@ const UserLayout = () => {
             ></i>
           </div>
           <div className="header_img">
-            <img src="https://i.imgur.com/hczKIze.jpg" alt="" />{" "}
+            <img src="https://placehold.co/150x150/000000/FFFFFF.png" alt="" />{" "}
           </div>
         </header>
         {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
@@ -95,7 +95,7 @@ const UserLayout = () => {
               <div className="nav_list">
                 {MenuItems.map((MenuItem)=>
                 <a href={MenuItem.path} className="nav_link active">
-                  <i className="bx bx-grid-alt nav_icon"></i>
+                  <i className={`bx nav_icon ${MenuItem.icon}`}></i>
                   <span className="nav_name">{MenuItem.title}</span>
                 </a>)}
                 

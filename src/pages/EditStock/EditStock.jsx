@@ -690,10 +690,10 @@ const EditStock = () => {
   useEffect(() => {
     dispatch(getProducts());
 
-    const interval = setInterval(() => dispatch(getProducts()), 30 * 1000);
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => dispatch(getProducts()), 30 * 1000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, [dispatch]);
 
   let products = useSelector((state) => state.products.products);

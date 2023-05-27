@@ -104,9 +104,13 @@ td:hover {
 }
 
 .button_pdf{
-height: 62px;
-background-color: #0d6efd;
-color: white;
+  height: 40px;
+  width: auto;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #cf0a2c;
 }
 
 .button_reject{

@@ -164,6 +164,7 @@ const PIActionsAdmin = () => {
     }
   };
   const handleReject = (id) => {
+    console.log("rreject");
     setPopupClass("form-popup showing");
     //dispatch(updateProformaInvoiceStatus({id, newStatus : 'Rejected'}))
   };
@@ -211,7 +212,10 @@ const PIActionsAdmin = () => {
 
     dispatch(deleteProformaInvoice(currentPi._id));
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    console.log("ddddddddddddddddd");
+    setShow(true);
+  };
   /* -------------------------------------------------------------------------- */
 
   if (isPdf) {
@@ -232,7 +236,8 @@ const PIActionsAdmin = () => {
     );
   } else
     return (
-      <div>
+      <>
+        {" "}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Delete PI</Modal.Title>
@@ -292,157 +297,265 @@ const PIActionsAdmin = () => {
             </div>
           </div>
         </>
-        <div className="search_container">
-          <div className="row">
-            <div className="col-lg-6 col-md12">
-              <SearchBox onChange={handleSearchQueryChange}></SearchBox>
-            </div>
-            <div className="col-lg-6 col-md12">
-              <DropDownSelect onChange={handleFilterChange} options={options} />
+        <div className="pi-list">
+          {/* this is seach section in all show PI  */}
+          <div className="search_container">
+            <div className="row">
+              <div className="col-lg-6 col-md12">
+                <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+              </div>
+              <div className="col-lg-6 col-md12">
+                <DropDownSelect
+                  onChange={handleFilterChange}
+                  options={options}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      
-      <div>
-      <table className="pi__table table table-bordered">
-          <thead className="th_style">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Employee</th>
-              <th scope="col">Date/Time</th>
-              <th scope="col">
-              Customer
-              </th>
-              <th scope="col">Status</th>
-              <th style={{ width: "140px" }} scope="col">
-                PDF
-              </th>
-              <th style={{ width: "225px" }} scope="col">
-                Handle
-              </th>
-              <th style={{ width: "28 0px" }} scope="col">
-                Manager Note
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {proformaInvoices.map((proformaInvoice, index) => (
-              <tr
-                className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`}
-                key={index}
-              >
-                <td scope="row">
-                  {" "}
-                  <div style={{ fontWeight: "bold" }} className="td_padding">
-                    {proformaInvoice.pi_no}
+          {/* this is custom design only to Mobile  */}
+          {proformaInvoices.map((proformaInvoice, index) => (
+            <div className="item-pi">
+              <div className="item-pi-tittle">
+                <span>Date / Time</span>
+                <span> {timeAgo(new Date(proformaInvoice.updatedAt))}</span>
+              </div>
+              <div className="item-pi-body">
+                <div class="wrapper">
+                  <div class="box a">
+                    <p className="text-secondary">PI.No</p>
+                    <h6>{proformaInvoice.pi_no}</h6>
                   </div>
-                </td>
-                <td>
-                  <div className="employee_cell">
-                    {proformaInvoice?.employee?.split("/")[0]}
+                  <div class="box b">
+                    <p className="text-secondary">Employee</p>
+                    <h6>{proformaInvoice?.employee?.split("/")[0]}</h6>
                   </div>
-                </td>
-                <td>
-                  <div className="time-update">
-                    {timeAgo(new Date(proformaInvoice.updatedAt))}
-                  </div>
-                </td>
-                <td>
-                  <div className=" customer_cell">{proformaInvoice.buyer_address}</div>
-                </td>
-                <td>
-                  <div
-                    className={`status-table-label ${colorByStatus(
-                      roles.includes("Financial")
-                        ? proformaInvoice?.financiaApproval
-                        : proformaInvoice.managerApproval
-                    )}`}
-                  >
-                       <i
-                      className={`uil uil-${iconByStatus(
+                  <div class="box c">
+                    <p className="text-secondary">Status</p>
+                    <h6
+                      className={`status-table-label ${colorByStatus(
                         roles.includes("Financial")
                           ? proformaInvoice?.financiaApproval
                           : proformaInvoice.managerApproval
                       )}`}
-                    ></i>
-                    {roles.includes("Financial")
-                      ? proformaInvoice?.financiaApproval
-                      : proformaInvoice.managerApproval}
-                
+                    >
+                      <i
+                        className={`uil uil-${iconByStatus(
+                          roles.includes("Financial")
+                            ? proformaInvoice?.financiaApproval
+                            : proformaInvoice.managerApproval
+                        )}`}
+                      ></i>
+                      {roles.includes("Financial")
+                        ? proformaInvoice?.financiaApproval
+                        : proformaInvoice.managerApproval}
+                    </h6>
                   </div>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="table-btn-pdf"
-                    onClick={() => handlePDF(proformaInvoice)}
-                  >
-                   <span > <i class="uil uil-import"></i></span>
-                  </button>
-                </td>
-                {roles.includes("Financial") &&
-                proformaInvoice.managerApproval !== "Approved" ? (
-                  <td>
-                    <div>Waiting for Sales M Approval</div>
-                  </td>
-                ) : (
-                  <td>
-                    <div style={{ display: "flex" }}>
+                  <div class="box d">
+                    <p className="text-secondary">PDF</p>
+                    {/* <button className="ags-btn-pdf"><i class="uil uil-import"></i></button> */}
+                    <button
+                      className="ags-btn-pdf"
+                      onClick={() => handlePDF(proformaInvoice)}
+                    >
+                      <span>
+                        {" "}
+                        <i class="uil uil-import"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="box e">
+                    <p className="text-secondary">Customer</p>
+                    <h6>{proformaInvoice.buyer_address}</h6>
+                  </div>
+                  <div class="box f">
+                    <p className="text-secondary">Note</p>
+                    <h6> {proformaInvoice.managerMessage}</h6>
+                  </div>
+                  <div class="box g">
+                    <p className="text-secondary">Actions</p>
+                    <div className="ags-action">
                       <button
                         type="button"
-                        className="btn-table-status"
+                        className="ags-btn-reject"
                         onClick={() => {
                           setCurrentPi(proformaInvoice);
                           handleReject(proformaInvoice._id);
                         }}
                       >
-                        <span>
-                          {" "}
-                          <i class="uil uil-times"></i>Reject
-                        </span>
+                        <i class="uil uil-times"></i> Reject
                       </button>
-                      <button
-                        type="button"
-                        className="btn-table-status"
-                        onClick={() => handleApprove(proformaInvoice._id)}
-                      >
-                        <span>
-                          {" "}
-                          <i class="uil uil-check"></i> Approve
-                        </span>
+                      <button className="ags-btn-approve">
+                        <i
+                          class="uil uil-check"
+                          onClick={() => handleApprove(proformaInvoice._id)}
+                        ></i>{" "}
+                        Approve
                       </button>
                       {!roles.includes("Financial") && (
                         <button
-                          type="button"
-                          className="btn-table-status"
+                          className="ags-btn-delete"
                           onClick={() => {
                             setCurrentPi(proformaInvoice);
                             handleShow();
                           }}
                         >
-                          <span>
-                            <i class="uil uil-trash-alt"></i> Delete
-                          </span>
+                          <i class="uil uil-trash-alt"></i>Delete
                         </button>
                       )}
                     </div>
-                  </td>
-                )}
-
-                <td
-                  className={colorByUpdate(
-                    proformaInvoice.createdAt,
-                    proformaInvoice.updatedAt
-                  )}
-                >
-                  {proformaInvoice.managerMessage}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {/* this is custom design only to Desktop  */}
+          <div className="table-pi-list">
+            <table className="pi__table table table-bordered">
+              <thead className="th_style">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Employee</th>
+                  <th scope="col">Date/Time</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Status</th>
+                  <th style={{ width: "140px" }} scope="col">
+                    PDF
+                  </th>
+                  <th style={{ width: "225px" }} scope="col">
+                    Handle
+                  </th>
+                  <th style={{ width: "28 0px" }} scope="col">
+                    Manager Note
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {proformaInvoices.map((proformaInvoice, index) => (
+                  <tr
+                    className={
+                      index % 2 === 0 ? `tr_border` : `tr_border tr_dark`
+                    }
+                    key={index}
+                  >
+                    <td scope="row">
+                      {" "}
+                      <div
+                        style={{ fontWeight: "bold" }}
+                        className="td_padding"
+                      >
+                        {proformaInvoice.pi_no}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="employee_cell">
+                        {proformaInvoice?.employee?.split("/")[0]}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="time-update">
+                        {timeAgo(new Date(proformaInvoice.updatedAt))}
+                      </div>
+                    </td>
+                    <td>
+                      <div className=" customer_cell">
+                        {proformaInvoice.buyer_address}
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        className={`status-table-label ${colorByStatus(
+                          roles.includes("Financial")
+                            ? proformaInvoice?.financiaApproval
+                            : proformaInvoice.managerApproval
+                        )}`}
+                      >
+                        <i
+                          className={`uil uil-${iconByStatus(
+                            roles.includes("Financial")
+                              ? proformaInvoice?.financiaApproval
+                              : proformaInvoice.managerApproval
+                          )}`}
+                        ></i>
+                        {roles.includes("Financial")
+                          ? proformaInvoice?.financiaApproval
+                          : proformaInvoice.managerApproval}
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="table-btn-pdf"
+                        onClick={() => handlePDF(proformaInvoice)}
+                      >
+                        <span>
+                          {" "}
+                          <i class="uil uil-import"></i>
+                        </span>
+                      </button>
+                    </td>
+                    {roles.includes("Financial") &&
+                    proformaInvoice.managerApproval !== "Approved" ? (
+                      <td>
+                        <div>Waiting for Sales M Approval</div>
+                      </td>
+                    ) : (
+                      <td>
+                        <div style={{ display: "flex" }}>
+                          <button
+                            type="button"
+                            className="btn-table-status"
+                            onClick={() => {
+                              setCurrentPi(proformaInvoice);
+                              handleReject(proformaInvoice._id);
+                            }}
+                          >
+                            <span>
+                              {" "}
+                              <i class="uil uil-times"></i>Reject
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-table-status"
+                            onClick={() => handleApprove(proformaInvoice._id)}
+                          >
+                            <span>
+                              {" "}
+                              <i class="uil uil-check"></i> Approve
+                            </span>
+                          </button>
+                          {!roles.includes("Financial") && (
+                            <button
+                              type="button"
+                              className="btn-table-status"
+                              onClick={() => {
+                                setCurrentPi(proformaInvoice);
+                                handleShow();
+                              }}
+                            >
+                              <span>
+                                <i class="uil uil-trash-alt"></i> Delete
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    )}
+                    <td
+                      className={colorByUpdate(
+                        proformaInvoice.createdAt,
+                        proformaInvoice.updatedAt
+                      )}
+                    >
+                      {proformaInvoice.managerMessage}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </>
     );
 };
 

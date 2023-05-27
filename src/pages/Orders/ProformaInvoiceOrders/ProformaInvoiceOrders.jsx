@@ -83,10 +83,10 @@ const ProformaInvoiceOrders = () => {
 
   useEffect(() => {
     dispatch(getEmployeeProformaInvoicesAction(username));
-    const interval = setInterval(() => dispatch(getProformaInvoicesAction()), 10 * 1000);
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => dispatch(getProformaInvoicesAction()), 10 * 1000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, [dispatch]);
 
   let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
@@ -148,7 +148,9 @@ const ProformaInvoiceOrders = () => {
   } else
     return (
       <>
+      <div className="pi-list">
       <div className="page_container">
+        {/* this is search section  */}
       <div className="search_container">
           <div className="row">
             <div className="col-lg-6 col-md12">
@@ -159,39 +161,105 @@ const ProformaInvoiceOrders = () => {
             </div>
           </div>
         </div>
-        {/* <div className="item_card"> */}
-          {/* <div className="order-grid">
-            <div className="order-item">
-              <h6>PI.No</h6>
-              <p>56546</p>
+        {/* this is custom design only to Mobile  */}
+        {proformaInvoices.map((proformaInvoice, index) =>(
+        <div className="item-pi">
+          <div className="item-pi-tittle">
+            <span>Date / Time</span>
+            <span>{timeAgo(new Date(proformaInvoice.createdAt))}</span>
+          </div>
+          <div className="item-pi-body">
+            <div class="wrapper">
+              <div class="box a">
+                <p className="text-secondary">Order.No</p>
+                <h6>{proformaInvoice.pi_no}</h6>     
+              </div>
+              <div class="box b">
+              <p className="text-secondary">Employee</p>
+                <h6>{proformaInvoice.employee}</h6>  
+              </div>
+              <div class="box h">
+              <p className="text-secondary">Status</p>
+                {/* <h6>S/Approved |  F/Approved</h6>   */}
+                <div className={colorByStatus(proformaInvoice?.managerApproval)}>S/{proformaInvoice?.managerApproval}</div>
+                <div className={colorByStatus(proformaInvoice?.financiaApproval)}>F/{proformaInvoice?.financiaApproval}</div>
+              </div>
+              {/* <div class="box d">
+              <p className="text-secondary">Confirm</p>
+                <button className="ags-btn-pdf-order">PI <i class="uil uil-import"></i></button>
+                <div className="upload-btns">
+                <label className="ags-btn-pdf-order">Choose File</label>
+                <button className="ags-btn-pdf-order">Upload <i class="uil uil-upload"></i></button>
+                </div>
+              </div> */}
+              <div class="box e">
+                <p className="text-secondary">Customer</p>
+                <h6>{proformaInvoice.buyer_address}</h6>  
+              </div>
+              <div class="box f">
+              <p className="text-secondary">Confirm</p>
+               {/* <button className="ags-btn-pdf-order">Confirmed PI <i class="uil uil-import"></i></button> */}
+                <div className="upload-btns">
+                {/* <label className="ags-btn-pdf-order">Choose File</label>
+                <button className="ags-btn-pdf-order">Upload <i class="uil uil-upload"></i></button> */}
+                </div>
+                {proformaInvoice.status === "Signed" ? (
+                    <DownloadPDFButton
+                      pi_id={proformaInvoice._id}
+                      pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
+                    />
+                  ) : proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
+                    <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
+                  ) : (
+                    <p>Pending</p>
+                  )}
+
+
+              </div>
+              <div class="box g">
+                <p className="text-secondary">From manager</p>
+                {/* <h6>
+                  
+                </h6> */}
+                  <div className="ags-action order-actions">
+                      {/* <button className="ags-btn-reject" onClick={() => handlePDF(proformaInvoice)}><i class="uil uil-eye"></i> </button> */}
+                      {/* <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}><i class="uil uil-edit"></i> </button> */}
+                      {/* <button className="ags-btn-delete"><i class="uil uil-trash-alt"></i>Delete</button> */}
+                   <div style={{ overflow: "hidden" }}>
+                    {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
+                      // <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
+                      //   PI ( pdf )
+                      // </button>
+                      <button className="ags-btn-reject" onClick={() => handlePDF(proformaInvoice)}><i class="uil uil-eye"></i> </button>
+                    ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
+                      <>
+                       <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}><i class="uil uil-edit"></i> </button>
+                        <p className="warnning">
+                          From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
+                          {proformaInvoice?.financeMessage + "/"}
+                          {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
+                          {proformaInvoice?.managerMessage}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                       <p>
+                       Wating for :{proformaInvoice.managerApproval === "Pending" && " manager approval"} &&nbsp;
+                        {proformaInvoice.financiaApproval === "Pending" && "finance approval"}
+                       </p>
+                      </>
+                    )}
+                  </div>
+                  </div>
+              </div>
             </div>
-            <div className="order-item">
-              <h6>Employee</h6>
-              <p>56546</p>
-            </div>
-            <div className="order-item">
-              <h6>Time</h6>
-              <p>56546</p>
-            </div>
-            <div className="order-item">
-              <h6>Customer</h6>
-              <p>asdfasdfasdfasdfasdf</p>
-            </div>
-            <div className="order-item">
-              <h6>From manager</h6>
-              <p>56546</p>
-            </div>
-            <div className="order-item">
-              <h6>Signed by Customer</h6>
-              <p>56546</p>
-            </div>
-            <div className="order-item">
-              <h6>Status</h6>
-              <p>56546</p>
-            </div>
-          </div> */}
-        {/* </div> */}
-        <table className="pi__table table tabel-orders">
+          </div>
+        </div>
+        ))}
+        <div>
+          {/* this is custom design only to desktop  */}
+          <div className="table-pi-list">
+          <table className="pi__table table tabel-orders">
           <thead>
             <tr className="th_style">
               <th scope="col">
@@ -235,7 +303,6 @@ const ProformaInvoiceOrders = () => {
                 <td>
                   <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
                 </td>
-
                 <td>
                   <div style={{ overflow: "hidden" }}>
                     {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
@@ -286,6 +353,9 @@ const ProformaInvoiceOrders = () => {
             ))}
           </tbody>
         </table>
+          </div>
+        </div>
+      </div>
       </div>
       </>
     

@@ -66,16 +66,29 @@ const SideFilters = () => {
   //Hid & Show Filters //////////////////////////////////////////////////////////////
   return (
     <div className="side_filters" > 
-      <div className="radio-toolbar" onChange={handleLocationChange}>
+      {/* <div className="radio-toolbar" onChange={handleLocationChange}>
           <div className="form-group" >
-            <input type="radio" id="radioBanana" name="radioFruit" onChange={()=>{}} checked={location==="freezone"} value="freezone" />
-            <label htmlFor="radioBanana " className="ags-btn-main"> <i className="uil uil-exchange uil-lage "></i>  Freezone </label>
+            <input type="radio" id="freezone_id" name="freezone" onChange={()=>{}} checked={location==="freezone"} value="freezone" />
+            <label htmlFor="freezone_id " className="ags-btn-main"> <i className="uil uil-exchange uil-lage "></i>  Freezone </label>
           </div>
           <div className="form-group" >
-            <input type="radio" id="radioOrange" name="radioFruit" onChange={()=>{}} checked={location==="local"} value="local"/>
-            <label htmlFor="radioOrange" className="ags-btn-main"><i className="uil uil-map-pin-alt uil-lage"></i> Local</label> 
+            <input type="radio" id="local_id" name="freezone" onChange={()=>{}} checked={location==="local"} value="local"/>
+            <label htmlFor="local_id" className="ags-btn-main"><i className="uil uil-map-pin-alt uil-lage"></i> Local</label> 
           </div>
+     </div> 
+      */}
+     <div className="radio-toolbar" onChange={handleLocationChange} >
+        <div className="form-group" >
+           <input type="radio" id="freezone"   name="location" checked={location==="freezone"} value="freezone"/>
+           <label htmlFor="freezone" className="ags-btn-main" ><i className="uil uil-exchange uil-lage "></i> Freezone</label> 
+        </div>
+        <div className="form-group">
+            <input type="radio" id="local" name="location" onChange={()=>{}} checked={location==="local"} value="local" />
+          <label htmlFor="local" className="ags-btn-main"><i className="uil uil-map-pin-alt uil-lage"></i>Local</label>
+        </div>
      </div>
+
+
      <div className="radio-toolbar" onChange={handleCurrencyChange} >
         <div className="form-group" >
            <input type="radio" id="usd_id"  checked={currency==="USD"} onChange={()=>{}}  name="radioFruitf" value="USD"/>
