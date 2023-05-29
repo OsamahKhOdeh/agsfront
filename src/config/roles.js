@@ -5,4 +5,5 @@ export const ROLES = {
   SalesManager: "Sales Manager",
   Financial: "Financial",
   Logistics: "Logistics",
+  SyriaEmployee: "SyriaEmployee",
 };

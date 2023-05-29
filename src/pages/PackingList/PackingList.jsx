@@ -17,6 +17,8 @@ const PackingList = () => {
     truckNetWeight: 0,
     truckGrossWeight: 0,
     truckTotalPackages: 0,
+    truckTotalAmount: 0,
+    truckTotalPallets: 0,
     truckProductItems: [],
   }));
 
@@ -30,9 +32,9 @@ const PackingList = () => {
     setTruckItems(updatedTruckItems);
   };
 
-  const handleSearchPi = () => {
+  const handleSearchPi = async () => {
     // Send the POST request
-    axios
+    await axios
       .get(`http://localhost:5000/packinglist/info/${piNumber}`)
       .then(async (response) => {
         // Handle the response data
@@ -44,6 +46,9 @@ const PackingList = () => {
             productCode: product.productCode,
             productCategory: product.productCategory,
             productCapacity: product.productCapacity,
+            productGrossWeight: product.grossWeight,
+            productNetWeight: product.netWeight,
+            productPrice: product.price,
             productQty: 0,
             productPalletQty: 0,
             productTotalNetWeight: 0,
@@ -62,6 +67,8 @@ const PackingList = () => {
             truckNetWeight: 0,
             truckGrossWeight: 0,
             truckTotalPackages: 0,
+            truckTotalAmount: 0,
+            truckTotalPallets: 0,
             truckProductItems: initialTruckProductItems,
           }))
         );
@@ -71,6 +78,24 @@ const PackingList = () => {
         // Handle any errors that occurred during the request
         console.error("Error:", error);
       });
+  };
+
+  const handleNextClick = async () => {
+    const pkl = {
+      date: new Date(Date.now()),
+      exporter: "pklInfo.exporter",
+      piNo: pklInfo.piNo,
+      piId: pklInfo.piId,
+      invoiceNo: invoiceNo,
+      customer: customer,
+      buyerAddress: buyer,
+      truckItems,
+    };
+    console.log(pkl);
+    await axios
+      .post(`http://localhost:5000/packinglist`, pkl)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error.response.data));
   };
 
   const handleKeyDown = (e) => {
@@ -86,7 +111,6 @@ const PackingList = () => {
       const warehouseIndex = truckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
         (obj) => obj.warehouse === warehouse
       );
-      console.log(truckItems[truckIndex]?.truckProductItems[productIndex]?.productWarehouses);
       if (warehouseIndex !== -1) {
         return truckItems[truckIndex]?.truckProductItems[productIndex]?.productWarehouses[warehouseIndex]?.qty;
       } else {
@@ -97,21 +121,74 @@ const PackingList = () => {
     }
   };
 
+  const getTotalProductQtyInWarehouse = (productId, warehouse) => {
+    let totalQty = 0;
+
+    for (const truck of truckItems) {
+      const productIndex = truck.truckProductItems.findIndex((obj) => obj.productId === productId);
+
+      if (productIndex !== -1) {
+        const warehouseIndex = truck.truckProductItems[productIndex].productWarehouses.findIndex((obj) => obj.warehouse === warehouse);
+
+        if (warehouseIndex !== -1) {
+          totalQty += parseInt(truck.truckProductItems[productIndex].productWarehouses[warehouseIndex].qty);
+        }
+      }
+    }
+    return totalQty;
+  };
+
   const setTruckProductWarehouseItemQty = (productId, truckIndex, warehouse, qtyVal) => {
-    console.log({ productId, truckIndex, warehouse, qtyVal });
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
-      let updatedTruckItems = [...truckItems];
+      let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
       //updatedTruckItems[truckIndex].truckProductItems[productIndex].productQty = qtyVal;
       const warehouseIndex = updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
         (obj) => obj.warehouse === warehouse
       );
-      console.log({ productIndex, truckIndex, warehouseIndex });
       if (warehouseIndex === -1) {
         updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses.push({ warehouse: warehouse, qty: qtyVal });
       } else {
-        updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses[warehouseIndex].qty = qtyVal;
+        updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses[warehouseIndex].qty = parseInt(qtyVal);
       }
+
+      updatedTruckItems[truckIndex].truckProductItems.map((truckProductItem) => {
+        let productQty = 0;
+        let productTotalAmount = 0;
+        let productPalletQty = 0;
+        let productTotalGrossWeight = 0;
+        let productTotalNetWeight = 0;
+
+        truckProductItem.productWarehouses.map((productWarehouse) => {
+          productQty += parseInt(productWarehouse.qty);
+        });
+        truckProductItem.productQty = productQty;
+        truckProductItem.productTotalAmount = productQty * truckProductItem.productPrice;
+        truckProductItem.productTotalNetWeight = productQty * truckProductItem.productNetWeight;
+        truckProductItem.productTotalGrossWeight = productQty * truckProductItem.productGrossWeight;
+        truckProductItem.productPalletQty = 0;
+      });
+
+      updatedTruckItems.map((truck) => {
+        let truckGrossWeight = 0;
+        let truckNetWeight = 0;
+        let truckTotalPackages = 0;
+        let truckTotalAmount = 0;
+        let truckTotalPallets = 0;
+        truck.truckProductItems.map((truckProductItem) => {
+          truckGrossWeight += truckProductItem.productTotalGrossWeight;
+          truckNetWeight += truckProductItem.productTotalNetWeight;
+          truckTotalPackages += truckProductItem.productQty;
+          truckTotalAmount += truckProductItem.productTotalAmount;
+          truckTotalPallets += truckProductItem.productPalletQty;
+        });
+        truck.truckGrossWeight = truckGrossWeight;
+        truck.truckNetWeight = truckNetWeight;
+        truck.truckTotalPackages = truckTotalPackages;
+        truck.truckTotalAmount = truckTotalAmount;
+        truck.truckTotalPallets = truckTotalPallets;
+      });
+
       setTruckItems(updatedTruckItems);
     } else {
       return null;
@@ -350,13 +427,13 @@ const PackingList = () => {
                           {product.bookedWarehouses.map((warehouse, whIndex) => (
                             <div className="warehouse_bl_item" style={{ flex: 1 }} key={whIndex}>
                               <div className="warehouse_bl_item_code">
-                                {warehouse.qty}/
-                                {warehouse.qty - getTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse)}
+                                {warehouse.qty - getTotalProductQtyInWarehouse(product.productId, warehouse.warehouse)}
                               </div>{" "}
                               <div className="warehouse_bl_item_code">{warehouse.warehouse}</div>
                               <div className="warehouse_bl_item_qty">
                                 {" "}
                                 <input
+                                  id={truckIndex}
                                   type="text"
                                   value={getTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse)}
                                   onChange={(e) => {
@@ -385,8 +462,107 @@ const PackingList = () => {
               </tbody>
             </table>
           </div>
+          <div>
+            {truckItems.map((truckItem, index) => (
+              <div className="truck" key={index}>
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">Truck No : </div>
+                      <div className="val_div">{truckItem.truckNo}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Truck Driver : </div>
+                      <div className="val_div">{truckItem.truckDriverName}</div>
+                    </div>
+                  </div>
+                </div>
+                <table className="pi__table table table-bordered">
+                  <thead>
+                    <tr className="th_style">
+                      <th scope="col">
+                        <div className="th_cell_div">#</div>
+                      </th>
+                      <th scope="col">
+                        <div className="th_cell_div">Description</div>
+                      </th>
+                      <th scope="col">
+                        <div className="th_cell_div">QTY(PCs)</div>
+                      </th>
+                      <th scope="col">
+                        <div className="th_cell_div">Pallet</div>
+                      </th>
+
+                      <th scope="col">
+                        <div className="th_cell_div">NW(KGs)</div>
+                      </th>
+
+                      <th scope="col">
+                        <div className="th_cell_div">GW(KGs)</div>
+                      </th>
+
+                      <th scope="col">
+                        <div className="th_cell_div">Total</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {truckItem.truckProductItems.map((product, productIndex) => (
+                      <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
+                        <td>
+                          <div style={{ fontWeight: "bold" }} className="td_padding">
+                            {productIndex + 1}
+                          </div>
+                        </td>
+                        <td>
+                          <div className="td_padding employee_cell">{product.description}</div>
+                        </td>
+                        <td>
+                          <div className="td_padding">{product.productQty}</div>
+                        </td>
+                        <td>
+                          <div className="td_padding customer_cell">{product.productPalletQty}</div>
+                        </td>
+
+                        <td>
+                          <div className="td_padding">{product.productTotalNetWeight?.toFixed(2)}</div>
+                        </td>
+
+                        <td>
+                          <div className="td_padding">{product.productTotalGrossWeight?.toFixed(2)}</div>
+                        </td>
+
+                        <td>
+                          <div className="td_padding">{product.productTotalAmount?.toFixed(2)}</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">NetWeight : </div>
+                      <div className="val_div">{truckItem.truckNetWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">GrossWeight: </div>
+                      <div className="val_div">{truckItem.truckGrossWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Packages : </div>
+                      <div className="val_div">{truckItem.truckTotalPackages}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </>
       )}
+      <button className="btn btn-danger danger" onClick={handleNextClick}>
+        Next
+      </button>
     </div>
   );
 };

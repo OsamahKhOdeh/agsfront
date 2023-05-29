@@ -184,3 +184,11 @@ export const LogisticsMenuItems = [
     cName: "dropdown-link",
   },
 ];
+
+export const SyriaEmployeeMenuItems = [
+  {
+    title: "PriceList/Quotation",
+    path: "/user/warranty",
+    cName: "dropdown-link",
+  },
+];

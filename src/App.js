@@ -43,6 +43,7 @@ import PurchaseOrderPdf from "./Components/PurchaseOrderPdf/PurchaseOrderPdf";
 import PurchaseOrdersAll from "./pages/PurchaseOrdersAll/PurchaseOrdersAll";
 import EditStock from "./pages/EditStock/EditStock";
 import PackingList from "./pages/PackingList/PackingList";
+import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -62,27 +63,21 @@ function App() {
                 <Route path="projects" element={<Projects />}></Route>
                 <Route path="allprojects" element={<AllProjects />}></Route>
                 <Route path="sharedprojects" element={<SharedProjects />}></Route>
-
                 <Route path="orders/pisigned" element={<SignedProformaInvoices />}></Route>
-
                 <Route path="editpi/:id" element={<EditProforamaInvoice />}></Route>
                 <Route path="addproduct" element={<ProductForm />}></Route>
-
                 <Route path="makepi" element={<PiStepper />}></Route>
                 <Route path="makepo" element={<MakePo />}></Route>
                 <Route path="poinfo" element={<PoInfo />}></Route>
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>
-
-                <Route path="packinglist" element={<PackingList />}></Route>
-
+                <Route path="packinglist" element={<PackingList />}></Route>{" "}
+                <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
                 <Route path="table" element={<ProformaInvoice />}></Route>
                 <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
                 <Route path="pricelistpdf" element={<PriceListPDF />}></Route>
-
                 <Route path="warranty" element={<Warranty />}></Route>
-
                 <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
                   <Route path="admin" element={<AdminPage />}></Route>
                   <Route path="employees" element={<Employees />}></Route>
