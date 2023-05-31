@@ -9,10 +9,10 @@ const PriceListInfo = () => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{width : "90%" , margin : "auto" }}>
+    <div >
       <div className="next_div"  >
-              <button className="btn_next success_prev" onClick={()=>{ navigate('/user/warranty')}} >PREVIOUS</button>
-              <button className="btn_next success_next" onClick={()=>{dispatch(setIsPI(false)); navigate('/user/pricelistpdf')}} >NEXT</button>
+              <button className="ags-btn-main" onClick={()=>{ navigate('/user/warranty')}} > Back</button>
+              <button className="ags-btn-main-fill" onClick={()=>{dispatch(setIsPI(false)); navigate('/user/pricelistpdf')}} >Next <i class="uil uil-angle-right-b"></i></button>
             </div>
     <InvoiceInfo/>
     <Table/>

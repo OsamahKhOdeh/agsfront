@@ -1,22 +1,22 @@
 export const AdminMenuItems = [
-  {
-    title: "Make PI",
-    path: "/user/makepi",
-    cName: "dropdown-link",
-    icon : "bx-pie-chart-alt-2"
-  },
-  {
-    title: "Make PO",
-    path: "/user/makepo",
-    cName: "dropdown-link",
-    icon : "bx-polygon"
-  },
-  {
-    title: "PriceList/Quotation",
-    path: "/user/warranty",
-    cName: "dropdown-link",
-    icon : "bx-money"
-  },
+  // {
+  //   title: "Performa Invoice",
+  //   path: "/user/makepi",
+  //   cName: "dropdown-link",
+  //   icon : "bx-pie-chart-alt-2"
+  // },
+  // {
+  //   title: "Purchase Order",
+  //   path: "/user/makepo",
+  //   cName: "dropdown-link",
+  //   icon : "bx-polygon"
+  // },
+  // {
+  //   title: "Quotation",
+  //   path: "/user/warranty",
+  //   cName: "dropdown-link",
+  //   icon : "bx-money"
+  // },
   {
     title: "Add Items",
     path: "/user/addproduct",
@@ -78,16 +78,16 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
     icon : "bx-dialpad-alt"
   },
-  {
-    title: "Datasheet",
-    path: "http://143.42.61.215/website",
-    cName: "dropdown-link",
-    icon : "bx-data"
-  },
+  // {
+  //   title: "Datasheet",
+  //   path: "http://143.42.61.215/website",
+  //   cName: "dropdown-link",
+  //   icon : "bx-data"
+  // },
 ];
 export const EmployeeMenuItems = [
   {
-    title: "Make PI",
+    title: "Performa Invoice",
     path: "/user/makepi",
     cName: "dropdown-link",
     icon : "bx-pie-chart-alt-2"
@@ -120,7 +120,7 @@ export const EmployeeMenuItems = [
 
 export const SalesManagerMenuItems = [
   {
-    title: "Make PI",
+    title: "Performa Invoice",
     path: "/user/makepi",
     cName: "dropdown-link",
     icon : "bx-pie-chart-alt-2"
@@ -138,7 +138,7 @@ export const SalesManagerMenuItems = [
     icon : "bx-border-radius"
   },
   {
-    title: "Make PO",
+    title: "Purchase Order",
     path: "/user/makepo",
     cName: "dropdown-link",
     icon : "bx-polygon"
@@ -173,12 +173,12 @@ export const SalesManagerMenuItems = [
     cName: "dropdown-link",
     icon : "bx-dialpad-alt"
   },
-  {
-    title: "Datasheet",
-    path: "http://143.42.61.215/website",
-    cName: "dropdown-link",
-    icon : "bx-data"
-  },
+  // {
+  //   title: "Datasheet",
+  //   path: "http://143.42.61.215/website",
+  //   cName: "dropdown-link",
+  //   icon : "bx-data"
+  // },
   {
     title: "Edit Stock",
     path: "/user/editstock",

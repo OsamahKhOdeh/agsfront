@@ -8,7 +8,7 @@ const ProductNew = ({ product, index }) => {
   const onButtonClick = async (id, downloadedFileName) => {
     downloadDatasheet(id, downloadedFileName);
   };
-
+  document.body.style.paddingLeft = 0;
   const onGetQuoteClick = (id, code, capacity) => {
     const phoneNumber = "971565527684";
     const message = "Hello AGS, I'm looking for more information about " + code + " with capacity " + capacity;
@@ -44,22 +44,14 @@ const ProductNew = ({ product, index }) => {
       </div>
 
       <div class="contentBox">
-        <h3 style={{ fontSize: "25px", fontWeight: "700", color: "#ff0000" }}>{product.brand}</h3>
+        <h3 >{product.brand}</h3>
         <h3 style={{ fontSize: "16px", fontFamily: "monospace", fontWeight: "600", color: "rgb(197 19 19)" }}>{product.code}</h3>
-        <h2 style={{ fontSize: "20px", color: "rgb(110 51 51)", fontWeight: "700", letterSpacing: "1px" }} class="price">
+        <h2 class="price">
           {product.capacity}
         </h2>
-        <div className="butt_container">
-          <a onClick={() => onButtonClick(product._id, product.code)} class="buy">
-            Datasheet
-          </a>
-          <a
-            onClick={() => onGetQuoteClick(product._id, product.code, product.capacity)}
-            style={{ background: "green" }}
-            class="buy butt_qoute"
-          >
-            Get Quote
-          </a>
+        <div className="button_container">
+          <button className="ags-btn-main-fill" onClick={() => onButtonClick(product._id, product.code)}>  Datasheet</button>
+          <button className="ags-btn-sucess-fill " onClick={() => onGetQuoteClick(product._id, product.code, product.capacity)}>Get Quote</button>
         </div>
       </div>
     </div>

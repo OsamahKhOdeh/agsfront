@@ -213,7 +213,6 @@ const PIActionsAdmin = () => {
     dispatch(deleteProformaInvoice(currentPi._id));
   };
   const handleShow = () => {
-    console.log("ddddddddddddddddd");
     setShow(true);
   };
   /* -------------------------------------------------------------------------- */
@@ -223,12 +222,12 @@ const PIActionsAdmin = () => {
       <>
         <div className="next_div" style={{ paddingBottom: "20px" }}>
           <button
-            className="btn_next success_prev"
+            className="ags-btn-main"
             onClick={() => {
               setIsPdf(false);
             }}
           >
-            PREVIOUS
+             Back
           </button>
         </div>
         <ProformaInvoice adminPi={currentPi} />
@@ -270,7 +269,6 @@ const PIActionsAdmin = () => {
             <div className={popupClass} id="myForm">
               <form onSubmit={handleRejectMessage} class="form-container">
                 <h1>Reject with note</h1>
-
                 <label for="rej_msg">
                   <b>Rejection message</b>
                 </label>
@@ -279,7 +277,6 @@ const PIActionsAdmin = () => {
                   placeholder="Enter why you reject this proforma invoice"
                   name="rej_msg"
                 />
-
                 <button type="submit" class="btn">
                   Send
                 </button>

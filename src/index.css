@@ -561,8 +561,6 @@ p {
   border-radius: 50%;
   display: none;
   z-index: 100;
-  /* align-items: center;
-    justify-content: center; */
   .uil {
     font-size: 2.5rem;
     color: var(--second-color);
@@ -576,6 +574,7 @@ p {
     }
   }
 }
+
 .MuiGrid-spacing-xs-4 {
   margin-top: 1rem !important;
   padding: 1rem !important;

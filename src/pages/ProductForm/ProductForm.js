@@ -174,13 +174,190 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   }
 */
   return (
-    <div style={{ paddingLeft: "20px", paddingRight: "20px", width: "80%" }}>
-      <Paper className={classes.paper} elevation={6}>
-        <ToastContainer />
-        <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-          <Typography variant="h3" style={{ backgroundColor: "" }}>
-            Adding Product
-          </Typography>
+    <div className="card-add-product">
+        <div className="card-add-product-tittle">
+            <h3 > Add Product</h3>
+        </div>
+      <div className="card-add-product-body">
+      <form autoComplete="off" noValidate  onSubmit={handleSubmit}>
+      <div className="row">
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="categotry">Category</label>
+            <select class="form-select " required  value={productData.category}   onChange={(e) => setProductData({ ...productData, category: e.target.value })} aria-label="Default select example">
+              <option selected disabled value="">choose category</option>
+              {categories?.map((cat, i) => {
+                return (
+                   <option  value={cat} key={i}> {cat}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="categotry">Country</label>
+            <select class="form-select" required value={productData.country} onChange={(e) => setProductData({ ...productData, country: e.target.value })} aria-label="Default select example">
+              <option selected disabled value="">choose country</option>
+              {countries?.map((count, i) => {
+                return (
+                 <option  value={count} key={i}> {count}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="categotry">Company</label>
+            <select class="form-select" required value={productData.company} onChange={(e) => setProductData({ ...productData, company: e.target.value })} aria-label="Default select example">
+              <option selected disabled value=""> choose comapny</option>
+              {choosenCountry}
+              {companies?.map((comp, i) => {
+                return (
+                 <option value={comp} key={i}>{comp}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="categotry">Brand</label>
+            <select class="form-select"   value={productData.brand}  onChange={(e) => setProductData({ ...productData, brand: e.target.value })} aria-label="Default select example">
+              <option selected disabled value="">choose brand</option>
+              {brands?.map((brand, i) => {
+                return (
+                   <option value={brand} key={i}> {brand}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="categotry">Capacity</label>
+            <select class="form-select" required value={productData.capacity} onChange={(e) => setProductData({ ...productData, capacity: e.target.value })} aria-label="Default select example">
+              <option selected disabled value="">choose capacity</option>
+              {capacities?.map((cap, i) => {
+                return (
+                  <option value={cap} key={i}> {cap}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="productCode">Product Code</label>
+            <input class="form-control " id="productCode" type="text"  onChange={(e) => setProductData({ ...productData, code: e.target.value })} placeholder="Enter product code"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="netWight">Net Weight</label>
+            <input class="form-control " id="netWight"
+            value={productData.netWeight}
+            onChange={(e) => {
+              if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/))
+                setProductData({ ...productData, netWeight: e.target.value });
+            }} type="text" placeholder="Enter net wieght"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="groosWeihgt">Gross Weight</label>
+            <input class="form-control " id="grossWeihgt"
+             value={productData.grossWeight}
+             onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, grossWeight: e.target.value });
+            }} type="text" placeholder="Enter groos weight"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="paletSize">Palet Size</label>
+            <input class="form-control "
+            value={productData.palatSize}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, palatSize: e.target.value });
+            }} id="paletSize" type="text" placeholder="Enter palet size"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="netPrice">Net Price</label>
+            <input class="form-control "
+            value={productData.price}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, price: e.target.value });
+            }} id="netPrice" type="text" placeholder="Enter net price"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="freezonePrice">Freezone Price</label>
+            <input class="form-control "
+            value={productData.freezonePrice}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, freezonePrice: e.target.value });
+            }}
+             id="freezonePrice" type="text" placeholder="enter freezone price"  />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="localPrice">Local Price</label>
+            <input class="form-control " 
+            value={productData.LocalPrice}
+            onChange={(e) => {
+              if (e.target.value === "" || regex.test(e.target.value))
+                setProductData({ ...productData, LocalPrice: e.target.value });
+            }}
+            id="localPrice" type="text" placeholder="enter local price"  />
+          </div>
+        </div>
+        <div className="col-lg-12 col-md-12">
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea class="form-control "
+            onChange={(e) => setProductData({ ...productData, description: e.target.value })}
+            id="description" type="text" rows="4" placeholder="Enter description"  ></textarea>
+          </div>
+        </div>
+        <div className="col-lg-12 col-md-12">
+          <div className="mt-2 mb-3">
+          <div class="input-group">
+            <input type="file"
+             accept="image/x-png, image/gif, image/jpeg"
+             onChange={(e) => {
+               if (e.target.files[0].size > 15e4) {
+                 window.alert("Please upload a file smaller than 150 Kb");
+               } else {
+                 setImage(e.target.files[0]);
+                 setIsUploading(true);
+               }
+             }}
+            class="form-control" id="inputGroupFile02"/>
+            <label class="input-group-text" onClick={handleUpload}>Upload</label>
+          </div>
+          </div>
+        </div>
+        <div className="col-lg-12 col-md-12">
+          <div className="form-group text-center">
+          <div  className="ags-btns-group">
+              <button onClick={clear} className="ags-btn-main">Clear</button>
+              <button type="submit"  disabled={isUploading} className="ags-btn-main-fill">Submit</button>
+           </div>
+          </div>
+        </div>
+      </div>
+      </form>
+        {/* <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
             <Select
@@ -292,7 +469,6 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               })}
             </Select>
           </FormControl>
-
           <TextField
             name="code"
             variant="outlined"
@@ -367,7 +543,6 @@ const ProductForm = ({ currentId, setCurrentId }) => {
                 setProductData({ ...productData, LocalPrice: e.target.value });
             }}
           />
-
           <TextField
             name="description"
             variant="outlined"
@@ -378,7 +553,6 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             value={productData.description}
             onChange={(e) => setProductData({ ...productData, description: e.target.value })}
           />
-
           <div className={classes.fileInput}>
             <input
               style={{ color: "red", width: "25%", height: "30px" }}
@@ -409,29 +583,13 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               Upload image
             </button>
           </div>
-          {/* <div className={classes.fileInput} >
-                    <form onSubmit={handeleDatasheetSubmit}> 
-                            <input  style={{ color: "red" ,width :"25%" ,height :"30px" }} type="file" />
-                            <button  style={{ color: "white" ,width :"12%",backgroundColor : "red" ,height :"30px" ,marginLeft : "20px", borderRadius : "5%" }} className="btn btn-primary" type="submit">Upload Datasheet</button>
-                    </form>
-            </div>
-       */}
-          <Button
-            className={classes.buttonSubmit}
-            disabled={isUploading}
-            variant="contained"
-            color="primary"
-            size="large"
-            type="submit"
-            fullWidth
-          >
-            Submit
-          </Button>
-          <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>
-            Clear
-          </Button>
-        </form>
-      </Paper>
+           <div  className="ags-btns-group">
+              <button onClick={clear} className="ags-btn-main">Clear</button>
+              <button type="submit"  disabled={isUploading} className="ags-btn-main-fill">Submit</button>
+           </div>
+        </form> */}
+      <ToastContainer />
+      </div>
     </div>
   );
 };

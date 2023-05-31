@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 //import DashHeader from './DashHeader'
@@ -78,36 +78,85 @@ const UserLayout = () => {
               id="header-toggle"
             ></i>
           </div>
-          <div className="header_img">
-            <img src="https://placehold.co/150x150/000000/FFFFFF.png" alt="" />{" "}
+          <div class="dropdown show">
+          <div className="profile-img" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <img src="https://i.pravatar.cc/150?u=fake@pravatar.com"  alt="avatar-img" />{" "}
           </div>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" onClick={() => {}}>
+              <i class="uil uil-user-circle"></i> {user}
+          </a>
+            <a class="dropdown-item" onClick={logout}>
+              {/* <div > */}
+                {/* <a  className="nav_link"> */}
+                <i class="uil uil-sign-out-alt"></i>
+                  <span className="nav_name">Signout</span>
+                {/* </a> */}
+              {/* </div> */}
+            </a>
+            {/* <a class="dropdown-item" href="#">Something else here</a> */}
+          </div>
+        </div>
         </header>
         {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
         <div className={`l-navbar  ${isOpen ? "" : "show"} `} id="nav-bar">
           <nav className="nav">
             <div>
-              {" "}
-              <a href="#" className="nav_logo">
-                {" "}
+              <a  className="nav_logo">
                 <i className="bx bx-layer nav_logo-icon"></i>{" "}
                 <span className="nav_logo-name">AGS</span>{" "}
               </a>
               <div className="nav_list">
+              {isAdmin && 
+             <>
+              <button class="nav_link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                  <a class="invoice">
+                  <i className={`bx nav_icon  bx bx-down-arrow`}></i> <span>Invoice</span>
+                  </a>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right dropdown-invoice" >
+              <a class="dropdown-item " >
+              <Link to='/user/makepi' className="invoice-item">
+                Performa Invoice
+              </Link>
+                </a>
+              <a class="dropdown-item" >
+                <Link to='/user/makepo' className="invoice-item">
+                Purchase Order
+              </Link>
+                </a>
+              <a class="dropdown-item" >
+                <Link to='/user/warranty' className="invoice-item">
+                  Quotation
+                  </Link>
+                </a>
+              {/* <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a> */}
+              </div>
+              </>
+              }
                 {MenuItems.map((MenuItem)=>
-                <a href={MenuItem.path} className="nav_link active">
+                <a  className="nav_link " >
+                 <Link to={MenuItem.path}>
                   <i className={`bx nav_icon ${MenuItem.icon}`}></i>
                   <span className="nav_name">{MenuItem.title}</span>
-                </a>)}
-                
+                  </Link>
+                </a>
+                )}
+               <a  className="nav_link " href="http://143.42.61.215/website" target="_blank" >
+                 {/* <Link to=''> */}
+                  <i className={`bx nav_icon bx-data`}></i>
+                  <span className="nav_name">Datasheet</span>
+                  {/* </Link> */}
+                </a>
               </div>
             </div>
-            <div onClick={logout}>
+            {/* <div onClick={logout}>
             <a  className="nav_link">
-              {" "}
               <i className="bx bx-log-out nav_icon"></i>{" "}
               <span className="nav_name">SignOut</span>{" "}
             </a>
-            </div>
+            </div> */}
           </nav>
         </div>
         <div
@@ -118,6 +167,7 @@ const UserLayout = () => {
           <Outlet />
         </div>
       </div>
+      
       {/* <Navbar />
       <div style={{ display: "flex", paddingTop: "82px" }}>
         <Sidebar />

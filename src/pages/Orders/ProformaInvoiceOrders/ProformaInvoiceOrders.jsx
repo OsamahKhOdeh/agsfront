@@ -134,12 +134,12 @@ const ProformaInvoiceOrders = () => {
       <>
         <div className="next_div" style={{ paddingBottom: "20px" }}>
           <button
-            className="btn_next success_prev"
+            className="ags-btn-main"
             onClick={() => {
               setIsPdf(false);
             }}
           >
-            PREVIOUS
+            Back
           </button>
         </div>
         <ProformaInvoice adminPi={currentPi} />
@@ -304,26 +304,22 @@ const ProformaInvoiceOrders = () => {
                   <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
                 </td>
                 <td>
-                  <div style={{ overflow: "hidden" }}>
+                  <div className="edit-pi-column">
                     {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
                       <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
                         PI ( pdf )
                       </button>
                     ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
                       <>
-                        <button
-                          type="button"
-                          className="button_edit_pdf button_edit"
-                          onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}
-                        >
-                          Edit
-                        </button>
                         <p style={{ color: "red", padding: 0, margin: 0 }}>
                           From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
                           {proformaInvoice?.financeMessage + "/"}
                           {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
                           {proformaInvoice?.managerMessage}
                         </p>
+                        <span onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
+                           Edit <i class="uil uil-edit"></i>
+                        </span>
                       </>
                     ) : (
                       <>

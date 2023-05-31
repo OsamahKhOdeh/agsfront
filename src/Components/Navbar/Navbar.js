@@ -55,8 +55,8 @@ function Navbar() {
 
   return (
     <>
-      <nav style={{ position: "fixed", width: "100%", zIndex: 999 }} className="navbar">
-        <Link to="/user/warranty" className="nav-links" onClick={closeMobileMenu}>
+      <nav style={{ position: "inherit", width: "100%", zIndex: 999 }} className="navbar">
+        <Link to="https://agsdubai.com" className="nav-links" onClick={closeMobileMenu}>
           <img className="logo_image" src="/images/logo_nav.png" alt="icon" height="40px" />
         </Link>
         {/* <div className="menu-icon" onClick={handleClick}>
@@ -86,16 +86,16 @@ function Navbar() {
               Logout
             </Link>
         </p> */}
-        <div className="nav-item">
+        {/* <div className="nav-item">
             <Link  className="nav-links" onClick={() => {}}>
               <div> <i class="uil uil-user-circle"></i> {user}</div>
             </Link>
-        </div>
-         <div className="nav-item">
+        </div> */}
+         {/* <div className="nav-item">
             <Link className="nav-links" onClick={logout}>
              Logout  <i class="uil uil-sign-out-alt"></i>
             </Link>
-        </div>
+        </div> */}
         </div>
       </nav>
     </>

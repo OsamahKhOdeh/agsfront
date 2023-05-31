@@ -13,7 +13,7 @@
   }
 
   .pi_prop{
-        border: solid;
+      border: solid;
     border-width: thin;
     margin: 5px 2px;
     padding: 12px;
@@ -24,7 +24,7 @@
 
 
   .del_but_pi{
-        padding: 4px 0px;
+    padding: 4px 0px;
     background: #ff0000;
     font-weight: 900;
     color: #f1dddd;

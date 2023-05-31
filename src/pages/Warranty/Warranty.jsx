@@ -284,7 +284,7 @@ const Warranty = () => {
                 navigate("/user/pricelistinfo");
               }}
             >
-              <span>Next <i class="uil uil-angle-right-b"></i></span>  
+              <span>Next  <i class="uil uil-angle-right-b"></i></span>  
             </button></div>
           <div className="next_div" style={{ justifyContent: "space-between" }}>
                {/* this is search section  */}

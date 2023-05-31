@@ -57,12 +57,12 @@ const PurchaseOrderOrders = () => {
       <>
         <div className="next_div" style={{ paddingBottom: "20px" }}>
           <button
-            className="btn_next success_prev"
+            className="ags-btn-main"
             onClick={() => {
               setIsPdf(false);
             }}
           >
-            PREVIOUS
+             Back
           </button>
         </div>
         <PurchaseOrderPdf po={currentPo} />

@@ -26,7 +26,9 @@ const steps = ["Select Products", "Select PI Information", "Make and Download PI
 
 export default function PiStepper() {
   const piInfo = useSelector((state) => state.pi.piInfo);
-  const piProducts = useSelector((state) => state.pi.piProducts);
+  const piProducts = useSelector((state) => state.pi.piProducts);  
+  const cart = useSelector((state) => state.cart.cart);
+
   const isLoading = useSelector((state) => state.show.isLoading);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -112,7 +114,6 @@ export default function PiStepper() {
           {activeStep === 0 && (
             <>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2, paddingBottom: "20px", alignItems: "flex-end" }}>
-                
                 <Box sx={{ flex: "1 1 auto" }} />
                 {activeStep === steps.length - 1 ? (
                   <Button disabled={!canNext} variant="contained" onClick={handleNext}>
@@ -120,7 +121,7 @@ export default function PiStepper() {
                     Send
                   </Button>
                 ) : (
-                  <Button variant="contained" onClick={handleNext}>
+                  <Button variant="contained" disabled={cart.length === 0 } onClick={handleNext}>
                     {" "}
                     Next
                   </Button>
@@ -133,7 +134,7 @@ export default function PiStepper() {
             <>
               <InvoiceInfo />
               <Table />
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -143,28 +144,40 @@ export default function PiStepper() {
                   position: "absolute",
                   right: "136px",
                 }}
-              >
-                <Button variant="contained" size="large" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-                  Back
-                </Button>
-                {activeStep === steps.length - 1 ? (
-                  <Button disabled={!canNext} variant="contained" onClick={handleNext}>
-                    {" "}
-                    Send
-                  </Button>
-                ) : (
-                  <Button size="large" variant="contained" onClick={handleNext}>
-                    {" "}
-                    Next
-                  </Button>
-                )}
-              </Box>
+              > */} 
+        
+                <div className="buttons-add-pi">
+                    <button className="ags-btn-main"  onClick={handleBack}>  Back </button> 
+                    {activeStep === steps.length - 1 ? (
+                      <Button disabled={!canNext} variant="contained" onClick={handleNext}>
+                        {" "}
+                        Send
+                      </Button>
+                    ) : (
+                    <button className="ags-btn-main-fill" disabled={!canNext}  onClick={handleNext}>  Next </button> 
+                    )}
+                </div>
+              
+              {/* </Box> */}
             </>
           )}
           {activeStep === 2 && (
             <>
               <SuccessPage />
-              <Box
+              <div className="buttons-add-pi">
+                    <span className="ags-btn-main" disabled={activeStep === 0} onClick={handleBack}>  Back </span> 
+                    {activeStep === steps.length - 1 ? (
+                      // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
+                      //   Send
+                      // </Button>
+                      
+                      <span className="ags-btn-main-fill"  disabled={!canNext}  onClick={handleNext}>  Send  </span> 
+
+                    ) : (
+                    <span className="ags-btn-main-fill"  disabled={!canNext} variant="contained" onClick={handleNext}>  Next </span> 
+                    )}
+                </div>
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -189,7 +202,7 @@ export default function PiStepper() {
                     Next
                   </Button>
                 )}
-              </Box>
+              </Box> */}
             </>
           )}
         </React.Fragment>
