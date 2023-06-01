@@ -129,6 +129,154 @@ const PiForm = ({ oldPi }) => {
     <div>
       <ToastContainer />
 
+    <>
+        {/* new form */}
+      {/* <div className="card-add-product">
+        <div className="card-add-product-tittle">
+            <h3 > Edit PI</h3>
+        </div>
+      <div className="card-add-product-body">
+      <form autoComplete="off" noValidate  onSubmit={handleSubmit}>
+      <div className="row">
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="exporter">Exporter:</label>
+            <select class="form-select " id="exporter" name="exporter" onChange={handleChange}>
+            {exporters.map((exporter) => (
+              <option selected={oldPi.exporter === exporter.value} value={exporter.value}>
+                {exporter.name}
+              </option>
+            ))}
+          </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="buyer_address">Buyer Address</label>
+          <input class="form-control" type="text" name="buyer_address" value={inputs.buyer_address || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="consignee">Consignee</label>
+           <input class="form-control" type="text" name="consignee" value={inputs.consignee || ""} onChange={handleChange} /> 
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="notify_party">Notify Party</label>
+              <select className="form-select" id="notify_party" name="notify_party" onChange={handleChange}>
+            {notify_partys.map((notifyparty) => (
+              <option selected={oldPi.notify_party === notifyparty.value} value={notifyparty.value}>
+                {notifyparty.name}
+              </option>
+            ))}
+          </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="party_discharge">Party of Discharge</label>
+          <input
+            class="form-control"
+            type="text"
+            id="party_discharge"
+            name="party_of_discharge"
+            value={inputs.party_of_discharge || ""}
+            onChange={handleChange}
+          /> </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="final_distenation">Final Distenation</label>
+          <input class="form-control" id="final_distenation" type="text" name="final_distination" value={inputs.final_distination || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="discount">Discount</label>
+          <input class="form-control" type="text" id="discount" name="discount" value={inputs.discount || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="additions">Additions</label>
+           <input class="form-control" type="text" id="additions" name="additions" value={inputs.additions || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="">Note</label>
+          <input class="form-control" type="text" id="note" name="note" value={inputs.note || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="phone_number">Phone Number </label>
+          <input class="form-control" type="text" id="phone_number" name="phone_number" value={inputs.phone_number || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <p>{inputs.terms}</p>
+          <select className="form-select" id="terms" name="terms" onChange={handleChange}>
+            <option selected={oldPi?.terms[0] === "FOB"} value="FOB">
+              FOB
+            </option>
+            <option selected={oldPi?.terms[0] === "CIF"} value="CIF">
+              CIF
+            </option>
+            <option selected={oldPi?.terms[0] === "EXWAREHOUSE"} value="EXWAREHOUSE">
+              EXWAREHOUSE
+            </option>
+          </select>
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="paymentPercentage">Advance Payment condition</label>
+          <input class="form-control" type="text" id="paymentPercentage" name="paymentPercentage" value={inputs.paymentPercentage || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+            <label htmlFor="paymentPercentage">Goods will be delivered with in {inputs.deliveryDate || ""} days after completion of full payment </label>
+          <input class="form-control" type="text" id="paymentPercentage" name="deliveryDate" value={inputs.deliveryDate || ""} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="form-group">
+          <label htmlFor="bankDetails">Advance Payment condition :</label>
+          {bank_details.map((item, i) => (
+            <div className="form-check m-3" key={i}>
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="bankDetails"
+                checked={inputs.bankDetails?.includes(item.collection)}
+                value={item.collection}
+                id="flexCheckDefault"
+                onChange={handleBankDetailsChange}
+              />
+              <label className="form-check-label" htmlFor="flexCheckDefault">
+                {item.collection}
+              </label>
+            </div>
+          ))}
+          </div>
+        </div>
+        <div className="col-lg-12 col-md-12">
+          <div className="form-group text-center">
+          <div  className="ags-btns-group">
+              <button type="submit"   className="ags-btn-main-fill">Update Proforma Invoice</button>
+           </div>
+          </div>
+        </div>
+      </div>
+      </form>
+      </div>
+      </div> */}
+        {/* old form */}
       <form onSubmit={handleSubmit}>
         <div className="pi_prop">
           <label for="exp" class="label">
@@ -315,7 +463,8 @@ const PiForm = ({ oldPi }) => {
           Update Proforma Invoice
         </button>
       </div>
-    </div>
+    </>
+    </div>    
   );
 };
 

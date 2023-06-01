@@ -1,4 +1,22 @@
 export const AdminMenuItems = [
+  // {
+  //   title: "Performa Invoice",
+  //   path: "/user/makepi",
+  //   cName: "dropdown-link",
+  //   icon : "bx-pie-chart-alt-2"
+  // },
+  // {
+  //   title: "Purchase Order",
+  //   path: "/user/makepo",
+  //   cName: "dropdown-link",
+  //   icon : "bx-polygon"
+  // },
+  // {
+  //   title: "Quotation",
+  //   path: "/user/warranty",
+  //   cName: "dropdown-link",
+  //   icon : "bx-money"
+  // },
   {
     title: "Make PI",
     path: "/user/makepi",
@@ -91,16 +109,10 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
     icon: "bx-data",
   },
-  {
-    title: "Make PKL",
-    path: "/user/packinglistmanual",
-    cName: "dropdown-link",
-    icon: "bxs-edit",
-  },
 ];
 export const EmployeeMenuItems = [
   {
-    title: "Make PI",
+    title: "Performa Invoice",
     path: "/user/makepi",
     cName: "dropdown-link",
     icon: "bx-pie-chart-alt-2",
@@ -139,7 +151,7 @@ export const EmployeeMenuItems = [
 
 export const SalesManagerMenuItems = [
   {
-    title: "Make PI",
+    title: "Performa Invoice",
     path: "/user/makepi",
     cName: "dropdown-link",
     icon: "bx-pie-chart-alt-2",
@@ -157,7 +169,7 @@ export const SalesManagerMenuItems = [
     icon: "bx-border-radius",
   },
   {
-    title: "Make PO",
+    title: "Purchase Order",
     path: "/user/makepo",
     cName: "dropdown-link",
     icon: "bx-polygon",

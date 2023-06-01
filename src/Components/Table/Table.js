@@ -91,156 +91,259 @@ const TablePage = () => {
       dispatch(modifyProductPriceLocal({ id: id, price: parseFloat(event.target.value) }));
     }
   };
-  return (
-    <>
-      <div className="container mx-auto">
-        <table className="w-full whitespace-nowrap">
-          <thead>
-            <tr className="h-16  text-sm leading-none text-gray-800">
-              <th className="font-normal text-left ">NO</th>
-              <th className="font-normal text-left pl-12">ITEMS</th>
-              {pi && <th className="font-normal text-left ">QTY(PCS)/(WATTS)</th>}
-              <th className="font-normal text-left ">UNIT PRICE(USD)</th>
-              <th className="font-normal  ">New Price</th>
-              {pi && <th className="font-normal ">TOLTAL USD</th>}
-              {pi && <th className="font-normal "> Weight</th>} {pi && <th className="font-normal ">TOLTAL/W</th>}
-              {pi && <th className="font-normal">Qty</th>}
-              {pi && <th className="font-normal ">ACTIONS</th>}
-            </tr>
-          </thead>
-          <tbody className="">
-            {selectedProducts.map((item, index) => (
-              <tr
-                className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
-                key={index}
-              >
-                <td className="pl-4 cursor-pointer">
-                  <div className="flex items-center">{index + 1}</div>
-                </td>
-                <td className="pl-12">
-                  <p className="text-sm font-medium leading-none text-gray-800">
-                    {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})
-                  </p>
-                </td>
-                {pi && (
-                  <td className="pl-12">
-                    <p className="font-medium">{item.qty}</p>
+  if(selectedProducts.length > 0 ) {
+    return (
+      
+      <>
+      <span  className="ags-btn-review" data-toggle="modal" data-target="#exampleModal"><i class="uil uil-eye"></i></span>
+        {selectedProducts.map((item, index) => 
+      <div className="pi-list">
+      <div className="item-pi">
+        <div className="item-pi-tittle">
+          <span>Item.No</span>
+          <span> {index + 1}</span>
+        </div>
+        <div className="item-pi-body">
+          <div class="wrapper">
+            <div class="box a">
+              <p className="text-secondary">Unit Price</p>
+              <h6>
+                 {currency === "USD" ? " $ " : " AED "}
+                  {calcPrice(item)?.toFixed(3)}
+               </h6>
+            </div>
+            <div class="box b">
+              <p className="text-secondary">New Price</p>
+              <input
+                      id="new_price"
+                      placeholder={calcPrice(item)?.toFixed(3)}
+                      type="text"
+                      className="form-control w-75"
+                      value={newPrice[index]?.toFixed(3)}
+                      onChange={(e) => {
+                        let newPriceArray = [...newPrice];
+                        newPriceArray[index] = e.target.value;
+                        setNewPrice(parseFloat(newPriceArray));
+                      }}
+                      onBlur={(e) => {
+                        handleNewPriceChange(e, item._id);
+                      }}
+                    />
+            </div>
+            <div class="box c">
+              <p className="text-secondary">Total USD</p>
+              <h6 >  {currency === "USD" ? " $ " : " AED "}
+                 {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
+             </h6>
+            </div>
+            <div class="box d">
+              <p className="text-secondary">Qty</p>
+              <input type="number"   className="form-control w-75" value={quantities[index]} onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
+            </div>
+            <div class="box e">
+              <p className="text-secondary">Item Name</p>
+              <h6>  {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})</h6>
+            </div>
+            <div class="box f weight">
+              <p className="text-secondary">Weight </p>
+              <h6> {item.grossWeight}</h6>
+            </div>
+            <div class="box  total-weight">
+              <p className="text-secondary">Total/ W </p>
+              <h6> {item.grossWeight * item.qty}</h6>
+            </div>
+            <div class="box g">
+              <p className="text-secondary">Actions</p>
+              <div className="ags-action">
+                  <button className="ags-btn-delete">
+                    <i class="uil uil-trash-alt"></i>Delete
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+      </div>
+      )}
+      <div className="table-pi-list mx-auto" >
+          <table className="w-full pi__table whitespace-nowrap">
+            <thead>
+              <tr className="h-16  text-sm leading-none text-gray-800">
+                <th >Item NO</th>
+                <th >Item Name</th>
+                {/* {pi && <th className="font-normal ">QTY(PCS)/(WATTS)</th>} */}
+                <th >Unit Price(USD)</th>
+                <th >New Price</th>
+                {pi && <th>Total USD</th>}
+                {pi && <th > Weight</th>} {pi && <th    >Total/W</th>}
+                {pi && <th >Qty</th>}
+                {pi && <th>Actions</th>}
+              </tr>
+            </thead>
+            <tbody className="">
+              {selectedProducts.map((item, index) => (
+                <tr
+                  className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+                  key={index}
+                >
+                  <td className="pl-4 cursor-pointer">
+                    <div    >{index + 1}</div>
                   </td>
-                )}
-                <td className="pl-12">
-                  <p className="font-medium">
-                    {" "}
-                    {currency === "USD" ? " $ " : " AED "}
-                    {calcPrice(item)?.toFixed(3)}
-                  </p>
-                </td>
-                <td className="pl-12" style={{ padding: "0px", width: "8%" }}>
-                  <input
-                    id="new_price"
-                    placeholder={calcPrice(item)?.toFixed(3)}
-                    type="text"
-                    className="new_price_txt"
-                    value={newPrice[index]?.toFixed(3)}
-                    onChange={(e) => {
-                      let newPriceArray = [...newPrice];
-                      newPriceArray[index] = e.target.value;
-                      setNewPrice(parseFloat(newPriceArray));
-                    }}
-                    onBlur={(e) => {
-                      handleNewPriceChange(e, item._id);
-                    }}
-                  />
-                </td>
-
-                {pi && (
-                  <td className="pl-12">
-                    <p className="font-medium">{item.grossWeight}</p>
+                  <td   >
+                    <p className="text-sm font-medium leading-none text-gray-800">
+                      {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})
+                    </p>
                   </td>
-                )}
-                {pi && (
-                  <td className="pl-12">
-                    <p className="font-medium">{item.grossWeight * item.qty}</p>
-                  </td>
-                )}
-                {pi && (
-                  <td className="pl-12">
+                  {/* {pi && (
+                    <td   >
+                      <p className="font-medium">{item.qty}</p>
+                    </td>
+                  )} */}
+                  <td   >
                     <p className="font-medium">
                       {currency === "USD" ? " $ " : " AED "}
-                      {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
+                      {calcPrice(item)?.toFixed(3)}
                     </p>
                   </td>
-                )}
-                {pi && (
-                  <>
-                    <td className="pl-12">
-                      <TextField
-                        variant="outlined"
-                        onChange={(e) => {
-                          handleQuantityChange(index, e);
-                          setQty(e.target.value);
-                        }}
-                        value={quantities[index]}
-                        onBlur={() => {
-                          dispatch(setProductQty({ id: item._id, qty: quantities[index] }));
-                        }}
-                        style={{ width: "70px", marginRight: "20px" }}
-                      />
+                  <td  >
+                    <input
+                      id="new_price"
+                      placeholder={calcPrice(item)?.toFixed(3)}
+                      type="text"
+                      className="form-control w-75"
+                      value={newPrice[index]?.toFixed(3)}
+                      onChange={(e) => {
+                        let newPriceArray = [...newPrice];
+                        newPriceArray[index] = e.target.value;
+                        setNewPrice(parseFloat(newPriceArray));
+                      }}
+                      onBlur={(e) => {
+                        handleNewPriceChange(e, item._id);
+                      }}
+                    />
+                  </td>
+  
+                  {pi && (
+                    <td   >
+                      <p className="font-medium">{item.grossWeight}</p>
                     </td>
-                    <td>
-                      <Button
-                        onClick={() => {
-                          dispatch(deletProductformCart(item));
-                        }}
-                        variant="contained"
-                        style={{ backgroundColor: "red" }}
-                      >
-                        DELETE
-                      </Button>
+                  )}
+                  {pi && (
+                    <td   >
+                      <p className="font-medium">{item.grossWeight * item.qty}</p>
                     </td>
-                  </>
-                )}
-              </tr>
-            ))}
-            {pi && (
-              <>
-                <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800"></p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800"></p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800"></p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800"></p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800"></p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800">Total :</p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
-                  </td>{" "}
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
-                  </td>
-                  <td className="pl-12">
-                    <p className="text-sm font-medium leading-none text-gray-800">
-                      {totalAmount?.toFixed(3)} {pi.currency}
-                    </p>
-                  </td>
+                  )}
+                  {pi && (
+                    <td   >
+                      <p className="font-medium">
+                        {currency === "USD" ? " $ " : " AED "}
+                        {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
+                      </p>
+                    </td>
+                  )}
+                  {pi && (
+                    <>
+                      <td   >
+                        <input type="text"   className="form-control w-75" value={quantities[index]} onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
+                        {/* <TextField
+                          variant="outlined"
+                          onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}
+                          value={quantities[index]}
+                          onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}}
+                          style={{ width: "70px", marginRight: "20px" }}
+                        /> */}
+                      </td>
+                      <td>
+                        {/* <Button
+                          onClick={() => {dispatch(deletProductformCart(item));}}
+                          variant="contained"
+                          style={{ backgroundColor: "red" }}
+                        >
+                          DELETE
+                        </Button> */}
+                        <span className="ags-btn-main" onClick={() => {dispatch(deletProductformCart(item));}}>
+                          Delete
+                        </span>
+                      </td>
+                    </>
+                  )}
                 </tr>
-              </>
-            )}
-          </tbody>
-        </table>
+              ))}
+              {pi && (
+                <>
+                  <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+                    <td >
+                    </td>
+                    <td   >
+                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
+                    </td>
+                    <td   >
+                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
+                    </td>
+                    <td   >
+                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
+                    </td>
+                    <td   >
+                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
+                    </td>
+                    <td   >
+                      {/* <p className="text-sm font-medium leading-none text-gray-800">Total :</p> */}
+                    </td>
+                    <td   >
+                      <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
+                    </td>{" "}
+                    <td   >
+                      <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
+                    </td>
+                    <td   >
+                      <p className="text-sm font-medium leading-none text-gray-800">
+                        {totalAmount?.toFixed(3)} {pi.currency}
+                      </p>
+                    </td>
+                  </tr>
+                </>
+              )}
+            </tbody>
+          </table>
       </div>
-    </>
-  );
+      <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Summary</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div className="form-group">
+                  <strong>Total Weight : </strong>
+                  <span>{totalWeight?.toFixed(3)} Kg</span> 
+                </div>
+                <div className="form-group">
+                  <strong>Total Invoice : </strong>
+                  <span> {totalAmount?.toFixed(3)} {pi.currency}</span> 
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </>
+    );
+  }
+  else{
+    return (
+      <div className="text-center">
+        <h5>No Items Added Yet!</h5>
+      </div>
+    )
+  }
+
 };
 
 export default TablePage;

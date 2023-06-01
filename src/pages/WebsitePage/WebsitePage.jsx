@@ -7,6 +7,7 @@ import Products from "./Products/Products";
 import "./WebsitePage.css";
 import { useState } from "react";
 import SearchBox from "./SearchBox";
+import Navbar from "../../Components/Navbar/Navbar";
 const WebsitePage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.show.isLoading);
@@ -31,13 +32,15 @@ const WebsitePage = () => {
       </div>
     </div>
   ) : (
+      <> 
+       <Navbar/>
     <div className="po_page_container">
-      <div className="po_filters">
+      {/* <div className="po_filters"> */}
         <SearchBox onChange={handleSearchBoxChange} onCategoeyChange={handleCategoryChange} />
-      </div>
-
+      {/* </div> */}
       <Products searchQuery={searchQuery} category={category} />
     </div>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 //import DashHeader from './DashHeader'
@@ -74,8 +74,31 @@ const UserLayout = () => {
           <div className="header_toggle" onClick={() => setIsoOpen((prev) => !prev)}>
             <i className={`bx bx-menu ${isOpen ? "" : "bx-x"} `} id="header-toggle"></i>
           </div>
-          <div className="header_img">
-            <img src="https://placehold.co/150x150/000000/FFFFFF.png" alt="" />{" "}
+          <div class="dropdown show">
+            <div
+              className="profile-img"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" alt="avatar-img" />{" "}
+            </div>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" onClick={() => {}}>
+                <i class="uil uil-user-circle"></i> {user}
+              </a>
+              <a class="dropdown-item" onClick={logout}>
+                {/* <div > */}
+                {/* <a  className="nav_link"> */}
+                <i class="uil uil-sign-out-alt"></i>
+                <span className="nav_name">Signout</span>
+                {/* </a> */}
+                {/* </div> */}
+              </a>
+              {/* <a class="dropdown-item" href="#">Something else here</a> */}
+            </div>
           </div>
         </header>
         {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
@@ -96,18 +119,19 @@ const UserLayout = () => {
                 ))}
               </div>
             </div>
-            <div onClick={logout}>
-              <a className="nav_link">
-                {" "}
-                <i className="bx bx-log-out nav_icon"></i> <span className="nav_name">SignOut</span>{" "}
-              </a>
-            </div>
+            {/* <div onClick={logout}>
+            <a  className="nav_link">
+              <i className="bx bx-log-out nav_icon"></i>{" "}
+              <span className="nav_name">SignOut</span>{" "}
+            </a>
+            </div> */}
           </nav>
         </div>
         <div className={`height-100  ${isOpen ? "body-content-pd-2" : "body-content-pd"} `}>
           <Outlet />
         </div>
       </div>
+
       {/* <Navbar />
       <div style={{ display: "flex", paddingTop: "82px" }}>
         <Sidebar />

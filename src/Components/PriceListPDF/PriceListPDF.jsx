@@ -30,10 +30,10 @@ const PriceListPDF = () => {
 
 
   return (
-    <div style={{width:"90%" ,margin: "auto" }}>
+    <div >
        <div style={{marginBottom : "15px"}} className="next_div"  >
-              <button className="btn_next success_prev" onClick={()=>{ navigate('/user/pricelistinfo')}} >PREVIOUS</button>
-              <button className="btn_next success_next" onClick={()=>{navigate('/user/warranty');dispatch(emptyCart());dispatch(clearFilters())}} >Finish</button>
+              <button className="ags-btn-main" onClick={()=>{ navigate('/user/pricelistinfo')}} ><i class="uil uil-angle-left"></i> Back</button>
+              <button className="ags-btn-main-fill" onClick={()=>{navigate('/user/warranty');dispatch(emptyCart());dispatch(clearFilters())}} >Finish <i class="uil uil-check"></i></button>
             </div>
    <PDFViewer width="100%" height="1200" className="app" >
                 <Invoice pi={pi} currency={currency} location={location}  usdToAedRate={usdToAedRate} />

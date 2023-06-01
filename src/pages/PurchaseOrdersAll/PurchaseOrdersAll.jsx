@@ -107,12 +107,12 @@ const PurchaseOrdersAll = () => {
       <>
         <div className="next_div" style={{ paddingBottom: "20px" }}>
           <button
-            className="btn_next success_prev"
+            className="ags-btn-main"
             onClick={() => {
               setIsPdf(false);
             }}
           >
-            PREVIOUS
+            Back
           </button>
         </div>
         <PurchaseOrderPdf po={currentPo} />
@@ -120,7 +120,7 @@ const PurchaseOrdersAll = () => {
     );
   } else
     return (
-      <div style={{ width: "85%", margin: "auto" }}>
+      <div >
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Delete PO</Modal.Title>
