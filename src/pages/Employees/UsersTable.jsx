@@ -24,16 +24,97 @@ const UsersTable = () => {
   return (
     <>
     <ToastContainer />
-      <div className="container mx-auto">
+
+          <div className="card-custom">
+
+          </div>
+          <div className="table-pi-list">
+            <div className="pi__table table">
+              <table className="w-full ">
+            <thead>
+              <tr className="h-16  text-sm leading-none text-gray-800">
+                <th  >User Name</th>
+                <th  >Role</th>
+                <th  >ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {users.map((user, index) => (
+                <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100" key={index}>
+                {/* Name  */}
+                  <td  >
+                    <p className="text-sm font-medium leading-none text-gray-800">
+                      {user.username}
+                    </p>
+                  </td>
+                  
+                  <td  >
+                    <p className="font-medium">
+                      {user.roles}
+                    </p>
+                  </td>
+                  <td  >
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                      dispatch(changeUserStatus({id :user._id , active : user.active? false : true}));
+                      }}
+                      style={{ marginRight: "20px" ,width : "80px" }}
+                      color="primary"
+                    >
+                    {user.active ?"Block" : "Unblock"}
+                    </Button>
+                  
+                    <Button
+                      onClick={() => {
+                        dispatch(deleteUser(user._id))
+                        showToastMessage(`User ${user.username} deleted Succesfully`);
+                      }}
+                      variant="contained"
+                      style={{ backgroundColor: "red"  , marginRight: "20px"}}
+                    >
+                      DELETE
+                    </Button>
+
+                    <Button
+                      onClick={() => {
+                        dispatch(updateUser(user._id,user))
+                        showToastMessage(`User ${user.username} updated Succesfully`);
+                      }}
+                      variant="contained"
+                      style={{ backgroundColor: "green" }}
+                    >
+                      Confirm
+                    </Button>
+                    <input className="password_txt" style={{width: "180px"}} type="text" placeholder="password"  onChange={(e) => {
+                        dispatch(changeUserPassword({id :user._id, password : e.target.value}));
+                      }}/>
+                  
+                  </td>
+                  <td>
+                  <input className="password_txt" style={{width: "180px"}} type="text" placeholder="Phone Number" value={user.phone} onChange={(e) => {
+                        dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
+                      }}/>
+                  </td>
+                </tr>
+              ))}
+              
+            </tbody>
+              </table>
+            </div>
+          </div>
+
+
+      {/* <div className="container mx-auto">
         <table className="w-full whitespace-nowrap">
           <thead>
             <tr className="h-16  text-sm leading-none text-gray-800">
               <th className=" text-left ">NO</th>
-              <th className="text-left pl-12">Username</th>
-              <th className=" text-left pl-12">Status</th>
-              <th className="text-left pl-12">Online/Offline</th>
-              <th className="font-normal text-left pl-12 ">Role</th>
-              <th className="font-normal  pl-12">ACTIONS</th>
+              <th  >Username</th>
+              <th  >Status</th>
+              <th  >Online/Offline</th>
+              <th  >Role</th>
+              <th  >ACTIONS</th>
             </tr>
           </thead>
           <tbody className="">
@@ -42,29 +123,29 @@ const UsersTable = () => {
                 <td className="pl-4 cursor-pointer">
                   <div className="flex items-center">{index + 1}</div>
                 </td>
-                <td className="pl-12">
+                <td  >
                   <p className="text-sm font-medium leading-none text-gray-800">
                     {user.username}
                   </p>
                 </td>
                 
-                <td className="pl-12">
+                <td  >
                   <p style={{width : "50px"}} className="font-medium">
                     {" "}
                     {user.active  ? "Active" : "Not Active"}
                   </p>
                 </td>
-                <td className="pl-12">
+                <td  >
                   <p className="font-medium">
                     Online
                   </p>
                 </td>
-                <td className="pl-12">
+                <td  >
                   <p className="font-medium">
                     {user.roles}
                   </p>
                 </td>
-                <td className="pl-12">
+                <td  >
                   <Button
                     variant="contained"
                     onClick={() => {
@@ -96,7 +177,7 @@ const UsersTable = () => {
                       dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
                     }}/>
                 </td>
-                <td className="pl-12"> <Button
+                <td  > <Button
                     onClick={() => {
                       dispatch(updateUser(user._id,user))
                       showToastMessage(`User ${user.username} updated Succesfully`);
@@ -111,7 +192,7 @@ const UsersTable = () => {
             
           </tbody>
         </table>
-      </div>
+      </div> */}
     </>
   );
 };

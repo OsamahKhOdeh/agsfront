@@ -55,6 +55,9 @@ const UserLayout = () => {
 
   return (
     <>
+      <span id="btn-back-to-top" className="ags-btn-top" onClick={() => moveTop()}>
+        <i class="uil uil-arrow-circle-up"></i>
+      </span>
       {/* <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown
