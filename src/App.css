@@ -37,3 +37,27 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiButtonBase-root{
+  padding: 8px 7px;
+    line-height: 1;
+    font-size: 13px;
+}
+.MuiContainer-maxWidthXl{
+  padding: 0 !important;
+}
+.css-1834yta{
+  padding: 0 !important;
+}
+@media(max-width: 768px) {
+  .body-content-pd-2 {
+    padding: 0;
+  }
+}
+@media(max-width: 576px) {
+.css-gd8tja{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+}

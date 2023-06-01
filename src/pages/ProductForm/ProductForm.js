@@ -14,17 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import useStyles from "./styles";
-import {
-  companyBrandCapacity,
-  categories,
-  china,
-  countries,
-  india,
-  oman,
-  southkorea,
-  thailand,
-  veitnam,
-} from "./data.js";
+import { companyBrandCapacity, categories, china, countries, india, oman, southkorea, thailand, veitnam } from "./data.js";
 import { createProduct } from "../../actions/products.js";
 import { useDispatch } from "react-redux";
 //import { INITIAL_STATE, producReducer } from "./productReducer";
@@ -87,11 +77,9 @@ const ProductForm = ({ currentId, setCurrentId }) => {
   let choosenBrand = productData.brand.toLowerCase();
   let capacities = ["None", "Choose Brand"];
   if (choosenBrand) {
-    let brandsForCap = companyBrandCapacity.filter(
-      (item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase()
-    )[0].brands;
-    capacities = brandsForCap.filter((item) => item.brandName.toLocaleLowerCase() === choosenBrand.toLowerCase())[0]
-      ?.capacities;
+    let brandsForCap = companyBrandCapacity.filter((item) => item.companyName.toLowerCase() === choosenCompany.toLocaleLowerCase())[0]
+      .brands;
+    capacities = brandsForCap.filter((item) => item.brandName.toLocaleLowerCase() === choosenBrand.toLowerCase())[0]?.capacities;
   }
 
   const classes = useStyles();
@@ -308,8 +296,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.netWeight}
             onChange={(e) => {
-              if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/))
-                setProductData({ ...productData, netWeight: e.target.value });
+              if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setProductData({ ...productData, netWeight: e.target.value });
             }}
           />
           <TextField
@@ -319,8 +306,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.grossWeight}
             onChange={(e) => {
-              if (e.target.value === "" || regex.test(e.target.value))
-                setProductData({ ...productData, grossWeight: e.target.value });
+              if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, grossWeight: e.target.value });
             }}
           />
           <TextField
@@ -330,8 +316,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.palatSize}
             onChange={(e) => {
-              if (e.target.value === "" || regex.test(e.target.value))
-                setProductData({ ...productData, palatSize: e.target.value });
+              if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, palatSize: e.target.value });
             }}
           />
           <TextField
@@ -341,8 +326,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.price}
             onChange={(e) => {
-              if (e.target.value === "" || regex.test(e.target.value))
-                setProductData({ ...productData, price: e.target.value });
+              if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, price: e.target.value });
             }}
           />
           <TextField
@@ -352,8 +336,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.freezonePrice}
             onChange={(e) => {
-              if (e.target.value === "" || regex.test(e.target.value))
-                setProductData({ ...productData, freezonePrice: e.target.value });
+              if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, freezonePrice: e.target.value });
             }}
           />
           <TextField
@@ -363,8 +346,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             fullWidth
             value={productData.LocalPrice}
             onChange={(e) => {
-              if (e.target.value === "" || regex.test(e.target.value))
-                setProductData({ ...productData, LocalPrice: e.target.value });
+              if (e.target.value === "" || regex.test(e.target.value)) setProductData({ ...productData, LocalPrice: e.target.value });
             }}
           />
 

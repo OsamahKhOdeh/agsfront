@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     height: "100%",
     paddingTop: 1,
-    fontSize: 8,
+    fontSize: 7,
   },
 });
 
@@ -71,7 +71,7 @@ const InvoiceTableRow = ({ truckItem }) => {
       <Text style={styles.no}>{index + 1}</Text>
       <Text style={styles.description}>
         {item.productCategory}&nbsp;
-        {item.productCode}&nbsp;/&nbsp;{item.productCapacity}
+        {item.productCode}&nbsp;/&nbsp;{item.productCapacity}&nbsp;{item.productBrand}
       </Text>
       <Text style={styles.amount}>{item.productQty}</Text>
       <Text style={styles.amount}>{item.productPalletQty}</Text>

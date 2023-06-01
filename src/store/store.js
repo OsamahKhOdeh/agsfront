@@ -14,6 +14,7 @@ import warrantySlice from "./warrantySlice";
 import projectSlice from "./projectSlice";
 import poSlice from "./poSlice";
 import purchaseOrdersSlice from "./Data/purchaseOrdersSlice";
+import packingListsSlice from "./Data/packingListSlice";
 
 export default configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export default configureStore({
     priceLists: priceListsSlice,
     proformaInvoices: proformaInvoicesSlice,
     purchaseOrders: purchaseOrdersSlice,
+    packingLists: packingListsSlice,
     project: projectSlice,
   },
 });

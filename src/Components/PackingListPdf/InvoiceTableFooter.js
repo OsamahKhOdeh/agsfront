@@ -34,8 +34,11 @@ const styles = StyleSheet.create({
   bl: {
     backgroundColor: "#ccffdb",
     paddingTop: "15px",
+    paddingLeft: "5px",
     height: "100%",
     width: "57%",
+    fontSize: 9,
+    textAlign: "left",
   },
 });
 
@@ -46,9 +49,9 @@ const InvoiceTableFooter = ({ truckItem }) => {
         <View style={styles.col}>
           <Text style={styles.col_row}>NETWEIGHT : {truckItem.truckNetWeight} KG</Text>{" "}
           <Text style={styles.col_row}>GROSSWEIGHT : {truckItem.truckGrossWeight} KG</Text>{" "}
-          <Text style={styles.col_rowNobutt}>PACKAGES : {truckItem.truckTotalAmount}</Text>
+          <Text style={styles.col_rowNobutt}>PACKAGES : {truckItem.truckTotalPackages}</Text>
         </View>{" "}
-        <Text style={styles.bl}>BL : {"NETWEIGHTNETWEIGHTNETWEIGHTNETWEIGHT "}</Text>{" "}
+        <Text style={styles.bl}>BL : {truckItem.truckBls}</Text>{" "}
       </View>
     </>
   );

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Button } from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import Dropdown from "./Dropdown";
+import OptionsDropdown from "./Dropdown";
 import useAuth from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../store/authSlice";
 import { emptyCart } from "../../store/cartSlice";
 import { clearFilters } from "../../store/filtersSlice";
+import { Dropdown } from "react-bootstrap";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -58,11 +59,10 @@ function Navbar() {
         <Link to="/user/warranty" className="nav-links" onClick={closeMobileMenu}>
           <img className="logo_image" src="/images/logo_nav.png" alt="icon" height="40px" />
         </Link>
-
-        <div className="menu-icon" onClick={handleClick}>
+        {/* <div className="menu-icon" onClick={handleClick}>
           <i className={click ? "fas fa-times" : "fas fa-bars"} />
-        </div>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        </div> */}
+        {/* <ul className={click ? "nav-menu active mb-0" : "nav-menu mb-0"}>
           <li className="nav-item">
             <Link to="/user/warranty" className="nav-links" onClick={closeMobileMenu}>
               Home
@@ -72,25 +72,34 @@ function Navbar() {
             <Link to="/user/makepi" className="nav-links" onClick={closeMobileMenu}>
               Options <i className="fas fa-caret-down" />
             </Link>
-            {dropdown && <Dropdown />}
+            {dropdown && <OptionsDropdown />}
           </li>
           <li className="nav-item">
             <Link to="/products" className="nav-links" onClick={closeMobileMenu}>
               Products
             </Link>
           </li>
-
-          <li className="nav-item">
-            <Link style={{ backgroundColor: "gray" }} className="nav-links" onClick={() => {}}>
-              <div> {user}</div>
-            </Link>
-          </li>
-          <li className="nav-item">
+        </ul> */}
+        <div className="profile">
+          {/* <p className="nav-item">
             <Link className="nav-links" onClick={logout}>
               Logout
             </Link>
-          </li>
-        </ul>
+        </p> */}
+          <div className="nav-item">
+            <Link className="nav-links" onClick={() => {}}>
+              <div>
+                {" "}
+                <i class="uil uil-user-circle"></i> {user}
+              </div>
+            </Link>
+          </div>
+          <div className="nav-item">
+            <Link className="nav-links" onClick={logout}>
+              Logout <i class="uil uil-sign-out-alt"></i>
+            </Link>
+          </div>
+        </div>
       </nav>
     </>
   );

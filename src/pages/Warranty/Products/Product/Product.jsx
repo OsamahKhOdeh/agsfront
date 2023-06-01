@@ -2,11 +2,7 @@ import React, { useRef, useState } from "react";
 import useStyles from "./styles";
 import "./style/product.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addProductToWarrantyList,
-  removeProductFromWarrantyList,
-  setProductQty,
-} from "../../../../store/warrantySlice";
+import { addProductToWarrantyList, removeProductFromWarrantyList, setProductQty } from "../../../../store/warrantySlice";
 
 import { addProducttocart, deletProductformCart } from "../../../../store/cartSlice";
 import product from "../Product/style/product.css";
@@ -69,8 +65,8 @@ const Product = ({ product, index }) => {
   const inStock = product.stock > 0;
 
   return (
-    <div className="item_card">
-      <div className={exist ? "product__item background_color" : "product__item"} style={{}}>
+    <div className={exist ? "item_card active-card" : "item_card"}>
+      <div className="product__item" style={{}}>
         <div className="product__image ">
           {exist ? (
             <img
@@ -78,12 +74,9 @@ const Product = ({ product, index }) => {
                 removefromcart(product, index);
               }}
               src={
-                product.image[0] !==
-                "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+                product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
                   ? product.image
-                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
-                    `images/${product._id}_1.jpg` ||
-                    `images/${product._id}_1.JPG`
+                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` || `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
               }
               alt=""
             />
@@ -97,12 +90,9 @@ const Product = ({ product, index }) => {
                 });
               }}
               src={
-                product.image[0] !==
-                "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+                product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
                   ? product.image
-                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
-                    `images/${product._id}_1.jpg` ||
-                    `images/${product._id}_1.JPG`
+                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` || `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
               }
               alt=""
             />
@@ -127,12 +117,12 @@ const Product = ({ product, index }) => {
                 });
               }}
             >
-              <span className="check__product__icon_unchecked">+</span>
+              <span className="check__product__icon_unchecked">&#10004;</span>
             </div>
           )}
         </div>
         <div className="product__description">
-          <div className="item__prices">
+          {/* <div className="item__prices">
             <div>
               <label htmlFor="">Capacity : {product.capacity} </label>
             </div>
@@ -153,11 +143,8 @@ const Product = ({ product, index }) => {
                   </>
                 )}
 
-                {/*}  <label htmlFor=''>Price : 
-                <Price price={product.price} freezoneToLocalPercentage={product.freezonePrice}
-              additionOnLocalPercentage={product.LocalPrice}/>
-              </label>
-            */}
+                {
+            }
               </div>
             )}
             {showStock && (
@@ -166,25 +153,70 @@ const Product = ({ product, index }) => {
               </div>
             )}
           </div>
-
           <div className="product__description_code_brand">
             {product.brand} {product.code}
+          </div> */}
+          <div className="card-desc">
+            <p className="capacity">
+              {product.brand} {product.code}{" "}
+            </p>
+            <p className="capacity">
+              <span>({product.capacity})</span>
+            </p>
+            <div class="grid-container">
+              {/* <div class="grid-item">
+                  <p>Capacity</p>
+                  <h5>5 Ah</h5>
+                </div> */}
+              {/* <div class="grid-item"> */}
+              <div class="grid-item">
+                <p>Price</p>
+                <h5>
+                  <div>
+                    {showPrice && (
+                      <div>
+                        {currency === "AED" ? (
+                          <>
+                            {location === "freezone"
+                              ? (product.freezonePrice * usdToAedRate)?.toFixed(2)
+                              : (product.LocalPrice * usdToAedRate)?.toFixed(2)}
+                            &nbsp;AED
+                          </>
+                        ) : (
+                          <>{location === "freezone" ? product.freezonePrice : product.LocalPrice}&nbsp;$</>
+                        )}
+
+                        {}
+                      </div>
+                    )}
+                  </div>
+                </h5>
+              </div>
+              {/* </div> */}
+              {/* <div class="grid-item"> */}
+              <div class="grid-item">
+                <p>Stock </p>
+                <h5>
+                  {showStock && (
+                    <div style={inStock ? { color: "green" } : { color: "red" }}>
+                      <div htmlFor=""> {product.stock} </div>
+                    </div>
+                  )}
+                </h5>
+              </div>
+              {/* </div> */}
+            </div>
           </div>
-          {showDatasheet && (
+          {/* {showDatasheet && (
             <div className="product__button">
               <button
-                className="datasheet_but"
-                style={
-                  inStock
-                    ? { backgroundColor: `#1bf581`, color: "black" }
-                    : { backgroundColor: `#fa5252`, color: "black" }
-                }
+                className="ags-btn-main-fill datasheet_but"
                 onClick={() => onButtonClick(product._id, product.code)}
               >
-                <span> Download Datasheet</span>
+                <span> Download Datasheet <i class="uil uil-arrow-to-bottom"></i></span>
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

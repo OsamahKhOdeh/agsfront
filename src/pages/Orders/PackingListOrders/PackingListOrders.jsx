@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+// import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,10 +10,12 @@ import { useState } from "react";
 import { getEmployeeProformaInvoicesAction } from "../../../actions/proformaInvoice";
 import useAuth from "../../../hooks/useAuth";
 import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
-import UploadPdf from "./UploadPdf";
-import DownloadPDFButton from "./DownloadPDFButton";
+// import UploadPdf from "./UploadPdf";
+// import DownloadPDFButton from "./DownloadPDFButton";
 import SearchBox from "../../../Components/SearchBox/SearchBox";
 import DropDownSelect from "../../../Components/DropDownSelect/DropDownSelect";
+import { getEmployeePackingListsAction } from "../../../actions/packingList";
+import PackingListPdf from "../../../Components/PackingListPdf/PackingListPdf";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -50,9 +52,9 @@ export const timeAgo = (date) => {
   return Math.floor(seconds) + " seconds ago";
 };
 
-const ProformaInvoiceOrders = () => {
+const PackingListOrders = () => {
   const [isPdf, setIsPdf] = useState(false);
-  const [currentPi, setCurrentPi] = useState({});
+  const [currentPkl, setCurrentPkl] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
@@ -82,14 +84,14 @@ const ProformaInvoiceOrders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getEmployeeProformaInvoicesAction(username));
+    dispatch(getEmployeePackingListsAction(username));
     // const interval = setInterval(() => dispatch(getProformaInvoicesAction()), 10 * 1000);
     // return () => {
     //   clearInterval(interval);
     // };
   }, [dispatch]);
 
-  let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
+  let packingLists = useSelector((state) => state.packingLists.packingLists);
   /* ------------------------------- searchQuery ------------------------------ */
   console.log(filter);
 
@@ -101,31 +103,24 @@ const ProformaInvoiceOrders = () => {
     setFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    proformaInvoices = proformaInvoices.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
+    packingLists = packingLists.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    proformaInvoices = proformaInvoices.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
+    packingLists = packingLists.filter((item) => item.pklNo.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
-    { name: "PI Number", value: "pi_no" },
+    { name: "PKL Number", value: "pklNo" },
     { name: "Employee", value: "employee" },
-    { name: "Customer", value: "buyer_address" },
+    { name: "Customer", value: "buyerAddress" },
     { name: "Status", value: "status" },
   ];
 
   /* -------------------------------------------------------------------------- */
 
-  const handleApprove = (id) => {
-    dispatch(updateProformaInvoiceStatus({ id, newStatus: "Approved" }));
-  };
-  const handleReject = (id) => {
-    dispatch(updateProformaInvoiceStatus({ id, newStatus: "Rejected" }));
-  };
-  const handleDelete = (id) => {};
-  const handlePDF = (pi) => {
-    setCurrentPi(pi);
+  const handlePDF = (pkl) => {
+    setCurrentPkl(pkl);
     setIsPdf(true);
     console.log(isPdf);
   };
@@ -142,7 +137,7 @@ const ProformaInvoiceOrders = () => {
             PREVIOUS
           </button>
         </div>
-        <ProformaInvoice adminPi={currentPi} />
+        <PackingListPdf pkl={currentPkl} />
       </>
     );
   } else
@@ -162,27 +157,26 @@ const ProformaInvoiceOrders = () => {
               </div>
             </div>
             {/* this is custom design only to Mobile  */}
-            {proformaInvoices.map((proformaInvoice, index) => (
-              <div className="item-pi">
+            {packingLists.map((pkl, index) => (
+              <div className="item-pi" key={index}>
                 <div className="item-pi-tittle">
                   <span>Date / Time</span>
-                  <span>{timeAgo(new Date(proformaInvoice.createdAt))}</span>
+                  <span>{timeAgo(new Date(pkl.createdAt))}</span>
                 </div>
                 <div className="item-pi-body">
                   <div class="wrapper">
                     <div class="box a">
                       <p className="text-secondary">Order.No</p>
-                      <h6>{proformaInvoice.pi_no}</h6>
+                      <h6>{pkl.pklNo}</h6>
                     </div>
                     <div class="box b">
                       <p className="text-secondary">Employee</p>
-                      <h6>{proformaInvoice.employee}</h6>
+                      <h6>{pkl.employee}</h6>
                     </div>
                     <div class="box h">
                       <p className="text-secondary">Status</p>
                       {/* <h6>S/Approved |  F/Approved</h6>   */}
-                      <div className={colorByStatus(proformaInvoice?.managerApproval)}>S/{proformaInvoice?.managerApproval}</div>
-                      <div className={colorByStatus(proformaInvoice?.financiaApproval)}>F/{proformaInvoice?.financiaApproval}</div>
+                      <div className={colorByStatus(pkl?.managerApproval)}>F/{pkl?.managerApproval}</div>
                     </div>
                     {/* <div class="box d">
               <p className="text-secondary">Confirm</p>
@@ -194,26 +188,9 @@ const ProformaInvoiceOrders = () => {
               </div> */}
                     <div class="box e">
                       <p className="text-secondary">Customer</p>
-                      <h6>{proformaInvoice.buyer_address}</h6>
+                      <h6>{pkl.buyerAddress}</h6>
                     </div>
-                    <div class="box f">
-                      <p className="text-secondary">Confirm</p>
-                      {/* <button className="ags-btn-pdf-order">Confirmed PI <i class="uil uil-import"></i></button> */}
-                      <div className="upload-btns">
-                        {/* <label className="ags-btn-pdf-order">Choose File</label>
-                <button className="ags-btn-pdf-order">Upload <i class="uil uil-upload"></i></button> */}
-                      </div>
-                      {proformaInvoice.status === "Signed" ? (
-                        <DownloadPDFButton
-                          pi_id={proformaInvoice._id}
-                          pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
-                        />
-                      ) : proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
-                        <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
-                      ) : (
-                        <p>Pending</p>
-                      )}
-                    </div>
+
                     <div class="box g">
                       <p className="text-secondary">From manager</p>
                       {/* <h6>
@@ -224,31 +201,26 @@ const ProformaInvoiceOrders = () => {
                         {/* <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}><i class="uil uil-edit"></i> </button> */}
                         {/* <button className="ags-btn-delete"><i class="uil uil-trash-alt"></i>Delete</button> */}
                         <div style={{ overflow: "hidden" }}>
-                          {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
+                          {pkl.managerApproval === "Approved" ? (
                             // <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
                             //   PI ( pdf )
                             // </button>
-                            <button className="ags-btn-reject" onClick={() => handlePDF(proformaInvoice)}>
+                            <button className="ags-btn-reject" onClick={() => handlePDF(pkl)}>
                               <i class="uil uil-eye"></i>{" "}
                             </button>
-                          ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
+                          ) : pkl.managerApproval === "Rejected" ? (
                             <>
-                              <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
+                              <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${pkl._id}`)}>
                                 <i class="uil uil-edit"></i>{" "}
                               </button>
                               <p className="warnning">
-                                From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
-                                {proformaInvoice?.financeMessage + "/"}
-                                {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
-                                {proformaInvoice?.managerMessage}
+                                From {pkl.managerApproval === "Rejected"}
+                                {pkl?.managerMessage}
                               </p>
                             </>
                           ) : (
                             <>
-                              <p>
-                                Wating for :{proformaInvoice.managerApproval === "Pending" && " manager approval"} &&nbsp;
-                                {proformaInvoice.financiaApproval === "Pending" && "finance approval"}
-                              </p>
+                              <p>Wating for : {pkl.managerApproval === "Pending" && "Manager approval"}</p>
                             </>
                           )}
                         </div>
@@ -280,76 +252,57 @@ const ProformaInvoiceOrders = () => {
                       <th scope="col">
                         <div className="th_cell_div">From manager</div>
                       </th>
-                      <th scope="col">
-                        <div className="th_cell_div">Signed by Customer</div>
-                      </th>
+
                       <th scope="col">
                         <div className="th_cell_div">Status</div>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {proformaInvoices.map((proformaInvoice, index) => (
+                    {packingLists.map((pkl, index) => (
                       <tr className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={index}>
                         <td>
                           <div style={{ fontWeight: "bold" }} className="td_padding">
-                            {proformaInvoice.pi_no}
+                            {pkl.pklNo}
                           </div>
                         </td>
                         <td>
-                          <div className="td_padding employee_cell">{proformaInvoice.employee}</div>
+                          <div className="td_padding employee_cell">{pkl.employee}</div>
                         </td>
                         <td>
-                          <div className="td_padding">{timeAgo(new Date(proformaInvoice.createdAt))}</div>
+                          <div className="td_padding">{timeAgo(new Date(pkl.createdAt))}</div>
                         </td>
                         <td>
-                          <div className="td_padding customer_cell">{proformaInvoice.buyer_address}</div>
+                          <div className="td_padding customer_cell">{pkl.customer}</div>
                         </td>
                         <td>
                           <div style={{ overflow: "hidden" }}>
-                            {proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
-                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
+                            {pkl.managerApproval === "Approved" ? (
+                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl)}>
                                 PI ( pdf )
                               </button>
-                            ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
+                            ) : pkl.managerApproval === "Rejected" ? (
                               <>
                                 <button
                                   type="button"
                                   className="button_edit_pdf button_edit"
-                                  onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}
+                                  onClick={() => navigate(`/user/editpi/${pkl._id}`)}
                                 >
                                   Edit
                                 </button>
                                 <p style={{ color: "red", padding: 0, margin: 0 }}>
-                                  From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
-                                  {proformaInvoice?.financeMessage + "/"}
-                                  {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
-                                  {proformaInvoice?.managerMessage}
+                                  From {pkl.managerApproval === "Rejected"}
+                                  {pkl?.managerMessage + "/"}
                                 </p>
                               </>
                             ) : (
-                              <>
-                                Wating for :{proformaInvoice.managerApproval === "Pending" && " manager approval"} &&nbsp;
-                                {proformaInvoice.financiaApproval === "Pending" && "finance approval"}
-                              </>
+                              <>Wating for :&nbsp; {pkl.managerApproval === "Pending" && "manager approval"}</>
                             )}
                           </div>
                         </td>
-                        <td>
-                          {proformaInvoice.status === "Signed" ? (
-                            <DownloadPDFButton
-                              pi_id={proformaInvoice._id}
-                              pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice._id}`}
-                            />
-                          ) : proformaInvoice.managerApproval === "Approved" && proformaInvoice.financiaApproval === "Approved" ? (
-                            <UploadPdf pi={proformaInvoice} setLoading={handleLoading} />
-                          ) : (
-                            ""
-                          )}
-                        </td>
+
                         <td style={{ fontSize: "12px" }}>
-                          <div className={colorByStatus(proformaInvoice?.managerApproval)}>S/{proformaInvoice?.managerApproval}</div>
-                          <div className={colorByStatus(proformaInvoice?.financiaApproval)}>F/{proformaInvoice?.financiaApproval}</div>
+                          <div className={colorByStatus(pkl?.managerApproval)}>{pkl?.managerApproval}</div>
                         </td>
                       </tr>
                     ))}
@@ -363,4 +316,4 @@ const ProformaInvoiceOrders = () => {
     );
 };
 
-export default ProformaInvoiceOrders;
+export default PackingListOrders;

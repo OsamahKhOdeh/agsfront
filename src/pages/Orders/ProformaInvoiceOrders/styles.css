@@ -27,10 +27,10 @@ width: 80px;
     margin: auto;
 }
 
-.search_container{
+/* .search_container{
   display: flex;
   padding-bottom: 15px;
-}
+} */
 .th_cell_div{
       padding: 17px 12px;
       text-align: center;
@@ -70,7 +70,7 @@ td:hover {
 }
 
 
-.success_status{
+/* .success_status{
     padding:  12px 0px 12px 5px;
 
   background-color: greenyellow;
@@ -82,19 +82,35 @@ td:hover {
 .rejected_status{  padding:  12px 0px 12px 5px;
 
   background-color: #ff4112;
+} */
+
+
+
+.success_status .uil{
+ font-size: 1.3rem;
 }
-
-
-
+.success_status{
+ color: green;
+}
+.pending_status{ 
+  color: #044279;
+}
+.rejected_status{  
+ color: var(--second-color);
+}
 
 .button_edit_pdf{
   width: 100%;
 }
 
 .button_pdf{
-height: 62px;
-background-color: #0d6efd;
-color: white;
+  height: 40px;
+  width: auto;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #cf0a2c;
 }
 
 .button_reject{
@@ -146,17 +162,8 @@ height: 62px;
 
 
 
-.employee_cell{
-      font-family: sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #04174D;
-}
 
-.customer_cell{
-  font-family: sans-serif;
-    font-size: 18px;
-}
+
 
 
 	.table-title {        

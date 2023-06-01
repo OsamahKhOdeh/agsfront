@@ -66,41 +66,38 @@ const SideFilters = () => {
   //Hid & Show Filters //////////////////////////////////////////////////////////////
   return (
     <div className="side_filters" > 
-      <div className="radio-toolbar">
-       <input type="radio" id="radioAll" name="radioStatus" value="All" />
-       <label htmlFor="radioAll">All</label>
-       <input type="radio" id="radioBooked" name="radioStatus" value="Booked"/>
-       <label htmlFor="radioBooked">Booked</label> 
-       <input type="radio" id="radioComing" name="radioStatus" value="Coming" />
-       <label htmlFor="radioComing">Coming</label>
-       <input type="radio" id="radioAvailable" name="radioStatus" value="Available"/>
-       <label htmlFor="radioAvailable">Available</label> 
+      {/* <div className="radio-toolbar" onChange={handleLocationChange}>
+          <div className="form-group" >
+            <input type="radio" id="freezone_id" name="freezone" onChange={()=>{}} checked={location==="freezone"} value="freezone" />
+            <label htmlFor="freezone_id " className="ags-btn-main"> <i className="uil uil-exchange uil-lage "></i>  Freezone </label>
+          </div>
+          <div className="form-group" >
+            <input type="radio" id="local_id" name="freezone" onChange={()=>{}} checked={location==="local"} value="local"/>
+            <label htmlFor="local_id" className="ags-btn-main"><i className="uil uil-map-pin-alt uil-lage"></i> Local</label> 
+          </div>
+     </div> 
+      */}
+     <div className="radio-toolbar" onChange={handleLocationChange} >
+        <div className="form-group" >
+           <input type="radio" id="freezone"   name="location" checked={location==="freezone"} value="freezone"/>
+           <label htmlFor="freezone" className="ags-btn-main" ><i className="uil uil-exchange uil-lage "></i> Freezone</label> 
+        </div>
+        <div className="form-group">
+            <input type="radio" id="local" name="location" onChange={()=>{}} checked={location==="local"} value="local" />
+          <label htmlFor="local" className="ags-btn-main"><i className="uil uil-map-pin-alt uil-lage"></i>Local</label>
+        </div>
      </div>
-      <div className="radio-toolbar" onChange={handleLocationChange}>
-       <input type="radio" id="radioBanana" name="radioFruit" onChange={()=>{}} checked={location==="freezone"} value="freezone" />
-       <label htmlFor="radioBanana">Freezone</label>
-       <input type="radio" id="radioOrange" name="radioFruit" onChange={()=>{}} checked={location==="local"} value="local"/>
-       <label htmlFor="radioOrange">Local</label> 
-     </div>
-     <div className="radio-toolbar" onChange={handleCurrencyChange}>
-       <input type="radio" id="radioBananaf" onChange={()=>{}} checked={currency==="AED"} name="radioFruitf" value="AED" />
-       <label htmlFor="radioBananaf">AED</label>
-       <input type="radio" id="radioOrangef" onChange={()=>{}} checked={currency==="USD"} name="radioFruitf" value="USD"/>
-       <label htmlFor="radioOrangef">USD</label> 
-     </div>
-     <div className="cat comedy">
-      <label>
-      <input onChange={handleShowDatasheetChange} type="checkbox" checked={showDatasheet} value="1"/><span>Datasheet</span>
-      </label>
-     </div>
-     <div className="cat comedy">
-      <label>
-      <input onChange={handleShowPriceChange} type="checkbox" checked={showPrice} value="1"/><span>Price</span>
-      </label>
-     </div><div className="cat comedy">
-      <label>
-      <input onChange={handleShowStockChange} type="checkbox" checked={showStock} value="1"/><span>Stock</span>
-      </label>
+
+
+     <div className="radio-toolbar" onChange={handleCurrencyChange} >
+        <div className="form-group" >
+           <input type="radio" id="usd_id"  checked={currency==="USD"} onChange={()=>{}}  name="radioFruitf" value="USD"/>
+           <label htmlFor="usd_id" className="ags-btn-main" ><i className="uil uil-dollar-sign-alt uil-lage"></i> USD</label> 
+        </div>
+        <div className="form-group">
+            <input type="radio" id="aed_id" checked={currency==="AED"}  onChange={()=>{}} name="radioFruitf" value="AED" />
+          <label htmlFor="aed_id" className="ags-btn-main">AED</label>
+        </div>
      </div>
     </div>
   );

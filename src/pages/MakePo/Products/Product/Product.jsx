@@ -16,74 +16,63 @@ const Product = ({ product, index }) => {
     // document.querySelector(".sidebar").style.display = "block";
   };
   return (
-    <div className="item_card">
-      <div className={exist ? "product__item background_color" : "product__item"} style={{}}>
-        <div className="product__image ">
-          {exist ? (
-            <img
-              onClick={() => {
-                removefromPo(product, index);
-              }}
-              src={
-                product.image[0] !==
-                "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
-                  ? product.image
-                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
-                    `images/${product._id}_1.jpg` ||
-                    `images/${product._id}_1.JPG`
-              }
-              alt=""
-            />
-          ) : (
-            <img
-              onClick={() => {
-                addToPo(product);
-              }}
-              src={
-                product.image[0] !==
-                "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
-                  ? product.image
-                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
-                    `images/${product._id}_1.jpg` ||
-                    `images/${product._id}_1.JPG`
-              }
-              alt=""
-            />
-          )}
-          {exist ? (
-            <div
-              className="check__product"
-              onClick={() => {
-                removefromPo(product, index);
-              }}
-            >
-              <span className="check__product__icon_checked">&#10004;</span>
-            </div>
-          ) : (
-            <div
-              className="check__product"
-              onClick={() => {
-                addToPo(product);
-              }}
-            >
-              <span className="check__product__icon_unchecked">+</span>
-            </div>
-          )}
-        </div>
-        <div className="product__description">
-          <div className="item__prices">
-            <div>
-              <label htmlFor="">Capacity : {product.capacity} </label>
-            </div>
-          </div>
-          <div className="item__prices"></div>
-
-          <div className="product__description_code_brand">
-            {product.brand} {product.code}
+    <>
+      <div className={exist ? "item_card active-card" : "product__item"}>
+        <div className="product__item" style={{}}>
+          <div className="product__image ">
+            {exist ? (
+              <img
+                onClick={() => {
+                  removefromPo(product, index);
+                }}
+                src={
+                  product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+                    ? product.image
+                    : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
+                      `images/${product._id}_1.jpg` ||
+                      `images/${product._id}_1.JPG`
+                }
+                alt=""
+              />
+            ) : (
+              <img
+                onClick={() => {
+                  addToPo(product);
+                }}
+                src={
+                  product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+                    ? product.image
+                    : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
+                      `images/${product._id}_1.jpg` ||
+                      `images/${product._id}_1.JPG`
+                }
+                alt=""
+              />
+            )}
+            {exist ? (
+              <div
+                className="check__product"
+                onClick={() => {
+                  removefromPo(product, index);
+                }}
+              >
+                {/* <span className="check__product__icon_checked">&#10004;</span> */}
+                <i class="uil uil-check"></i>
+              </div>
+            ) : (
+              <div
+                className="check__product"
+                onClick={() => {
+                  addToPo(product);
+                }}
+              >
+                <span className="check__product__icon_unchecked">&#10004;</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

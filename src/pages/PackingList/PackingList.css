@@ -67,3 +67,11 @@
     border-width: thin;
     border-radius: 10px;
     }
+
+
+    .add_truck_but {
+            /* height: 22px; */
+    font-size: 50px;
+    cursor: pointer;
+    color: #0b1bee;
+    }

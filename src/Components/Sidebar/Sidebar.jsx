@@ -8,6 +8,7 @@ import {
   FinancialMenuItems,
   SalesManagerMenuItems,
   LogisticsMenuItems,
+  SyriaEmployeeMenuItems,
 } from "../Navbar/MenuItems";
 
 const Sidebar = () => {
@@ -24,6 +25,9 @@ const Sidebar = () => {
   }
   if (roles.includes("Logistics")) {
     MenuItems = LogisticsMenuItems;
+  }
+  if (roles.includes("SyriaEmployee")) {
+    MenuItems = SyriaEmployeeMenuItems;
   }
 
   return (

@@ -44,6 +44,8 @@ import PurchaseOrdersAll from "./pages/PurchaseOrdersAll/PurchaseOrdersAll";
 import EditStock from "./pages/EditStock/EditStock";
 import PackingList from "./pages/PackingList/PackingList";
 import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
+import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
+import PackingListManual from "./pages/PackingList/PackingListManual";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -72,8 +74,10 @@ function App() {
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>
-                <Route path="packinglist" element={<PackingList />}></Route>{" "}
+                <Route path="packinglist" element={<PackingList />}></Route>
+                <Route path="packinglistmanual" element={<PackingListManual />}></Route>{" "}
                 <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
+                <Route path="allpkl" element={<PackingListsAll />}></Route>
                 <Route path="table" element={<ProformaInvoice />}></Route>
                 <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
                 <Route path="pricelistpdf" element={<PriceListPDF />}></Route>

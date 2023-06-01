@@ -78,20 +78,6 @@ export default function PiStepper() {
   }, []);
   return (
     <Box sx={{ width: "100%", paddingLeft: "20px", paddingRight: "20px", marginTop: "25px" }}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel style={{ fontWeight: "bold" }} {...labelProps}>
-                {label}
-              </StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -125,9 +111,6 @@ export default function PiStepper() {
           {activeStep === 0 && (
             <>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2, paddingBottom: "20px", alignItems: "flex-end" }}>
-                <Button variant="contained" size="large" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-                  Back
-                </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
                 {activeStep === steps.length - 1 ? (
                   <Button disabled={!canNext} variant="contained" onClick={handleNext}>

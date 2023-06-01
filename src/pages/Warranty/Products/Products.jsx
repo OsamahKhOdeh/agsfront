@@ -153,7 +153,7 @@ const Products = ({ searchQuery }) => {
     </div>
   ) : (
     <div className="app__container">
-      {showFilters && (
+      {/* {showFilters && (
         <div className="search__">
           {products.length < 1 && !isLoading ? (
             "No products Found"
@@ -164,7 +164,7 @@ const Products = ({ searchQuery }) => {
             </p>
           )}
         </div>
-      )}
+      )} */}
 
       {products ? (
         showFilters ? (
@@ -212,7 +212,10 @@ const Products = ({ searchQuery }) => {
                   navigate("/user/checkCustomer");
                 }}
               >
-                <span> Next </span>
+                <span>
+                  {" "}
+                  Next <i class="uil uil-angle-right-b"></i>{" "}
+                </span>
               </div>
               <div className="delete" onClick={() => deleteALl()}>
                 <span> Delete all </span>

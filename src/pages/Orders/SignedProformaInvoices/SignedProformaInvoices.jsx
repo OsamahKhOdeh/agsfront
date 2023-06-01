@@ -105,9 +105,7 @@ const SignedProformaInvoices = () => {
     setFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    proformaInvoices = proformaInvoices.filter((item) =>
-      item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    proformaInvoices = proformaInvoices.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
@@ -155,8 +153,15 @@ const SignedProformaInvoices = () => {
     return (
       <div className="page_container">
         <div className="search_container">
-          <SearchBox onChange={handleSearchQueryChange}></SearchBox>
-          <DropDownSelect onChange={handleFilterChange} options={options} />
+          {/* this is search section  */}
+          <div className="row">
+            <div className="col-lg-6 col-md12">
+              <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+            </div>
+            <div className="col-lg-6 col-md12">
+              <DropDownSelect onChange={handleFilterChange} options={options} />
+            </div>
+          </div>
         </div>
         <table className="pi__table table table-bordered">
           <thead className="th_style">

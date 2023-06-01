@@ -1,5 +1,18 @@
 import React, { useRef, useState } from "react";
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase, Checkbox, TextField, Paper, FormControlLabel, Switch } from "@material-ui/core/";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  ButtonBase,
+  Checkbox,
+  TextField,
+  Paper,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core/";
 import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -74,9 +87,17 @@ const Product = ({ product }) => {
           Price :
           <b style={{ backgroundColor: "#E0E5E4", color: "red" }}>
             {location === "freezone" ? (
-              <>{currency === "USD" ? product.freezonePrice + "  $" : ((product.freezonePrice * usdToAedRate * 100) / 100)?.toFixed(3) + "  AED"}</>
+              <>
+                {currency === "USD"
+                  ? product.freezonePrice + "  $"
+                  : ((product.freezonePrice * usdToAedRate * 100) / 100)?.toFixed(3) + "  AED"}
+              </>
             ) : (
-              <>{currency === "USD" ? product.LocalPrice + product.price / 10 + "  $" : (((product.LocalPrice + product.LocalPrice / 10) * usdToAedRate * 100) / 100)?.toFixed(3) + "  AED"}</>
+              <>
+                {currency === "USD"
+                  ? product.LocalPrice + product.price / 10 + "  $"
+                  : (((product.LocalPrice + product.LocalPrice / 10) * usdToAedRate * 100) / 100)?.toFixed(3) + "  AED"}
+              </>
             )}
           </b>
         </Typography>
@@ -119,13 +140,13 @@ const Product = ({ product }) => {
           </div>
         )}
       </CardContent>
-      {showDatasheet && (
+      {/* {showDatasheet && (
         <CardActions className={classes.cardActions}>
           <Button variant="contained" size="large" fullWidth color="primary" onClick={handleDownloadDatasheet}>
-            Download Datasheet
+            Download Datasheet <i class="uil uil-arrow-to-bottom"></i>
           </Button>
         </CardActions>
-      )}
+      )} */}
     </Card>
   );
 };

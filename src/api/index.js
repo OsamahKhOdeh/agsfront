@@ -1,11 +1,14 @@
 import axios from "axios";
-export const BASE_URL = "http://143.42.61.215:5000";
+export const BASE_URL = "http://localhost:5000";
 const API = axios.create({ baseURL: BASE_URL });
 // http://143.42.61.215:5000
 //"http://localhost:5000"
 //export const createProduct = (newProduct) => API.post("/products", newProduct);
 //export const createProduct = (newProduct) => axios.post("https://server1-ustg.onrender.com/products", newProduct);
-export const createProduct = (newProduct) => API.post("/products", newProduct);
+export const createProduct = (newProduct) => {
+  console.log(newProduct);
+  API.post("/products", newProduct);
+};
 
 export const fetchProducts = () => API.get(`/products`);
 
@@ -56,6 +59,22 @@ export const getProformaInvoices = (id) => API.get(`/pi`);
 export const getEmployeeProformaInvoices = (empolyee_name) => API.get(`/pi/employee?employeename=${empolyee_name}`);
 
 export const updateProformaInvoiceStatus = (data) => API.patch(`/pi/${data.id}`, data);
+/* -------------------------------------------------------------------------- */
+/*                                     PKL                                    */
+/* -------------------------------------------------------------------------- */
+
+export const getEmployeePackingLists = (empolyee_name) => API.get(`/packinglist/employee?employeename=${empolyee_name}`);
+
+export const getPackingLists = (id) => API.get(`/packinglist`);
+
+export const updatePackingListStatus = ({ id, newStatus, manager, managerMessage, managerApproval }) =>
+  API.patch(`/packinglist/${id}`, { newStatus, managerMessage, manager, managerApproval });
+
+export const deletePackingList = (id) => API.delete(`/packingList/${id}`);
+
+/* -------------------------------------------------------------------------- */
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const updateProformaInvoice = (id, updatedProformaInvoice) => API.patch(`/pi/update/${id}`, updatedProformaInvoice);
 

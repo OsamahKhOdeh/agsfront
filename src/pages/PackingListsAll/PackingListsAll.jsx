@@ -1,18 +1,17 @@
 import React from "react";
-import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProformaInvoice, getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
-import { changeProformaInvoiceStatus, deleteProformaInvoiceState } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
-import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
+import PackingListPdf from "../../Components/PackingListPdf/PackingListPdf";
 import { useState } from "react";
-import useAuth from "../../../hooks/useAuth";
-import SearchBox from "../../../Components/SearchBox/SearchBox";
-import DropDownSelect from "../../../Components/DropDownSelect/DropDownSelect";
 import Modal from "react-bootstrap/Modal";
 import { Button, TextField } from "@material-ui/core";
+import useAuth from "../../hooks/useAuth";
+import SearchBox from "../../Components/SearchBox/SearchBox";
+import DropDownSelect from "../../Components/DropDownSelect/DropDownSelect";
+import { deletePackingList, getPackingListsAction, updatePackingListStatus } from "../../actions/packingList";
+import { deletePackingListState } from "../../store/Data/packingListSlice";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -49,9 +48,9 @@ export const timeAgo = (date) => {
   return Math.floor(seconds) + " seconds ago";
 };
 
-const PIActionsAdmin = () => {
+const PackingListsAll = () => {
   const [isPdf, setIsPdf] = useState(false);
-  const [currentPi, setCurrentPi] = useState({});
+  const [currentPkl, setCurrentPkl] = useState({});
   const [popupClass, setPopupClass] = useState("form-popup hidden");
   const { username, roles } = useAuth();
 
@@ -97,10 +96,10 @@ const PIActionsAdmin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProformaInvoicesAction());
+    dispatch(getPackingListsAction());
   }, [dispatch]);
 
-  let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
+  let packingLists = useSelector((state) => state.packingLists.packingLists);
 
   /* ------------------------------- searchQuery ------------------------------ */
   console.log(filter);
@@ -113,42 +112,31 @@ const PIActionsAdmin = () => {
     setFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    proformaInvoices = proformaInvoices.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
+    packingLists = packingLists.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    proformaInvoices = proformaInvoices.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
+    packingLists = packingLists.filter((item) => item.pklNo.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
-    { name: "PI Number", value: "pi_no" },
+    { name: "PKL Number", value: "pklNo" },
     { name: "Employee", value: "employee" },
-    { name: "Customer", value: "buyer_address" },
+    { name: "Customer", value: "buyerAddress" },
     { name: "Status", value: "status" },
   ];
 
   /* -------------------------------------------------------------------------- */
 
   const handleApprove = (id) => {
-    if (roles.includes("Financial")) {
-      dispatch(
-        updateProformaInvoiceStatus({
-          id,
-          // newStatus: "Approved",
-          finally: username,
-          financiaApproval: "Approved",
-        })
-      );
-    } else {
-      dispatch(
-        updateProformaInvoiceStatus({
-          id,
-          //  newStatus: "Approved",
-          manager: username,
-          managerApproval: "Approved",
-        })
-      );
-    }
+    dispatch(
+      updatePackingListStatus({
+        id,
+        newStatus: "Approved",
+        manager: username,
+        managerApproval: "Approved",
+      })
+    );
   };
   const handleReject = (id) => {
     console.log("rreject");
@@ -159,33 +147,26 @@ const PIActionsAdmin = () => {
   const handleRejectMessage = (event) => {
     event.preventDefault();
     console.log(event.target.rej_msg.value);
-    const id = currentPi._id;
-    if (roles.includes("Financial")) {
-      dispatch(
-        updateProformaInvoiceStatus({
-          id,
-          financeMessage: event.target.rej_msg.value,
-          financiaApproval: "Rejected",
-          finance: username,
-        })
-      );
-    } else
-      dispatch(
-        updateProformaInvoiceStatus({
-          id,
-          managerMessage: event.target.rej_msg.value,
-          managerApproval: "Rejected",
-          manager: username,
-        })
-      );
+    const id = currentPkl._id;
+
+    dispatch(
+      updatePackingListStatus({
+        id,
+        newStatus: "Rejected",
+        managerMessage: event.target.rej_msg.value,
+        managerApproval: "Rejected",
+        manager: username,
+      })
+    );
+
     setPopupClass("form-popup hidden");
     event.target.rej_msg.value = "";
   };
 
   const handleDelete = (id) => {};
 
-  const handlePDF = (pi) => {
-    setCurrentPi(pi);
+  const handlePDF = (pkl) => {
+    setCurrentPkl(pkl);
     setIsPdf(true);
     console.log(isPdf);
   };
@@ -195,12 +176,11 @@ const PIActionsAdmin = () => {
   const handleClose = () => setShow(false);
   const handleConfirmDelete = () => {
     setShow(false);
-    dispatch(deleteProformaInvoiceState(currentPi._id));
+    dispatch(deletePackingListState(currentPkl._id));
 
-    dispatch(deleteProformaInvoice(currentPi._id));
+    dispatch(deletePackingList(currentPkl._id));
   };
   const handleShow = () => {
-    console.log("ddddddddddddddddd");
     setShow(true);
   };
   /* -------------------------------------------------------------------------- */
@@ -218,7 +198,7 @@ const PIActionsAdmin = () => {
             PREVIOUS
           </button>
         </div>
-        <ProformaInvoice adminPi={currentPi} />
+        <PackingListPdf pkl={currentPkl} />
       </>
     );
   } else
@@ -230,8 +210,8 @@ const PIActionsAdmin = () => {
             <Modal.Title>Delete PI</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Are you sure you want to delete PI : </h4> <h4 style={{ color: "red", textAlign: "center" }}>{currentPi.pi_no}</h4>
-            <h4 style={{ color: "red" }}> for Customer : {currentPi.buyer_address}</h4>
+            <h4>Are you sure you want to delete PI : </h4> <h4 style={{ color: "red", textAlign: "center" }}>{currentPkl.pklNo}</h4>
+            <h4 style={{ color: "red" }}> for Customer : {currentPkl.buyerAddress}</h4>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -283,41 +263,33 @@ const PIActionsAdmin = () => {
             </div>
           </div>
           {/* this is custom design only to Mobile  */}
-          {proformaInvoices.map((proformaInvoice, index) => (
+          {packingLists.map((pkl, index) => (
             <div className="item-pi">
               <div className="item-pi-tittle">
                 <span>Date / Time</span>
-                <span> {timeAgo(new Date(proformaInvoice.updatedAt))}</span>
+                <span> {timeAgo(new Date(pkl.updatedAt))}</span>
               </div>
               <div className="item-pi-body">
                 <div class="wrapper">
                   <div class="box a">
                     <p className="text-secondary">PI.No</p>
-                    <h6>{proformaInvoice.pi_no}</h6>
+                    <h6>{pkl.pklNo}</h6>
                   </div>
                   <div class="box b">
                     <p className="text-secondary">Employee</p>
-                    <h6>{proformaInvoice?.employee?.split("/")[0]}</h6>
+                    <h6>{pkl?.employee?.split("/")[0]}</h6>
                   </div>
                   <div class="box c">
                     <p className="text-secondary">Status</p>
-                    <h6
-                      className={`status-table-label ${colorByStatus(
-                        roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                      )}`}
-                    >
-                      <i
-                        className={`uil uil-${iconByStatus(
-                          roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                        )}`}
-                      ></i>
-                      {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
+                    <h6 className={`status-table-label ${colorByStatus(pkl?.managerApproval)}`}>
+                      <i className={`uil uil-${iconByStatus(pkl.managerApproval)}`}></i>
+                      {pkl?.managerApproval}
                     </h6>
                   </div>
                   <div class="box d">
                     <p className="text-secondary">PDF</p>
                     {/* <button className="ags-btn-pdf"><i class="uil uil-import"></i></button> */}
-                    <button className="ags-btn-pdf" onClick={() => handlePDF(proformaInvoice)}>
+                    <button className="ags-btn-pdf" onClick={() => handlePDF(pkl)}>
                       <span>
                         {" "}
                         <i class="uil uil-import"></i>
@@ -326,11 +298,11 @@ const PIActionsAdmin = () => {
                   </div>
                   <div class="box e">
                     <p className="text-secondary">Customer</p>
-                    <h6>{proformaInvoice.buyer_address}</h6>
+                    <h6>{pkl.buyerAddress}</h6>
                   </div>
                   <div class="box f">
                     <p className="text-secondary">Note</p>
-                    <h6> {proformaInvoice.managerMessage}</h6>
+                    <h6> {pkl.financeMessage}</h6>
                   </div>
                   <div class="box g">
                     <p className="text-secondary">Actions</p>
@@ -339,26 +311,26 @@ const PIActionsAdmin = () => {
                         type="button"
                         className="ags-btn-reject"
                         onClick={() => {
-                          setCurrentPi(proformaInvoice);
-                          handleReject(proformaInvoice._id);
+                          setCurrentPkl(pkl);
+                          handleReject(pkl._id);
                         }}
                       >
                         <i class="uil uil-times"></i> Reject
                       </button>
                       <button className="ags-btn-approve">
-                        <i class="uil uil-check" onClick={() => handleApprove(proformaInvoice._id)}></i> Approve
+                        <i class="uil uil-check" onClick={() => handleApprove(pkl._id)}></i> Approve
                       </button>
-                      {!roles.includes("Financial") && (
+                      {
                         <button
                           className="ags-btn-delete"
                           onClick={() => {
-                            setCurrentPi(proformaInvoice);
+                            setCurrentPkl(pkl);
                             handleShow();
                           }}
                         >
                           <i class="uil uil-trash-alt"></i>Delete
                         </button>
-                      )}
+                      }
                     </div>
                   </div>
                 </div>
@@ -387,91 +359,77 @@ const PIActionsAdmin = () => {
                 </tr>
               </thead>
               <tbody>
-                {proformaInvoices.map((proformaInvoice, index) => (
+                {packingLists.map((pkl, index) => (
                   <tr className={index % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={index}>
                     <td scope="row">
                       {" "}
                       <div style={{ fontWeight: "bold" }} className="td_padding">
-                        {proformaInvoice.pi_no}
+                        {pkl.pklNo}
                       </div>
                     </td>
                     <td>
-                      <div className="employee_cell">{proformaInvoice?.employee?.split("/")[0]}</div>
+                      <div className="employee_cell">{pkl?.employee?.split("/")[0]}</div>
                     </td>
                     <td>
-                      <div className="time-update">{timeAgo(new Date(proformaInvoice.updatedAt))}</div>
+                      <div className="time-update">{timeAgo(new Date(pkl.updatedAt))}</div>
                     </td>
                     <td>
-                      <div className=" customer_cell">{proformaInvoice.buyer_address}</div>
+                      <div className=" customer_cell">{pkl.buyerAddress}</div>
                     </td>
                     <td>
-                      <div
-                        className={`status-table-label ${colorByStatus(
-                          roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                        )}`}
-                      >
-                        <i
-                          className={`uil uil-${iconByStatus(
-                            roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                          )}`}
-                        ></i>
-                        {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
+                      <div className={`status-table-label ${colorByStatus(pkl?.managerApproval)}`}>
+                        <i className={`uil uil-${iconByStatus(pkl?.managerApproval)}`}></i>
+                        {pkl?.managerApproval}
                       </div>
                     </td>
                     <td>
-                      <button type="button" className="table-btn-pdf" onClick={() => handlePDF(proformaInvoice)}>
+                      <button type="button" className="table-btn-pdf" onClick={() => handlePDF(pkl)}>
                         <span>
                           {" "}
                           <i class="uil uil-import"></i>
                         </span>
                       </button>
                     </td>
-                    {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
-                      <td>
-                        <div>Waiting for Sales M Approval</div>
-                      </td>
-                    ) : (
-                      <td>
-                        <div style={{ display: "flex" }}>
+
+                    <td>
+                      <div style={{ display: "flex" }}>
+                        <button
+                          type="button"
+                          className="btn-table-status"
+                          onClick={() => {
+                            setCurrentPkl(pkl);
+                            handleReject(pkl._id);
+                          }}
+                        >
+                          <span>
+                            {" "}
+                            <i class="uil uil-times"></i>Reject
+                          </span>
+                        </button>
+                        <button type="button" className="btn-table-status" onClick={() => handleApprove(pkl._id)}>
+                          <span>
+                            {" "}
+                            <i class="uil uil-check"></i> Approve
+                          </span>
+                        </button>
+                        {!roles.includes("Financial") && (
                           <button
                             type="button"
                             className="btn-table-status"
                             onClick={() => {
-                              setCurrentPi(proformaInvoice);
-                              handleReject(proformaInvoice._id);
+                              setCurrentPkl(pkl);
+                              handleShow();
                             }}
                           >
                             <span>
-                              {" "}
-                              <i class="uil uil-times"></i>Reject
+                              <i class="uil uil-trash-alt"></i> Delete
                             </span>
                           </button>
-                          <button type="button" className="btn-table-status" onClick={() => handleApprove(proformaInvoice._id)}>
-                            <span>
-                              {" "}
-                              <i class="uil uil-check"></i> Approve
-                            </span>
-                          </button>
-                          {!roles.includes("Financial") && (
-                            <button
-                              type="button"
-                              className="btn-table-status"
-                              onClick={() => {
-                                setCurrentPi(proformaInvoice);
-                                handleShow();
-                              }}
-                            >
-                              <span>
-                                <i class="uil uil-trash-alt"></i> Delete
-                              </span>
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    )}
-                    <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>
-                      {proformaInvoice.managerMessage}
+                        )}
+                      </div>
                     </td>
+
+                    <td className={colorByUpdate(pkl.createdAt, pkl.updatedAt)}>{pkl.managerMessage}</td>
                   </tr>
                 ))}
               </tbody>
@@ -482,4 +440,4 @@ const PIActionsAdmin = () => {
     );
 };
 
-export default PIActionsAdmin;
+export default PackingListsAll;

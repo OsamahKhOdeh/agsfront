@@ -8,16 +8,18 @@ input[type=text], select {
   }
 
 
-  .filter_select{
-    width: 22%;
-    display: flex;
+  .filter_select select{
+      border: 1px solid #000;
+      width: fit-content;
+     padding: 8px;
   }
-  
+  .filter_select label{
+    width: fit-content;
+  }
+
 
   .filter_label {
-    width : 50%;
-    padding: 10px;
-    margin: auto;
-    color: rgb(231, 44, 44);
-    font-weight: 800;
+    color: 000;
+    font-weight: 600;
+
   }

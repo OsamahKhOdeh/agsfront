@@ -105,7 +105,6 @@ const NewUser = () => {
             <option value="Financial">Financial</option>
             <option value="Logistics">Logistics</option>
             <option value="Employee">Employee</option>
-            <option value="SyriaEmployee">Syria Employee</option>
           </select>
           <input type="submit" value="Create New User" />
         </form>

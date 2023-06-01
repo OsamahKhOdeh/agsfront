@@ -255,44 +255,46 @@ const Warranty = () => {
         <Container maxWidth="xl">
           {showFilters && (
             <>
+              {/* <div class="profile profile-default">
+      <div class="profile__image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/dog.png" alt="Doggo"/></div>
+      <div class="profile__info">
+        <h3>Doggo Dogg</h3>
+        <p class="profile__info__extra">A very good boi that loves playing fetch and ice-cream! Gentle with everyone. Scared of the rain.</p>
+      </div>
+      <div class="profile__stats">
+        <p class="profile__stats__title">Type</p>
+        <h5 class="profile__stats__info">Puppy</h5>
+      </div>
+      <div class="profile__stats">
+        <p class="profile__stats__title">Size</p>
+        <h5>Medium</h5>
+      </div>
+      <div class="profile__stats">
+        <p class="profile__stats__title">Weight</p>
+        <h5 class="profile__stats__info">45.85 lbs</h5>
+      </div>
+      <div class="profile__cta"><a class="button">Adopt Doggo!</a></div>
+            </div> */}
+              {/*  */}
               <div className="search__list">
                 <div className="change__">
-                  {/* end of header */}
-
-                  <div>
-                    <div className="search__withfilters">
-                      <div style={{ display: "flex", gap: 20 }}>
-                        {categories.map((item, i) => (
-                          <Category
-                            title={item.label}
-                            img={item.img}
-                            onClick={handleCategoryChange}
-                            key={i}
-                            //  checklevel1={checklevel1}
-                            // setcheck={setcheck}
-                          />
-                        ))}
-                      </div>
-                      {/* end of container */}
-
-                      {/* end of quiz_section */}
+                  <div className="row">
+                    <div className="col-lg-6 col-md-12">
+                      {selectedCategories.length !== 0 && (
+                        <div className="filter__search">
+                          {countries.map((item, i) => (
+                            <>
+                              <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
+                            </>
+                          ))}
+                        </div>
+                      )}
+                      <SearchBox onChange={handleSearchBoxChange} />
                     </div>
-                    {selectedCategories.length !== 0 && (
-                      <div className="filter__search">
-                        {countries.map((item, i) => (
-                          <>
-                            <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
-                          </>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="list__filter">
-                      {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
+                    <div className="col-lg-6 col-md-12">
+                      <SideFilters />
                     </div>
                   </div>
-
-                  <SideFilters />
                 </div>
               </div>
             </>
@@ -302,7 +304,6 @@ const Warranty = () => {
               <Pagination page={page} />
             </Paper>
           )}
-          <SearchBox onChange={handleSearchBoxChange} />
           <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>

@@ -1,6 +1,6 @@
 .navbar {
   position: fixed;
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  background: var(--second-color);
   height: 80px;
   display: flex;
   justify-content: center;
@@ -28,29 +28,41 @@
   grid-gap: 10px;
   list-style: none;
   text-align: center;
-  width: 70vw;
+  width: auto;
   justify-content: end;
-  margin-right: 2rem;
+  margin-right: 0;
 }
 
-.nav-item {
+/* .nav-item {
   display: flex;
   align-items: center;
-  height: 80px;
+  text-align: center;
+  padding: 5px 12px;
+  margin: 4px;
+  line-height: 1.1;
+  border: 2px solid #ffff;
+  border-radius: 4px;
+  transition: all .4s ease-in-out;
 }
-
-.nav-links {
+.nav-item:hover{
+  color: var(--second-color);
+  background-color: var(--white);
+}
+.nav-item:hover a{
+  color: var(--second-color);
+} */
+/* .nav-links {
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  margin-bottom: 26px;
+  transition: all 0.2s ease-out;
+
 }
 
 .nav-links:hover {
-  background-color: #1888ff;
+ color: var(--second-color);
   border-radius: 4px;
-  transition: all 0.2s ease-out;
-}
+
+} */
 
 .fa-bars {
   color: #fff;
@@ -63,7 +75,10 @@
 .menu-icon {
   display: none;
 }
-
+.profile{
+  display: flex;
+  margin-right: 16px;
+}
 @media screen and (max-width: 960px) {
   .NavbarItems {
     position: relative;
@@ -79,6 +94,7 @@
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
+    margin-bottom: 0;
   }
 
   .nav-menu.active {
@@ -90,11 +106,7 @@
   }
 
   .nav-links {
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-    display: table;
-    padding-bottom: 30px;
+
   }
 
   .nav-links:hover {
@@ -148,8 +160,3 @@
   }
 }
 
-
-.logo_image {
-  height : 40px;
-  margin-left: 20px;
-}

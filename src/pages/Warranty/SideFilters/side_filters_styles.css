@@ -1,7 +1,9 @@
 .radio-toolbar {
-    margin: 0px 2px 0px 0px;
+    /* margin: 0px 2px 0px 0px;
     width: 100%;
-    display: flex;
+    display: flex; */
+        display: flex;
+    align-items: baseline;
   }
   
   .radio-toolbar input[type="radio"] {
@@ -14,28 +16,38 @@
     flex: 1;
     align-items: center;
     text-align: center;
-
       display: inline-block;
       background-color: #fcfdfd;
       padding: 10px 20px;
       font-family: sans-serif, Arial;
       font-size: 16px;
-      border: 2px solid #444;
+      /* border: 2px solid #444; */
+      font-size: 1rem;
+      display: inline;
+      padding: 10px;
+      margin: 5px;
+
   }
   
-  .radio-toolbar label:hover {
+  /* .radio-toolbar label:hover {
     background-color: rgb(221, 240, 255);
-  }
+  } */
   
-  .radio-toolbar input[type="radio"]:focus + label {
+  /* .radio-toolbar input[type="radio"]:focus + label {
       border: 2px dashed #444;
+  } */
+  .radio-toolbar input[type="radio"]:not(checked) + label {
+    border: 2px solid var(--second-color);
+    background-color: transparent;
+    color: var(--second-color);
+    border-radius: 5px;
+    padding: 6px 
   }
-  
   .radio-toolbar input[type="radio"]:checked + label {
-      background-color:#1BB8F7;
-      border-color: rgba(4, 10, 19, 0.301);
+    color: #fff;
+    background-color: var(--second-color);
+    font-size: 1rem;
   }
-  
  
 .cat{
   background-color: white   ;
@@ -77,6 +89,8 @@ This following statements selects each category individually that contains an in
 .comedy input:checked + span{background-color:#1bf581;}
 
 .side_filters {
-    position: absolute;
-    right: 40px;
+    /* position: absolute;
+    right: 40px; */
+    display: flex;
+    justify-content: flex-end;
 }

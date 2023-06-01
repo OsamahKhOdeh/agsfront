@@ -13,7 +13,6 @@ import { BrowserRouter } from "react-router-dom";
 // import Warranty from "./pages/Warranty/Warranty";
 // import WarrantyCheck from "./pages/Warranty/WarrantyCheck/WarrantyCheck";
 import RoutesComponents from "./view/shared/routes/RoutesComponents";
-
 function App() {
   return (
     <BrowserRouter>

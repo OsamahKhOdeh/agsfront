@@ -10,11 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteProduct, updateProduct, uploadDatasheet } from "../../../../actions/products";
 import "./style/product.css";
 
-import {
-  addProductToWarrantyList,
-  removeProductFromWarrantyList,
-  setProductQty,
-} from "../../../../store/warrantySlice";
+import { addProductToWarrantyList, removeProductFromWarrantyList, setProductQty } from "../../../../store/warrantySlice";
 
 import { addProducttocart, deletProductformCart } from "../../../../store/cartSlice";
 import product from "../Product/style/product.css";
@@ -184,16 +180,13 @@ const Product = ({ product, index }) => {
         </Modal.Footer>
       </Modal>
 
-      <div className={exist ? "product__item background_color" : "product__item"} style={{}}>
+      <div className={exist ? "product__item active-card" : "product__item"} style={{}}>
         <div className="product__image ">
           <img
             src={
-              product.image[0] !==
-              "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+              product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
                 ? product.image
-                : process.env.PUBLIC_URL + `images/${product._id}_1.png` ||
-                  `images/${product._id}_1.jpg` ||
-                  `images/${product._id}_1.JPG`
+                : process.env.PUBLIC_URL + `images/${product._id}_1.png` || `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
             }
             alt=""
           />
@@ -410,13 +403,7 @@ const Product = ({ product, index }) => {
               Upload image
             </button>
             <form onSubmit={uploadFile}>
-              <input
-                style={{ color: "red", width: "100%", height: "30px" }}
-                type="file"
-                name="file"
-                onChange={getFile}
-                required
-              />
+              <input style={{ color: "red", width: "100%", height: "30px" }} type="file" name="file" onChange={getFile} required />
               <input
                 style={{
                   cursor: "pointer",

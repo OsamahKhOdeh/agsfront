@@ -241,51 +241,17 @@ const AdminPage = () => {
             <>
               <div className="search__list">
                 <div className="change__">
-                  {/* end of header */}
-                  <div>
-                    <div className="search__withfilters">
-                      <div style={{ display: "flex", gap: 20 }}>
-                        {categories.map((item, i) => (
-                          <Category
-                            title={item.label}
-                            img={item.img}
-                            onClick={handleCategoryChange}
-                            key={i}
-                            //  checklevel1={checklevel1}
-                            // setcheck={setcheck}
-                          />
-                        ))}
-                      </div>
-                      {/* end of container */}
-
-                      {/* end of quiz_section */}
+                  {selectedCategories.length !== 0 && (
+                    <div className="filter__search">
+                      {countries.map((item, i) => (
+                        <>
+                          <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
+                        </>
+                      ))}
                     </div>
-                    {selectedCategories.length !== 0 && (
-                      <div className="filter__search">
-                        {countries.map((item, i) => (
-                          <>
-                            <CountryItem key={i} title={item} img={item.img} onClick={handleCountryChange} />
-                          </>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="list__filter">
-                      {selectedItems.length !== 0 && !selectedItems.includes("All") ? <Brands /> : null}
-
-                      {/*selectedItems.map((item, i) => (
-                            <div className='select__list'>
-                              <DropDown
-                                item={item}
-                                onChange={onChange}
-                                onNodeToggle={onNodeToggle}
-                                onAction={onAction}
-                              />
-                            </div>
-                        )) */}
-                    </div>
-                  </div>
-                  {/*<SideFilters/>*/}
+                  )}
+                  {/* </div> */}\
+                  <SearchBox onChange={handleSearchBoxChange} />
                 </div>
               </div>
             </>
@@ -295,7 +261,6 @@ const AdminPage = () => {
               <Pagination page={page} />
             </Paper>
           )}
-          <SearchBox onChange={handleSearchBoxChange} />
           <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>

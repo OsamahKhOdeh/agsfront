@@ -3,7 +3,7 @@ import "./PackingList.css";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const PackingList = () => {
+const PackingListManual = () => {
   const { username } = useAuth();
   console.log(username);
   const [pklInfo, setPklInfo] = useState(null);
@@ -39,7 +39,7 @@ const PackingList = () => {
   const handleSearchPi = async () => {
     // Send the POST request
     await axios
-      .get(`http://localhost:5000/packinglist/info/${piNumber}`)
+      .get(`http://localhost:5000/packinglist/infomanual/${piNumber}`)
       .then(async (response) => {
         // Handle the response data
         setPklInfo(response.data);
@@ -50,6 +50,7 @@ const PackingList = () => {
             productId: product.productId,
             productCode: product.productCode,
             productCategory: product.productCategory,
+            productBrand: product.productBrand,
             productCountry: product.productCountry,
             productCapacity: product.productCapacity,
             productDescription: product.description,
@@ -219,6 +220,7 @@ const PackingList = () => {
         productId: product.productId,
         productCode: product.productCode,
         productCategory: product.productCategory,
+        productBrand: product.productBrand,
         productCountry: product.productCountry,
         productCapacity: product.productCapacity,
         productDescription: product.description,
@@ -401,7 +403,7 @@ const PackingList = () => {
           {/*   ...........................................................................................................................................*/}
 
           <div>
-            <table className="pi__table table table-bordered">
+            <table className="pi__table table table-bordered pkl-table">
               <thead>
                 <tr className="th_style">
                   <th scope="col">
@@ -410,9 +412,7 @@ const PackingList = () => {
                   <th scope="col">
                     <div className="th_cell_div">Description</div>
                   </th>
-                  <th scope="col">
-                    <div className="th_cell_div">QTY(PCs)</div>
-                  </th>
+
                   <th scope="col">
                     <div className="th_cell_div">Pallet</div>
                   </th>
@@ -437,8 +437,11 @@ const PackingList = () => {
                   {truckItems.map((truck, index) => (
                     <th key={index}>Truck No :{truck.truckNo}</th>
                   ))}
-                  <th>
-                    <div className="th_cell_div">warehouses</div>
+                  <th scope="col">
+                    <div className="th_cell_div">QTY(PCs)</div>
+                  </th>
+                  <th scope="col">
+                    <div className="th_cell_div">Remaining</div>
                   </th>
                 </tr>
               </thead>
@@ -453,9 +456,7 @@ const PackingList = () => {
                     <td>
                       <div className="td_padding employee_cell">{product.description}</div>
                     </td>
-                    <td>
-                      <div className="td_padding">{product.qty}</div>
-                    </td>
+
                     <td>
                       <div className="td_padding customer_cell">{product.pallet}</div>
                     </td>
@@ -480,38 +481,28 @@ const PackingList = () => {
                     {truckItems.map((truckItem, truckIndex) => (
                       <td key={truckIndex}>
                         <div className="warehouses">
-                          {product.bookedWarehouses.map((warehouse, whIndex) => (
-                            <div className="warehouse_bl_item" style={{ flex: 1 }} key={whIndex}>
-                              <div className="warehouse_bl_item_code">
-                                {warehouse.qty - getTotalProductQtyInWarehouse(product.productId, warehouse.warehouse)}
-                              </div>{" "}
-                              <div className="warehouse_bl_item_code">{warehouse.warehouse}</div>
-                              <div className="warehouse_bl_item_qty">
-                                {" "}
-                                <input
-                                  id={truckIndex}
-                                  type="text"
-                                  value={getTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse)}
-                                  onChange={(e) => {
-                                    const qtyVal = e.target.value;
-                                    setTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse, qtyVal);
-                                  }}
-                                ></input>
-                              </div>
+                          <div className="warehouse_bl_item" style={{ flex: 1 }}>
+                            <div className="warehouse_bl_item_qty">
+                              {" "}
+                              <input
+                                id={truckIndex}
+                                type="text"
+                                value={getTruckProductWarehouseItemQty(product.productId, truckIndex, "all")}
+                                onChange={(e) => {
+                                  const qtyVal = e.target.value;
+                                  setTruckProductWarehouseItemQty(product.productId, truckIndex, "all", qtyVal);
+                                }}
+                              ></input>
                             </div>
-                          ))}
+                          </div>
                         </div>
                       </td>
                     ))}
                     <td>
-                      <div className="td_pading" style={{ display: "flex" }}>
-                        {product.bookedWarehouses.map((warehouse, index) => (
-                          <div style={{ flex: 1 }} key={index}>
-                            <div>{warehouse.warehouse}</div>
-                            <div>{warehouse.qty}</div>
-                          </div>
-                        ))}
-                      </div>
+                      <div className="td_padding">{product.qty}</div>
+                    </td>
+                    <td>
+                      <div className="td_padding">{product.qty - getTotalProductQtyInWarehouse(product.productId, "all")}</div>
                     </td>
                   </tr>
                 ))}
@@ -634,4 +625,4 @@ const PackingList = () => {
   );
 };
 
-export default PackingList;
+export default PackingListManual;
