@@ -291,24 +291,40 @@ function InvoiceInfo() {
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="terms">Terms Collections <span className="required">*</span> </label> <br/>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault1"/>
+            {/* <div class="form-check">
+              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="EXWAREHOUSE"  onChange={handleCollectionChange} id="flexRadioDefault1"/>
               <label class="form-check-label" for="flexRadioDefault1">
                Exwarehouse
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault2" />
+              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="FOB"  onChange={handleCollectionChange} id="flexRadioDefault2" />
               <label class="form-check-label" for="flexRadioDefault2">
               FOB
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault3" />
+              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="CIF"  onChange={handleCollectionChange} id="flexRadioDefault3" />
               <label class="form-check-label" for="flexRadioDefault2">
               CIF
               </label>
-            </div>
+            </div> */}
+
+
+            <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                  onChange={handleCollectionChange}
+                  value={terms}
+                >
+                  <FormControlLabel value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
+                  <FormControlLabel value="FOB" control={<Radio />} label="FOB" />
+                  <FormControlLabel value="CIF" control={<Radio />} label="CIF" />
+         </RadioGroup>
+
+
+
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
