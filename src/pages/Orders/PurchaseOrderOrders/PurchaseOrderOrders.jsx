@@ -132,7 +132,6 @@ const PurchaseOrderOrders = () => {
                 <td>
                   <div className="td_padding">{new Date(item.createdAt).toLocaleDateString()}</div>
                 </td>
-
                 <td>
                   <div style={{ overflow: "hidden" }}>
                     <div style={{ overflow: "hidden" }}>
