@@ -73,7 +73,6 @@ const UserLayout = () => {
       </span>
       <div className={`snippet-body ${isOpen ? "" : ""} `}>
         <header className={`header ${isOpen ? "" : "body-pd"} `} id="header">
-          {/* onClick={()=>setIsoOpen((prev)=>!prev)} */}
           <div className="header_toggle" onClick={() => setIsoOpen((prev) => !prev)}>
             <i className={`bx bx-menu ${isOpen ? "" : "bx-x"} `} id="header-toggle"></i>
           </div>
@@ -114,6 +113,34 @@ const UserLayout = () => {
                 <i className="bx bx-layer nav_logo-icon"></i> <span className="nav_logo-name">AGS</span>{" "}
               </a>
               <div className="nav_list">
+                {isAdmin && (
+                  <>
+                    <button class="nav_link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="invoice">
+                        <i className={`bx nav_icon  bx bx-down-arrow`}></i> <span>Invoice</span>
+                      </a>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
+                      <a class="dropdown-item ">
+                        <Link to="/user/makepi" className="invoice-item">
+                          Performa Invoice
+                        </Link>
+                      </a>
+                      <a class="dropdown-item">
+                        <Link to="/user/makepo" className="invoice-item">
+                          Purchase Order
+                        </Link>
+                      </a>
+                      <a class="dropdown-item">
+                        <Link to="/user/warranty" className="invoice-item">
+                          Quotation
+                        </Link>
+                      </a>
+                      {/* <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a> */}
+                    </div>
+                  </>
+                )}
                 {MenuItems.map((MenuItem) => (
                   <a href={MenuItem.path} className="nav_link active">
                     <i className={`bx nav_icon ${MenuItem.icon}`}></i>

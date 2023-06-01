@@ -43,7 +43,7 @@ export default function PiStepper() {
     piInfo.finalDistination &&
     piInfo.partyOfDischarge &&
     piInfo.notifyParty &&
-    piInfo.terms &&
+    piInfo.terms.length > 0 &&
     piInfo.bankDetails
   ) {
     canNext = true;

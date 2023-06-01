@@ -17,24 +17,7 @@ export const AdminMenuItems = [
   //   cName: "dropdown-link",
   //   icon : "bx-money"
   // },
-  {
-    title: "Make PI",
-    path: "/user/makepi",
-    cName: "dropdown-link",
-    icon: "bx-pie-chart-alt-2",
-  },
-  {
-    title: "Make PO",
-    path: "/user/makepo",
-    cName: "dropdown-link",
-    icon: "bx-polygon",
-  },
-  {
-    title: "PriceList/Quotation",
-    path: "/user/warranty",
-    cName: "dropdown-link",
-    icon: "bx-money",
-  },
+
   {
     title: "Add Items",
     path: "/user/addproduct",
