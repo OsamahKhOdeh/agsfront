@@ -47,8 +47,9 @@ const NewUser = () => {
          {/* <span className="ags-btn-main-fill border-btn" onClick={()=>{navigate('/user/new_user')}}><i class="uil uil-plus" ></i> Add New</span> */}
       </div>
       <div className="card-custom-body ">
+      <form onSubmit={handleSubmit}>
       <div className="row">
-         <div className="col-lg-6 col-md-12">
+         <div className="col-md-12 col-md-12">
             <div className="form-group">
               <label for="username">User Name</label>
               <input
@@ -63,35 +64,37 @@ const NewUser = () => {
               />
             </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-md-12 col-md-12">
             <div className="form-group">
             <label for="password">Password</label>
             <input
-              type="text"
+              type="password"
               id="psws"
               name="password"
-              placeholder="*************"
+              className="from-control"
+              placeholder="Enter password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
             </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-md-12 col-md-12">
             <div className="form-group">
             <label for="password">Confirm Password</label>
             <input
-              type="text"
+              type="password"
               id="c_psws"
+              className="from-control"
+              placeholder="Enter confirm password"
               name="c_password"
-              placeholder="*************"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
             />
             </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-md-12 col-md-12">
             <div className="form-group">
             <label for="phone">Phone Number</label>
             <input
@@ -105,7 +108,7 @@ const NewUser = () => {
             />
             </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-md-12 col-md-12">
             <div className="form-group">
             <label for="role">Role</label>
             <select
@@ -125,9 +128,6 @@ const NewUser = () => {
               <option value="Employee">Employee</option>
             </select>
             </div>
-        </div>
-        <div className="col-lg-6 col-md-12">
-        <input type="submit" value="Create New User" />
         </div>
         {/* <form onSubmit={handleSubmit}>
           <label for="username">Username</label>
@@ -192,18 +192,22 @@ const NewUser = () => {
           <input type="submit" value="Create New User" />
         </form> */}
       </div>
+      <div className="col-md-12 col-md-12">
+          <div className="buttons-add-pi mt-3">
+              <button className="ags-btn-main" onClick={() => {navigate("/user/employees");}} >Back</button>
+              <button  type="submit" className="ags-btn-main-fill" >Create</button>
+          </div>
+      </div>
+      </form>
       </div>
       </div>
-
-      <button
+      {/* <button
         type="button"
         className="previous"
-        onClick={() => {
-          navigate("/user/employees");
-        }}
+        onClick={() => {navigate("/user/employees");}}
       >
         &laquo;back to employees
-      </button>
+      </button> */}
     </div>
   );
 };

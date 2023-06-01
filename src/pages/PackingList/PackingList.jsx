@@ -249,6 +249,7 @@ const PackingList = () => {
   };
 
   return (
+    <>
     <div className="pkl_container">
       <div className="search_div">
         <label htmlFor="piNumber">Enter PI Number :</label>
@@ -631,6 +632,7 @@ const PackingList = () => {
         Next
       </button>
     </div>
+    </>
   );
 };
 

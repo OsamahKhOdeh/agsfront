@@ -8,7 +8,7 @@ const PackingListManual = () => {
   const { username } = useAuth();
   console.log(username);
   const [pklInfo, setPklInfo] = useState(null);
-  const [piNumber, setPiNumber] = useState(0);
+  const [piNumber, setPiNumber] = useState();
   const [customer, setCustomer] = useState("");
   const [buyer, setBuyer] = useState("");
   const [invoiceNo, setInvoiceNo] = useState("");
@@ -252,26 +252,63 @@ const PackingListManual = () => {
   };
 
   return (
-    <div className="pkl_container">
-      <div className="search_div">
-        <label htmlFor="piNumber">Enter PI Number :</label>
+
+    <>
+    <div className="card-custom ">
+      <div className="card-custom-tittle justify-content-center">
+          <h6>Packing List</h6>
+      </div>
+      <div className="card-custom-body">
+      {/* <div className="pkl_container"> */}
+      <div className="search_section">
+          <div className="from-group">
+          {/* <label htmlFor="piNumber">Enter PI Number :</label> */}
         <input
-          style={{ width: "20%" }}
           id="piNumber"
           type="text"
           value={piNumber}
+          placeholder="Enter PI Number"
           onKeyDown={handleKeyDown}
           onChange={(e) => {
             setPiNumber(e.target.value);
           }}
         ></input>
-        <button className="search_pi" onClick={handleSearchPi}>
-          Search
-        </button>
+          </div>
+        <button className="ags-btn-main" onClick={handleSearchPi}> Search </button>
       </div>
       {pklInfo && (
         <>
-          <div className="pkl_info">
+        {/* inforamtion PI */}
+          <div className="table-infroamtion"> 
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>PI Number: </strong> {pklInfo.piNo} </td>
+                  <td><strong>PI Custmer: </strong> {pklInfo.piCustomer}</td>
+                </tr>
+                <tr>
+                  <td > <strong>PI Date: </strong> {new Date(pklInfo?.piDate)?.toLocaleDateString()}</td>
+                  <td><strong>Issued by: </strong> {pklInfo.piEmployee}</td>
+                </tr>
+                <tr>
+                  <td ><strong>Total Amount: </strong> {pklInfo.pklTotalAmount}</td>
+                  <td> <strong>Total GW: </strong>{pklInfo.pklTotalGrossWeight}</td>
+                </tr>
+                <tr>
+                  <td ><strong>Total NW: </strong> {pklInfo.pklTotalNetWeight}</td>
+                  <td><strong>Total Packages: </strong> {pklInfo.pklTotalPackages}</td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+
+        {/* Inputs PI Info */}
+
+        <div >
+
+        </div>
+
+          {/* <div className="pkl_info">
             <div className="info_row">
               <div className="label_div">PI Number : </div>
               <div className="val_div">{pklInfo.piNo}</div>
@@ -288,7 +325,28 @@ const PackingListManual = () => {
               <div className="label_div">Issued by : </div>
               <div className="val_div">{pklInfo.piEmployee}</div>
             </div>
+          </div> */}
+
+          <div style={{ display: "flex" }}>
+                <div className="info_row">
+                  <div className="label_div">Total Amount : </div>
+                  <div className="val_div">{pklInfo.pklTotalAmount}</div>
+                </div>{" "}
+                <div className="info_row">
+                  <div className="label_div">Total GW : </div>
+                  <div className="val_div">{pklInfo.pklTotalGrossWeight}</div>
+                </div>{" "}
+                <div className="info_row">
+                  <div className="label_div">TOTAL NW : </div>
+                  <div className="val_div">{pklInfo.pklTotalNetWeight}</div>
+                </div>
+                <div className="info_row">
+                  <div className="label_div">TOTAL Packages : </div>
+                  <div className="val_div"> {pklInfo.pklTotalPackages}</div>
+                </div>
           </div>
+
+
           <div>
             <div style={{ display: "flex" }}>
               {" "}
@@ -324,32 +382,14 @@ const PackingListManual = () => {
               </div>
             </div>
             <div>
-              <div className="info_row">
+              {/* <div className="info_row">
                 <div className="label_div">Warehouses : </div>
                 <div className="val_div">{pklInfo.pklWarehouses?.join(" | ")}</div>
-              </div>
-              <div className="info_row">
+              </div> */}
+              {/* <div className="info_row">
                 <div className="label_div">BL : </div>
                 <div className="val_div">{pklInfo.pklBls?.join(" | ")}</div>
-              </div>{" "}
-              <div style={{ display: "flex" }}>
-                <div className="info_row">
-                  <div className="label_div">TOTAL AMOUNT : </div>
-                  <div className="val_div">{pklInfo.pklTotalAmount}</div>
-                </div>{" "}
-                <div className="info_row">
-                  <div className="label_div">TOTAL GW : </div>
-                  <div className="val_div">{pklInfo.pklTotalGrossWeight}</div>
-                </div>{" "}
-                <div className="info_row">
-                  <div className="label_div">TOTAL NW : </div>
-                  <div className="val_div">{pklInfo.pklTotalNetWeight}</div>
-                </div>
-                <div className="info_row">
-                  <div className="label_div">TOTAL Packages : </div>
-                  <div className="val_div"> {pklInfo.pklTotalPackages}</div>
-                </div>
-              </div>
+              </div>{" "} */}
             </div>
           </div>
           <div className="info_row">
@@ -619,10 +659,13 @@ const PackingListManual = () => {
           </div>
         </>
       )}
-      <button className="btn btn-danger danger" onClick={handleNextClick}>
+      {/* <button className="btn btn-danger danger" onClick={handleNextClick}>
         Next
-      </button>
+      </button> */}
+    {/* </div> */}
+      </div>
     </div>
+    </>
   );
 };
 

@@ -164,16 +164,16 @@ export default function PiStepper() {
             <>
               <SuccessPage />
               <div className="buttons-add-pi">
-                    <span className="ags-btn-main" disabled={activeStep === 0} onClick={handleBack}>  Back </span> 
+                    <button className="ags-btn-main" disabled={activeStep === 0} onClick={handleBack}>  Back </button> 
                     {activeStep === steps.length - 1 ? (
                       // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
                       //   Send
                       // </Button>
                       
-                      <span className="ags-btn-main-fill"  disabled={!canNext}  onClick={handleNext}>  Send  </span> 
+                      <button className="ags-btn-main-fill"  disabled={!canNext}  onClick={handleNext}>  Send  </button> 
 
                     ) : (
-                    <span className="ags-btn-main-fill"  disabled={!canNext} variant="contained" onClick={handleNext}>  Next </span> 
+                    <button className="ags-btn-main-fill"  disabled={!canNext} variant="contained" onClick={handleNext}>  Next </button> 
                     )}
                 </div>
               {/* <Box
