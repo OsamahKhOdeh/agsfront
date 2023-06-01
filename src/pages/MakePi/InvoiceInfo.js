@@ -164,7 +164,9 @@ function InvoiceInfo() {
          {/* new form */}
          <div className="card-add-product">
         <div className="card-add-product-tittle">
-            <h3 > Add PI</h3>
+        {pi ?
+        <h3 > Add PI</h3>  : <h3 > Quotation</h3>
+        }
        </div>
       <div className="card-add-product-body">
       <form autoComplete="off" noValidate  onSubmit={handelTermsChange}>
@@ -193,13 +195,17 @@ function InvoiceInfo() {
             <input class="form-control" type="text" name="phoneNumber" value={invoiceInfo.phoneNumber}  onChange={handleChange} />
           </div>
         </div>
+        {pi &&
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="consignee">Consignee <span className="required">*</span></label>
            <input class="form-control" type="text" name="consignee" value={invoiceInfo.consignee} onChange={handleChange} /> 
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        }
+       {pi &&
+        <>
+       <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="notify_party">Notify Party <span className="required">*</span></label>
               <select className="form-select" id="notify_party" name="notifyParty" value={invoiceInfo.notifyParty} onChange={handleChange}>
@@ -236,6 +242,8 @@ function InvoiceInfo() {
             onChange={handleChange}
           /> </div>
         </div>
+        </>
+       }
         <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="final_distenation">Final Distenation <span className="required">*</span></label>
@@ -256,7 +264,7 @@ function InvoiceInfo() {
         </div>
         {pi && (
           <>
-          <div className="col-lg-6 col-md-12">
+         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="phone_number">PI Number </label>
             <input class="form-control" type="text" readOnly name="invoiceNo" value={invoiceNumber}  onChange={handleChange} />
@@ -288,126 +296,115 @@ function InvoiceInfo() {
               <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} />
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
-          <div className="form-group">
-            <label htmlFor="terms">Terms Collections <span className="required">*</span> </label> <br/>
-            {/* <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="EXWAREHOUSE"  onChange={handleCollectionChange} id="flexRadioDefault1"/>
-              <label class="form-check-label" for="flexRadioDefault1">
-               Exwarehouse
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="FOB"  onChange={handleCollectionChange} id="flexRadioDefault2" />
-              <label class="form-check-label" for="flexRadioDefault2">
-              FOB
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group" value="CIF"  onChange={handleCollectionChange} id="flexRadioDefault3" />
-              <label class="form-check-label" for="flexRadioDefault2">
-              CIF
-              </label>
-            </div> */}
-
-
-            <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                  onChange={handleCollectionChange}
-                  value={terms}
-                >
-                  <FormControlLabel value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
-                  <FormControlLabel value="FOB" control={<Radio />} label="FOB" />
-                  <FormControlLabel value="CIF" control={<Radio />} label="CIF" />
-         </RadioGroup>
-
-
-
-          </div>
-        </div>
-        <div className="col-lg-6 col-md-12">
-          <div className="form-group">
-            <label htmlFor="terms">Bank Details <span className="required">*</span> </label> <br/>
-            {/* <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault1"/>
-              <label class="form-check-label" for="flexRadioDefault1">
-               Exwarehouse
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault2" />
-              <label class="form-check-label" for="flexRadioDefault2">
-              FOB
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault3" />
-              <label class="form-check-label" for="flexRadioDefault2">
-              CIF
-              </label>
-            </div> */}
-            {bank_details.map((item, i) => (
-                    <div className="form-check " key={i}>
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="bank"
-                        checked={invoiceInfo.bankDetails?.includes(item.collection)}
-                        value={item.collection}
-                        id="flexCheckDefault"
-                        onChange={handelBankDetailsChange}
-                      />
-                      <strong className="form-check-label" htmlFor="flexCheckDefault">
-                        {item.collection}
-                      </strong>
-                    </div>
-                  ))}
-          </div>
-             {/* 
-              <div>
-                <div style={{ display: "flex", flexDirection: "row" }} className="col-md-12">
-                  {bank_details.map((item, i) => (
-                    <div className="form-check m-3" key={i}>
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="bank"
-                        checked={invoiceInfo.bankDetails?.includes(item.collection)}
-                        value={item.collection}
-                        id="flexCheckDefault"
-                        onChange={handelBankDetailsChange}
-                      />
-                      <label className="form-check-label" htmlFor="flexCheckDefault">
-                        {item.collection}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
-        </div>
+        {pi &&
+          <>
           <div className="col-lg-6 col-md-12">
-          <div className="form-group">
-            <label htmlFor="consignee">Goods delivered in  <span className="required">*</span></label>
-              <div class="input-group ">
-                {/* <span class="input-group-text" id="basic-addon3">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</span> */}
-                 <input type="text" class="form-control" value={deliveryDateState} onBlur={handelDeliveryDateChange}  onChange={(e) => { setDeliveryDateState(e.target.value); }} data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"  /> 
-              </div>
-              <small class="class-secondary">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</small>
+            <div className="form-group">
+              <label htmlFor="terms">Terms Collections <span className="required">*</span> </label> <br/>
+        
+              <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    onChange={handleCollectionChange}
+                    value={terms}
+                  >
+                    <FormControlLabel value="EXWAREHOUSE" control={<Radio />} label="EXWAREHOUSE" />
+                    <FormControlLabel value="FOB" control={<Radio />} label="FOB" />
+                    <FormControlLabel value="CIF" control={<Radio />} label="CIF" />
+            </RadioGroup>
+
+
+
+            </div>
           </div>
-        </div>
-        <div className="col-lg-6 col-md-12">
-          <div className="form-group">
-            <label htmlFor="consignee">Advance Payment <span className="required">*</span></label>
-              {/* <input name="note" className="form-control"  value={invoiceInfo.note} onChange={handleChange} /> */}
-              <div class="input-group ">
-                {/* <span class="input-group-text" id="basic-addon3"> <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</span> */}
-                 <input type="text" class="form-control" value={paymentPercentageState}  onBlur={handelTermsChange}   onChange={(e) => { setPaymentPercentageState(e.target.value);}}  />
+          <div className="col-lg-6 col-md-12">
+            <div className="form-group">
+              <label htmlFor="terms">Bank Details <span className="required">*</span> </label> <br/>
+              {/* <div class="form-check">
+                <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault1"/>
+                <label class="form-check-label" for="flexRadioDefault1">
+                Exwarehouse
+                </label>
               </div>
-              <small class="class-secondary" > Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</small>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault2" />
+                <label class="form-check-label" for="flexRadioDefault2">
+                FOB
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="row-radio-buttons-group"  onChange={handleCollectionChange} id="flexRadioDefault3" />
+                <label class="form-check-label" for="flexRadioDefault2">
+                CIF
+                </label>
+              </div> */}
+              {bank_details.map((item, i) => (
+                      <div className="form-check " key={i}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="bank"
+                          checked={invoiceInfo.bankDetails?.includes(item.collection)}
+                          value={item.collection}
+                          id="flexCheckDefault"
+                          onChange={handelBankDetailsChange}
+                        />
+                        <strong className="form-check-label" htmlFor="flexCheckDefault">
+                          {item.collection}
+                        </strong>
+                      </div>
+                    ))}
+            </div>
+              {/* 
+                <div>
+                  <div style={{ display: "flex", flexDirection: "row" }} className="col-md-12">
+                    {bank_details.map((item, i) => (
+                      <div className="form-check m-3" key={i}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="bank"
+                          checked={invoiceInfo.bankDetails?.includes(item.collection)}
+                          value={item.collection}
+                          id="flexCheckDefault"
+                          onChange={handelBankDetailsChange}
+                        />
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                          {item.collection}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div> */}
           </div>
-        </div>
+          </>
+          }
+          {pi &&
+          <>
+            <div className="col-lg-6 col-md-12">
+            <div className="form-group">
+              <label htmlFor="consignee">Goods delivered in  <span className="required">*</span></label>
+                <div class="input-group ">
+                  {/* <span class="input-group-text" id="basic-addon3">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</span> */}
+                  <input type="text" class="form-control" value={deliveryDateState} onBlur={handelDeliveryDateChange}  onChange={(e) => { setDeliveryDateState(e.target.value); }} data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"  /> 
+                </div>
+                <small class="class-secondary">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</small>
+            </div>
+          </div>
+          <div className="col-lg-6 col-md-12">
+            <div className="form-group">
+              <label htmlFor="consignee">Advance Payment <span className="required">*</span></label>
+                {/* <input name="note" className="form-control"  value={invoiceInfo.note} onChange={handleChange} /> */}
+                <div class="input-group ">
+                  {/* <span class="input-group-text" id="basic-addon3"> <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</span> */}
+                  <input type="text" class="form-control" value={paymentPercentageState}  onBlur={handelTermsChange}   onChange={(e) => { setPaymentPercentageState(e.target.value);}}  />
+                </div>
+                <small class="class-secondary" > Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</small>
+            </div>
+          </div>
+          </>
+          }
       </div>
       </form>
       </div>

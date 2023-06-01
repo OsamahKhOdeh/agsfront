@@ -141,7 +141,7 @@ const PurchaseOrderOrders = () => {
                         </button>
                       ) : item.status === "Rejected" ? (
                         <>
-                          <p style={{ color: "red", padding: 0, margin: 0 }}>{"Rejected"}</p>
+                          <p >{"Rejected"}</p>
                         </>
                       ) : (
                         "Waiting for manager approval"

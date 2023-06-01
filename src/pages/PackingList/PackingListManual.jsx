@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PackingList.css";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { BASE_URL } from "../../api/index.js";
 
 const PackingListManual = () => {
   const { username } = useAuth();
@@ -39,7 +40,7 @@ const PackingListManual = () => {
   const handleSearchPi = async () => {
     // Send the POST request
     await axios
-      .get(`http://localhost:5000/packinglist/infomanual/${piNumber}`)
+      .get(`${BASE_URL}/packinglist/infomanual/${piNumber}`)
       .then(async (response) => {
         // Handle the response data
         setPklInfo(response.data);
@@ -104,7 +105,7 @@ const PackingListManual = () => {
     };
     console.log(pkl);
     await axios
-      .post(`http://localhost:5000/packinglist`, pkl)
+      .post(`${BASE_URL}/packinglist`, pkl)
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error.response.data));
   };
