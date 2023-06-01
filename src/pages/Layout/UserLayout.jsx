@@ -58,7 +58,6 @@ const UserLayout = () => {
     <span  id="btn-back-to-top" className="ags-btn-top" onClick={()=>moveTop()}><i class="uil uil-arrow-circle-up"></i></span>
       <div className={`snippet-body ${isOpen ? "" : ""} `}>
         <header className={`header ${isOpen ? "" : "body-pd"} `} id="header">
-          {/* onClick={()=>setIsoOpen((prev)=>!prev)} */}
           <div
             className="header_toggle"
             onClick={() => setIsoOpen((prev) => !prev)}
