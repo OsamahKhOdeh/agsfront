@@ -116,7 +116,9 @@ const PackingListManual = () => {
     }
   };
 
-  const getTruckProductWarehouseItemQty = (productId, truckIndex, warehouse) => {
+  const getTruckProductWarehouseItemQty = (productId, truckNo, warehouse) => {
+    const truckIndex = truckItems.findIndex((obj) => obj.truckNo === truckNo);
+
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
       const warehouseIndex = truckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
@@ -149,7 +151,8 @@ const PackingListManual = () => {
     return totalQty;
   };
 
-  const setTruckProductWarehouseItemQty = (productId, truckIndex, warehouse, qtyVal) => {
+  const setTruckProductWarehouseItemQty = (productId, truckNo, warehouse, qtyVal) => {
+    const truckIndex = truckItems.findIndex((obj) => obj.truckNo === truckNo);
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
       let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
@@ -247,6 +250,12 @@ const PackingListManual = () => {
       truckTotalPallets: 0,
       truckProductItems: initialTruckProductItems,
     });
+    setTruckItems(updatedTruckItems);
+  };
+
+  const handleRemoveTruck = () => {
+    let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
+    updatedTruckItems.pop();
     setTruckItems(updatedTruckItems);
   };
 
@@ -398,6 +407,9 @@ const PackingListManual = () => {
             <div onClick={handleAddTruck}>
               <i class="uil uil-plus-circle add_truck_but"></i>
             </div>
+            <div onClick={handleRemoveTruck}>
+              <i class="uil uil-minus-circle add_truck_but"></i>
+            </div>
           </div>
 
           {/*   ...........................................................................................................................................*/}
@@ -487,10 +499,10 @@ const PackingListManual = () => {
                               <input
                                 id={truckIndex}
                                 type="text"
-                                value={getTruckProductWarehouseItemQty(product.productId, truckIndex, "all")}
+                                value={getTruckProductWarehouseItemQty(product.productId, truckItem.truckNo, "all")}
                                 onChange={(e) => {
                                   const qtyVal = e.target.value;
-                                  setTruckProductWarehouseItemQty(product.productId, truckIndex, "all", qtyVal);
+                                  setTruckProductWarehouseItemQty(product.productId, truckItem.truckNo, "all", qtyVal);
                                 }}
                               ></input>
                             </div>

@@ -36,22 +36,25 @@ const styles = StyleSheet.create({
     marginLeft: "0",
     marginRight: "0",
   },
-  salesEngineer :{
-    paddingTop : "3px",
-    position: 'relative',
+  salesEngineer: {
+    paddingTop: "3px",
+    position: "relative",
     fontSize: 8,
     top: 3,
     right: 10,
     textAlign: "left",
-    color: '#575454',
+    color: "#575454",
   },
 });
 
-const Invoice = ({ pi, currency , location, usdToAedRate }) => {
+const Invoice = ({ pi, currency, location, usdToAedRate }) => {
   let logo = logo_ags;
   let stamp = ags_stamp;
   console.log(location);
-  if (pi.piInfo.exporter === "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae") {
+  if (
+    pi.piInfo.exporter ===
+    "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
+  ) {
     logo = logo_ajc;
     stamp = ajc_stamp;
   }
@@ -61,10 +64,19 @@ const Invoice = ({ pi, currency , location, usdToAedRate }) => {
         <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="Price List" />
         <InvoiceInfo piInfo={pi.piInfo} />
-        <InvoiceItemsTable products={pi.piProducts} discount={pi.piInfo.discount} location={location} usdToAedRate={usdToAedRate} currency={currency} additions={pi.piInfo.additions} />
-        <InvoiceTerms terms={pi.piInfo.terms}  />     
-        <Text style={styles.salesEngineer} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : {pi.piInfo.employeePhone} </Text>
-
+        <InvoiceItemsTable
+          products={pi.piProducts}
+          discount={pi.piInfo.discount}
+          location={location}
+          usdToAedRate={usdToAedRate}
+          currency={currency}
+          additions={pi.piInfo.additions}
+        />
+        {/* <InvoiceTerms terms={pi.piInfo.terms}  />      */}
+        <Text style={styles.salesEngineer}>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number :{" "}
+          {pi.piInfo.employeePhone}{" "}
+        </Text>
       </Page>
     </Document>
   );
