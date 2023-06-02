@@ -865,7 +865,8 @@ tfoot{
       display: grid !important;
       grid-template-columns: 1fr 1fr;
       .col-lg-6,
-      .col-sm-12{
+      .col-sm-12,
+      .col-12{
         label{
           font-weight: 600;
         }
@@ -878,6 +879,7 @@ tfoot{
       margin: 1rem auto;
       input{
         margin: 0;
+        padding: 8px !important;
       }
       button{
         margin: 5px;
@@ -1185,6 +1187,87 @@ button:disabled{
   height: 45px !important;
   padding-left: 16px;
 }
+.trucks-list{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  .trucks-tittle{
+    padding: 10px ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e5e5e5;
+    h6{
+      margin-bottom:0 ;
+      font-weight: 600;
+      display: flex;
+      // .uil{
+      //   writing-mode: vertical-rl;
+      //   transform: scale(-1, 1);
+      // }
+    }
+    .uil{
+      font-weight: 500;
+      font-size: 1.2rem;
+      writing-mode: vertical-rl;
+      transform: scale(-1, 1);
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    .bx{
+      color: #444;
+    }
+  }
+  .trucks-body{
+    padding: 10px;
+    .truck-item-body{
+      .row{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr  !important;
+        gap: 10px;
+        .col-lg-4{
+          width: 100%;
+          .item{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            .item-tittle{
+              background-color: #efefef;
+              padding: 3px;
+              border-top-left-radius: 4px;
+              border-top-right-radius: 4px;
+              border: 1px solid #efefef;
+              .uil{
+                writing-mode: vertical-rl;
+                transform: scale(-1, 1);
+              }
+              span{
+                font-weight: 600;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+               }
+            }
+            .item-body{
+              padding: 10px;
+              .form-group{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                label{
+                  font-size: 13px;
+                }  
+                input{
+                  padding: 7px;
+                  width: 100%;
+                }            
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 @media screen and (min-width: 768px) {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -1375,9 +1458,9 @@ button:disabled{
       grid-template-columns: 1fr ;
     }
     .search_section{
-      input{
+      input[type=text]{
         margin: 0;
-        padding: 8px;
+        padding: 8px !important;
       }
       button{
         margin: 5px;

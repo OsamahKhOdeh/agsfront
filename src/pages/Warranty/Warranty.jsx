@@ -300,7 +300,6 @@ const Warranty = () => {
               </div>
             </div>
           </div>
-
           <Products filters={filters} searchQuery={searchQuery} />
         </Container>
       </Grow>

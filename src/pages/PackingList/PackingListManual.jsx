@@ -298,15 +298,15 @@ const PackingListManual = () => {
                   <td ><strong>Total NW: </strong> {pklInfo.pklTotalNetWeight}</td>
                   <td><strong>Total Packages: </strong> {pklInfo.pklTotalPackages}</td>
                 </tr> 
+                <tr>
+                  <td ><strong>Truck Payload: </strong> {pklInfo.truckPayload}</td>
+                  <td><strong>Total Trucks: </strong> {pklInfo.totalTrucks}</td>
+                </tr> 
               </tbody>
             </table>
           </div>
 
         {/* Inputs PI Info */}
-
-        <div >
-
-        </div>
 
           {/* <div className="pkl_info">
             <div className="info_row">
@@ -326,8 +326,7 @@ const PackingListManual = () => {
               <div className="val_div">{pklInfo.piEmployee}</div>
             </div>
           </div> */}
-
-          <div style={{ display: "flex" }}>
+          {/* <div style={{ display: "flex" }}>
                 <div className="info_row">
                   <div className="label_div">Total Amount : </div>
                   <div className="val_div">{pklInfo.pklTotalAmount}</div>
@@ -344,11 +343,39 @@ const PackingListManual = () => {
                   <div className="label_div">TOTAL Packages : </div>
                   <div className="val_div"> {pklInfo.pklTotalPackages}</div>
                 </div>
-          </div>
+          </div> */}
 
+          {/* start  Inputs Inofrmation  */}
+          <div className="row">
+            <div className="col-12">
+              <div className="form-group">
+                <label htmlFor="customer">Customer </label>
+                <input type="text" value={customer} onChange={(e) => setCustomer(e.target.value)} />
+              </div>
+            </div>
+            <div className="col-12">
+              <div className="form-group">
+                  <label htmlFor="customer">Buyer Address </label>
+                  <input type="text" value={buyer} onChange={(e) => setBuyer(e.target.value)} />
+              </div>
+            </div>
+            <div className="col-12">
+              <div className="form-group">
+                  <label htmlFor="customer">Invoice No </label>
+                  <input type="text" value={invoiceNo} onChange={(e) => { setInvoiceNo(e.target.value); }} />
+              </div>
+            </div>
+            <div className="col-12">
+              <div className="form-group">
+                  <label htmlFor="customer">PKL Date </label>
+                  <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}}></input>
+              </div>
+            </div>
+          </div>
+          {/* End Inputs Information */}
 
           <div>
-            <div style={{ display: "flex" }}>
+            {/* <div style={{ display: "flex" }}>
               {" "}
               <div className="info_row">
                 <div className="label_div">Customer : </div>
@@ -374,32 +401,194 @@ const PackingListManual = () => {
                   ></input>
                 </div>
               </div>
-            </div>
-            <div className="info_row">
+            </div> */}
+            {/* <div className="info_row">
               <div className="label_div">PKL Date : </div>
               <div className="">
                 <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}}></input>
               </div>
             </div>
             <div>
-              {/* <div className="info_row">
+              <div className="info_row">
                 <div className="label_div">Warehouses : </div>
                 <div className="val_div">{pklInfo.pklWarehouses?.join(" | ")}</div>
-              </div> */}
-              {/* <div className="info_row">
+              </div>
+              <div className="info_row">
                 <div className="label_div">BL : </div>
                 <div className="val_div">{pklInfo.pklBls?.join(" | ")}</div>
-              </div>{" "} */}
-            </div>
+              </div>{" "}
+            </div> */}
           </div>
-          <div className="info_row">
+          {/* <div className="info_row">
             <div className="label_div">Truck Payload : </div>
             <div className="val_div">{pklInfo.truckPayload}</div>
           </div>
           <div className="info_row">
             <div className="label_div">Total Trucks: </div>
             <div className="val_div">{pklInfo.totalTrucks}</div>
-          </div>
+          </div> */}
+             {/* <div className="trucks-list">
+              <div className="trucks-tittle">
+                <h6>
+                <i class="uil uil-truck"></i>
+                 Trucks 12</h6>
+                <span>
+                  <i class="uil uil-plus-circle"></i>
+               </span>
+              </div>
+              <div className="trucks-body">
+                <div className="truck-item">
+                  <div className="truck-item-body">
+                  <div className="row">
+                    <div className="col-lg-4 col-sm-12" >
+                      <div className="item">
+                        <div className="item-tittle">
+                          <span> <i class="uil uil-truck"></i> Truck 1</span>
+                        </div>
+                        <div className="item-body">
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck No</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck Driver</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Driver Mobile</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-12" >
+                      <div className="item">
+                        <div className="item-tittle">
+                          <span> <i class="uil uil-truck"></i> Truck 1</span>
+                        </div>
+                        <div className="item-body">
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck No</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck Driver</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Driver Mobile</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-12" >
+                      <div className="item">
+                        <div className="item-tittle">
+                          <span> <i class="uil uil-truck"></i> Truck 1</span>
+                        </div>
+                        <div className="item-body">
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck No</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck Driver</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Driver Mobile</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-12" >
+                      <div className="item">
+                        <div className="item-tittle">
+                          <span> <i class="uil uil-truck"></i> Truck 1</span>
+                        </div>
+                        <div className="item-body">
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck No</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Truck Driver</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="truck_no">Driver Mobile</label>
+                          <input
+                          type="text"
+                          className="form-control"
+                          value="5"
+                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
+                        />
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
           <div style={{ display: "flex" }}>
             {Array.from({ length: truckItems.length }, (truck, index) => (
               <div key={index} className="truck">
@@ -439,6 +628,9 @@ const PackingListManual = () => {
             <div onClick={handleAddTruck}>
               <i class="uil uil-plus-circle add_truck_but"></i>
             </div>
+
+            
+         
           </div>
 
           {/*   ...........................................................................................................................................*/}

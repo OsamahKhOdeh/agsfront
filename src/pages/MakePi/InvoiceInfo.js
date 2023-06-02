@@ -175,6 +175,7 @@ function InvoiceInfo() {
           <div className="form-group">
             <label htmlFor="exporter">Exporter <span className="required">*</span> </label>
             <select class="form-select " id="exporter" value={invoiceInfo.exporter} name="exporter" onChange={handleChange}>
+              <option disabled selected value="">Choose Exporter </option>
             {exporters.map((exporter) => (
               <option key={exporter.name}  value={exporter.value}>
                 {exporter.name}
@@ -209,6 +210,7 @@ function InvoiceInfo() {
           <div className="form-group">
             <label htmlFor="notify_party">Notify Party <span className="required">*</span></label>
               <select className="form-select" id="notify_party" name="notifyParty" value={invoiceInfo.notifyParty} onChange={handleChange}>
+              <option disabled selected value="">Choose Notify Party </option>
             {notify_partys.map((notifyparty) => (
               <option key={notifyparty.name} value={notifyparty.value}>
                 {notifyparty.name}
@@ -221,6 +223,7 @@ function InvoiceInfo() {
           <div className="form-group">
             <label htmlFor="party_discharge">Party of Discharge <span className="required">*</span></label>
             <select className="form-select" id="notify_party" name="partyOfDischarge" value={invoiceInfo.partyOfDischarge} onChange={handleChange}>
+            <option disabled selected value="">Choose Party of Discharge </option>
             {party_of_discharge.map((notifyparty) => (
               <option key={notifyparty.name} value={notifyparty.value}>
                 {notifyparty.name}
@@ -248,6 +251,7 @@ function InvoiceInfo() {
           <div className="form-group">
             <label htmlFor="final_distenation">Final Distenation <span className="required">*</span></label>
             <select class="form-select " id="exporter" value={invoiceInfo.finalDistination} name="finalDistination" onChange={handleChange}>
+            <option disabled selected value="">Choose Final Distenation </option>
             {final_distination.map((dest) => (
               <option key={dest.name}  value={dest.value}>
                 {dest.name}
@@ -292,7 +296,7 @@ function InvoiceInfo() {
         </div>
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
-            <label htmlFor="consignee">Note</label>
+            <label htmlFor="note">Note</label>
               <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} />
           </div>
         </div>
@@ -384,7 +388,7 @@ function InvoiceInfo() {
           <>
             <div className="col-lg-6 col-md-12">
             <div className="form-group">
-              <label htmlFor="consignee">Goods delivered in  <span className="required">*</span></label>
+              <label htmlFor="goods">Goods delivered in  <span className="required">*</span></label>
                 <div class="input-group ">
                   {/* <span class="input-group-text" id="basic-addon3">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</span> */}
                   <input type="text" class="form-control" value={deliveryDateState} onBlur={handelDeliveryDateChange}  onChange={(e) => { setDeliveryDateState(e.target.value); }} data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"  /> 
@@ -394,7 +398,7 @@ function InvoiceInfo() {
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="form-group">
-              <label htmlFor="consignee">Advance Payment <span className="required">*</span></label>
+              <label htmlFor="payment">Advance Payment <span className="required">*</span></label>
                 {/* <input name="note" className="form-control"  value={invoiceInfo.note} onChange={handleChange} /> */}
                 <div class="input-group ">
                   {/* <span class="input-group-text" id="basic-addon3"> <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</span> */}
