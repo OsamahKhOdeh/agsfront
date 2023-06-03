@@ -351,13 +351,13 @@ const PackingListManual = () => {
             <div className="col-12">
               <div className="form-group">
                 <label htmlFor="customer">Customer </label>
-                <textarea type="text" rows="2" value={customer} onChange={(e) => setCustomer(e.target.value)} > </textarea>
+                <textarea type="text" rows="2" value={customer} className="form-control" onChange={(e) => setCustomer(e.target.value)} > </textarea>
               </div>
             </div>
             <div className="col-12">
               <div className="form-group">
                   <label htmlFor="customer">Buyer Address </label>
-                  <textarea type="text" rows="2" value={buyer} onChange={(e) => setBuyer(e.target.value)} > </textarea>
+                  <textarea type="text" rows="2" className="form-control" value={buyer} onChange={(e) => setBuyer(e.target.value)} > </textarea>
               </div>
             </div>
             <div className="col-12">
@@ -430,7 +430,6 @@ const PackingListManual = () => {
           </div> */}
 
           {/* New design trucks  */}
-
              <div className="trucks-list">
               <div className="trucks-tittle">
                 <h6>
