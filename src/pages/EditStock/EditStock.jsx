@@ -37,7 +37,7 @@ function StockInput(props) {
 
   return (
     <>
-      <input type="text" className="" value={stock || 0} onChange={handleChange} onBlur={handleStockChange}></input>
+      <input type="text" className="" value={stock || 0} onChange={handleChange}  autocomplete="on" onBlur={handleStockChange}></input>
     </>
   );
 }
@@ -99,6 +99,7 @@ function NewBL({ id, property, productCode, brand, capacity }) {
                   onChange={(e) => setQty(e.target.value)}
                   className="bl_val_input bl_qty"
                   type="number"
+                  autocomplete="on"
                   step="any"
                 ></input>{" "}
               </div>
@@ -142,7 +143,7 @@ function NewBL({ id, property, productCode, brand, capacity }) {
             <div className="column_div">
               <div className="header_div">BL/Code</div>
               <div className="value_div">
-                <input value={blCode} onChange={(e) => setBlCode(e.target.value)} className="bl_val_input" type="text"></input>{" "}
+                <input value={blCode} onChange={(e) => setBlCode(e.target.value)}  autocomplete="on" className="bl_val_input" type="text"></input>{" "}
               </div>
             </div>
           )}{" "}
@@ -207,7 +208,7 @@ function MoveToComingForm(props) {
           <div className="column_div">
             <div className="header_div">BL/Code</div>
             <div className="value_div">
-              <input value={blCode} onChange={(e) => setBlCode(e.target.value)} className="bl_val_input" type="text"></input>{" "}
+              <input value={blCode} onChange={(e) => setBlCode(e.target.value)}  autocomplete="on" className="bl_val_input" type="text"></input>{" "}
             </div>
           </div>
           <div className="column_div">

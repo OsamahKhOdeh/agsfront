@@ -11,6 +11,7 @@ function CountryItem(props) {
           type='checkbox'
           checked ={filters.countries.includes(title)}
           class='checkbox-input '
+          autocomplete="on"
           onClick={() => props.onClick(title)}
         />
         <span class='checkbox-tile'>

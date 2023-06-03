@@ -117,9 +117,7 @@ const PackingListManual = () => {
     }
   };
 
-  const getTruckProductWarehouseItemQty = (productId, truckNo, warehouse) => {
-    const truckIndex = truckItems.findIndex((obj) => obj.truckNo === truckNo);
-
+  const getTruckProductWarehouseItemQty = (productId, truckIndex, warehouse) => {
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
       const warehouseIndex = truckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
@@ -152,8 +150,7 @@ const PackingListManual = () => {
     return totalQty;
   };
 
-  const setTruckProductWarehouseItemQty = (productId, truckNo, warehouse, qtyVal) => {
-    const truckIndex = truckItems.findIndex((obj) => obj.truckNo === truckNo);
+  const setTruckProductWarehouseItemQty = (productId, truckIndex, warehouse, qtyVal) => {
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
       let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
@@ -280,6 +277,7 @@ const PackingListManual = () => {
                 onChange={(e) => {
                   setPiNumber(e.target.value);
                 }}
+                autocomplete="on"
               ></input>
             </div>
             <button className="ags-btn-main" onClick={handleSearchPi}>
@@ -380,35 +378,46 @@ const PackingListManual = () => {
           </div> */}
 
               {/* start  Inputs Inofrmation  */}
-              <div className="row">
+              <div className="row inputs-pkl">
                 <div className="col-12">
                   <div className="form-group">
-                    <label htmlFor="customer">Customer </label>
-                    <input type="text" value={customer} onChange={(e) => setCustomer(e.target.value)} />
+                    <label htmlFor="customer">
+                      Customer <span className="required">*</span>
+                    </label>
+                    <textarea type="text" rows="2" value={customer} className="form-control" onChange={(e) => setCustomer(e.target.value)}>
+                      {" "}
+                    </textarea>
                   </div>
                 </div>
                 <div className="col-12">
                   <div className="form-group">
-                    <label htmlFor="customer">Buyer Address </label>
-                    <input type="text" value={buyer} onChange={(e) => setBuyer(e.target.value)} />
+                    <label htmlFor="customer">
+                      Buyer Address <span className="required">*</span>
+                    </label>
+                    <textarea type="text" rows="2" className="form-control" value={buyer} onChange={(e) => setBuyer(e.target.value)}>
+                      {" "}
+                    </textarea>
                   </div>
                 </div>
                 <div className="col-12">
                   <div className="form-group">
-                    <label htmlFor="customer">Invoice No </label>
+                    <label htmlFor="customer">
+                      Invoice No <span className="required">*</span>{" "}
+                    </label>
                     <input
                       type="text"
                       value={invoiceNo}
                       onChange={(e) => {
                         setInvoiceNo(e.target.value);
                       }}
+                      autocomplete="on"
                     />
                   </div>
                 </div>
                 <div className="col-12">
                   <div className="form-group">
                     <label htmlFor="customer">PKL Date </label>
-                    <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}}></input>
+                    <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}} autocomplete="on"></input>
                   </div>
                 </div>
               </div>
@@ -467,434 +476,658 @@ const PackingListManual = () => {
             <div className="label_div">Total Trucks: </div>
             <div className="val_div">{pklInfo.totalTrucks}</div>
           </div> */}
-              {/* <div className="trucks-list">
-              <div className="trucks-tittle">
-                <h6>
-                <i class="uil uil-truck"></i>
-                 Trucks 12</h6>
-                <span>
-                  <i class="uil uil-plus-circle"></i>
-               </span>
-              </div>
-              <div className="trucks-body">
-                <div className="truck-item">
-                  <div className="truck-item-body">
-                  <div className="row">
-                    <div className="col-lg-4 col-sm-12" >
-                      <div className="item">
-                        <div className="item-tittle">
-                          <span> <i class="uil uil-truck"></i> Truck 1</span>
-                        </div>
-                        <div className="item-body">
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck No</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck Driver</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Driver Mobile</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-sm-12" >
-                      <div className="item">
-                        <div className="item-tittle">
-                          <span> <i class="uil uil-truck"></i> Truck 1</span>
-                        </div>
-                        <div className="item-body">
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck No</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck Driver</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Driver Mobile</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-sm-12" >
-                      <div className="item">
-                        <div className="item-tittle">
-                          <span> <i class="uil uil-truck"></i> Truck 1</span>
-                        </div>
-                        <div className="item-body">
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck No</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck Driver</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Driver Mobile</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-sm-12" >
-                      <div className="item">
-                        <div className="item-tittle">
-                          <span> <i class="uil uil-truck"></i> Truck 1</span>
-                        </div>
-                        <div className="item-body">
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck No</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Truck Driver</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="truck_no">Driver Mobile</label>
-                          <input
-                          type="text"
-                          className="form-control"
-                          value="5"
-                          onChange={(event) => handleTruckInputChange(event, 0, "truckNo")}
-                        />
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-              <div style={{ display: "flex" }}>
-                {Array.from({ length: truckItems.length }, (truck, index) => (
-                  <div key={index} className="truck">
-                    <div className="truck_no">Truck {index + 1}</div>
-                    <div className="info_row">
-                      <div className="label_div">Truck No : </div>
-                      <div className="">
-                        <input
-                          type="text"
-                          value={truckItems[index].truckNo}
-                          onChange={(event) => handleTruckInputChange(event, index, "truckNo")}
-                        ></input>
-                      </div>
-                    </div>{" "}
-                    <div className="info_row">
-                      <div className="label_div">Truck Driver : </div>
-                      <div className="">
-                        <input
-                          type="text"
-                          value={truckItems[index].truckDriverName}
-                          onChange={(event) => handleTruckInputChange(event, index, "truckDriverName")}
-                        ></input>
-                      </div>
-                    </div>{" "}
-                    <div className="info_row">
-                      <div className="label_div">Driver Mob/Tel : </div>
-                      <div className="">
-                        <input
-                          type="text"
-                          value={truckItems[index].truckDriverTel}
-                          onChange={(event) => handleTruckInputChange(event, index, "truckDriverTel")}
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                <div onClick={handleAddTruck}>
-                  <i class="uil uil-plus-circle add_truck_but"></i>
-                </div>
 
-                <div onClick={handleRemoveTruck}>
-                  <i class="uil uil-minus-circle add_truck_but"></i>
+              {/* New design trucks  */}
+              <div className="trucks-list">
+                <div className="trucks-tittle">
+                  <h6>
+                    <i class="uil uil-truck"></i>
+                    {/* <i className="bx  bx bxs-truck nav_logo-icon"></i> */}
+                    Trucks
+                  </h6>
+                  <span>
+                    {" "}
+                    {truckItems.length > 1 && <i onClick={handleRemoveTruck} class="uil uil-minus-circle add_truck_but"></i>}
+                    <i onClick={handleAddTruck} class="uil uil-plus-circle"></i>
+                  </span>
+                </div>
+                <div className="trucks-body">
+                  <div className="truck-item">
+                    <div className="truck-item-body">
+                      <div className="row">
+                        {Array.from({ length: truckItems.length }, (truck, index) => (
+                          <div className="col-lg-4 col-sm-12">
+                            <div className="item" key={index}>
+                              <div className="item-tittle">
+                                <span>
+                                  {" "}
+                                  <i class="uil uil-truck"></i> Truck {index + 1}
+                                </span>
+                              </div>
+                              <div className="item-body">
+                                <div className="form-group">
+                                  <label htmlFor="truck_no">Truck No</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={truckItems[index].truckNo}
+                                    onChange={(event) => handleTruckInputChange(event, index, "truckNo")}
+                                    autocomplete="on"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="truck_no">Truck Driver</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={truckItems[index].truckDriverName}
+                                    onChange={(event) => handleTruckInputChange(event, index, "truckDriverName")}
+                                    autocomplete="on"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="truck_no">Driver Mobile</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={truckItems[index].truckDriverTel}
+                                    onChange={(event) => handleTruckInputChange(event, index, "truckDriverTel")}
+                                    autocomplete="on"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              {/* Old design trucks  */}
+              {/* <div style={{ display: "flex" }}>
+            {Array.from({ length: truckItems.length }, (truck, index) => (
+              <div key={index} className="truck">
+                <div className="truck_no">Truck {index + 1}</div>
+                <div className="info_row">
+                  <div className="label_div">Truck No : </div>
+                  <div className="">
+                    <input
+                      type="text"
+                      value={truckItems[index].truckNo}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckNo")}
+                    ></input>
+                  </div>
+                </div>{" "}
+                <div className="info_row">
+                  <div className="label_div">Truck Driver : </div>
+                  <div className="">
+                    <input
+                      type="text"
+                      value={truckItems[index].truckDriverName}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverName")}
+                    ></input>
+                  </div>
+                </div>{" "}
+                <div className="info_row">
+                  <div className="label_div">Driver Mob/Tel : </div>
+                  <div className="">
+                    <input
+                      type="text"
+                      value={truckItems[index].truckDriverTel}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverTel")}
+                    ></input>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div onClick={handleAddTruck}>
+              <i class="uil uil-plus-circle add_truck_but"></i>
+            </div>
+
+            
+         
+          </div> */}
               {/*   ...........................................................................................................................................*/}
 
-              <div>
+              {/* first tabel for desktop  */}
+              <div className="desktop-table">
                 <table className="pi__table table table-bordered pkl-table">
                   <thead>
                     <tr className="th_style">
+                      {/* <th scope="col">
+                    <div >#</div>
+                  </th> */}
                       <th scope="col">
-                        <div className="th_cell_div">#</div>
+                        <div>Description</div>
                       </th>
                       <th scope="col">
-                        <div className="th_cell_div">Description</div>
+                        <div>Pallet</div>
                       </th>
-
+                      {/* <th scope="col">
+                    <div >Unit NW</div>
+                  </th>
+                  <th scope="col">
+                    <div >NW(KGs)</div>
+                  </th> */}
                       <th scope="col">
-                        <div className="th_cell_div">Pallet</div>
-                      </th>
-                      <th scope="col">
-                        <div className="th_cell_div">Unit NW</div>
-                      </th>
-                      <th scope="col">
-                        <div className="th_cell_div">NW(KGs)</div>
-                      </th>
-                      <th scope="col">
-                        <div className="th_cell_div">Unit GW</div>
+                        <div>Unit GW</div>
                       </th>
                       <th scope="col">
-                        <div className="th_cell_div">GW(KGs)</div>
+                        <div>GW(KGs)</div>
                       </th>
                       <th scope="col">
-                        <div className="th_cell_div">Unite price</div>
+                        <div>Unite price</div>
                       </th>
-                      <th scope="col">
-                        <div className="th_cell_div">Total</div>
-                      </th>
+                      {/* <th scope="col">
+                    <div >Total</div>
+                  </th> */}
                       {truckItems.map((truck, index) => (
-                        <th key={index}>Truck No :{truck.truckNo}</th>
+                        <th key={index}>Truck No {truck.truckNo}</th>
                       ))}
                       <th scope="col">
-                        <div className="th_cell_div">QTY(PCs)</div>
+                        <div>QTY(PCs)</div>
                       </th>
                       <th scope="col">
-                        <div className="th_cell_div">Remaining</div>
+                        <div>Remaining</div>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {pklInfo?.pklProducts?.map((product, productIndex) => (
                       <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
+                        {/* <td>
+                      <div style={{ fontWeight: "bold" }} c>
+                        {productIndex + 1}
+                      </div>
+                    </td> */}
                         <td>
-                          <div style={{ fontWeight: "bold" }} className="td_padding">
-                            {productIndex + 1}
-                          </div>
-                        </td>
-                        <td>
-                          <div className="td_padding employee_cell">{product.description}</div>
+                          <div>{product.description}</div>
                         </td>
 
                         <td>
-                          <div className="td_padding customer_cell">{product.pallet}</div>
+                          <div>{product.pallet}</div>
+                        </td>
+                        {/* <td>
+                      <div c>{product.netWeight?.toFixed(2)}</div>
+                    </td>
+                    <td>
+                      <div c>{product.totalNetWeight?.toFixed(2)}</div>
+                    </td> */}
+                        <td>
+                          <div c>{product.grossWeight?.toFixed(2)}</div>
                         </td>
                         <td>
-                          <div className="td_padding">{product.netWeight?.toFixed(2)}</div>
+                          <div c>{product.totalGrossWeight?.toFixed(2)}</div>
                         </td>
                         <td>
-                          <div className="td_padding">{product.totalNetWeight?.toFixed(2)}</div>
+                          <div c>{product.price?.toFixed(2)}</div>
                         </td>
-                        <td>
-                          <div className="td_padding">{product.grossWeight?.toFixed(2)}</div>
-                        </td>
-                        <td>
-                          <div className="td_padding">{product.totalGrossWeight?.toFixed(2)}</div>
-                        </td>
-                        <td>
-                          <div className="td_padding">{product.price?.toFixed(2)}</div>
-                        </td>
-                        <td>
-                          <div className="td_padding">{product.totalAmount?.toFixed(2)}</div>
-                        </td>
+                        {/* <td>
+                      <div c>{product.totalAmount?.toFixed(2)}</div>
+                    </td> */}
                         {truckItems.map((truckItem, truckIndex) => (
                           <td key={truckIndex}>
-                            <div className="warehouses">
-                              <div className="warehouse_bl_item" style={{ flex: 1 }}>
-                                <div className="warehouse_bl_item_qty">
-                                  {" "}
-                                  <input
-                                    id={truckIndex}
-                                    type="text"
-                                    value={getTruckProductWarehouseItemQty(product.productId, truckItem.truckNo, "all")}
-                                    onChange={(e) => {
-                                      const qtyVal = e.target.value;
-                                      setTruckProductWarehouseItemQty(product.productId, truckItem.truckNo, "all", qtyVal);
-                                    }}
-                                  ></input>
-                                </div>
-                              </div>
+                            <div className="">
+                              <input
+                                id={truckIndex}
+                                type="text"
+                                value={getTruckProductWarehouseItemQty(product.productId, truckIndex, "all")}
+                                onChange={(e) => {
+                                  const qtyVal = e.target.value;
+                                  setTruckProductWarehouseItemQty(product.productId, truckIndex, "all", qtyVal);
+                                }}
+                                autocomplete="on"
+                              />
+                              {/* <div className="warehouse_bl_item" style={{ flex: 1 }}>
+                            <div className="warehouse_bl_item_qty">
+                              {" "}
+                              <input
+                                id={truckIndex}
+                                type="text"
+                                value={getTruckProductWarehouseItemQty(product.productId, truckIndex, "all")}
+                                onChange={(e) => {
+                                  const qtyVal = e.target.value;
+                                  setTruckProductWarehouseItemQty(product.productId, truckIndex, "all", qtyVal);
+                                }}
+                              />
+                            </div>
+                          </div> */}
                             </div>
                           </td>
                         ))}
                         <td>
-                          <div className="td_padding">{product.qty}</div>
+                          <div c>{product.qty}</div>
                         </td>
                         <td>
-                          <div className="td_padding">{product.qty - getTotalProductQtyInWarehouse(product.productId, "all")}</div>
+                          <div c>{product.qty - getTotalProductQtyInWarehouse(product.productId, "all")}</div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+              {/* first table for mobile  */}
               <div>
-                {console.log(truckItems)}
-                {truckItems.map((truckItem, index) => (
-                  <div className="truck" key={index}>
-                    <div>
-                      <div className="pkl_info">
-                        <div className="info_row">
-                          <div className="label_div">Truck No : </div>
-                          <div className="val_div">{truckItem.truckNo}</div>
+                <div className="truck-table-mobile">
+                  {pklInfo?.pklProducts?.map((product, productIndex) => (
+                    <div className="wrapper-truck">
+                      <div className="wrapper-tittle">
+                        <h6>Product</h6>
+                        <span>{productIndex + 1}</span>
+                      </div>
+                      <div className="wrapper">
+                        <div className="box">
+                          <h6>Description</h6>
+                          <span>{product.description}</span>
                         </div>
-                        <div className="info_row">
-                          <div className="label_div">Truck Driver : </div>
-                          <div className="val_div">{truckItem.truckDriverName}</div>
+                        <div className="box">
+                          <h6>Pallet</h6>
+                          <span>{product.pallet}</span>
+                        </div>
+                        <div className="box">
+                          <h6>Unit GW</h6>
+                          <span>{product.grossWeight?.toFixed(2)}</span>
+                        </div>
+                        <div className="box">
+                          <h6>GW(KGs)</h6>
+                          <span>{product.totalGrossWeight?.toFixed(2)}</span>
+                        </div>
+                        <div className="box">
+                          <h6>Unite price</h6>
+                          <span>{product.price?.toFixed(2)}</span>
+                        </div>
+                        {truckItems.map((truckItem, truckIndex) => (
+                          <div className="box" key={truckIndex}>
+                            <h6>Truck No {truckItem.truckNo}</h6>
+                            <input
+                              id={truckIndex}
+                              type="text"
+                              value={getTruckProductWarehouseItemQty(product.productId, truckIndex, "all")}
+                              onChange={(e) => {
+                                const qtyVal = e.target.value;
+                                setTruckProductWarehouseItemQty(product.productId, truckIndex, "all", qtyVal);
+                              }}
+                              autocomplete="on"
+                            />
+                          </div>
+                        ))}
+                        <div className="box">
+                          <h6>QTY(PCs)</h6>
+                          <span>{product.qty}</span>
+                        </div>
+                        <div className="box">
+                          <h6>Remaining</h6>
+                          <span>{product.qty - getTotalProductQtyInWarehouse(product.productId, "all")}</span>
                         </div>
                       </div>
                     </div>
-                    <table className="pi__table table table-bordered">
-                      <thead>
-                        <tr className="th_style">
-                          <th scope="col">
-                            <div className="th_cell_div">#</div>
-                          </th>
-                          <th scope="col">
-                            <div className="th_cell_div">Description</div>
-                          </th>
-                          <th scope="col">
-                            <div className="th_cell_div">QTY(PCs)</div>
-                          </th>
-                          <th scope="col">
-                            <div className="th_cell_div">Pallet</div>
-                          </th>
+                  ))}
+                </div>
+              </div>
 
-                          <th scope="col">
-                            <div className="th_cell_div">NW(KGs)</div>
-                          </th>
-
-                          <th scope="col">
-                            <div className="th_cell_div">GW(KGs)</div>
-                          </th>
-
-                          <th scope="col">
-                            <div className="th_cell_div">Total</div>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {truckItem.truckProductItems.map((product, productIndex) => (
-                          <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
-                            <td>
-                              <div style={{ fontWeight: "bold" }} className="td_padding">
-                                {productIndex + 1}
-                              </div>
-                            </td>
-                            <td>
-                              <div className="td_padding employee_cell">{product.productDescription}</div>
-                            </td>
-                            <td>
-                              <div className="td_padding">{product.productQty}</div>
-                            </td>
-                            <td>
-                              <div className="td_padding customer_cell">{product.productPalletQty}</div>
-                            </td>
-
-                            <td>
-                              <div className="td_padding">{product.productTotalNetWeight?.toFixed(2)}</div>
-                            </td>
-
-                            <td>
-                              <div className="td_padding">{product.productTotalGrossWeight?.toFixed(2)}</div>
-                            </td>
-
-                            <td>
-                              <div className="td_padding">{product.productTotalAmount?.toFixed(2)}</div>
-                            </td>
+              {/* Truck lists from desktop  */}
+              <div className="desktop-table">
+                {truckItems.map((truckItem, index) => (
+                  <div className="truck-item-desktop ">
+                    <div className="tuck-item-tittle-desktop">
+                      <div>
+                        <label>
+                          {" "}
+                          <i class="uil uil-truck"></i> Truck No:
+                        </label>
+                        <span>{truckItem.truckNo}</span>
+                      </div>
+                      <div>
+                        <label>Truck Driver:</label>
+                        <span>{truckItem.truckDriverName}</span>
+                      </div>
+                    </div>
+                    <div className="tuck-item-body-desktop">
+                      <table className="pi__table table table-bordered">
+                        <thead>
+                          <tr className="th_style">
+                            <th scope="col">
+                              <div>#</div>
+                            </th>
+                            <th scope="col">
+                              <div>Description</div>
+                            </th>
+                            <th scope="col">
+                              <div>QTY(PCs)</div>
+                            </th>
+                            <th scope="col">
+                              <div>Pallet</div>
+                            </th>
+                            <th scope="col">
+                              <div>NW(KGs)</div>
+                            </th>
+                            <th scope="col">
+                              <div>GW(KGs)</div>
+                            </th>
+                            <th scope="col">
+                              <div>Total</div>
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <div>
-                      <div className="pkl_info">
-                        <div className="info_row">
-                          <div className="label_div">NetWeight : </div>
-                          <div className="val_div">{truckItem.truckNetWeight}</div>
+                        </thead>
+                        <tbody>
+                          {truckItem.truckProductItems.map((product, productIndex) => (
+                            <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
+                              <td>
+                                <div style={{ fontWeight: "bold" }} c>
+                                  {productIndex + 1}
+                                </div>
+                              </td>
+                              <td>
+                                <div>{product.productDescription}</div>
+                              </td>
+                              <td>
+                                <div c>{product.productQty}</div>
+                              </td>
+                              <td>
+                                <div>{product.productPalletQty}</div>
+                              </td>
+
+                              <td>
+                                <div c>{product.productTotalNetWeight?.toFixed(2)}</div>
+                              </td>
+
+                              <td>
+                                <div c>{product.productTotalGrossWeight?.toFixed(2)}</div>
+                              </td>
+
+                              <td>
+                                <div c>{product.productTotalAmount?.toFixed(2)}</div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <div className="row-bl">
+                        <div>
+                          <label>BL</label>
                         </div>
-                        <div className="info_row">
-                          <div className="label_div">GrossWeight: </div>
-                          <div className="val_div">{truckItem.truckGrossWeight}</div>
-                        </div>
-                        <div className="info_row">
-                          <div className="label_div">Packages : </div>
-                          <div className="val_div">{truckItem.truckTotalPackages}</div>
+                        <div>
+                          <input
+                            type="text"
+                            value={truckItems[index].truckBls}
+                            onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                            autocomplete="on"
+                          />
                         </div>
                       </div>
+                      {/* <div className="truck" key={index}>
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">Truck No : </div>
+                      <div className="val_div">{truckItem.truckNo}</div>
                     </div>
                     <div className="info_row">
-                      <div className="label_div">BL : </div>
-                      <div style={{ width: "100%" }}>
-                        <input
-                          type="text"
-                          value={truckItems[index].truckBls}
-                          onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                        ></input>
+                      <div className="label_div">Truck Driver : </div>
+                      <div className="val_div">{truckItem.truckDriverName}</div>
+                    </div>
+                  </div>
+                </div>
+              
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">NetWeight : </div>
+                      <div className="val_div">{truckItem.truckNetWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">GrossWeight: </div>
+                      <div className="val_div">{truckItem.truckGrossWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Packages : </div>
+                      <div className="val_div">{truckItem.truckTotalPackages}</div>
+                    </div>
+                  </div>
+                </div>
+            
+              </div> */}
+                    </div>
+                    <div className="tuck-item-footer-desktop">
+                      <div>
+                        <label>Net Weight:</label>
+                        <span>{truckItem.truckNetWeight}</span>
                       </div>
-                    </div>{" "}
+                      <div>
+                        <label>Gross Weight:</label>
+                        <span>{truckItem.truckGrossWeight}</span>
+                      </div>
+                      <div>
+                        <label> Packages:</label>
+                        <span>{truckItem.truckTotalPackages}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {/* {truckItems.map((truckItem, index) => (
+              <div className="truck" key={index}>
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">Truck No : </div>
+                      <div className="val_div">{truckItem.truckNo}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Truck Driver : </div>
+                      <div className="val_div">{truckItem.truckDriverName}</div>
+                    </div>
+                  </div>
+                </div>
+                <table className="pi__table table table-bordered">
+                  <thead>
+                    <tr className="th_style">
+                      <th scope="col">
+                        <div >#</div>
+                      </th>
+                      <th scope="col">
+                        <div >Description</div>
+                      </th>
+                      <th scope="col">
+                        <div >QTY(PCs)</div>
+                      </th>
+                      <th scope="col">
+                        <div >Pallet</div>
+                      </th>
+                      <th scope="col">
+                        <div >NW(KGs)</div>
+                      </th>
+                      <th scope="col">
+                        <div >GW(KGs)</div>
+                      </th>
+                      <th scope="col">
+                        <div >Total</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {truckItem.truckProductItems.map((product, productIndex) => (
+                      <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
+                        <td>
+                          <div style={{ fontWeight: "bold" }} c>
+                            {productIndex + 1}
+                          </div>
+                        </td>
+                        <td>
+                          <div >{product.productDescription}</div>
+                        </td>
+                        <td>
+                          <div c>{product.productQty}</div>
+                        </td> 
+                        <td>
+                          <div >{product.productPalletQty}</div>
+                        </td>
+
+                        <td>
+                          <div c>{product.productTotalNetWeight?.toFixed(2)}</div>
+                        </td>
+
+                        <td>
+                          <div c>{product.productTotalGrossWeight?.toFixed(2)}</div>
+                        </td>
+
+                        <td>
+                          <div c>{product.productTotalAmount?.toFixed(2)}</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">NetWeight : </div>
+                      <div className="val_div">{truckItem.truckNetWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">GrossWeight: </div>
+                      <div className="val_div">{truckItem.truckGrossWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Packages : </div>
+                      <div className="val_div">{truckItem.truckTotalPackages}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="info_row">
+                  <div className="label_div">BL : </div>
+                  <div style={{ width: "100%" }}>
+                    <input
+                      type="text"
+                      value={truckItems[index].truckBls}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                    ></input>
+                  </div>
+                </div>
+              </div>
+            ))} */}
+              </div>
+
+              {/* trucks list for mobile  */}
+              <div>
+                {truckItems.map((truckItem, index) => (
+                  <div className="truck-item-table-mobile">
+                    <div className="wrapper-truck">
+                      <div className="wrapper-tittle">
+                        <h6> {truckItem.truckNo}</h6>
+                        <span>{truckItem.truckDriverName}</span>
+                      </div>
+                      {truckItem.truckProductItems.map((product, productIndex) => (
+                        <>
+                          {/* <div className="item-wrapper-tittle">
+                    <h6>Product {productIndex }</h6>
+                  </div> */}
+                          <div className="wrapper">
+                            <div className="box">
+                              <h6>Description</h6>
+                              <span>{product.productDescription}</span>
+                            </div>
+                            <div className="box">
+                              <h6>QTY(PCs)</h6>
+                              <span>{product.productQty}</span>
+                            </div>
+                            <div className="box">
+                              <h6>Pallet</h6>
+                              <span>{product.productPalletQty}</span>
+                            </div>
+                            <div className="box">
+                              <h6>NW(KGs)</h6>
+                              <span>{product.productTotalNetWeight?.toFixed(2)}</span>
+                            </div>
+                            <div className="box">
+                              <h6>GW(KGs)</h6>
+                              <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
+                            </div>
+                            <div className="box">
+                              <h6>Total </h6>
+                              <span>{product.productTotalAmount?.toFixed(2)}</span>
+                            </div>
+                            {/* <div className="box">
+                      <h6>GrossWeight</h6>
+                      <span>0000</span>
+                    </div>
+                    <div className="box">
+                      <h6>Packages</h6>
+                      <span>0000</span>
+                    </div>
+                    <div className="box" >
+                      <h6>BL</h6>
+                      <input type="text" value="0"    />
+                    </div> */}
+                          </div>
+                        </>
+                      ))}
+                      <div className="wrapper-footer">
+                        <div className="box">
+                          <h6>NetWeight</h6>
+                          <span>{truckItem.truckNetWeight}</span>
+                        </div>
+
+                        <div className="box">
+                          <h6>GrossWeight</h6>
+                          <span>{truckItem.truckGrossWeight}</span>
+                        </div>
+                        <div className="box">
+                          <h6>Packages</h6>
+                          <span>{truckItem.truckTotalPackages}</span>
+                        </div>
+                        <div className="box">
+                          <h6>BL</h6>
+                          <input
+                            type="text"
+                            value={truckItems[index].truckBls}
+                            onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                            autocomplete="on"
+                          />
+                        </div>
+                        {/* <div className="wrapper-tittle">
+                  <div>
+                  <div className="pkl_info">
+                    <div className="info_row">
+                      <div className="label_div">NetWeight : </div>
+                      <div className="val_div">{truckItem.truckNetWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">GrossWeight: </div>
+                      <div className="val_div">{truckItem.truckGrossWeight}</div>
+                    </div>
+                    <div className="info_row">
+                      <div className="label_div">Packages : </div>
+                      <div className="val_div">{truckItem.truckTotalPackages}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="info_row">
+                  <div className="label_div">BL : </div>
+                  <div style={{ width: "100%" }}>
+                    <input
+                      type="text"
+                      value={truckItems[index].truckBls}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                    ></input>
+                  </div>
+                </div>
+                </div> */}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
+
+              <div className="item"></div>
             </>
           )}
-          {/* <button className="btn btn-danger danger" onClick={handleNextClick}>
-        Next
-      </button> */}
+          <div className="text-right">
+            <button className="btn btn-danger danger" onClick={handleNextClick}>
+              Next
+            </button>
+          </div>
           {/* </div> */}
         </div>
       </div>

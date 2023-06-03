@@ -68,7 +68,7 @@ function UploadPdf({ pi, setLoading }) {
     <>
       <ToastContainer />
       <form onSubmit={handleSubmit}>
-        <input id="pi_upload" style={{ width: "100px" }} type="file" accept="application/pdf" onChange={handleFileChange} />
+        <input id="pi_upload" style={{ width: "100px" }} type="file" accept="application/pdf" onChange={handleFileChange}  autocomplete="on"/>
         <button
           className={pdfFile ? `button_edit_pdf button_edit is_file` : `button_edit_pdf button_edit no_file`}
           type="submit"

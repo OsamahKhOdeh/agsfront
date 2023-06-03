@@ -121,6 +121,7 @@ const TablePage = () => {
                       type="text"
                       className="form-control w-75"
                       value={newPrice[index]?.toFixed(3)}
+                      autocomplete="on"
                       onChange={(e) => {
                         let newPriceArray = [...newPrice];
                         newPriceArray[index] = e.target.value;
@@ -145,6 +146,7 @@ const TablePage = () => {
                       type="number"
                       className="form-control w-75"
                       value={quantities[index]}
+                      autocomplete="on"
                       onBlur={() => {
                         dispatch(setProductQty({ id: item._id, qty: quantities[index] }));
                       }}
@@ -229,6 +231,7 @@ const TablePage = () => {
                       type="text"
                       className="form-control w-75"
                       value={newPrice[index]?.toFixed(3)}
+                      autocomplete="on"
                       onChange={(e) => {
                         let newPriceArray = [...newPrice];
                         newPriceArray[index] = e.target.value;
@@ -265,6 +268,7 @@ const TablePage = () => {
                           type="text"
                           className="form-control w-75"
                           value={quantities[index]}
+                          autocomplete="on"
                           onBlur={() => {
                             dispatch(setProductQty({ id: item._id, qty: quantities[index] }));
                           }}
@@ -344,10 +348,10 @@ const TablePage = () => {
                 </button>
               </div>
               <div class="modal-body">
-                <div>
+                <div className="modal-data-summary">
                   <div className="form-group">
                     <strong>Total Weight : </strong>
-                    <span>{totalWeight?.toFixed(3)} Kg</span>
+                    <span> {totalWeight?.toFixed(3)} Kg</span>
                   </div>
                   <div className="form-group">
                     <strong>Total Invoice : </strong>

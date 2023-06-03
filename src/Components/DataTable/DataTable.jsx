@@ -28,7 +28,7 @@ const DataTable = () => {
               <tr>
                 <th>
                   <span class="custom-checkbox">
-                    <input type="checkbox" id="selectAll" />
+                    <input type="checkbox" id="selectAll" autocomplete="on" />
                     <label for="selectAll"></label>
                   </span>
                 </th>
@@ -43,7 +43,7 @@ const DataTable = () => {
               <tr>
                 <td>
                   <span class="custom-checkbox">
-                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                    <input type="checkbox" id="checkbox1" name="options[]" value="1" autocomplete="on" />
                     <label for="checkbox1"></label>
                   </span>
                 </td>

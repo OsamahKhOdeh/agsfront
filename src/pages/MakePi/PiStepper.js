@@ -26,7 +26,7 @@ const steps = ["Select Products", "Select PI Information", "Make and Download PI
 
 export default function PiStepper() {
   const piInfo = useSelector((state) => state.pi.piInfo);
-  const piProducts = useSelector((state) => state.pi.piProducts);  
+  const piProducts = useSelector((state) => state.pi.piProducts);
   const cart = useSelector((state) => state.cart.cart);
 
   const isLoading = useSelector((state) => state.show.isLoading);
@@ -44,7 +44,8 @@ export default function PiStepper() {
     piInfo.partyOfDischarge &&
     piInfo.notifyParty &&
     piInfo.terms.length > 0 &&
-    piInfo.bankDetails
+    piInfo.bankDetails &&
+    piInfo.phoneNumber
   ) {
     canNext = true;
   }
@@ -120,7 +121,7 @@ export default function PiStepper() {
                     Send
                   </Button>
                 ) : (
-                  <Button variant="contained" disabled={cart.length === 0 } onClick={handleNext}>
+                  <Button variant="contained" disabled={cart.length === 0} onClick={handleNext}>
                     {" "}
                     Next
                   </Button>
@@ -143,20 +144,26 @@ export default function PiStepper() {
                   position: "absolute",
                   right: "136px",
                 }}
-              > */} 
-        
-                <div className="buttons-add-pi">
-                    <button className="ags-btn-main"  onClick={handleBack}>  Back </button> 
-                    {activeStep === steps.length - 1 ? (
-                      <Button disabled={!canNext} variant="contained" onClick={handleNext}>
-                        {" "}
-                        Send
-                      </Button>
-                    ) : (
-                    <button className="ags-btn-main-fill" disabled={!canNext}  onClick={handleNext}>  Next </button> 
-                    )}
-                </div>
-              
+              > */}
+
+              <div className="buttons-add-pi">
+                <button className="ags-btn-main" onClick={handleBack}>
+                  {" "}
+                  Back{" "}
+                </button>
+                {activeStep === steps.length - 1 ? (
+                  <Button disabled={!canNext} variant="contained" onClick={handleNext}>
+                    {" "}
+                    Send
+                  </Button>
+                ) : (
+                  <button className="ags-btn-main-fill" disabled={!canNext} onClick={handleNext}>
+                    {" "}
+                    Next{" "}
+                  </button>
+                )}
+              </div>
+
               {/* </Box> */}
             </>
           )}
@@ -164,18 +171,26 @@ export default function PiStepper() {
             <>
               <SuccessPage />
               <div className="buttons-add-pi">
-                    <button className="ags-btn-main" disabled={activeStep === 0} onClick={handleBack}>  Back </button> 
-                    {activeStep === steps.length - 1 ? (
-                      // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
-                      //   Send
-                      // </Button>
-                      
-                      <button className="ags-btn-main-fill"  disabled={!canNext}  onClick={handleNext}>  Send  </button> 
+                <button className="ags-btn-main" disabled={activeStep === 0} onClick={handleBack}>
+                  {" "}
+                  Back{" "}
+                </button>
+                {activeStep === steps.length - 1 ? (
+                  // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
+                  //   Send
+                  // </Button>
 
-                    ) : (
-                    <button className="ags-btn-main-fill"  disabled={!canNext} variant="contained" onClick={handleNext}>  Next </button> 
-                    )}
-                </div>
+                  <button className="ags-btn-main-fill" disabled={!canNext} onClick={handleNext}>
+                    {" "}
+                    Send{" "}
+                  </button>
+                ) : (
+                  <button className="ags-btn-main-fill" disabled={!canNext} variant="contained" onClick={handleNext}>
+                    {" "}
+                    Next{" "}
+                  </button>
+                )}
+              </div>
               {/* <Box
                 sx={{
                   display: "flex",

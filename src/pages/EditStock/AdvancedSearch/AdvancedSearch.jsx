@@ -49,7 +49,7 @@ function AdvancedSearch({ closeModal, modalIsOpen, products, setFilteredProducts
         <div className="label_div"> To : </div>
         <ReactDatePicker className="date_picker_style" showIcon selected={endDate} onChange={(date) => setEndDate(date)} />{" "}
       </div>
-      <input type="text" className="new_task_text" placeholder="add new Project here" onChange={(e) => console.log(e.target.value)}></input>
+      <input type="text" className="new_task_text" placeholder="add new Project here"  autocomplete="on" onChange={(e) => console.log(e.target.value)}/>
       <div className="add_proj" onClick={() => applyDateRangeFilter(products)}>
         Show Results{" "}
       </div>

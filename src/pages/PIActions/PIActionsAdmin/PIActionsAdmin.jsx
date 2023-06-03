@@ -249,7 +249,7 @@ const PIActionsAdmin = () => {
                 <label for="rej_msg">
                   <b>Rejection message</b>
                 </label>
-                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg" />
+                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg" autocomplete="on" />
                 <button type="submit" class="btn">
                   Send
                 </button>
@@ -403,6 +403,7 @@ const PIActionsAdmin = () => {
                     </td>
                     <td>
                       <div
+                        style={{ fontSize: "20px" }}
                         className={`status-table-label ${colorByStatus(
                           roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
                         )}`}

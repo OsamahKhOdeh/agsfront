@@ -61,6 +61,7 @@ const NewUser = () => {
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
+                autocomplete="on"
               />
             </div>
         </div>
@@ -76,6 +77,7 @@ const NewUser = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              autocomplete="on"
             />
             </div>
         </div>
@@ -91,6 +93,7 @@ const NewUser = () => {
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
+              autocomplete="on"
             />
             </div>
         </div>
@@ -105,6 +108,7 @@ const NewUser = () => {
               onChange={(e) => {
                 setPhone(e.target.value);
               }}
+              autocomplete="on"
             />
             </div>
         </div>

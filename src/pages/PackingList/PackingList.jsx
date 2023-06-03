@@ -262,6 +262,7 @@ const PackingList = () => {
           onChange={(e) => {
             setPiNumber(e.target.value);
           }}
+          autocomplete="on"
         ></input>
         <button className="search_pi" onClick={handleSearchPi}>
           Search
@@ -293,13 +294,13 @@ const PackingList = () => {
               <div className="info_row">
                 <div className="label_div">Customer : </div>
                 <div className="">
-                  <input type="text" value={customer} onChange={(e) => setCustomer(e.target.value)}></input>
+                  <input type="text" value={customer} onChange={(e) => setCustomer(e.target.value)}  autocomplete="on"> </input>
                 </div>
               </div>
               <div className="info_row">
                 <div className="label_div">Buyer Address : </div>
                 <div className="">
-                  <input type="text" value={buyer} onChange={(e) => setBuyer(e.target.value)}></input>
+                  <input type="text" value={buyer} onChange={(e) => setBuyer(e.target.value)}  autocomplete="on"></input>
                 </div>
               </div>{" "}
               <div className="info_row">
@@ -311,6 +312,7 @@ const PackingList = () => {
                     onChange={(e) => {
                       setInvoiceNo(e.target.value);
                     }}
+                    autocomplete="on"
                   ></input>
                 </div>
               </div>
@@ -318,7 +320,7 @@ const PackingList = () => {
             <div className="info_row">
               <div className="label_div">PKL Date : </div>
               <div className="">
-                <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}}></input>
+                <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}}   autocomplete="on"></input>
               </div>
             </div>
             <div>
@@ -368,8 +370,8 @@ const PackingList = () => {
                     <input
                       type="text"
                       value={truckItems[index].truckNo}
-                      onChange={(event) => handleTruckInputChange(event, index, "truckNo")}
-                    ></input>
+                      onChange={(event) => handleTruckInputChange(event, index, "truckNo")}  autocomplete="on"
+                    ></input> 
                   </div>
                 </div>{" "}
                 <div className="info_row">
@@ -378,7 +380,7 @@ const PackingList = () => {
                     <input
                       type="text"
                       value={truckItems[index].truckDriverName}
-                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverName")}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverName")}  autocomplete="on"
                     ></input>
                   </div>
                 </div>{" "}
@@ -388,7 +390,7 @@ const PackingList = () => {
                     <input
                       type="text"
                       value={truckItems[index].truckDriverTel}
-                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverTel")}
+                      onChange={(event) => handleTruckInputChange(event, index, "truckDriverTel")}  autocomplete="on"
                     ></input>
                   </div>
                 </div>
@@ -495,8 +497,9 @@ const PackingList = () => {
                                   value={getTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse)}
                                   onChange={(e) => {
                                     const qtyVal = e.target.value;
-                                    setTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse, qtyVal);
+                                    setTruckProductWarehouseItemQty(product.productId, truckIndex, warehouse.warehouse, qtyVal); 
                                   }}
+                                  autocomplete="on"
                                 ></input>
                               </div>
                             </div>
@@ -620,6 +623,7 @@ const PackingList = () => {
                       type="text"
                       value={truckItems[index].truckBls}
                       onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                      autocomplete="on"
                     ></input>
                   </div>
                 </div>{" "}

@@ -68,9 +68,9 @@
 }
 
 @media(max-width: 768px) {
-  .body-content-pd-2 {
+  /* .body-content-pd-2 {
     padding: 0;
-  }
+  } */
 }
 @media(max-width: 576px) {
 .css-gd8tja{

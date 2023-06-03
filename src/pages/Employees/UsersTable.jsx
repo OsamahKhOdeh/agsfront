@@ -92,7 +92,7 @@ const UsersTable = () => {
                       </td>
                       <td>
                         <div>
-                        <input className="password_txt" style={{width: "180px"}} type="text" placeholder="password"  onChange={(e) => {
+                        <input className="password_txt" style={{width: "180px"}} type="text" placeholder="password"   onChange={(e) => {
                             dispatch(changeUserPassword({id :user._id, password : e.target.value}));
                           }}/>
                           <input className="password_txt" style={{width: "180px"}} type="text" placeholder="Phone Number" value={user.phone} onChange={(e) => {
@@ -153,10 +153,10 @@ const UsersTable = () => {
                       <div class="box e">
                         <p className="text-secondary">Customer</p>
                         <div>
-                              <input className="password_txt" style={{width: "180px"}} type="text" placeholder="password"  onChange={(e) => {
+                              <input className="password_txt" style={{width: "180px"}} type="text"  autocomplete="on" placeholder="password"  onChange={(e) => {
                                   dispatch(changeUserPassword({id :user._id, password : e.target.value}));
-                                }}/>
-                                <input className="password_txt" style={{width: "180px"}} type="text" placeholder="Phone Number" value={user.phone} onChange={(e) => {
+                                }}/> 
+                                <input className="password_txt" style={{width: "180px"}} type="text"  autocomplete="on" placeholder="Phone Number" value={user.phone} onChange={(e) => {
                                   dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
                                 }}/>
                           </div>

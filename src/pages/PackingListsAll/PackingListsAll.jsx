@@ -231,7 +231,7 @@ const PackingListsAll = () => {
                 <label for="rej_msg">
                   <b>Rejection message</b>
                 </label>
-                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg" />
+                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg"  autocomplete="on" />
 
                 <button type="submit" class="btn">
                   Send

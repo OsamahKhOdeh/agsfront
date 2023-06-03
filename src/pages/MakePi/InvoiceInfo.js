@@ -188,13 +188,27 @@ function InvoiceInfo() {
                   <label htmlFor="buyer_address">
                     Buyer Address <span className="required">*</span>
                   </label>
-                  <input class="form-control" type="text" name="buyerAdress" value={invoiceInfo.buyerAdress} onChange={handleChange} />
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="buyerAdress"
+                    value={invoiceInfo.buyerAdress}
+                    onChange={handleChange}
+                    autocomplete="on"
+                  />
                 </div>
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="phone_number">Phone Number</label>
-                  <input class="form-control" type="text" name="phoneNumber" value={invoiceInfo.phoneNumber} onChange={handleChange} />
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="phoneNumber"
+                    value={invoiceInfo.phoneNumber}
+                    onChange={handleChange}
+                    autocomplete="on"
+                  />
                 </div>
               </div>
               {pi && (
@@ -203,7 +217,14 @@ function InvoiceInfo() {
                     <label htmlFor="consignee">
                       Consignee <span className="required">*</span>
                     </label>
-                    <input class="form-control" type="text" name="consignee" value={invoiceInfo.consignee} onChange={handleChange} />
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="consignee"
+                      value={invoiceInfo.consignee}
+                      onChange={handleChange}
+                      autocomplete="on"
+                    />
                   </div>
                 </div>
               )}
@@ -266,6 +287,7 @@ function InvoiceInfo() {
                         name="partyOfDischarge"
                         value={invoiceInfo.partyOfDischarge}
                         onChange={handleChange}
+                        autocomplete="on"
                       />{" "}
                     </div>
                   </div>
@@ -304,6 +326,7 @@ function InvoiceInfo() {
                     name="finalDistination"
                     value={invoiceInfo.finalDistination}
                     onChange={handleChange}
+                    autocomplete="on"
                   />
                 </div>
               </div>
@@ -312,19 +335,41 @@ function InvoiceInfo() {
                   <div className="col-lg-6 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">PI Number </label>
-                      <input class="form-control" type="text" readOnly name="invoiceNo" value={invoiceNumber} onChange={handleChange} />
+                      <input
+                        class="form-control"
+                        type="text"
+                        readOnly
+                        name="invoiceNo"
+                        value={invoiceNumber}
+                        onChange={handleChange}
+                        autocomplete="on"
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">Discount</label>
-                      <input class="form-control" type="text" name="discount" value={invoiceInfo.discount} onChange={handleChange} />
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="discount"
+                        value={invoiceInfo.discount}
+                        onChange={handleChange}
+                        autocomplete="on"
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">Additions</label>
-                      <input class="form-control" type="text" name="additions" value={invoiceInfo.additions} onChange={handleChange} />
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="additions"
+                        value={invoiceInfo.additions}
+                        onChange={handleChange}
+                        autocomplete="on"
+                      />
                     </div>
                   </div>
                 </>
@@ -332,13 +377,13 @@ function InvoiceInfo() {
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="date">Date</label>
-                  <input class="form-control" readOnly type="text" name="date" value={invoiceInfo.date} />
+                  <input class="form-control" readOnly type="text" name="date" value={invoiceInfo.date} autocomplete="on" />
                 </div>
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="note">Note</label>
-                  <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} />
+                  <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} autocomplete="on" />
                 </div>
               </div>
               {pi && (
@@ -396,6 +441,7 @@ function InvoiceInfo() {
                             value={item.collection}
                             id="flexCheckDefault"
                             onChange={handelBankDetailsChange}
+                            autocomplete="on"
                           />
                           <strong className="form-check-label" htmlFor="flexCheckDefault">
                             {item.collection}
@@ -447,6 +493,7 @@ function InvoiceInfo() {
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"
                           title="Tooltip on top"
+                          autocomplete="on"
                         />
                       </div>
                       <small class="class-secondary">
@@ -470,6 +517,7 @@ function InvoiceInfo() {
                           onChange={(e) => {
                             setPaymentPercentageState(e.target.value);
                           }}
+                          autocomplete="on"
                         />
                       </div>
                       <small class="class-secondary">

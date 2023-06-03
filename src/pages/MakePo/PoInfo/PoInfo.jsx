@@ -111,6 +111,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "exporter");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -138,6 +139,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "buyerAddress");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -165,6 +167,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "consignee");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -176,6 +179,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "notifyParty");
           }}
+          autocomplete="on"
         >
           <option value={""} selected disabled>
             {"Choose Notify Party..."}
@@ -203,6 +207,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "portOfOrigin");
           }}
+          autocomplete="on"
         >
           <option value={""} selected disabled>
             {"Choose Port Of Origion..."}
@@ -219,6 +224,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "portOfOrigin");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -246,6 +252,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "portOfDischarge");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -273,6 +280,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "incoterms");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -300,6 +308,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "currency");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="info_item">
@@ -313,6 +322,7 @@ const PoInfo = () => {
           onChange={(e) => {
             handleItemChange(e, "discount");
           }}
+          autocomplete="on"
         ></input>
       </div>{" "}
       <div className="po_products">
@@ -341,11 +351,11 @@ const PoInfo = () => {
               <input
                 onChange={(e) => handleProductQtyChange(e, poProduct._id)}
                 type="text"
-                className="po_product_qty po_product_qty_input"
+                className="po_product_qty po_product_qty_input"  autocomplete="on"
               ></input>
             </div>
             <div className="po_product_price">
-              <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="po_product_price"></input>
+              <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="po_product_price"  autocomplete="on"></input>
             </div>
             {console.log(poProduct.price)}
             <div className="po_product_total_amount">

@@ -238,7 +238,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="productCode">Product Code</label>
-            <input class="form-control " id="productCode" type="text"  onChange={(e) => setProductData({ ...productData, code: e.target.value })} placeholder="Enter product code"  />
+            <input class="form-control " id="productCode" type="text"  onChange={(e) => setProductData({ ...productData, code: e.target.value })} placeholder="Enter product code"   autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -249,7 +249,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             onChange={(e) => {
               if (e.target.value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/))
                 setProductData({ ...productData, netWeight: e.target.value });
-            }} type="text" placeholder="Enter net wieght"  />
+            }} type="text" placeholder="Enter net wieght"  autocomplete="on"  />
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -260,7 +260,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
              onChange={(e) => {
               if (e.target.value === "" || regex.test(e.target.value))
                 setProductData({ ...productData, grossWeight: e.target.value });
-            }} type="text" placeholder="Enter groos weight"  />
+            }} type="text" placeholder="Enter groos weight"   autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -271,7 +271,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             onChange={(e) => {
               if (e.target.value === "" || regex.test(e.target.value))
                 setProductData({ ...productData, palatSize: e.target.value });
-            }} id="paletSize" type="text" placeholder="Enter palet size"  />
+            }} id="paletSize" type="text" placeholder="Enter palet size"   autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -282,7 +282,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             onChange={(e) => {
               if (e.target.value === "" || regex.test(e.target.value))
                 setProductData({ ...productData, price: e.target.value });
-            }} id="netPrice" type="text" placeholder="Enter net price"  />
+            }} id="netPrice" type="text" placeholder="Enter net price"  autocomplete="on" />
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -294,7 +294,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               if (e.target.value === "" || regex.test(e.target.value))
                 setProductData({ ...productData, freezonePrice: e.target.value });
             }}
-             id="freezonePrice" type="text" placeholder="enter freezone price"  />
+             id="freezonePrice" type="text" placeholder="enter freezone price"   autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
@@ -306,7 +306,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               if (e.target.value === "" || regex.test(e.target.value))
                 setProductData({ ...productData, LocalPrice: e.target.value });
             }}
-            id="localPrice" type="text" placeholder="enter local price"  />
+            id="localPrice" type="text" placeholder="enter local price"   autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-12 col-md-12">
@@ -330,7 +330,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
                  setIsUploading(true);
                }
              }}
-            class="form-control" id="inputGroupFile02"/>
+            class="form-control" id="inputGroupFile02" />
             <label class="input-group-text" onClick={handleUpload}>Upload</label>
           </div>
           </div>

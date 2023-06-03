@@ -9,7 +9,7 @@ const EditProforamaInvoice = () => {
     console.log(id) 
     console.log(oldPi);
   return (
-    <div style={{margin : "auto" , width : "75%" , paddingBottom : "200px"}}><PiForm oldPi={oldPi} /></div>
+    <div ><PiForm oldPi={oldPi} /></div>
   )
 }
 
