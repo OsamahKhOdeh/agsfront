@@ -45,9 +45,11 @@ const ShowAndPriceFilters = () => {
   <div class="div9"> 
   <input type="text" value={usdToAedRateUseState} 
   onChange={(e) => setUsdToAedRateUseState(e.target.value)}
-                    onBlur={(e) => {
-                      dispatch(setUsdToAedRate(usdToAedRateUseState));
-                    }}/>
+    onBlur={(e) => {
+      dispatch(setUsdToAedRate(usdToAedRateUseState));
+    }}
+    autocomplete="on"
+    />
 
  </div>
   <div class="div10"> 
@@ -60,7 +62,7 @@ const ShowAndPriceFilters = () => {
     <input type="checkbox" name="" id=""/>
   </div>
   <div class="div11"> 
-    <input type="text" name="" id=""/>
+    <input type="text" name="" id=""  autocomplete="on"/>
   </div>
 
   <p>List of usdt</p>

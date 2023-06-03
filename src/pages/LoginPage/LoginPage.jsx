@@ -182,9 +182,9 @@ function LoginPage() {
     <SigninPage>
       <form className='login' onSubmit={handleSubmit}>
         <img src='/images/logo.png' alt='' srcSet='' />
-        <input type='text' placeholder='User Name' ref={username} />
-        <input type='password' placeholder='Password' ref={psswd} />
-        <input className='submit' type='submit' value='Log In' />
+        <input type='text' placeholder='User Name' ref={username}   autocomplete="on"/>
+        <input type='password' placeholder='Password' ref={psswd}  autocomplete="on" />
+        <input className='submit' type='submit' value='Log In'  autocomplete="on"/>
         
       </form>
       {!isAutherized && <div className="login__failure">

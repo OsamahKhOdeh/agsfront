@@ -149,7 +149,7 @@ const Projects = () => {
                 value={newTask}
                 onChange={(e) => setNewTask(e.target.value)}
                 style={{ width: "85%", borderRadius: "0px", margin: "0px", height: "55px" }}
-              ></input>
+                autocomplete="on" ></input>
               <div className="new_task" onClick={handleNewTask}>
                 Add
               </div>
@@ -174,7 +174,7 @@ const Projects = () => {
           className="new_task_text"
           placeholder="add new Project here"
           onChange={(e) => setNewProject(e.target.value)}
-        ></input>
+          autocomplete="on"></input>
         <div className="add_proj" onClick={handleNewProject}>
           Add Project
         </div>

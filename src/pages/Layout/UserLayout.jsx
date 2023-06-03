@@ -85,7 +85,7 @@ const UserLayout = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" alt="avatar-img" />{" "}
+              <img src="/images/avatar.png" alt="avatar-img" />{" "}
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" onClick={() => {}}>

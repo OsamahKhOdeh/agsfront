@@ -43,6 +43,7 @@ const AddProduct = () => {
                   placeholder="Please Enter Your Name"
                   name="name"
                   required
+                  autocomplete="on"
                 />
               </div>
             </div>
@@ -68,6 +69,7 @@ const AddProduct = () => {
                   name="email"
                   pattern="^[-+.\w]{1,64}@[-.\w]{1,64}\.[-.\w]{2,6}$"
                   required
+                  autocomplete="on"
                 />
               </div>
             </div>
@@ -94,6 +96,7 @@ const AddProduct = () => {
                   min="1"
                   max="125"
                   required
+                  autocomplete="on"
                 />
               </div>
             </div>

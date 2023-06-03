@@ -14,6 +14,7 @@ function Category(props) {
             type='checkbox'
             className='checkbox-input'
             onChange={()=>{}}
+            autocomplete="on"
             onClick={() => props.onClick(title)}
           />
           <span className='checkbox-tile'>

@@ -11,6 +11,7 @@ const SearchBox = ({ onChange }) => {
         type="text"
         placeholder="Search.."
         name="search2"
+         autocomplete="on"
         onChange={onChange}
       />
     </div>

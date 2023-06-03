@@ -42,17 +42,10 @@
     padding-bottom: 20%;}
 
 
-    .truck{
-                border: solid;
-    border-width: thin;
-    border-color: #b59b9b;
-    background: #eaeaea;
-    margin: 10px;
-    padding: 10px;
-    }
+ 
 
     .truck_no{
-            margin: auto;
+    margin: auto;
     width: 100%;
     text-align: center;
     font-size: 22px;
@@ -61,12 +54,6 @@
     margin: 0px;
     }
 
-    .truck{
-            padding: 20px;
-    border: solid;
-    border-width: thin;
-    border-radius: 10px;
-    }
 
 
     .add_truck_but {

@@ -14,7 +14,7 @@ const SearchBox = ({ onChange, onCategoeyChange }) => {
     <div className="header-website">
     <div className="row">
       <div className="col-lg-6 col-md-6">
-      <input  type="text" placeholder="Search.." name="search2" onChange={onChange} />
+      <input  type="text" placeholder="Search.." name="search2" onChange={onChange}  autocomplete="on"/>
       </div>
       <div className="col-lg-6 col-md-6">
         <div className="group-buttons">

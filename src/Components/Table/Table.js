@@ -120,6 +120,7 @@ const TablePage = () => {
                       type="text"
                       className="form-control w-75"
                       value={newPrice[index]?.toFixed(3)}
+                      autocomplete="on"
                       onChange={(e) => {
                         let newPriceArray = [...newPrice];
                         newPriceArray[index] = e.target.value;
@@ -138,7 +139,7 @@ const TablePage = () => {
             </div>
             <div class="box d">
               <p className="text-secondary">Qty</p>
-              <input type="number"   className="form-control w-75" value={quantities[index]} onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
+              <input type="number"   className="form-control w-75" value={quantities[index]}  autocomplete="on" onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
             </div>
             <div class="box e">
               <p className="text-secondary">Item Name</p>
@@ -212,6 +213,7 @@ const TablePage = () => {
                       type="text"
                       className="form-control w-75"
                       value={newPrice[index]?.toFixed(3)}
+                      autocomplete="on"
                       onChange={(e) => {
                         let newPriceArray = [...newPrice];
                         newPriceArray[index] = e.target.value;
@@ -244,7 +246,7 @@ const TablePage = () => {
                   {pi && (
                     <>
                       <td   >
-                        <input type="text"   className="form-control w-75" value={quantities[index]} onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
+                        <input type="text"   className="form-control w-75" value={quantities[index]}  autocomplete="on" onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
                         {/* <TextField
                           variant="outlined"
                           onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}
@@ -274,7 +276,7 @@ const TablePage = () => {
                   <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                     <td >
                     </td>
-                    <td   >
+                    <td>
                       {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
                     </td>
                     <td   >
@@ -290,7 +292,7 @@ const TablePage = () => {
                       {/* <p className="text-sm font-medium leading-none text-gray-800">Total :</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
                     </td>
-                    <td   >
+                    <td  >
                       {/* <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">
                         {totalAmount?.toFixed(3)} {pi.currency} {currency === "USD" ? " $ " : " AED "}
@@ -320,14 +322,14 @@ const TablePage = () => {
               </button>
             </div>
             <div class="modal-body">
-              <div>
+              <div className="modal-data-summary">
                 <div className="form-group">
-                  <strong>Total Weight : </strong>
-                  <span>{totalWeight?.toFixed(3)} Kg</span> 
+                  <strong>Total Weight :  </strong>
+                  <span> {totalWeight?.toFixed(3)} Kg</span> 
                 </div>
                 <div className="form-group">
                   <strong>Total Invoice : </strong>
-                  <span> {totalAmount?.toFixed(3)} {pi.currency}</span> 
+                  <span>  {totalAmount?.toFixed(3)} {pi.currency}</span> 
                 </div>
               </div>
             </div>

@@ -187,20 +187,20 @@ function InvoiceInfo() {
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="buyer_address">Buyer Address <span className="required">*</span></label>
-            <input class="form-control" type="text" name="buyerAdress" value={invoiceInfo.buyerAdress}  onChange={handleChange} />
+            <input class="form-control" type="text" name="buyerAdress" value={invoiceInfo.buyerAdress}  onChange={handleChange}  autocomplete="on"/>
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="phone_number">Phone Number</label>
-            <input class="form-control" type="text" name="phoneNumber" value={invoiceInfo.phoneNumber}  onChange={handleChange} />
+            <input class="form-control" type="text" name="phoneNumber" value={invoiceInfo.phoneNumber}  onChange={handleChange}  autocomplete="on"/>
           </div>
         </div>
         {pi &&
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="consignee">Consignee <span className="required">*</span></label>
-           <input class="form-control" type="text" name="consignee" value={invoiceInfo.consignee} onChange={handleChange} /> 
+           <input class="form-control" type="text" name="consignee" value={invoiceInfo.consignee} onChange={handleChange}  autocomplete="on"/> 
           </div>
         </div>
         }
@@ -242,7 +242,7 @@ function InvoiceInfo() {
             id="party_discharge"
             name="partyOfDischarge"
             value={invoiceInfo.partyOfDischarge}
-            onChange={handleChange}
+            onChange={handleChange}  autocomplete="on"
           /> </div>
         </div>
         </>
@@ -263,7 +263,7 @@ function InvoiceInfo() {
         <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="final_distenation">Final Distenation</label>
-            <input class="form-control" type="text" id="discount" name="finalDistination"value={invoiceInfo.finalDistination} onChange={handleChange} />
+            <input class="form-control" type="text" id="discount" name="finalDistination"value={invoiceInfo.finalDistination} onChange={handleChange}  autocomplete="on"/>
        </div>
         </div>
         {pi && (
@@ -271,19 +271,19 @@ function InvoiceInfo() {
          <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="phone_number">PI Number </label>
-            <input class="form-control" type="text" readOnly name="invoiceNo" value={invoiceNumber}  onChange={handleChange} />
+            <input class="form-control" type="text" readOnly name="invoiceNo" value={invoiceNumber}  onChange={handleChange}  autocomplete="on"/>
           </div>
           </div>
           <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="phone_number">Discount</label>
-            <input class="form-control" type="text" name="discount" value={invoiceInfo.discount}  onChange={handleChange} />
+            <input class="form-control" type="text" name="discount" value={invoiceInfo.discount}  onChange={handleChange}  autocomplete="on"/>
           </div>
           </div>
           <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="phone_number">Additions</label>
-            <input class="form-control" type="text" name="additions" value={invoiceInfo.additions}  onChange={handleChange} />
+            <input class="form-control" type="text" name="additions" value={invoiceInfo.additions}  onChange={handleChange}  autocomplete="on"/>
           </div>
           </div>
           </>
@@ -291,13 +291,13 @@ function InvoiceInfo() {
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="date">Date</label>
-           <input class="form-control" readOnly  type="text" name="date" value={invoiceInfo.date}  /> 
+           <input class="form-control" readOnly  type="text" name="date" value={invoiceInfo.date}   autocomplete="on"/> 
           </div>
         </div>
         <div className="col-lg-6 col-md-12">
           <div className="form-group">
             <label htmlFor="note">Note</label>
-              <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} />
+              <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange}  autocomplete="on"/>
           </div>
         </div>
         {pi &&
@@ -353,6 +353,7 @@ function InvoiceInfo() {
                           value={item.collection}
                           id="flexCheckDefault"
                           onChange={handelBankDetailsChange}
+                          autocomplete="on"
                         />
                         <strong className="form-check-label" htmlFor="flexCheckDefault">
                           {item.collection}
@@ -391,7 +392,7 @@ function InvoiceInfo() {
               <label htmlFor="goods">Goods delivered in  <span className="required">*</span></label>
                 <div class="input-group ">
                   {/* <span class="input-group-text" id="basic-addon3">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</span> */}
-                  <input type="text" class="form-control" value={deliveryDateState} onBlur={handelDeliveryDateChange}  onChange={(e) => { setDeliveryDateState(e.target.value); }} data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"  /> 
+                  <input type="text" class="form-control" value={deliveryDateState} onBlur={handelDeliveryDateChange}  onChange={(e) => { setDeliveryDateState(e.target.value); }} data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"  autocomplete="on" /> 
                 </div>
                 <small class="class-secondary">Goods will be delivered with in <b>{deliveryDateState}</b> days after completion of full payment</small>
             </div>
@@ -402,7 +403,7 @@ function InvoiceInfo() {
                 {/* <input name="note" className="form-control"  value={invoiceInfo.note} onChange={handleChange} /> */}
                 <div class="input-group ">
                   {/* <span class="input-group-text" id="basic-addon3"> <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</span> */}
-                  <input type="text" class="form-control" value={paymentPercentageState}  onBlur={handelTermsChange}   onChange={(e) => { setPaymentPercentageState(e.target.value);}}  />
+                  <input type="text" class="form-control" value={paymentPercentageState}  onBlur={handelTermsChange}   onChange={(e) => { setPaymentPercentageState(e.target.value);}}   autocomplete="on" />
                 </div>
                 <small class="class-secondary" > Advance Payment <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</small>
             </div>

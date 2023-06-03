@@ -78,6 +78,7 @@ function ProjectTasks(props) {
             className="new_task_text"
             placeholder="update task here"
             onChange={(e) => props.setNewTask(e.target.value)}
+            autocomplete="on"
             style={{
               width: "85%",
               borderRadius: "0px",
