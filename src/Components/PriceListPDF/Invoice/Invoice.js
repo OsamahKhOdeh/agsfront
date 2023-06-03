@@ -72,7 +72,7 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
           currency={currency}
           additions={pi.piInfo.additions}
         />
-        {/* <InvoiceTerms terms={pi.piInfo.terms}  />      */}
+        <InvoiceTerms terms={pi.piInfo.terms} />
         <Text style={styles.salesEngineer}>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number :{" "}
           {pi.piInfo.employeePhone}{" "}

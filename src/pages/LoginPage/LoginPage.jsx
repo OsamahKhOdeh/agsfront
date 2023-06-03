@@ -137,60 +137,54 @@ function LoginPage() {
 }
   `;
 
-  
-
-
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const psswd = useRef();
   const username = useRef();
   let autherized = true;
-  const [isAutherized , setIsAutherized] = useState(true)
-  const authState = useSelector((state)=>state.auth.autherized)
-  useEffect(()=>{
-    if(authState === false) {
-      setIsAutherized(false)
-     }
-  },[authState])
+  const [isAutherized, setIsAutherized] = useState(true);
+  const authState = useSelector((state) => state.auth.autherized);
+  useEffect(() => {
+    if (authState === false) {
+      setIsAutherized(false);
+    }
+  }, [authState]);
 
   console.log(isAutherized);
 
-  const handleSubmit =  (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try{
+    try {
+      const formData = { username: username.current.value, password: psswd.current.value };
+      dispatch(login(formData, navigate));
+      // navigate("/user");
 
-      const formData = {username : username.current.value ,password : psswd.current.value};
-      dispatch(login(formData,navigate));
-   // navigate("/user");
-
-    if (psswd.current.value === "") {
-      alert("the value is empty");
-    } else {
-      if (psswd.current.value === "1234" && username.current.value === "ags") {
-        navigate("/user");
+      if (psswd.current.value === "") {
+        alert("the value is empty");
       } else {
-        //alert("the password is not correct ");
+        if (psswd.current.value === "1234" && username.current.value === "ags") {
+          navigate("/website");
+        } else {
+          //alert("the password is not correct ");
+        }
       }
-    }
-  }catch(error){
-
-  }
+    } catch (error) {}
   };
 
   return (
     <SigninPage>
-      <form className='login' onSubmit={handleSubmit}>
-        <img src='/images/logo.png' alt='' srcSet='' />
-        <input type='text' placeholder='User Name' ref={username} />
-        <input type='password' placeholder='Password' ref={psswd} />
-        <input className='submit' type='submit' value='Log In' />
-        
+      <form className="login" onSubmit={handleSubmit}>
+        <img src="/images/logo.png" alt="" srcSet="" />
+        <input type="text" placeholder="User Name" ref={username} />
+        <input type="password" placeholder="Password" ref={psswd} />
+        <input className="submit" type="submit" value="Log In" />
       </form>
-      {!isAutherized && <div className="login__failure">
-        <p className="login_failure_message_header">Login failed</p>
-        <p className="login_failure_message">Wrong credentials or missing access rights to application</p>
-        </div>}
+      {!isAutherized && (
+        <div className="login__failure">
+          <p className="login_failure_message_header">Login failed</p>
+          <p className="login_failure_message">Wrong credentials or missing access rights to application</p>
+        </div>
+      )}
     </SigninPage>
   );
 }

@@ -19,28 +19,28 @@ const SuccessPage = () => {
   const products = useSelector((state) => state.cart.cart);
 
   const res = Object.entries(piInfo).map(([name, obj]) => ({ name, ...obj }));
-  function calcPrice(item) {
-    let price = 0;
-    if (location === "freezone" && currency === "AED") {
-      price = item.freezonePriceAED;
-    }
-    if (location === "local" && currency === "AED") {
-      price = item.LocalPriceAED;
-    }
-    if (location === "freezone" && currency === "USD") {
-      price = item.freezonePrice;
-    }
-    if (location === "local" && currency === "USD") {
-      price = item.LocalPrice;
-    }
+  // function calcPrice(item) {
+  //   let price = 0;
+  //   if (location === "freezone" && currency === "AED") {
+  //     price = item.freezonePriceAED;
+  //   }
+  //   if (location === "local" && currency === "AED") {
+  //     price = item.LocalPriceAED;
+  //   }
+  //   if (location === "freezone" && currency === "USD") {
+  //     price = item.freezonePrice;
+  //   }
+  //   if (location === "local" && currency === "USD") {
+  //     price = item.LocalPrice;
+  //   }
 
-    return price;
-  }
+  //   return price;
+  // }
   let total = 0;
 
   function calcTotal() {
     products?.map((product) => {
-      total += calcPrice(product) * product.qty;
+      total += product.price * product.qty;
     });
   }
   calcTotal();
@@ -58,99 +58,101 @@ const SuccessPage = () => {
 
   return (
     <>
-   <span  className="ags-btn-review" data-toggle="modal" data-target="#exampleModal"><i class="uil uil-eye"></i></span>
-    <div className="card-add-product d-block">
-    <div className="card-add-product-tittle">
-       <h3 > Summary</h3>
-    </div>
-    <div className="card-add-product-body">
-    <div >
-      <div className="sucess_container"></div>
-      <div >
-      <div className="summary-info">
-        <div className="row">
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Exporter</strong>
-                <p className={colorByStatus(piInfo.exporter)}>{piInfo.exporter.split(' ' ,5)}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Notify Party.	</strong>
-                <p className={colorByStatus(piInfo.notifyParty)}>{piInfo.notifyParty.split(' ' ,5)}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Buyer</strong>
-                <p className={colorByStatus(piInfo.buyerAdress)}>{piInfo.buyerAdress}</p>   
-              </div>
-          </div> 
-            <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Consignee</strong>
-                <p className={colorByStatus(piInfo.consignee)}>{piInfo.consignee}</p>   
-              </div>
-          </div>   
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Party of Discharge	</strong>
-                <p className={colorByStatus(piInfo.partyOfDischarge)}>{piInfo.partyOfDischarge}</p>   
-              </div>
-          </div> 
-            <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Final Destination	</strong>
-                <p className={colorByStatus(piInfo.finalDistination)}>{piInfo.finalDistination}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Phone Number		</strong>
-                <p className={colorByStatus(piInfo.phoneNumber)}>{piInfo.phoneNumber}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Discount		</strong>
-                <p className={colorByStatus(piInfo.discount)}>{piInfo.discount}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Additions</strong>
-                <p className={colorByStatus(piInfo.additions)}>{piInfo.additions}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Date	</strong>
-                <p className={colorByStatus(piInfo.date)}>{piInfo.date}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Notes	</strong>
-                <p className={colorByStatus(piInfo.note)}>{piInfo.note}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Terms	</strong>
-                <p className={colorByStatus(piInfo.terms)}>{piInfo.terms}</p>   
-              </div>
-          </div>
-          <div className="col-lg-6 col-md-12" >
-              <div className="summary-item"> 
-                <strong>Bank Details	</strong>
-                <p className={colorByStatus(piInfo.bankDetails)}>{piInfo.bankDetails}</p>   
-              </div>
-          </div>
+      <span className="ags-btn-review" data-toggle="modal" data-target="#exampleModal">
+        <i class="uil uil-eye"></i>
+      </span>
+      <div className="card-add-product d-block">
+        <div className="card-add-product-tittle">
+          <h3> Summary</h3>
         </div>
-      </div>
-        {/* design for desktop */}
-      {/* <table style={{ border: 1 }} className="table border-summary-1">
+        <div className="card-add-product-body">
+          <div>
+            <div className="sucess_container"></div>
+            <div>
+              <div className="summary-info">
+                <div className="row">
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Exporter</strong>
+                      <p className={colorByStatus(piInfo.exporter)}>{piInfo.exporter.split(" ", 5)}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Notify Party. </strong>
+                      <p className={colorByStatus(piInfo.notifyParty)}>{piInfo.notifyParty.split(" ", 5)}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Buyer</strong>
+                      <p className={colorByStatus(piInfo.buyerAdress)}>{piInfo.buyerAdress}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Consignee</strong>
+                      <p className={colorByStatus(piInfo.consignee)}>{piInfo.consignee}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Party of Discharge </strong>
+                      <p className={colorByStatus(piInfo.partyOfDischarge)}>{piInfo.partyOfDischarge}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Final Destination </strong>
+                      <p className={colorByStatus(piInfo.finalDistination)}>{piInfo.finalDistination}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Phone Number </strong>
+                      <p className={colorByStatus(piInfo.phoneNumber)}>{piInfo.phoneNumber}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Discount </strong>
+                      <p className={colorByStatus(piInfo.discount)}>{piInfo.discount}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Additions</strong>
+                      <p className={colorByStatus(piInfo.additions)}>{piInfo.additions}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Date </strong>
+                      <p className={colorByStatus(piInfo.date)}>{piInfo.date}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Notes </strong>
+                      <p className={colorByStatus(piInfo.note)}>{piInfo.note}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Terms </strong>
+                      <p className={colorByStatus(piInfo.terms)}>{piInfo.terms}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Bank Details </strong>
+                      <p className={colorByStatus(piInfo.bankDetails)}>{piInfo.bankDetails}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* design for desktop */}
+              {/* <table style={{ border: 1 }} className="table border-summary-1">
         <tbody>
           <tr>
             <td className="property table-secondary">Exporter</td>
@@ -208,99 +210,99 @@ const SuccessPage = () => {
           </tr>
         </tbody>
       </table> */}
-      <div className="table-pi-list">
-        <table style={{ border: 1 }} className="table pi__table table-responsive-sm border-summary-2">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Prodct</th>
-                    <th>Qty</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((product, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>
-                          {product.brand}
-                          {product.code}&nbsp;
-                          {product.capacity}
-                        </td>
-                        <td className={product.qty <= 0 && "table-danger"}>{product.qty}</td>
-                        <td>{calcPrice(product).toFixed(3)}</td>
-                        <td>{(calcPrice(product) * product.qty).toFixed(3)}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td style={{ textAlign: "center" }} colSpan={4}>
-                      Total
-                    </td>
+              <div className="table-pi-list">
+                <table style={{ border: 1 }} className="table pi__table table-responsive-sm border-summary-2">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Prodct</th>
+                      <th>Qty</th>
+                      <th>Unit Price</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((product, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>
+                            {product.brand}
+                            {product.code}&nbsp;
+                            {product.capacity}
+                          </td>
+                          <td className={product.qty <= 0 && "table-danger"}>{product.qty}</td>
+                          <td>{product.price.toFixed(3)}</td>
+                          <td>{(product.price * product.qty).toFixed(3)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
+                        Total
+                      </td>
 
-                    <td>{total.toFixed(3)}</td>
-                  </tr>
-                  <tr>
-                    <td style={{ textAlign: "center" }} colSpan={4}>
-                      Discount
-                    </td>
-                    <td>{piInfo.discount}</td>
-                  </tr>
-                  <tr>
-                    <td style={{ textAlign: "center" }} colSpan={4}>
-                      Additions
-                    </td>
-                    <td>{piInfo.additions}</td>
-                  </tr>
-                  <tr>
-                    <td style={{ textAlign: "center" }} colSpan={4}>
-                      Final
-                    </td>
-                    <td>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</td>
-                  </tr>
-                </tfoot>
-        </table>
-      </div>
-      {/* design for mobile  */}
-      <div className="pi-list">
-      {products.map((product, index) => (
-            <div className="item-pi">
-              <div className="item-pi-tittle">
-                <span>Item.No</span>
-                <span> 34</span>
+                      <td>{total.toFixed(3)}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
+                        Discount
+                      </td>
+                      <td>{piInfo.discount}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
+                        Additions
+                      </td>
+                      <td>{piInfo.additions}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
+                        Final
+                      </td>
+                      <td>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
-              <div className="item-pi-body pt-0">
-                <div class="wrapper">
-                  {/* <div class="box a">
+              {/* design for mobile  */}
+              <div className="pi-list">
+                {products.map((product, index) => (
+                  <div className="item-pi">
+                    <div className="item-pi-tittle">
+                      <span>Item.No</span>
+                      <span> 34</span>
+                    </div>
+                    <div className="item-pi-body pt-0">
+                      <div class="wrapper">
+                        {/* <div class="box a">
                     <p className="text-secondary">PI.No</p>
                     <h6>{proformaInvoice.pi_no}</h6>
                   </div> */}
-                  {/* <div class="box b">
+                        {/* <div class="box b">
                     <p className="text-secondary">Employee</p>
                     <h6>{proformaInvoice?.employee?.split("/")[0]}</h6>
                   </div> */}
-                  <div class="box c">
-                    <p className="text-secondary">Qty</p>
-                    <h6>34</h6>
-                  </div>
-                  <div class="box d">
-                    <p className="text-secondary">Unit Price	</p>
-                    {/* <button className="ags-btn-pdf"><i class="uil uil-import"></i></button> */}
-                   <h6>4545$</h6>
-                  </div>
-                  <div class="box e">
-                    <p className="text-secondary">Item Name</p>
-                    <h6>asdfasdfasdfasdfasdfasdf</h6>
-                  </div>
-                  <div class="box f">
-                    <p className="text-secondary">Total</p>
-                    <h6> 343434 </h6>
-                  </div>
-                  {/* <div class="box g">
+                        <div class="box c">
+                          <p className="text-secondary">Qty</p>
+                          <h6>34</h6>
+                        </div>
+                        <div class="box d">
+                          <p className="text-secondary">Unit Price </p>
+                          {/* <button className="ags-btn-pdf"><i class="uil uil-import"></i></button> */}
+                          <h6>4545$</h6>
+                        </div>
+                        <div class="box e">
+                          <p className="text-secondary">Item Name</p>
+                          <h6>asdfasdfasdfasdfasdfasdf</h6>
+                        </div>
+                        <div class="box f">
+                          <p className="text-secondary">Total</p>
+                          <h6> 343434 </h6>
+                        </div>
+                        {/* <div class="box g">
                     <p className="text-secondary">Actions</p>
                     <div className="ags-action">
                       <button
@@ -333,20 +335,22 @@ const SuccessPage = () => {
                       )}
                     </div>
                   </div> */}
-                </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-      ))}
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Summary</h5>
+              <h5 class="modal-title" id="exampleModalLabel">
+                Summary
+              </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -355,30 +359,31 @@ const SuccessPage = () => {
               <div>
                 <div className="form-group">
                   <strong>Total : </strong>
-                  <span>{total.toFixed(3)}</span> 
+                  <span>{total.toFixed(3)}</span>
                 </div>
                 <div className="form-group">
                   <strong>Discount : </strong>
-                  <span> {piInfo.discount}</span> 
+                  <span> {piInfo.discount}</span>
                 </div>
                 <div className="form-group">
                   <strong>Additions : </strong>
-                  <span> {piInfo.additions}</span> 
+                  <span> {piInfo.additions}</span>
                 </div>
                 <div className="form-group">
                   <strong>Final : </strong>
-                  <span>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</span> 
+                  <span>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</span>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
             </div>
           </div>
         </div>
       </div>
     </>
-   
   );
 };
 

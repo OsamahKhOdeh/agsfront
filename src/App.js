@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Container } from "@material-ui/core";
-import Home from "./pages/Home/Home";
 import ProductForm from "./pages/ProductForm/ProductForm";
 import PriceList from "./pages/PriceList/PriceList";
 import Table from "./Components/Table/Table";
@@ -46,6 +45,7 @@ import PackingList from "./pages/PackingList/PackingList";
 import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
 import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
 import PackingListManual from "./pages/PackingList/PackingListManual";
+import Home from "./pages/Home/Home";
 function App() {
   return (
     <div style={{ background: "#f7f7f7" }}>
@@ -56,6 +56,7 @@ function App() {
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
               <Route path="user" element={<UserLayout />}>
+                <Route path="home" element={<Home />} />
                 <Route index element={<Warranty />}></Route>
                 <Route path="pricelist" element={<PriceList />}></Route>
                 <Route path="pdf" element={<ProformaInvoice />}></Route>

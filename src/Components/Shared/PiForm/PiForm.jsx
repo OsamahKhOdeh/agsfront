@@ -35,9 +35,12 @@ const PiForm = ({ oldPi }) => {
     });
   };
 
+  const [inputs, setInputs] = useState(oldPi ? oldPi : {});
+  console.log(inputs);
+
   const dispatch = useDispatch();
-  const location = oldPi?.location;
-  const currency = oldPi?.currency;
+  const location = inputs?.location;
+  const currency = inputs?.currency;
   function calcPrice(item) {
     let price = 0;
     if (location === "freezone" && currency === "AED") {
@@ -57,9 +60,6 @@ const PiForm = ({ oldPi }) => {
   }
   let total = 0;
 
-  const [inputs, setInputs] = useState(oldPi ? oldPi : {});
-  console.log(inputs);
-
   function calcTotal() {
     inputs.products?.map((product) => {
       total += calcPrice(product) * product.qty;
@@ -70,6 +70,20 @@ const PiForm = ({ oldPi }) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleChangeCurrency = (event) => {
+    const value = event.target.value;
+    const updatedProducts = inputs.products.map((product) => ({
+      ...product,
+      freezonePrice: 0,
+      freezonePriceAED: 0,
+      LocalPrice: 0,
+      LocalPriceAED: 0,
+      price: 0,
+    }));
+
+    setInputs((values) => ({ ...values, currency: value, products: updatedProducts }));
   };
 
   const handleBankDetailsChange = (e) => {
@@ -275,6 +289,19 @@ const PiForm = ({ oldPi }) => {
                 </label>
               </div>
             ))}
+          </div>
+          <div className="pi_prop">
+            <label for="exp" class="label">
+              Currency :
+            </label>
+            <select className="select__class" id="currency" name="currency" onChange={handleChangeCurrency}>
+              <option selected={oldPi.currency === "USD"} value={"USD"}>
+                USD
+              </option>
+              <option selected={oldPi.currency === "AED"} value={"AED"}>
+                AED
+              </option>
+            </select>
           </div>
           {/*<input style={{width : "100%" , height : "56px"}} class="btn btn-primary" type="submit" />*/}
         </form>
