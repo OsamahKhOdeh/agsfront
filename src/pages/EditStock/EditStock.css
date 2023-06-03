@@ -338,15 +338,15 @@ td:hover {
 .success_status{
     padding:  12px 0px 12px 5px;
 
-  background-color: greenyellow;
+  background-color: transparent;
 }
 .pending_status{  padding:  12px 0px 12px 5px;
 
-  background-color: #dfdddd;
+  background-color: transparent;
 }
 .rejected_status{  padding:  12px 0px 12px 5px;
 
-  background-color: #ff4112;
+  background-color: transparent;
 }
 
 
@@ -356,11 +356,11 @@ td:hover {
   width: 100%;
 }
 
-.button_pdf{
-height: 62px;
-background-color: #0d6efd;
-color: white;
-}
+/* .button_pdf{
+  height: 42px;
+  background-color: var(--second-color);
+  color: white;
+} */
 
 .button_reject{
 height: 62px;

@@ -17,6 +17,7 @@ const navigate = useNavigate();
   },[dispatch] )
   return (
     <>
+    {/* <button type="button" className='new_usr_but' onClick={()=>{navigate('/user/new_user')}} >Add new Employee</button> */}
     <UsersTable/> </>
  )
 }

@@ -5,6 +5,7 @@ input[type=text], select {
     display: inline-block;
     border-radius: 4px;
     box-sizing: border-box;
+    border: 1px solid #ced4da;
   }
 
 

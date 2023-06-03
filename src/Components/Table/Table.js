@@ -132,7 +132,7 @@ const TablePage = () => {
                     />
                   </div>
                   <div class="box c">
-                    <p className="text-secondary">Total USD</p>
+                    <p className="text-secondary">Total ({currency === "USD" ? " $ " : " AED "})</p>
                     <h6>
                       {" "}
                       {currency === "USD" ? " $ " : " AED "}
@@ -189,10 +189,10 @@ const TablePage = () => {
                 <th>Item NO</th>
                 <th>Item Name</th>
                 {/* {pi && <th className="font-normal ">QTY(PCS)/(WATTS)</th>} */}
-                <th>Unit Price(USD)</th>
+                <th>Unit Price({currency})</th>
                 <th>New Price</th>
-                {pi && <th>Total USD</th>}
-                {pi && <th> Weight</th>} {pi && <th>Total/W</th>}
+                {pi && <th>Unit Weight</th>}
+                {pi && <th> Total Weight</th>} {pi && <th>Total({currency})</th>}
                 {pi && <th>Qty</th>}
                 {pi && <th>Actions</th>}
               </tr>
@@ -218,8 +218,8 @@ const TablePage = () => {
                   )} */}
                   <td>
                     <p className="font-medium">
-                      {currency === "USD" ? " $ " : " AED "}
                       {calcPrice(item)?.toFixed(3)}
+                      {currency === "USD" ? " $ " : " AED "}
                     </p>
                   </td>
                   <td>
@@ -253,8 +253,8 @@ const TablePage = () => {
                   {pi && (
                     <td>
                       <p className="font-medium">
-                        {currency === "USD" ? " $ " : " AED "}
                         {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
+                        {currency === "USD" ? " $ " : " AED "}
                       </p>
                     </td>
                   )}
@@ -310,17 +310,21 @@ const TablePage = () => {
                     <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
                     <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
                     <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
-                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800">Total :</p> */}</td>
                     <td>
+                      {/* <p className="text-sm font-medium leading-none text-gray-800">Total :</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
-                    </td>{" "}
-                    <td>
-                      <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p>
                     </td>
                     <td>
+                      {/* <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">
-                        {totalAmount?.toFixed(3)} {pi.currency}
+                        {totalAmount?.toFixed(3)} {pi.currency} {currency === "USD" ? " $ " : " AED "}
                       </p>
+                    </td>{" "}
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p> */}</td>
+                    <td>
+                      {/* <p className="text-sm font-medium leading-none text-gray-800">
+                        {totalAmount?.toFixed(3)} {pi.currency}
+                      </p> */}
                     </td>
                   </tr>
                 </>

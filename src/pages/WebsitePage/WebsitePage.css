@@ -121,5 +121,9 @@
 
 
 .chosen_cat{
-      background-color: #4f5b6f;
+         background-color: #706e6e;
+    color: #ffffff;
+    border: 1px solid #868282;
+    transform: translateY(-3px);
+
 }

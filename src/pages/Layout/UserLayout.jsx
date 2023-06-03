@@ -165,6 +165,17 @@ const UserLayout = () => {
                           Quotation
                         </Link>
                       </a>
+                      <a class="dropdown-item ">
+                        <Link
+                          to="/user/packinglistmanual"
+                          className="invoice-item"
+                          onClick={() => {
+                            dispatch(emptyCart());
+                          }}
+                        >
+                          Packing List
+                        </Link>
+                      </a>
                       {/* <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a> */}
                     </div>

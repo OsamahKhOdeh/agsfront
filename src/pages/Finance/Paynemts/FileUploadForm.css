@@ -4,6 +4,7 @@ input[type=text], select, textarea {
     padding: 12px;
     border-radius: 4px;
     resize: vertical;
+    border: 1px solid #ced4da;
   }
 
   .input_row{
