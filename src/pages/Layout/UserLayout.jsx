@@ -41,7 +41,7 @@ const UserLayout = () => {
   if (roles.includes("Logistics")) {
     MenuItems = LogisticsMenuItems;
   }
-  const logout = () => {
+  const logout = (r) => {
     dispatch(logOut());
     dispatch(emptyCart());
     dispatch(clearFilters());
