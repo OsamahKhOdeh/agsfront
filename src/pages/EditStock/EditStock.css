@@ -337,11 +337,12 @@ td:hover {
 
 .success_status{
     padding:  12px 0px 12px 5px;
-
+  font-size: 18px;
   background-color: transparent;
 }
-.pending_status{  padding:  12px 0px 12px 5px;
-
+.pending_status{ 
+ padding:  12px 0px 12px 5px;
+ font-size: 18px;
   background-color: transparent;
 }
 .rejected_status{  padding:  12px 0px 12px 5px;

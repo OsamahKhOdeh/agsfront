@@ -91,6 +91,7 @@ td:hover {
 }
 .success_status{
  color: green;
+ font-size: 18px;
 }
 .pending_status{ 
   color: #044279;

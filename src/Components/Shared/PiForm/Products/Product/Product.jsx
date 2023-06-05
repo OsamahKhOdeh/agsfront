@@ -34,7 +34,7 @@ const Product = ({ product, handleAddToPi }) => {
 
   return (
     <div className={exist ? "item_card active-card" : "item_card"}>
-      <div className="product__item" style={{}} onClick={() => handleAddToPi(product)}>
+      <div class="close" data-dismiss="modal" aria-label="Close" className="product__item" style={{}} onClick={() =>{ handleAddToPi(product)}}>
         <div className="product__image ">
           {exist ? (
             <img
