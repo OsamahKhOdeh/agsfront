@@ -8,8 +8,12 @@ import Modal from "react-modal";
 import { bank_details } from "../../Invoice/data";
 import { exporters, notify_partys } from "../../../data/invoice-data";
 import Products from "./Products/Products";
+import { useNavigate } from "react-router-dom";
+import { showToastMessage } from "../../../helpers/toaster";
 
 const PiForm = ({ oldPi }) => {
+  const navigate = useNavigate();
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);
@@ -22,21 +26,7 @@ const PiForm = ({ oldPi }) => {
     setIsOpen(false);
   }
 
-  const showToastMessage = () => {
-    toast.success("Proforma Inovice updated Succesfully ✅", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
   const [inputs, setInputs] = useState(oldPi ? oldPi : {});
-  console.log(inputs);
 
   const dispatch = useDispatch();
   const location = inputs?.location;
@@ -149,8 +139,14 @@ const PiForm = ({ oldPi }) => {
   };
 
   const handleUpdateButtonClick = (event) => {
+    event.preventDefault();
+
     dispatch(updateProformaInvoice(oldPi._id, inputs));
-    showToastMessage();
+    showToastMessage("Proforma invoices updated successfully", "success");
+    setTimeout(() => {
+      // Navigate after a delay of 3 seconds (adjust the delay as needed)
+      navigate("/user/orders");
+    }, 2000);
   };
 
   const handleAddToPi = (product) => {
@@ -181,7 +177,7 @@ const PiForm = ({ oldPi }) => {
             <h3> Edit PI</h3>
           </div>
           <div className="card-add-product-body">
-            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+            <form autoComplete="off" noValidate onSubmit={handleUpdateButtonClick}>
               <div className="row">
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
