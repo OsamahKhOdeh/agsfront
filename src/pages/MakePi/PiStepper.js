@@ -34,25 +34,40 @@ export default function PiStepper() {
   const [skipped, setSkipped] = React.useState(new Set());
   const dispatch = useDispatch();
   const pi = useSelector((state) => state.pi);
+  const [canNext, setCanNext] = React.useState(false);
+  useEffect(() => {
+    if (
+      piInfo.exporter &&
+      piInfo.buyerAdress &&
+      piInfo.consignee &&
+      piInfo.finalDistination &&
+      piInfo.partyOfDischarge &&
+      piInfo.notifyParty &&
+      piInfo.terms.length >= 1 &&
+      piInfo.bankDetails.length >= 1 &&
+      piInfo.phoneNumber.length >= 1 &&
+      piProducts.every((product) => product.qty > 0)
+    ) {
+      setCanNext(true);
+    }
+    console.log(canNext);
+  }, [
+    canNext,
+    piInfo.bankDetails,
+    piInfo.buyerAdress,
+    piInfo.consignee,
+    piInfo.exporter,
+    piInfo.finalDistination,
+    piInfo.notifyParty,
+    piInfo.partyOfDischarge,
+    piInfo.phoneNumber,
+    piInfo.terms.length,
+    piProducts,
+  ]);
 
-  let canNext = false;
-  if (
-    piInfo.exporter &&
-    piInfo.buyerAdress &&
-    piInfo.consignee &&
-    piInfo.finalDistination &&
-    piInfo.partyOfDischarge &&
-    piInfo.notifyParty &&
-    piInfo.terms.length > 0 &&
-    piInfo.bankDetails &&
-    piInfo.phoneNumber
-  ) {
-    canNext = true;
-  }
-
-  piProducts.map((product) => {
-    if (product.qty <= 0) canNext = false;
-  });
+  // piProducts.map((product) => {
+  //   if (product.qty <= 0) setCanNext(false);
+  // });
 
   const handleNext = () => {
     let newSkipped = skipped;
@@ -157,7 +172,7 @@ export default function PiStepper() {
                     Send
                   </Button>
                 ) : (
-                  <button className="ags-btn-main-fill" disabled={!canNext} onClick={handleNext}>
+                  <button className="ags-btn-main-fill" onClick={handleNext}>
                     {" "}
                     Next{" "}
                   </button>
@@ -175,21 +190,40 @@ export default function PiStepper() {
                   {" "}
                   Back{" "}
                 </button>
-                {activeStep === steps.length - 1 ? (
-                  // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
-                  //   Send
-                  // </Button>
+                {
+                  activeStep === steps.length - 1 && (
+                    // <Button disabled={!canNext} variant="contained" onClick={handleNext}>
+                    //   Send
+                    // </Button>
 
-                  <button className="ags-btn-main-fill" disabled={!canNext} onClick={handleNext}>
-                    {" "}
-                    Send{" "}
-                  </button>
-                ) : (
-                  <button className="ags-btn-main-fill" disabled={!canNext} variant="contained" onClick={handleNext}>
-                    {" "}
-                    Next{" "}
-                  </button>
-                )}
+                    <button
+                      className="ags-btn-main-fill"
+                      disabled={
+                        !(
+                          piInfo.exporter &&
+                          piInfo.buyerAdress &&
+                          piInfo.consignee &&
+                          piInfo.finalDistination &&
+                          piInfo.partyOfDischarge &&
+                          piInfo.notifyParty &&
+                          piInfo.terms.length >= 1 &&
+                          piInfo.bankDetails.length >= 1 &&
+                          piInfo.phoneNumber.length >= 1 &&
+                          piProducts.every((product) => product.qty > 0)
+                        )
+                      }
+                      onClick={handleNext}
+                    >
+                      {console.log(canNext)} Send{" "}
+                    </button>
+                  )
+                  // ) : (
+                  //   <button className="ags-btn-main-fill" disabled={!canNext} variant="contained" onClick={handleNext}>
+                  //     {" "}
+                  //     Next{" "}
+                  //   </button>
+                  // )
+                }
               </div>
               {/* <Box
                 sx={{
