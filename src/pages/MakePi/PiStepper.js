@@ -21,10 +21,14 @@ import { emptyCart } from "../../store/cartSlice";
 import { clearFilters } from "../../store/filtersSlice";
 import { useEffect } from "react";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { ToastContainer } from "react-toastify";
+import { showToastMessage } from "../../helpers/toaster";
+import { Link, useNavigate } from "react-router-dom";
 
 const steps = ["Select Products", "Select PI Information", "Make and Download PI"];
 
 export default function PiStepper() {
+  const navigate = useNavigate() 
   const piInfo = useSelector((state) => state.pi.piInfo);
   const piProducts = useSelector((state) => state.pi.piProducts);  
   const cart = useSelector((state) => state.cart.cart);
@@ -60,6 +64,11 @@ export default function PiStepper() {
       dispatch(clearPi());
       dispatch(emptyCart());
       dispatch(clearFilters());
+      showToastMessage('Add PI Succesfully','success')
+      // setTimeout(() => {
+      //   navigate('/user/piadmin')
+      // }, 2000);
+      
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
@@ -79,13 +88,15 @@ export default function PiStepper() {
     dispatch(setIsPI(true));
   }, []);
   return (
+    <>
+      <ToastContainer/>
     <Box sx={{ width: "100%", paddingLeft: "20px", paddingRight: "20px", marginTop: "25px" }}>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          {/* <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
             <Button onClick={handleReset}>Reset</Button>
-          </Box>
+          </Box> */}
 
           <div className="success_container" style={{ display: "flex", justifyContent: "center" }}>
             {!isLoading ? (
@@ -97,11 +108,17 @@ export default function PiStepper() {
                 <p className="success_p">
                   Your Proforma Invoice will be sent to the manager waiting for approval
                   <br />
-                  Press <b style={{ color: "blue" }}>FINISH</b> to send
+                  {/* Press <b style={{ color: "blue" }}>FINISH</b> to send */}
                 </p>
                 <p className="success_p" style={{ textAlign: "center", paddingTop: "40px" }}>
                   Keep refreshing your orders page{" "}
                 </p>
+
+                <div className="text-center btn-orders">
+                <span className="ags-btn-sucess-fill">
+                <Link to="/user/orders"> Orders</Link>
+                </span>
+                </div>
               </div>
             ) : (
               <LoadingSpinner />
@@ -153,7 +170,7 @@ export default function PiStepper() {
                         Send
                       </Button>
                     ) : (
-                    <button className="ags-btn-main-fill" disabled={!canNext}  onClick={handleNext}>  Next </button> 
+                    <button className="ags-btn-main-fill" disabled={!canNext}  onClick={handleNext} >  Next </button> 
                     )}
                 </div>
               
@@ -207,5 +224,6 @@ export default function PiStepper() {
         </React.Fragment>
       )}
     </Box>
+    </>
   );
 }
