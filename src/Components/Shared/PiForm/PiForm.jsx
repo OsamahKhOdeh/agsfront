@@ -1,19 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { updateProformaInvoice } from "../../../actions/proformaInvoice";
 import "./styles.css";
 import Modal from "react-modal";
 import { bank_details } from "../../Invoice/data";
 import { exporters, notify_partys } from "../../../data/invoice-data";
 import Products from "./Products/Products";
-import { useNavigate } from "react-router-dom";
-import { showToastMessage } from "../../../helpers/toaster";
-
 const PiForm = ({ oldPi }) => {
-  const navigate = useNavigate();
-
   const [modalIsOpen, setIsOpen] = React.useState(false);
   // state = {
   //   showModal: false
@@ -36,6 +31,18 @@ const PiForm = ({ oldPi }) => {
   //   this.setState({ showModal: false });
   // };
 
+  const showToastMessage = () => {
+    toast.success("Proforma Inovice updated Succesfully ✅", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const [inputs, setInputs] = useState(oldPi ? oldPi : {});
   console.log(inputs);
@@ -62,7 +69,6 @@ const PiForm = ({ oldPi }) => {
   let total = 0;
 
   function calcTotal() {
-    // eslint-disable-next-line array-callback-return
     inputs.products?.map((product) => {
       total += calcPrice(product) * product.qty;
     });
@@ -100,6 +106,7 @@ const PiForm = ({ oldPi }) => {
     }
   };
   const handleProductQtyChange = (event, id) => {
+    const name = event.target.name;
     const value = event.target.value;
     let theproducts = [...inputs.products];
     const theProduct = theproducts.filter((product) => product._id === id)[0];
@@ -112,6 +119,7 @@ const PiForm = ({ oldPi }) => {
   };
 
   const handleProductPriceChange = (event, id) => {
+    const name = event.target.name;
     const value = event.target.value;
     let theproducts = [...inputs.products];
     const theProduct = theproducts.filter((product) => product._id === id)[0];
@@ -143,22 +151,16 @@ const PiForm = ({ oldPi }) => {
     console.log(inputs);
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(inputs);
-  // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(inputs);
+  };
 
   const handleUpdateButtonClick = (event) => {
     event.preventDefault();
 
-  const handleUpdateButtonClick = (event) => {    event.preventDefault();
-
     dispatch(updateProformaInvoice(oldPi._id, inputs));
-    showToastMessage("Proforma invoices updated successfully", "success");
-    setTimeout(() => {
-      // Navigate after a delay of 3 seconds (adjust the delay as needed)
-      navigate("/user/orders");
-    }, 2000);
+    showToastMessage();
   };
 
   const handleAddToPi = (product) => {
@@ -170,7 +172,7 @@ const PiForm = ({ oldPi }) => {
       product = { ...product, qty: 0, freezonePrice: 0, freezonePriceAED: 0, LocalPrice: 0, LocalPriceAED: 0 };
       theproducts.push(product);
       setInputs((values) => ({ ...values, products: theproducts }));
-      setIsOpen(false)
+      setIsOpen(false);
       // closeModal();
     }
   };
@@ -420,146 +422,153 @@ const PiForm = ({ oldPi }) => {
                 </div>
 
                 <div className="col-12">
-                    <div className="container-edit">
+                  <div className="container-edit">
                     <div className="container-tittle">
                       <h5>Items</h5>
-                      <span  data-toggle="modal" onClick={()=>{setIsOpen(true)}}  data-target="#exampleModal1"><i class="uil uil-plus-circle uil-extra-larg "></i></span>
+                      <span
+                        data-toggle="modal"
+                        onClick={() => {
+                          setIsOpen(true);
+                        }}
+                        data-target="#exampleModal1"
+                      >
+                        <i class="uil uil-plus-circle uil-extra-larg "></i>
+                      </span>
                     </div>
                     <div className="container-body">
-                    <table style={{ border: 1 }} class="pi__table table tabel-edit-pi">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Prodct</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>DELETE</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {inputs?.products?.map((product, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>
-                              {product.brand}
-                              {product.code}
-                            </td>
-                            <td>
-                              <input
-                                type="text"
-                                name="product_qty"
-                                placeholder={product.qty}
-                                value={product.qty || ""}
-                                autocomplete="on"
-                                onChange={(e) => handleProductQtyChange(e, product._id)}
-                              />
-                            </td>
-                            <td>
-                              <input
-                                type="text"
-                                name="product_price"
-                                autocomplete="on"
-                                value={calcPrice(product).toFixed(3) || ""}
-                                onChange={(e) => handleProductPriceChange(e, product._id)}
-                              />
-                            </td>
-                            <td>{(calcPrice(product) * product.qty).toFixed(3)}</td>
-                            <td onClick={() => handleProductDelete(product._id)}>
-                              <span className="ags-btn-main">Delete</span>
-                            </td>
+                      <table style={{ border: 1 }} class="pi__table table tabel-edit-pi">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Prodct</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                            <th>DELETE</th>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td style={{ textAlign: "center" }} colSpan={4}>
-                          Total
-                        </td>
-                        <td>{total.toFixed(3)}</td>
-                        <td>{inputs.currency}</td>
-                      </tr>
-                      <tr>
-                        <td style={{ textAlign: "center" }} colSpan={4}>
-                          Discount
-                        </td>
-                        <td>{inputs.discount}</td>
-                        <td>{inputs.currency}</td>
-                      </tr>
-                      <tr>
-                        <td style={{ textAlign: "center" }} colSpan={4}>
-                          Additions
-                        </td>
-                        <td>{inputs.additions}</td>
-                        <td>{inputs.currency}</td>
-                      </tr>
-                      <tr>
-                        <td style={{ textAlign: "center" }} colSpan={4}>
-                          Final
-                        </td>
-                        <td>{total.toFixed(3) - -inputs.additions - inputs.discount}</td>
-                        <td>{inputs.currency}</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                   {/* design for mobile  */}
-                   <div className="truck-table-mobile">
-                    {inputs?.products?.map((product, index) => (
-                      <div className="wrapper-truck">
-                        <div className="wrapper-tittle">
-                          <h6>Product</h6>
-                          <span>{index + 1}</span>
-                        </div>
-                        <div className="wrapper">
-                          <div className="box">
-                            <h6>Item Name</h6>
-                            <span>
-                              {product.brand} {product.code}
-                            </span>
+                        </thead>
+                        <tbody>
+                          {inputs?.products?.map((product, index) => {
+                            return (
+                              <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>
+                                  {product.brand}
+                                  {product.code}
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="product_qty"
+                                    placeholder={product.qty}
+                                    value={product.qty || ""}
+                                    autocomplete="on"
+                                    onChange={(e) => handleProductQtyChange(e, product._id)}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="product_price"
+                                    autocomplete="on"
+                                    value={calcPrice(product).toFixed(3) || ""}
+                                    onChange={(e) => handleProductPriceChange(e, product._id)}
+                                  />
+                                </td>
+                                <td>{(calcPrice(product) * product.qty).toFixed(3)}</td>
+                                <td onClick={() => handleProductDelete(product._id)}>
+                                  <span className="ags-btn-main">Delete</span>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td style={{ textAlign: "center" }} colSpan={4}>
+                              Total
+                            </td>
+                            <td>{total.toFixed(3)}</td>
+                            <td>{inputs.currency}</td>
+                          </tr>
+                          <tr>
+                            <td style={{ textAlign: "center" }} colSpan={4}>
+                              Discount
+                            </td>
+                            <td>{inputs.discount}</td>
+                            <td>{inputs.currency}</td>
+                          </tr>
+                          <tr>
+                            <td style={{ textAlign: "center" }} colSpan={4}>
+                              Additions
+                            </td>
+                            <td>{inputs.additions}</td>
+                            <td>{inputs.currency}</td>
+                          </tr>
+                          <tr>
+                            <td style={{ textAlign: "center" }} colSpan={4}>
+                              Final
+                            </td>
+                            <td>{total.toFixed(3) - -inputs.additions - inputs.discount}</td>
+                            <td>{inputs.currency}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                      {/* design for mobile  */}
+                      <div className="truck-table-mobile">
+                        {inputs?.products?.map((product, index) => (
+                          <div className="wrapper-truck">
+                            <div className="wrapper-tittle">
+                              <h6>Product</h6>
+                              <span>{index + 1}</span>
+                            </div>
+                            <div className="wrapper">
+                              <div className="box">
+                                <h6>Item Name</h6>
+                                <span>
+                                  {product.brand} {product.code}
+                                </span>
+                              </div>
+                              <div className="box">
+                                <h6>Qty</h6>
+                                <input
+                                  type="text"
+                                  name="product_qty"
+                                  placeholder={product.qty}
+                                  value={product.qty || ""}
+                                  autocomplete="on"
+                                  onChange={(e) => handleProductQtyChange(e, product._id)}
+                                />
+                              </div>
+                              <div className="box">
+                                <h6>Unit Price</h6>
+                                <input
+                                  type="text"
+                                  name="product_price"
+                                  autocomplete="on"
+                                  value={calcPrice(product).toFixed(3) || ""}
+                                  onChange={(e) => handleProductPriceChange(e, product._id)}
+                                />
+                              </div>
+                              <div className="box">
+                                <h6>Total ({currency === "USD" ? " $ " : " AED "})</h6>
+                                <span>
+                                  {(calcPrice(product) * product.qty).toFixed(3)}
+                                  {currency === "USD" ? " $ " : " AED "}
+                                </span>
+                              </div>
+                              <div class="box actions">
+                                <h6>Actions</h6>
+                                <span className="ags-btn-main" onClick={() => handleProductDelete(product._id)}>
+                                  <i class="uil uil-trash-alt"></i>Delete
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="box">
-                            <h6>Qty</h6>
-                            <input
-                              type="text"
-                              name="product_qty"
-                              placeholder={product.qty}
-                              value={product.qty || ""}
-                              autocomplete="on"
-                              onChange={(e) => handleProductQtyChange(e, product._id)}
-                            />
-                          </div>
-                          <div className="box">
-                            <h6>Unit Price</h6>
-                            <input
-                              type="text"
-                              name="product_price"
-                              autocomplete="on"
-                              value={calcPrice(product).toFixed(3) || ""}
-                              onChange={(e) => handleProductPriceChange(e, product._id)}
-                            />
-                          </div>
-                          <div className="box">
-                            <h6>Total ({currency === "USD" ? " $ " : " AED "})</h6>
-                            <span>
-                              {(calcPrice(product) * product.qty).toFixed(3)}
-                              {currency === "USD" ? " $ " : " AED "}
-                            </span>
-                          </div>
-                          <div class="box actions">
-                            <h6>Actions</h6>
-                            <span className="ags-btn-main" onClick={() => handleProductDelete(product._id)}>
-                              <i class="uil uil-trash-alt"></i>Delete
-                            </span>
-                          </div>
-                        </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                    </div>
-                    </div>
-                 
                 </div>
                 <div className="col-lg-12 col-md-12">
                   <div className="form-group text-center">
@@ -831,8 +840,8 @@ const PiForm = ({ oldPi }) => {
         </div>
         <Products handleAddToPi={handleAddToPi} />
       </Modal> */}
-     {modalIsOpen &&
-      <div class="modal fade" id="exampleModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      {modalIsOpen && (
+        <div class="modal fade" id="exampleModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg " role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -845,8 +854,8 @@ const PiForm = ({ oldPi }) => {
               </div>
               <div class="modal-body">
                 {/* <div className="modal-data-summary"> */}
-                  <Products handleAddToPi={handleAddToPi}/>
-                </div>
+                <Products handleAddToPi={handleAddToPi} />
+              </div>
               {/* </div> */}
               {/* <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -855,7 +864,8 @@ const PiForm = ({ oldPi }) => {
               </div> */}
             </div>
           </div>
-       </div>}
+        </div>
+      )}
     </div>
   );
 };
