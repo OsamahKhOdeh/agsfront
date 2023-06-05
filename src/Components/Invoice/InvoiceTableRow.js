@@ -87,7 +87,7 @@ const InvoiceTableRow = ({ products, currency, location, usdToAedRate }) => {
       </Text>
       <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.price}>
-        {calcPrice(item)?.toFixed(4)}
+        {calcPrice(item)?.toFixed(`${item.category === "Solar" ? 4 : 2}`)}
         &nbsp;&nbsp;
         {currency}
       </Text>

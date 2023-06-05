@@ -75,9 +75,9 @@ const InvoiceTableRow = ({ truckItem }) => {
       </Text>
       <Text style={styles.amount}>{item.productQty}</Text>
       <Text style={styles.amount}>{item.productPalletQty}</Text>
-      <Text style={styles.amount}>{item.productTotalNetWeight}</Text>
-      <Text style={styles.amount}>{item.productTotalGrossWeight}</Text>
-      <Text style={styles.amount2}>{item.productTotalAmount}</Text>
+      <Text style={styles.amount}>{item.productTotalNetWeight.toFixed(2)}</Text>
+      <Text style={styles.amount}>{item.productTotalGrossWeight.toFixed(2)}</Text>
+      <Text style={styles.amount2}>{item.productTotalAmount.toFixed(2)}</Text>
     </View>
   ));
   return (
@@ -88,9 +88,9 @@ const InvoiceTableRow = ({ truckItem }) => {
         <Text style={styles.descriptionTotal}>TOTAL</Text>
         <Text style={styles.amountTotal}>{truckItem.truckTotalPackages}</Text>
         <Text style={styles.amountTotal}>{truckItem?.truckTotalPallets}</Text>
-        <Text style={styles.amountTotal}>{truckItem.truckNetWeight}</Text>
-        <Text style={styles.amountTotal}>{truckItem.truckGrossWeight}</Text>
-        <Text style={styles.amount2Total}>{truckItem?.truckTotalAmount}</Text>
+        <Text style={styles.amountTotal}>{truckItem.truckNetWeight.toFixed(2)}</Text>
+        <Text style={styles.amountTotal}>{truckItem.truckGrossWeight.toFixed(2)}</Text>
+        <Text style={styles.amount2Total}>{truckItem?.truckTotalAmount.toFixed(2)}</Text>
       </View>
     </Fragment>
   );

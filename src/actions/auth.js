@@ -1,19 +1,19 @@
-import * as api from '../api/index.js';
-import { setAutherized, setCredentials } from '../store/authSlice.js';
+import * as api from "../api/index.js";
+import { setAutherized, setCredentials } from "../store/authSlice.js";
 
-export const login = (formData , navigate) => async (dispatch) => {
+export const login = (formData, navigate) => async (dispatch) => {
   const { username, password } = formData;
-  console.log( username, password);
+  console.log(username, password);
   try {
-    const { data } = await api.login({username , password});
-    dispatch(setCredentials(data))
-    dispatch(setAutherized(true))
-    navigate('/user/warranty');
+    const { data } = await api.login({ username, password });
+    dispatch(setCredentials(data));
+    dispatch(setAutherized(true));
+    navigate("/user/home");
     console.log(data);
-   // router.push('/');
+    // router.push('/');
   } catch (error) {
     console.log(error.response.data.message);
-    dispatch(setAutherized(false))
+    dispatch(setAutherized(false));
   }
 };
 /*

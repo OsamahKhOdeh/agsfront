@@ -12,20 +12,48 @@ const SearchBox = ({ onChange, onCategoeyChange }) => {
   };
   return (
     <div className="header-website">
-    <div className="row">
-      <div className="col-lg-6 col-md-6">
-      <input  type="text" placeholder="Search.." name="search2" onChange={onChange}  autocomplete="on"/>
-      </div>
-      <div className="col-lg-6 col-md-6">
-        <div className="group-buttons">
-            <span className="ags-btn-main-fill"  onClick={() => {handleFilterClick("battery");}}>Battery</span>
-            <span className="ags-btn-main-fill"  onClick={() => { handleFilterClick("solar");}}>Solar</span>
-            <span className="ags-btn-main-fill"  onClick={() => { handleFilterClick("inverter");}}>Inverter</span>
-            <span className="ags-btn-main-fill"  onClick={() => {handleFilterClick("all");}}>All</span>
+      <div className="row">
+        <div className="col-lg-6 col-md-6">
+          <input type="text" placeholder="Search.." name="search2" onChange={onChange} />
+        </div>
+        <div className="col-lg-6 col-md-6">
+          <div className="group-buttons">
+            <span
+              className={`ags-btn-main-fill ${category === "battery" ? "chosen_cat" : ""}`}
+              onClick={() => {
+                handleFilterClick("battery");
+              }}
+            >
+              Battery
+            </span>
+            <span
+              className={`ags-btn-main-fill ${category === "solar" ? "chosen_cat" : ""}`}
+              onClick={() => {
+                handleFilterClick("solar");
+              }}
+            >
+              Solar
+            </span>
+            <span
+              className={`ags-btn-main-fill ${category === "inverter" ? "chosen_cat" : ""}`}
+              onClick={() => {
+                handleFilterClick("inverter");
+              }}
+            >
+              Inverter
+            </span>
+            <span
+              className={`ags-btn-main-fill ${category === "all" ? "chosen_cat" : ""}`}
+              onClick={() => {
+                handleFilterClick("all");
+              }}
+            >
+              All
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
     // <div className="search_div_po">
     //   <input className="search_box_po" type="text" placeholder="Search.." name="search2" onChange={onChange} />
     //   <div className="filter_div">

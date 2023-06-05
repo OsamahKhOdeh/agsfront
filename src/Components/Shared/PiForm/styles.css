@@ -34,3 +34,20 @@
     border-width: thin;
     border-radius: 17px;
   }
+
+
+
+  .new_modal_2{
+        background-color: #ebe8e8;
+    border: solid;
+    border-color: #f0f8ff;
+    border-radius: 12px;
+    bottom: 18%;
+    left: 20%;
+    position: absolute;
+    right: 10%;
+    text-align: left;
+    top: 10%;
+    height: 82%;
+    overflow-y: scroll;
+  }

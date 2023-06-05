@@ -8,7 +8,14 @@ import "./WebsitePage.css";
 import { useState } from "react";
 import SearchBox from "./SearchBox";
 import Navbar from "../../Components/Navbar/Navbar";
+import { useLocation } from "react-router-dom";
 const WebsitePage = () => {
+  let location = useLocation();
+  React.useEffect(() => {
+    console.log(location);
+  }, [location]);
+  const showNav = location.pathname === "/website";
+
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.show.isLoading);
   const poProucts = useSelector((state) => state.po.products);
@@ -32,14 +39,14 @@ const WebsitePage = () => {
       </div>
     </div>
   ) : (
-      <> 
-       <Navbar/>
-    <div className="po_page_container">
-      {/* <div className="po_filters"> */}
+    <>
+      {showNav && <Navbar />}
+      <div className="po_page_container">
+        {/* <div className="po_filters"> */}
         <SearchBox onChange={handleSearchBoxChange} onCategoeyChange={handleCategoryChange} />
-      {/* </div> */}
-      <Products searchQuery={searchQuery} category={category} />
-    </div>
+        {/* </div> */}
+        <Products searchQuery={searchQuery} category={category} />
+      </div>
     </>
   );
 };

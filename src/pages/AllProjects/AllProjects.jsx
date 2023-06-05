@@ -294,11 +294,7 @@ const AllProjects = () => {
         <div className="exit_butt" onClick={() => closeModal()}>
           Exit
         </div>
-        <ProjectTasks
-          setNewTask={setNewTask}
-          currentProject={currentProject}
-          handleNewTask={handleNewTask}
-        ></ProjectTasks>
+        <ProjectTasks setNewTask={setNewTask} currentProject={currentProject} handleNewTask={handleNewTask}></ProjectTasks>
       </Modal>
     </>
   );

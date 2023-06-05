@@ -91,30 +91,31 @@ const TablePage = () => {
       dispatch(modifyProductPriceLocal({ id: id, price: parseFloat(event.target.value) }));
     }
   };
-  if(selectedProducts.length > 0 ) {
+  if (selectedProducts.length > 0) {
     return (
-      
       <>
-      <span  className="ags-btn-review" data-toggle="modal" data-target="#exampleModal"><i class="uil uil-eye"></i></span>
-        {selectedProducts.map((item, index) => 
-      <div className="pi-list">
-      <div className="item-pi">
-        <div className="item-pi-tittle">
-          <span>Item.No</span>
-          <span> {index + 1}</span>
-        </div>
-        <div className="item-pi-body">
-          <div class="wrapper">
-            <div class="box a">
-              <p className="text-secondary">Unit Price</p>
-              <h6>
-                 {currency === "USD" ? " $ " : " AED "}
-                  {calcPrice(item)?.toFixed(3)}
-               </h6>
-            </div>
-            <div class="box b">
-              <p className="text-secondary">New Price</p>
-              <input
+        <span className="ags-btn-review" data-toggle="modal" data-target="#exampleModal">
+          <i class="uil uil-eye"></i>
+        </span>
+        {selectedProducts.map((item, index) => (
+          <div className="pi-list">
+            <div className="item-pi">
+              <div className="item-pi-tittle">
+                <span>Item.No</span>
+                <span> {index + 1}</span>
+              </div>
+              <div className="item-pi-body">
+                <div class="wrapper">
+                  <div class="box a">
+                    <p className="text-secondary">Unit Price</p>
+                    <h6>
+                      {currency === "USD" ? " $ " : " AED "}
+                      {calcPrice(item)?.toFixed(3)}
+                    </h6>
+                  </div>
+                  <div class="box b">
+                    <p className="text-secondary">New Price</p>
+                    <input
                       id="new_price"
                       placeholder={calcPrice(item)?.toFixed(3)}
                       type="text"
@@ -130,54 +131,71 @@ const TablePage = () => {
                         handleNewPriceChange(e, item._id);
                       }}
                     />
-            </div>
-            <div class="box c">
-              <p className="text-secondary">Total ({currency === "USD" ? " $ " : " AED "})</p>
-              <h6 >  {currency === "USD" ? " $ " : " AED "}
-                 {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
-             </h6>
-            </div>
-            <div class="box d">
-              <p className="text-secondary">Qty</p>
-              <input type="number"   className="form-control w-75" value={quantities[index]}  autocomplete="on" onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
-            </div>
-            <div class="box e">
-              <p className="text-secondary">Item Name</p>
-              <h6>  {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})</h6>
-            </div>
-            <div class="box f weight">
-              <p className="text-secondary">Weight </p>
-              <h6> {item.grossWeight}</h6>
-            </div>
-            <div class="box  total-weight">
-              <p className="text-secondary">Total/ W </p>
-              <h6> {item.grossWeight * item.qty}</h6>
-            </div>
-            <div class="box g">
-              <p className="text-secondary">Actions</p>
-              <div className="ags-action">
-                  <button className="ags-btn-delete">
-                    <i class="uil uil-trash-alt"></i>Delete
-                  </button>
+                  </div>
+                  <div class="box c">
+                    <p className="text-secondary">Total ({currency === "USD" ? " $ " : " AED "})</p>
+                    <h6>
+                      {" "}
+                      {currency === "USD" ? " $ " : " AED "}
+                      {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
+                    </h6>
+                  </div>
+                  <div class="box d">
+                    <p className="text-secondary">Qty</p>
+                    <input
+                      type="number"
+                      className="form-control w-75"
+                      value={quantities[index]}
+                      autocomplete="on"
+                      onBlur={() => {
+                        dispatch(setProductQty({ id: item._id, qty: quantities[index] }));
+                      }}
+                      onChange={(e) => {
+                        handleQuantityChange(index, e);
+                        setQty(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div class="box e">
+                    <p className="text-secondary">Item Name</p>
+                    <h6>
+                      {" "}
+                      {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})
+                    </h6>
+                  </div>
+                  <div class="box f weight">
+                    <p className="text-secondary">Weight </p>
+                    <h6> {item.grossWeight}</h6>
+                  </div>
+                  <div class="box  total-weight">
+                    <p className="text-secondary">Total/ W </p>
+                    <h6> {item.grossWeight * item.qty}</h6>
+                  </div>
+                  <div class="box g">
+                    <p className="text-secondary">Actions</p>
+                    <div className="ags-action">
+                      <button className="ags-btn-delete">
+                        <i class="uil uil-trash-alt"></i>Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-       </div>
-      </div>
-      )}
-      <div className="table-pi-list mx-auto" >
+        ))}
+        <div className="table-pi-list mx-auto">
           <table className="w-full pi__table whitespace-nowrap">
             <thead>
               <tr className="h-16  text-sm leading-none text-gray-800">
-                <th >Item NO</th>
-                <th >Item Name</th>
+                <th>Item NO</th>
+                <th>Item Name</th>
                 {/* {pi && <th className="font-normal ">QTY(PCS)/(WATTS)</th>} */}
-                <th >Unit Price({currency})</th>
-                <th >New Price</th>
+                <th>Unit Price({currency})</th>
+                <th>New Price</th>
                 {pi && <th>Unit Weight</th>}
-                {pi && <th > Total Weight</th>} {pi && <th    >Total({currency})</th>}
-                {pi && <th >Qty</th>}
+                {pi && <th> Total Weight</th>} {pi && <th>Total({currency})</th>}
+                {pi && <th>Qty</th>}
                 {pi && <th>Actions</th>}
               </tr>
             </thead>
@@ -188,9 +206,9 @@ const TablePage = () => {
                   key={index}
                 >
                   <td className="pl-4 cursor-pointer">
-                    <div    >{index + 1}</div>
+                    <div>{index + 1}</div>
                   </td>
-                  <td   >
+                  <td>
                     <p className="text-sm font-medium leading-none text-gray-800">
                       {item.brand}&nbsp;{item.code}&nbsp;({item.capacity})
                     </p>
@@ -200,13 +218,13 @@ const TablePage = () => {
                       <p className="font-medium">{item.qty}</p>
                     </td>
                   )} */}
-                  <td   >
+                  <td>
                     <p className="font-medium">
                       {calcPrice(item)?.toFixed(3)}
                       {currency === "USD" ? " $ " : " AED "}
                     </p>
                   </td>
-                  <td  >
+                  <td>
                     <input
                       id="new_price"
                       placeholder={calcPrice(item)?.toFixed(3)}
@@ -224,19 +242,19 @@ const TablePage = () => {
                       }}
                     />
                   </td>
-  
+
                   {pi && (
-                    <td   >
+                    <td>
                       <p className="font-medium">{item.grossWeight}</p>
                     </td>
                   )}
                   {pi && (
-                    <td   >
+                    <td>
                       <p className="font-medium">{item.grossWeight * item.qty}</p>
                     </td>
                   )}
                   {pi && (
-                    <td   >
+                    <td>
                       <p className="font-medium">
                         {item.qty > 0 ? (calcPrice(item) * item.qty)?.toFixed(3) : 0}
                         {currency === "USD" ? " $ " : " AED "}
@@ -245,8 +263,20 @@ const TablePage = () => {
                   )}
                   {pi && (
                     <>
-                      <td   >
-                        <input type="text"   className="form-control w-75" value={quantities[index]}  autocomplete="on" onBlur={() => { dispatch(setProductQty({ id: item._id, qty: quantities[index] }));}} onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}/>
+                      <td>
+                        <input
+                          type="text"
+                          className="form-control w-75"
+                          value={quantities[index]}
+                          autocomplete="on"
+                          onBlur={() => {
+                            dispatch(setProductQty({ id: item._id, qty: quantities[index] }));
+                          }}
+                          onChange={(e) => {
+                            handleQuantityChange(index, e);
+                            setQty(e.target.value);
+                          }}
+                        />
                         {/* <TextField
                           variant="outlined"
                           onChange={(e) => { handleQuantityChange(index, e);setQty(e.target.value);}}
@@ -263,7 +293,12 @@ const TablePage = () => {
                         >
                           DELETE
                         </Button> */}
-                        <span className="ags-btn-main" onClick={() => {dispatch(deletProductformCart(item));}}>
+                        <span
+                          className="ags-btn-main"
+                          onClick={() => {
+                            dispatch(deletProductformCart(item));
+                          }}
+                        >
                           Delete
                         </span>
                       </td>
@@ -274,34 +309,23 @@ const TablePage = () => {
               {pi && (
                 <>
                   <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
-                    <td >
-                    </td>
+                    <td></td>
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}</td>
                     <td>
-                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
-                    </td>
-                    <td   >
-                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
-                    </td>
-                    <td   >
-                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
-                    </td>
-                    <td   >
-                      {/* <p className="text-sm font-medium leading-none text-gray-800"></p> */}
-                    </td>
-                    <td   >
                       {/* <p className="text-sm font-medium leading-none text-gray-800">Total :</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p>
                     </td>
-                    <td  >
+                    <td>
                       {/* <p className="text-sm font-medium leading-none text-gray-800">{totalWeight?.toFixed(3)} Kg</p> */}
                       <p className="text-sm font-medium leading-none text-gray-800">
                         {totalAmount?.toFixed(3)} {pi.currency} {currency === "USD" ? " $ " : " AED "}
                       </p>
                     </td>{" "}
-                    <td   >
-                      {/* <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p> */}
-                    </td>
-                    <td   >
+                    <td>{/* <p className="text-sm font-medium leading-none text-gray-800">Total Invoice :</p> */}</td>
+                    <td>
                       {/* <p className="text-sm font-medium leading-none text-gray-800">
                         {totalAmount?.toFixed(3)} {pi.currency}
                       </p> */}
@@ -311,45 +335,50 @@ const TablePage = () => {
               )}
             </tbody>
           </table>
-      </div>
-      <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Summary</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div className="modal-data-summary">
-                <div className="form-group">
-                  <strong>Total Weight :  </strong>
-                  <span> {totalWeight?.toFixed(3)} Kg</span> 
-                </div>
-                <div className="form-group">
-                  <strong>Total Invoice : </strong>
-                  <span>  {totalAmount?.toFixed(3)} {pi.currency}</span> 
+        </div>
+        <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Summary
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div className="modal-data-summary">
+                  <div className="form-group">
+                    <strong>Total Weight : </strong>
+                    <span> {totalWeight?.toFixed(3)} Kg</span>
+                  </div>
+                  <div className="form-group">
+                    <strong>Total Invoice : </strong>
+                    <span>
+                      {" "}
+                      {totalAmount?.toFixed(3)} {pi.currency}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </>
     );
-  }
-  else{
+  } else {
     return (
       <div className="text-center">
         <h5>No Items Added Yet!</h5>
       </div>
-    )
+    );
   }
-
 };
 
 export default TablePage;

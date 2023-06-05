@@ -3,8 +3,11 @@ import "./ProductNew.css";
 import { downloadDatasheet } from "../../../../actions/products";
 import { useDispatch, useSelector } from "react-redux";
 import ReactWhatsapp from "react-whatsapp";
+import { useLocation } from "react-router-dom";
 
 const ProductNew = ({ product, index }) => {
+  console.log(useLocation().pathname);
+  const showQuote = useLocation().pathname === "/website";
   const onButtonClick = async (id, downloadedFileName) => {
     downloadDatasheet(id, downloadedFileName);
   };
@@ -44,14 +47,19 @@ const ProductNew = ({ product, index }) => {
       </div>
 
       <div class="contentBox">
-        <h3 >{product.brand}</h3>
+        <h3>{product.brand}</h3>
         <h3 style={{ fontSize: "16px", fontFamily: "monospace", fontWeight: "600", color: "rgb(197 19 19)" }}>{product.code}</h3>
-        <h2 class="price">
-          {product.capacity}
-        </h2>
+        <h2 class="price">{product.capacity}</h2>
         <div className="button_container">
-          <button className="ags-btn-main-fill" onClick={() => onButtonClick(product._id, product.code)}>  Datasheet</button>
-          <button className="ags-btn-sucess-fill " onClick={() => onGetQuoteClick(product._id, product.code, product.capacity)}>Get Quote</button>
+          <button className="ags-btn-main-fill" onClick={() => onButtonClick(product._id, product.code)}>
+            {" "}
+            Datasheet
+          </button>
+          {showQuote && (
+            <button className="ags-btn-sucess-fill " onClick={() => onGetQuoteClick(product._id, product.code, product.capacity)}>
+              Get Quote
+            </button>
+          )}
         </div>
       </div>
     </div>

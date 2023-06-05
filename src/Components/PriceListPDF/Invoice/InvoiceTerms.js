@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     paddingLeft: "5px",
     fontSize: "9px",
     width: "100%",
-   
   },
   header: {
     paddingLeft: "5px",
@@ -48,15 +47,13 @@ const styles = StyleSheet.create({
 
 const InvoiceTerms = ({ terms }) => (
   <>
-    
-    {terms?.length > 0 ? 
-      (terms.map((item, index) => (
-        <View key={index} style={styles.row}>
-          <Text style={styles.description}>{item}</Text>
-        </View>))
-      ) : null
-    }
-   
+    <View style={styles.row}>
+      <Text style={styles.description}>
+        {" "}
+        The quotation is valid for a period of 7 days starting from the date of the quotation, and it is subject to change without prior
+        notice.{" "}
+      </Text>
+    </View>
   </>
 );
 

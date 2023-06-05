@@ -41,7 +41,7 @@ const UserLayout = () => {
   if (roles.includes("Logistics")) {
     MenuItems = LogisticsMenuItems;
   }
-  const logout = () => {
+  const logout = (r) => {
     dispatch(logOut());
     dispatch(emptyCart());
     dispatch(clearFilters());
@@ -88,9 +88,14 @@ const UserLayout = () => {
               <img src="/images/avatar.png" alt="avatar-img" />{" "}
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" onClick={() => {}}>
+              <p
+                class="dropdown-item"
+                onClick={() => {
+                  navigate("/user/home");
+                }}
+              >
                 <i class="uil uil-user-circle"></i> {user}
-              </a>
+              </p>
               <a class="dropdown-item" onClick={logout}>
                 {/* <div > */}
                 {/* <a  className="nav_link"> */}
@@ -108,10 +113,16 @@ const UserLayout = () => {
           <nav className="nav">
             <div>
               {" "}
-              <a href="#" className="nav_logo">
+              <p
+                className="nav_logo "
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/user/home");
+                }}
+              >
                 {" "}
                 <i className="bx bx-layer nav_logo-icon"></i> <span className="nav_logo-name">AGS</span>{" "}
-              </a>
+              </p>
               <div className="nav_list">
                 {isAdmin && (
                   <>
@@ -122,18 +133,47 @@ const UserLayout = () => {
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
                       <a class="dropdown-item ">
-                        <Link to="/user/makepi" className="invoice-item">
+                        <Link
+                          to="/user/makepi"
+                          className="invoice-item"
+                          onClick={() => {
+                            dispatch(emptyCart());
+                          }}
+                        >
                           Performa Invoice
                         </Link>
                       </a>
                       <a class="dropdown-item">
-                        <Link to="/user/makepo" className="invoice-item">
+                        <Link
+                          to="/user/makepo"
+                          className="invoice-item"
+                          onClick={() => {
+                            dispatch(emptyCart());
+                          }}
+                        >
                           Purchase Order
                         </Link>
                       </a>
                       <a class="dropdown-item">
-                        <Link to="/user/warranty" className="invoice-item">
+                        <Link
+                          to="/user/warranty"
+                          className="invoice-item"
+                          onClick={() => {
+                            dispatch(emptyCart());
+                          }}
+                        >
                           Quotation
+                        </Link>
+                      </a>
+                      <a class="dropdown-item ">
+                        <Link
+                          to="/user/packinglistmanual"
+                          className="invoice-item"
+                          onClick={() => {
+                            dispatch(emptyCart());
+                          }}
+                        >
+                          Packing List
                         </Link>
                       </a>
                       {/* <div class="dropdown-divider"></div>
@@ -142,9 +182,11 @@ const UserLayout = () => {
                   </>
                 )}
                 {MenuItems.map((MenuItem) => (
-                  <a href={MenuItem.path} className="nav_link active">
-                    <i className={`bx nav_icon ${MenuItem.icon}`}></i>
-                    <span className="nav_name">{MenuItem.title}</span>
+                  <a className="nav_link active">
+                    <Link to={MenuItem.path} className="invoice-item" onClick={() => {}}>
+                      <i className={`bx nav_icon ${MenuItem.icon}`}></i>
+                      <span className="nav_name">{MenuItem.title}</span>
+                    </Link>
                   </a>
                 ))}
               </div>
