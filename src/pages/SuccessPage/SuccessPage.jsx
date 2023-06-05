@@ -26,7 +26,7 @@ const SuccessPage = () => {
     }
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
-    }
+    } 
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
