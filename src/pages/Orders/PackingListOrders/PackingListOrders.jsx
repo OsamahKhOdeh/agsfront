@@ -3,13 +3,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
-import { changeProformaInvoiceStatus } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { getEmployeeProformaInvoicesAction } from "../../../actions/proformaInvoice";
 import useAuth from "../../../hooks/useAuth";
-import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
 // import UploadPdf from "./UploadPdf";
 // import DownloadPDFButton from "./DownloadPDFButton";
 import SearchBox from "../../../Components/SearchBox/SearchBox";
@@ -55,15 +51,11 @@ export const timeAgo = (date) => {
 const PackingListOrders = () => {
   const [isPdf, setIsPdf] = useState(false);
   const [currentPkl, setCurrentPkl] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [withPrice, setWithPrice] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
 
-  const handleLoading = (isLoading) => {
-    setIsLoading(isLoading);
-  };
-
-  const { username, phone } = useAuth();
+  const { username } = useAuth();
 
   function colorByStatus(status) {
     switch (status) {
@@ -89,7 +81,7 @@ const PackingListOrders = () => {
     // return () => {
     //   clearInterval(interval);
     // };
-  }, [dispatch]);
+  }, [dispatch, username]);
 
   let packingLists = useSelector((state) => state.packingLists.packingLists);
   /* ------------------------------- searchQuery ------------------------------ */
@@ -119,7 +111,8 @@ const PackingListOrders = () => {
 
   /* -------------------------------------------------------------------------- */
 
-  const handlePDF = (pkl) => {
+  const handlePDF = (pkl, withPriceVal) => {
+    setWithPrice(withPriceVal);
     setCurrentPkl(pkl);
     setIsPdf(true);
     console.log(isPdf);
@@ -137,7 +130,7 @@ const PackingListOrders = () => {
             PREVIOUS
           </button>
         </div>
-        <PackingListPdf pkl={currentPkl} />
+        <PackingListPdf pkl={currentPkl} withPrice={withPrice} />
       </>
     );
   } else
@@ -205,9 +198,14 @@ const PackingListOrders = () => {
                             // <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
                             //   PI ( pdf )
                             // </button>
-                            <button className="ags-btn-reject" onClick={() => handlePDF(pkl)}>
-                              <i class="uil uil-eye"></i>{" "}
-                            </button>
+                            <>
+                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true)}>
+                                <i class="uil uil-eye"></i>{" "}
+                              </button>
+                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, false)}>
+                                Without Price<i class="uil uil-eye"></i>{" "}
+                              </button>
+                            </>
                           ) : pkl.managerApproval === "Rejected" ? (
                             <>
                               <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${pkl._id}`)}>
@@ -278,9 +276,14 @@ const PackingListOrders = () => {
                         <td>
                           <div style={{ overflow: "hidden" }}>
                             {pkl.managerApproval === "Approved" ? (
-                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl)}>
-                                PI ( pdf )
-                              </button>
+                              <div style={{ display: "flex" }}>
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true)}>
+                                  PKL
+                                </button>
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false)}>
+                                  PKL/No
+                                </button>
+                              </div>
                             ) : pkl.managerApproval === "Rejected" ? (
                               <>
                                 <button

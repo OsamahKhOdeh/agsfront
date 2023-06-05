@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { updateProformaInvoice } from "../../../actions/proformaInvoice";
 import "./styles.css";
 import Modal from "react-modal";
@@ -51,6 +51,7 @@ const PiForm = ({ oldPi }) => {
   let total = 0;
 
   function calcTotal() {
+    // eslint-disable-next-line array-callback-return
     inputs.products?.map((product) => {
       total += calcPrice(product) * product.qty;
     });
@@ -88,7 +89,6 @@ const PiForm = ({ oldPi }) => {
     }
   };
   const handleProductQtyChange = (event, id) => {
-    const name = event.target.name;
     const value = event.target.value;
     let theproducts = [...inputs.products];
     const theProduct = theproducts.filter((product) => product._id === id)[0];
@@ -101,7 +101,6 @@ const PiForm = ({ oldPi }) => {
   };
 
   const handleProductPriceChange = (event, id) => {
-    const name = event.target.name;
     const value = event.target.value;
     let theproducts = [...inputs.products];
     const theProduct = theproducts.filter((product) => product._id === id)[0];
@@ -133,10 +132,10 @@ const PiForm = ({ oldPi }) => {
     console.log(inputs);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   console.log(inputs);
+  // };
 
   const handleUpdateButtonClick = (event) => {
     event.preventDefault();

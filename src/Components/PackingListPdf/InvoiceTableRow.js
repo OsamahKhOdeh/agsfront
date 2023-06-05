@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableRow = ({ truckItem }) => {
+const InvoiceTableRow = ({ truckItem, withPrice }) => {
   let no = 0;
   const rows = truckItem.truckProductItems.map((item, index) => (
     <View style={styles.container} key={index}>
@@ -77,7 +77,7 @@ const InvoiceTableRow = ({ truckItem }) => {
       <Text style={styles.amount}>{item.productPalletQty}</Text>
       <Text style={styles.amount}>{item.productTotalNetWeight.toFixed(2)}</Text>
       <Text style={styles.amount}>{item.productTotalGrossWeight.toFixed(2)}</Text>
-      <Text style={styles.amount2}>{item.productTotalAmount.toFixed(2)}</Text>
+      <Text style={styles.amount2}>{withPrice && item.productTotalAmount.toFixed(2)}</Text>
     </View>
   ));
   return (
@@ -90,7 +90,7 @@ const InvoiceTableRow = ({ truckItem }) => {
         <Text style={styles.amountTotal}>{truckItem?.truckTotalPallets}</Text>
         <Text style={styles.amountTotal}>{truckItem.truckNetWeight.toFixed(2)}</Text>
         <Text style={styles.amountTotal}>{truckItem.truckGrossWeight.toFixed(2)}</Text>
-        <Text style={styles.amount2Total}>{truckItem?.truckTotalAmount.toFixed(2)}</Text>
+        <Text style={styles.amount2Total}>{withPrice && truckItem?.truckTotalAmount.toFixed(2)}</Text>
       </View>
     </Fragment>
   );

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableHeader = ({ truckItem }) => (
+const InvoiceTableHeader = ({ truckItem, withPrice }) => (
   <>
     <View style={styles.containerTruck}>
       <Text style={styles.noBlank}> </Text>
@@ -91,7 +91,7 @@ const InvoiceTableHeader = ({ truckItem }) => (
       <Text style={styles.amount}>PALLET</Text>
       <Text style={styles.amount}>NW(KG)</Text>
       <Text style={styles.amount}>GW(KG)</Text>
-      <Text style={styles.amount2}>TOTAL</Text>
+      <Text style={styles.amount2}>{withPrice && "TOTAL"}</Text>
     </View>
   </>
 );

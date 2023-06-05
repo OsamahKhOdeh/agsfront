@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Invoice = ({ pkl }) => {
+const Invoice = ({ pkl, withPrice }) => {
   console.log(pkl);
   let logo = logo_ags;
   let stamp = ags_stamp;
@@ -78,7 +78,7 @@ const Invoice = ({ pkl }) => {
         <InvoiceTitle title="INVOICE/PACKING LIST" />
         <InvoiceInfo pkl={pkl} />
         {pkl.truckItems.map((truckItem) => (
-          <InvoiceItemsTable truckItem={truckItem} />
+          <InvoiceItemsTable truckItem={truckItem} withPrice={withPrice} />
         ))}
         {/* <InvoiceItemsTable pkl={pkl} />
         <View wrap={false}>
