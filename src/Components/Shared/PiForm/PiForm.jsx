@@ -15,6 +15,9 @@ const PiForm = ({ oldPi }) => {
   const navigate = useNavigate();
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  // state = {
+  //   showModal: false
+  // };
   function openModal() {
     setIsOpen(true);
   }
@@ -25,9 +28,17 @@ const PiForm = ({ oldPi }) => {
   function closeModal() {
     setIsOpen(false);
   }
+  // openModal1 = () => {
+  //   this.setState({ showModal: true });
+  // };
+
+  // closeModal1 = () => {
+  //   this.setState({ showModal: false });
+  // };
+
 
   const [inputs, setInputs] = useState(oldPi ? oldPi : {});
-
+  console.log(inputs);
   const dispatch = useDispatch();
   const location = inputs?.location;
   const currency = inputs?.currency;
@@ -140,6 +151,8 @@ const PiForm = ({ oldPi }) => {
   const handleUpdateButtonClick = (event) => {
     event.preventDefault();
 
+  const handleUpdateButtonClick = (event) => {    event.preventDefault();
+
     dispatch(updateProformaInvoice(oldPi._id, inputs));
     showToastMessage("Proforma invoices updated successfully", "success");
     setTimeout(() => {
@@ -156,9 +169,9 @@ const PiForm = ({ oldPi }) => {
     } else {
       product = { ...product, qty: 0, freezonePrice: 0, freezonePriceAED: 0, LocalPrice: 0, LocalPriceAED: 0 };
       theproducts.push(product);
-
       setInputs((values) => ({ ...values, products: theproducts }));
-      closeModal();
+      setIsOpen(false)
+      // closeModal();
     }
   };
 
@@ -397,17 +410,23 @@ const PiForm = ({ oldPi }) => {
                   </div>
                 </div>
                 <div>
-                  {" "}
+                  {/* {" "}
                   <i
                     class="uil uil-plus-circle add_truck_but"
                     onClick={() => {
                       openModal(true);
                     }}
-                  ></i>
+                  ></i> */}
                 </div>
 
                 <div className="col-12">
-                  <table style={{ border: 1 }} class="pi__table table tabel-edit-pi">
+                    <div className="container-edit">
+                    <div className="container-tittle">
+                      <h5>Items</h5>
+                      <span  data-toggle="modal" onClick={()=>{setIsOpen(true)}}  data-target="#exampleModal1"><i class="uil uil-plus-circle uil-extra-larg "></i></span>
+                    </div>
+                    <div className="container-body">
+                    <table style={{ border: 1 }} class="pi__table table tabel-edit-pi">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -485,8 +504,8 @@ const PiForm = ({ oldPi }) => {
                       </tr>
                     </tfoot>
                   </table>
-                  {/* design for mobile  */}
-                  <div className="truck-table-mobile">
+                   {/* design for mobile  */}
+                   <div className="truck-table-mobile">
                     {inputs?.products?.map((product, index) => (
                       <div className="wrapper-truck">
                         <div className="wrapper-tittle">
@@ -538,6 +557,9 @@ const PiForm = ({ oldPi }) => {
                       </div>
                     ))}
                   </div>
+                    </div>
+                    </div>
+                 
                 </div>
                 <div className="col-lg-12 col-md-12">
                   <div className="form-group text-center">
@@ -795,7 +817,7 @@ const PiForm = ({ oldPi }) => {
         </div> */}
         {/* end old form */}
       </>
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -808,7 +830,32 @@ const PiForm = ({ oldPi }) => {
           Exit
         </div>
         <Products handleAddToPi={handleAddToPi} />
-      </Modal>
+      </Modal> */}
+     {modalIsOpen &&
+      <div class="modal fade" id="exampleModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Add New Items
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {/* <div className="modal-data-summary"> */}
+                  <Products handleAddToPi={handleAddToPi}/>
+                </div>
+              {/* </div> */}
+              {/* <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+              </div> */}
+            </div>
+          </div>
+       </div>}
     </div>
   );
 };

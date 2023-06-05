@@ -403,7 +403,6 @@ const PIActionsAdmin = () => {
                     </td>
                     <td>
                       <div
-                        style={{ fontSize: "20px" }}
                         className={`status-table-label ${colorByStatus(
                           roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
                         )}`}

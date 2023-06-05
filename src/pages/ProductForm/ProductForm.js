@@ -169,7 +169,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
       <div className="card-add-product-body">
       <form autoComplete="off" noValidate  onSubmit={handleSubmit}>
       <div className="row">
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="categotry">Category</label>
             <select class="form-select " required  value={productData.category}   onChange={(e) => setProductData({ ...productData, category: e.target.value })} aria-label="Default select example">
@@ -182,7 +182,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             </select>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="categotry">Country</label>
             <select class="form-select" required value={productData.country} onChange={(e) => setProductData({ ...productData, country: e.target.value })} aria-label="Default select example">
@@ -195,7 +195,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             </select>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="categotry">Company</label>
             <select class="form-select" required value={productData.company} onChange={(e) => setProductData({ ...productData, company: e.target.value })} aria-label="Default select example">
@@ -209,7 +209,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             </select>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="categotry">Brand</label>
             <select class="form-select"   value={productData.brand}  onChange={(e) => setProductData({ ...productData, brand: e.target.value })} aria-label="Default select example">
@@ -222,7 +222,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             </select>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="categotry">Capacity</label>
             <select class="form-select" required value={productData.capacity} onChange={(e) => setProductData({ ...productData, capacity: e.target.value })} aria-label="Default select example">
@@ -235,13 +235,13 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             </select>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="productCode">Product Code</label>
             <input class="form-control " id="productCode" type="text"  onChange={(e) => setProductData({ ...productData, code: e.target.value })} placeholder="Enter product code"   autocomplete="on"/>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="netWight">Net Weight</label>
             <input class="form-control " id="netWight"
@@ -252,7 +252,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             }} type="text" placeholder="Enter net wieght"  autocomplete="on"  />
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="groosWeihgt">Gross Weight</label>
             <input class="form-control " id="grossWeihgt"
@@ -263,7 +263,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             }} type="text" placeholder="Enter groos weight"   autocomplete="on"/>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="paletSize">Palet Size</label>
             <input class="form-control "
@@ -274,7 +274,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             }} id="paletSize" type="text" placeholder="Enter palet size"   autocomplete="on"/>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="netPrice">Net Price</label>
             <input class="form-control "
@@ -285,7 +285,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
             }} id="netPrice" type="text" placeholder="Enter net price"  autocomplete="on" />
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="freezonePrice">Freezone Price</label>
             <input class="form-control "
@@ -297,7 +297,7 @@ const ProductForm = ({ currentId, setCurrentId }) => {
              id="freezonePrice" type="text" placeholder="enter freezone price"   autocomplete="on"/>
           </div>
         </div>
-        <div className="col-lg-6 col-md-12">
+        <div className="col-lg-3 col-md-12">
           <div className="form-group">
             <label htmlFor="localPrice">Local Price</label>
             <input class="form-control " 
