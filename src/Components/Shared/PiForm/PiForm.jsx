@@ -157,7 +157,8 @@ const PiForm = ({ oldPi }) => {
     console.log(inputs);
   };
 
-  const handleUpdateButtonClick = (event) => {
+  const handleUpdateButtonClick = (event) => {    event.preventDefault();
+
     dispatch(updateProformaInvoice(oldPi._id, inputs));
     showToastMessage();
   };
@@ -190,7 +191,7 @@ const PiForm = ({ oldPi }) => {
             <h3> Edit PI</h3>
           </div>
           <div className="card-add-product-body">
-            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+            <form autoComplete="off" noValidate onSubmit={handleUpdateButtonClick}>
               <div className="row">
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">

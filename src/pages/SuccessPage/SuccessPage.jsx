@@ -19,28 +19,28 @@ const SuccessPage = () => {
   const products = useSelector((state) => state.cart.cart);
 
   const res = Object.entries(piInfo).map(([name, obj]) => ({ name, ...obj }));
-  // function calcPrice(item) {
-  //   let price = 0;
-  //   if (location === "freezone" && currency === "AED") {
-  //     price = item.freezonePriceAED;
-  //   }
-  //   if (location === "local" && currency === "AED") {
-  //     price = item.LocalPriceAED;
-  //   }
-  //   if (location === "freezone" && currency === "USD") {
-  //     price = item.freezonePrice;
-  //   }
-  //   if (location === "local" && currency === "USD") {
-  //     price = item.LocalPrice;
-  //   }
+  function calcPrice(item) {
+    let price = 0;
+    if (location === "freezone" && currency === "AED") {
+      price = item.freezonePriceAED;
+    }
+    if (location === "local" && currency === "AED") {
+      price = item.LocalPriceAED;
+    }
+    if (location === "freezone" && currency === "USD") {
+      price = item.freezonePrice;
+    }
+    if (location === "local" && currency === "USD") {
+      price = item.LocalPrice;
+    }
 
-  //   return price;
-  // }
+    return price;
+  }
   let total = 0;
 
   function calcTotal() {
     products?.map((product) => {
-      total += product.price * product.qty;
+      total += calcPrice(product) * product.qty;
     });
   }
   calcTotal();
@@ -232,8 +232,8 @@ const SuccessPage = () => {
                             {product.capacity}
                           </td>
                           <td className={product.qty <= 0 && "table-danger"}>{product.qty}</td>
-                          <td>{product.price.toFixed(3)}</td>
-                          <td>{(product.price * product.qty).toFixed(3)}</td>
+                          <td>{calcPrice(product).toFixed(3)}</td>
+                          <td>{(calcPrice(product) * product.qty).toFixed(3)}</td>
                         </tr>
                       );
                     })}

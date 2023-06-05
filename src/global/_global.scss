@@ -1518,6 +1518,12 @@ button:disabled{
     padding: 10px;
   }
 }
+.buttons-navbar{
+  button{
+    padding: 0 7px;
+    margin: 3px;
+  }
+}
 @media screen and (min-width: 768px) {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -1811,6 +1817,15 @@ button:disabled{
       display: block;
     }
   }
+}
+.buttons-navbar{
+  button{
+   display: block;
+  }
+}
+.body-content-pd-2{
+  padding: 0 2rem  0 7px;
+  
 }
 }
 

@@ -76,7 +76,7 @@ const UserLayout = () => {
           <div className="header_toggle" onClick={() => setIsoOpen((prev) => !prev)}>
             <i className={`bx bx-menu ${isOpen ? "" : "bx-x"} `} id="header-toggle"></i>
           </div>
-          <div class="dropdown show">
+          {/* <div class="dropdown show">
             <div
               className="profile-img"
               role="button"
@@ -88,25 +88,19 @@ const UserLayout = () => {
               <img src="/images/avatar.png" alt="avatar-img" />{" "}
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-              <p
-                class="dropdown-item"
-                onClick={() => {
-                  navigate("/user/home");
-                }}
-              >
+              <p class="dropdown-item"  onClick={() => { navigate("/user/home"); }} >
                 <i class="uil uil-user-circle"></i> {user}
               </p>
               <a class="dropdown-item" onClick={logout}>
-                {/* <div > */}
-                {/* <a  className="nav_link"> */}
                 <i class="uil uil-sign-out-alt"></i>
                 <span className="nav_name">Signout</span>
-                {/* </a> */}
-                {/* </div> */}
               </a>
-              {/* <a class="dropdown-item" href="#">Something else here</a> */}
             </div>
-          </div>
+          </div> */}
+         <div className="buttons-navbar">
+         <button className="ags-btn-main-fill" >  {user} </button>
+         <button className="ags-btn-main" onClick={logout}>  Sign out</button>
+         </div>
         </header>
         {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
         <div className={`l-navbar  ${isOpen ? "" : "show"} `} id="nav-bar">
