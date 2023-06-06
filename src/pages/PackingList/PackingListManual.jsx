@@ -3,6 +3,7 @@ import "./PackingList.css";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { BASE_URL } from "../../api/index.js";
+import { useEffect } from "react";
 
 const PackingListManual = () => {
   const { username } = useAuth();
@@ -11,8 +12,10 @@ const PackingListManual = () => {
   const [piNumber, setPiNumber] = useState();
   const [customer, setCustomer] = useState("");
   const [buyer, setBuyer] = useState("");
+  const [showFake, setShowFake] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState("");
   const [date, setDate] = useState(new Date());
+  const [decreaseRate, setDecreaseRate] = useState(1);
 
   const initialTruckItemsState = Array.from({ length: pklInfo?.totalTrucks }, () => ({
     truckNo: "",
@@ -20,6 +23,11 @@ const PackingListManual = () => {
     truckDriverTel: "",
     truckNetWeight: 0,
     truckGrossWeight: 0,
+    /* -------------------------------------------------------------------------- */
+    truckGrossWeightFake: 0,
+    truckNetWeightFake: 0,
+
+    /* -------------------------------------------------------------------------- */
     truckTotalPackages: 0,
     truckTotalAmount: 0,
     truckTotalPallets: 0,
@@ -44,7 +52,22 @@ const PackingListManual = () => {
       .then(async (response) => {
         // Handle the response data
         setPklInfo(response.data);
+        /* -------------------------------------------------------------------------- */
+        let truckLoad = 26000;
+        let possibleTruckOverWeight = 1000;
+        let truckLoadwithOverWeigh = truckLoad + possibleTruckOverWeight;
+        let pklTotalGrossWeight = response.data.pklTotalGrossWeight;
+        let numberOfTrucks = Math.ceil(pklTotalGrossWeight / truckLoadwithOverWeigh);
+        let overWeight = pklTotalGrossWeight - numberOfTrucks * truckLoad;
+        let decreaseRate1 = (numberOfTrucks * truckLoad) / pklTotalGrossWeight;
+        setDecreaseRate(decreaseRate1);
+        console.log(decreaseRate, "|", numberOfTrucks, "|", pklTotalGrossWeight);
         console.log(pklInfo);
+        let totalW = 0;
+        response.data.pklProducts.map((product) => {
+          totalW += product.grossWeight * product.qty * 0.980984;
+        });
+        /* -------------------------------------------------------------------------- */
         let initialTruckProductItems = [];
         response.data.pklProducts.map((product) => {
           initialTruckProductItems.push({
@@ -56,6 +79,12 @@ const PackingListManual = () => {
             productCapacity: product.productCapacity,
             productDescription: product.description,
             productGrossWeight: product.grossWeight,
+            /* -------------------------------------------------------------------------- */
+            productGrossWeightFake: product.grossWeight * decreaseRate,
+            productTotalGrossWeightFake: 0,
+            productNetWeightFake: product.netWeight * decreaseRate,
+            productTotalNetWeightFake: 0,
+            /* -------------------------------------------------------------------------- */
             productNetWeight: product.netWeight,
             productPrice: product.price,
             productQty: 0,
@@ -75,6 +104,10 @@ const PackingListManual = () => {
             truckDriverTel: "",
             truckNetWeight: 0,
             truckGrossWeight: 0,
+            /* -------------------------------------------------------------------------- */
+            truckGrossWeightFake: 0,
+            truckNetWeightFake: 0,
+            /* -------------------------------------------------------------------------- */
             truckTotalPackages: 0,
             truckTotalAmount: 0,
             truckTotalPallets: 0,
@@ -83,6 +116,7 @@ const PackingListManual = () => {
             truckProductItems: initialTruckProductItems,
           }))
         );
+
         // You can access the response status, headers, etc. using response.status, response.headers, etc.
       })
       .catch((error) => {
@@ -116,6 +150,27 @@ const PackingListManual = () => {
       return;
     }
   };
+
+  useEffect(() => {
+    const updateTruckItems = () => {
+      let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
+      console.log(updatedTruckItems);
+      updatedTruckItems.map((truckItem) => {
+        truckItem.truckGrossWeightFake = truckItem.truckGrossWeight * decreaseRate;
+        truckItem.truckNetWeightFake = truckItem.truckNetWeight * decreaseRate;
+
+        truckItem.truckProductItems.map((item) => {
+          item.productGrossWeightFake = item.productGrossWeight * decreaseRate;
+          item.productTotalGrossWeightFake = item.productTotalGrossWeight * decreaseRate;
+          item.productNetWeightFake = item.productNetWeight * decreaseRate;
+          item.productTotalNetWeightFake = item.productTotalNetWeight * decreaseRate;
+        });
+      });
+      console.log(updatedTruckItems);
+      setTruckItems(updatedTruckItems);
+    };
+    updateTruckItems();
+  }, [decreaseRate]);
 
   const getTruckProductWarehouseItemQty = (productId, truckIndex, warehouse) => {
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
@@ -178,11 +233,21 @@ const PackingListManual = () => {
         truckProductItem.productTotalAmount = productQty * truckProductItem.productPrice;
         truckProductItem.productTotalNetWeight = productQty * truckProductItem.productNetWeight;
         truckProductItem.productTotalGrossWeight = productQty * truckProductItem.productGrossWeight;
+        /* -------------------------------------------------------------------------- */
+        truckProductItem.productTotalGrossWeightFake = productQty * truckProductItem.productGrossWeightFake;
+        truckProductItem.productTotalNetWeightFake = productQty * truckProductItem.productNetWeightFake;
+
+        /* -------------------------------------------------------------------------- */
         truckProductItem.productPalletQty = 0;
       });
 
       updatedTruckItems.map((truck) => {
         let truckGrossWeight = 0;
+        /* -------------------------------------------------------------------------- */
+        let truckGrossWeightFake = 0;
+        let truckNetWeightFake = 0;
+
+        /* -------------------------------------------------------------------------- */
         let truckNetWeight = 0;
         let truckTotalPackages = 0;
         let truckTotalAmount = 0;
@@ -190,11 +255,22 @@ const PackingListManual = () => {
 
         truck.truckProductItems.map((truckProductItem) => {
           truckGrossWeight += truckProductItem.productTotalGrossWeight;
+          /* -------------------------------------------------------------------------- */
+          truckGrossWeightFake += truckProductItem.productTotalGrossWeightFake;
+          truckNetWeightFake += truckProductItem.productTotalNetWeightFake;
+
+          /* -------------------------------------------------------------------------- */
           truckNetWeight += truckProductItem.productTotalNetWeight;
           truckTotalPackages += truckProductItem.productQty;
           truckTotalAmount += truckProductItem.productTotalAmount;
           truckTotalPallets += truckProductItem.productPalletQty;
         });
+        /* -------------------------------------------------------------------------- */
+        truck.truckGrossWeightFake = truckGrossWeightFake;
+        truck.truckNetWeightFake = truckNetWeightFake;
+
+        /* -------------------------------------------------------------------------- */
+
         truck.truckGrossWeight = truckGrossWeight;
         truck.truckNetWeight = truckNetWeight;
         truck.truckTotalPackages = truckTotalPackages;
@@ -226,6 +302,12 @@ const PackingListManual = () => {
         productCapacity: product.productCapacity,
         productDescription: product.description,
         productGrossWeight: product.grossWeight,
+        /* -------------------------------------------------------------------------- */
+        productGrossWeightFake: product.grossWeightFake,
+        productTotalGrossWeightFake: 0,
+        productNetWeightFake: product.netWeightFake,
+        productTotalNetWeightFake: 0,
+        /* -------------------------------------------------------------------------- */
         productNetWeight: product.netWeight,
         productPrice: product.price,
         productQty: 0,
@@ -243,6 +325,11 @@ const PackingListManual = () => {
       truckDriverTel: "",
       truckNetWeight: 0,
       truckGrossWeight: 0,
+      /* -------------------------------------------------------------------------- */
+      truckGrossWeightFake: 0,
+      truckNetWeightFake: 0,
+
+      /* -------------------------------------------------------------------------- */
       truckTotalPackages: 0,
       truckTotalAmount: 0,
       truckTotalPallets: 0,
@@ -259,6 +346,7 @@ const PackingListManual = () => {
 
   return (
     <>
+      {console.log(truckItems)}
       <div className="card-custom ">
         <div className="card-custom-tittle justify-content-center">
           <h6>Packing List</h6>
@@ -420,6 +508,28 @@ const PackingListManual = () => {
                     <input type="text" value={date.toLocaleDateString()} disabled onChange={() => {}} autocomplete="on"></input>
                   </div>
                 </div>
+                <div className="col-12">
+                  <div className="form-group">
+                    <button className="ags-btn-main-fill" onClick={() => setShowFake((prev) => !prev)}>
+                      Show Fake <i className="uil uil-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                {showFake && (
+                  <div className="col-12">
+                    <div className="form-group">
+                      <label htmlFor="customer">Decrease Rate </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        value={decreaseRate}
+                        onChange={(e) => {
+                          setDecreaseRate(e.target.value);
+                        }}
+                      ></input>
+                    </div>
+                  </div>
+                )}
               </div>
               {/* End Inputs Information */}
 
@@ -712,7 +822,7 @@ const PackingListManual = () => {
               <div>
                 <div className="truck-table-mobile">
                   {pklInfo?.pklProducts?.map((product, productIndex) => (
-                    <div className="wrapper-truck">
+                    <div className="wrapper-truck" key={productIndex}>
                       <div className="wrapper-tittle">
                         <h6>Product</h6>
                         <span>{productIndex + 1}</span>
@@ -770,7 +880,7 @@ const PackingListManual = () => {
               {/* Truck lists from desktop  */}
               <div className="desktop-table">
                 {truckItems.map((truckItem, index) => (
-                  <div className="truck-item-desktop ">
+                  <div className="truck-item-desktop " key={index}>
                     <div className="tuck-item-tittle-desktop">
                       <div>
                         <label>
@@ -806,6 +916,11 @@ const PackingListManual = () => {
                             <th scope="col">
                               <div>GW(KGs)</div>
                             </th>
+                            {showFake && (
+                              <th scope="col">
+                                <div>GW(KGs)(F)</div>
+                              </th>
+                            )}
                             <th scope="col">
                               <div>Total</div>
                             </th>
@@ -836,6 +951,11 @@ const PackingListManual = () => {
                               <td>
                                 <div c>{product.productTotalGrossWeight?.toFixed(2)}</div>
                               </td>
+                              {showFake && (
+                                <td>
+                                  <div c>{product.productTotalGrossWeightFake?.toFixed(2)}</div>
+                                </td>
+                              )}
 
                               <td>
                                 <div c>{product.productTotalAmount?.toFixed(2)}</div>
@@ -893,12 +1013,18 @@ const PackingListManual = () => {
                     <div className="tuck-item-footer-desktop">
                       <div>
                         <label>Net Weight:</label>
-                        <span>{truckItem.truckNetWeight}</span>
+                        <span>{truckItem.truckNetWeight.toFixed(2)}</span>
                       </div>
                       <div>
                         <label>Gross Weight:</label>
-                        <span>{truckItem.truckGrossWeight}</span>
+                        <span>{truckItem.truckGrossWeight.toFixed(2)}</span>
                       </div>
+                      {showFake && (
+                        <div>
+                          <label>Gross Weight Fake:</label>
+                          <span>{truckItem.truckGrossWeightFake.toFixed(2)}</span>
+                        </div>
+                      )}
                       <div>
                         <label> Packages:</label>
                         <span>{truckItem.truckTotalPackages}</span>
@@ -1012,67 +1138,59 @@ const PackingListManual = () => {
               {/* trucks list for mobile  */}
               <div>
                 {truckItems.map((truckItem, index) => (
-                  <div className="truck-item-table-mobile">
+                  <div className="truck-item-table-mobile" key={index}>
                     <div className="wrapper-truck">
                       <div className="wrapper-tittle">
                         <h6> {truckItem.truckNo}</h6>
                         <span>{truckItem.truckDriverName}</span>
                       </div>
                       {truckItem.truckProductItems.map((product, productIndex) => (
-                        <>
-                          {/* <div className="item-wrapper-tittle">
-                    <h6>Product {productIndex }</h6>
-                  </div> */}
-                          <div className="wrapper">
-                            <div className="box">
-                              <h6>Description</h6>
-                              <span>{product.productDescription}</span>
-                            </div>
-                            <div className="box">
-                              <h6>QTY(PCs)</h6>
-                              <span>{product.productQty}</span>
-                            </div>
-                            <div className="box">
-                              <h6>Pallet</h6>
-                              <span>{product.productPalletQty}</span>
-                            </div>
-                            <div className="box">
-                              <h6>NW(KGs)</h6>
-                              <span>{product.productTotalNetWeight?.toFixed(2)}</span>
-                            </div>
-                            <div className="box">
-                              <h6>GW(KGs)</h6>
-                              <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
-                            </div>
-                            <div className="box">
-                              <h6>Total </h6>
-                              <span>{product.productTotalAmount?.toFixed(2)}</span>
-                            </div>
-                            {/* <div className="box">
-                      <h6>GrossWeight</h6>
-                      <span>0000</span>
-                    </div>
-                    <div className="box">
-                      <h6>Packages</h6>
-                      <span>0000</span>
-                    </div>
-                    <div className="box" >
-                      <h6>BL</h6>
-                      <input type="text" value="0"    />
-                    </div> */}
+                        <div className="wrapper" key={productIndex}>
+                          <div className="box">
+                            <h6>Description</h6>
+                            <span>{product.productDescription}</span>
                           </div>
-                        </>
+                          <div className="box">
+                            <h6>QTY(PCs)</h6>
+                            <span>{product.productQty}</span>
+                          </div>
+                          <div className="box">
+                            <h6>Pallet</h6>
+                            <span>{product.productPalletQty}</span>
+                          </div>
+                          <div className="box">
+                            <h6>NW(KGs)</h6>
+                            <span>{product.productTotalNetWeight?.toFixed(2)}</span>
+                          </div>
+                          <div className="box">
+                            <h6>GW(KGs)</h6>
+                            <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
+                          </div>
+                          <div className="box">
+                            <h6>GW(KGs)</h6>
+                            <span>{product.productTotalGrossWeightFake?.toFixed(2)}</span>
+                          </div>
+                          <div className="box">
+                            <h6>Total </h6>
+                            <span>{product.productTotalAmount?.toFixed(2)}</span>
+                          </div>
+                        </div>
                       ))}
                       <div className="wrapper-footer">
                         <div className="box">
                           <h6>NetWeight</h6>
                           <span>{truckItem.truckNetWeight}</span>
                         </div>
-
                         <div className="box">
                           <h6>GrossWeight</h6>
                           <span>{truckItem.truckGrossWeight}</span>
-                        </div>
+                        </div>{" "}
+                        {showFake && (
+                          <div className="box">
+                            <h6>GrossWeight Fake</h6>
+                            <span>{truckItem.truckGrossWeightFake}</span>
+                          </div>
+                        )}
                         <div className="box">
                           <h6>Packages</h6>
                           <span>{truckItem.truckTotalPackages}</span>

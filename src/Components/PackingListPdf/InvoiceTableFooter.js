@@ -42,13 +42,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ truckItem }) => {
+const InvoiceTableFooter = ({ truckItem, fake }) => {
   return (
     <>
       <View style={styles.container}>
         <View style={styles.col}>
-          <Text style={styles.col_row}>NETWEIGHT : {truckItem.truckNetWeight} KG</Text>{" "}
-          <Text style={styles.col_row}>GROSSWEIGHT : {truckItem.truckGrossWeight} KG</Text>{" "}
+          <Text style={styles.col_row}>NETWEIGHT : {!fake ? truckItem.truckNetWeight : truckItem.truckNetWeightFake} KG</Text>{" "}
+          <Text style={styles.col_row}>GROSSWEIGHT : {!fake ? truckItem.truckGrossWeight : truckItem.truckGrossWeightFake} KG</Text>{" "}
           <Text style={styles.col_rowNobutt}>PACKAGES : {truckItem.truckTotalPackages}</Text>
         </View>{" "}
         <Text style={styles.bl}>BL : {truckItem.truckBls}</Text>{" "}

@@ -52,6 +52,8 @@ const PackingListOrders = () => {
   const [isPdf, setIsPdf] = useState(false);
   const [currentPkl, setCurrentPkl] = useState({});
   const [withPrice, setWithPrice] = useState(true);
+  const [isFake, setIsFake] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
 
@@ -111,8 +113,9 @@ const PackingListOrders = () => {
 
   /* -------------------------------------------------------------------------- */
 
-  const handlePDF = (pkl, withPriceVal) => {
+  const handlePDF = (pkl, withPriceVal, isFakeVal) => {
     setWithPrice(withPriceVal);
+    setIsFake(isFakeVal);
     setCurrentPkl(pkl);
     setIsPdf(true);
     console.log(isPdf);
@@ -130,7 +133,7 @@ const PackingListOrders = () => {
             PREVIOUS
           </button>
         </div>
-        <PackingListPdf pkl={currentPkl} withPrice={withPrice} />
+        <PackingListPdf pkl={currentPkl} withPrice={withPrice} fake={isFake} />
       </>
     );
   } else
@@ -199,17 +202,20 @@ const PackingListOrders = () => {
                             //   PI ( pdf )
                             // </button>
                             <>
-                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true)}>
-                                <i class="uil uil-eye"></i>{" "}
+                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, false)}>
+                                <i class="uil uil-eye"></i>
                               </button>
-                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, false)}>
-                                Without Price<i class="uil uil-eye"></i>{" "}
+                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, false, false)}>
+                                Without Price<i class="uil uil-eye"></i>
+                              </button>
+                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, true)}>
+                                Fake With Price<i class="uil uil-eye"></i>
                               </button>
                             </>
                           ) : pkl.managerApproval === "Rejected" ? (
                             <>
                               <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${pkl._id}`)}>
-                                <i class="uil uil-edit"></i>{" "}
+                                <i class="uil uil-edit"></i>
                               </button>
                               <p className="warnning">
                                 From {pkl.managerApproval === "Rejected"}
@@ -277,11 +283,14 @@ const PackingListOrders = () => {
                           <div style={{ overflow: "hidden" }}>
                             {pkl.managerApproval === "Approved" ? (
                               <div style={{ display: "flex" }}>
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true)}>
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, false)}>
                                   PKL
                                 </button>
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false)}>
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false, false)}>
                                   PKL/No
+                                </button>{" "}
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, true)}>
+                                  PKL/Fake
                                 </button>
                               </div>
                             ) : pkl.managerApproval === "Rejected" ? (

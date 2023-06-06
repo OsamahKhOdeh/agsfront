@@ -304,11 +304,11 @@ const pkl = {
   pklNo: 70009,
   __v: 0,
 };
-const PackingListPdf = ({ pkl, withPrice }) => {
+const PackingListPdf = ({ pkl, withPrice, fake }) => {
   return (
     <div style={{ width: "100%" }}>
       <PDFViewer width="100%" height="1200" className="app">
-        <Invoice pkl={pkl} withPrice={withPrice} />
+        <Invoice pkl={pkl} withPrice={withPrice} fake={fake} />
       </PDFViewer>
     </div>
   );
