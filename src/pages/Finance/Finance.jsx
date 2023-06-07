@@ -95,7 +95,7 @@ const Finance = () => {
   /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
   const handleUnBookClick = (id) => {
     axios
-      .patch(`${BASE_URL}/products/unbookpiproducts/${id}`)
+      .patch(`${BASE_URL}/stock/unbook/${id}`)
       .then((response) => {
         dispatch(updateSignedProformaInvoiceStatus({ id, status: "CONFIRMED" }));
 
@@ -118,7 +118,7 @@ const Finance = () => {
           <label htmlFor="rej_msg">
             <b>Rejection message</b>
           </label>
-          <input type="text" placeholder="Enter why you reject this proforma invoice"  autocomplete="on" name="rej_msg" />
+          <input type="text" placeholder="Enter why you reject this proforma invoice" autocomplete="on" name="rej_msg" />
 
           <button type="submit" className="btn">
             Send

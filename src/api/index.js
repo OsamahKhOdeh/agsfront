@@ -35,6 +35,8 @@ export const updateStock = (id, newStock) => API.patch(`/products/stockall/${id}
 
 export const newStockItem = (id, newStock) => API.post(`/stock/${id}`, newStock);
 
+export const fetchStock = () => API.get(`/stock`);
+
 export const createProformaInvoice = (newProformaInvoice) => API.post("/pi", newProformaInvoice);
 
 export const deleteProformaInvoice = (id) => API.delete(`/pi/${id}`);

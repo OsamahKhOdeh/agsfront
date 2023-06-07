@@ -15,6 +15,7 @@ import projectSlice from "./projectSlice";
 import poSlice from "./poSlice";
 import purchaseOrdersSlice from "./Data/purchaseOrdersSlice";
 import packingListsSlice from "./Data/packingListSlice";
+import stockSlice from "./stockSlice";
 
 export default configureStore({
   reducer: {
@@ -35,5 +36,6 @@ export default configureStore({
     purchaseOrders: purchaseOrdersSlice,
     packingLists: packingListsSlice,
     project: projectSlice,
+    stock: stockSlice,
   },
 });

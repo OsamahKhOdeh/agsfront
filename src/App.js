@@ -46,12 +46,16 @@ import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
 import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
 import PackingListManual from "./pages/PackingList/PackingListManual";
 import Home from "./pages/Home/Home";
+import EditStock2 from "./pages/EditStock/EditStock2";
+import CheckProduct from "./pages/CheckProduct/CheckProduct";
 function App() {
   return (
-    <div style={{ background: "#f7f7f7" }}>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/website" element={<WebsitePage />}></Route>
+          <Route path="/warranty" element={<CheckProduct />}></Route>
+
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
@@ -75,6 +79,7 @@ function App() {
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>
+                <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
                 <Route path="packinglistmanual" element={<PackingListManual />}></Route>{" "}
                 <Route path="packinglistpdf" element={<PackingListPdf />}></Route>

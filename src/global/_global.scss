@@ -578,6 +578,12 @@ body::-webkit-scrollbar-thumb {
 
               }
           
+      }.btn-table-status:nth-child(4){
+              span{
+                background-color: var(--second-color);
+
+              }
+          
       }
       .status-table-label{
         display: flex;

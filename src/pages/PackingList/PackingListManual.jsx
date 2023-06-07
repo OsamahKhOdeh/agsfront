@@ -129,7 +129,7 @@ const PackingListManual = () => {
     const pkl = {
       employee: username,
       date: new Date(Date.now()),
-      exporter: "pklInfo.exporter",
+      exporter: pklInfo.exporter,
       piNo: pklInfo.piNo,
       piId: pklInfo.piId,
       invoiceNo: invoiceNo,

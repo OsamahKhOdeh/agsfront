@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   containerTruck: {
-    backgroundColor: "#c9eaf2",
+    backgroundColor: "rgb(200, 234, 247)",
     flexDirection: "row",
 
     borderColor: "black",
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     width: "11%",
     height: "100%",
     paddingTop: 1,
-    backgroundColor: "#ebfbff",
+    backgroundColor: "rgb(200, 234, 247)",
   },
   amount2: {
     width: "13%",

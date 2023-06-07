@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import InvoiceTerms from "./InvoiceTerms";
 import SellerBuyer from "./SellerBuyer";
 import BankDetails from "./BankDetails";
+import PklFooter from "./PklFooter";
 
 const styles = StyleSheet.create({
   page: {
@@ -80,6 +81,7 @@ const Invoice = ({ pkl, withPrice, fake }) => {
         {pkl.truckItems.map((truckItem) => (
           <InvoiceItemsTable truckItem={truckItem} withPrice={withPrice} fake={fake} />
         ))}
+        {/* <PklFooter truckItems={pkl.truckItems} fake={fake} /> */}
         {/* <InvoiceItemsTable pkl={pkl} />
         <View wrap={false}>
           <SellerBuyer exporter={pkl.exporter} buyer={pkl.buyerAddress} />

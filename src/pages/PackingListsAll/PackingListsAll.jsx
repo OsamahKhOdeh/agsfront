@@ -12,6 +12,8 @@ import SearchBox from "../../Components/SearchBox/SearchBox";
 import DropDownSelect from "../../Components/DropDownSelect/DropDownSelect";
 import { deletePackingList, getPackingListsAction, updatePackingListStatus } from "../../actions/packingList";
 import { deletePackingListState } from "../../store/Data/packingListSlice";
+import axios from "axios";
+import { BASE_URL } from "../../api/index.js";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -184,6 +186,22 @@ const PackingListsAll = () => {
     setShow(true);
   };
   /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
+  const handleDepartClick = (id) => {
+    axios
+      .patch(`${BASE_URL}/stock/depart/${id}`)
+      .then((response) => {
+        //  dispatch(updateSignedProformaInvoiceStatus({ id, status: "CONFIRMED" }));
+
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsLoading(false);
+      });
+  };
+
+  /* -------------------------------------------------------------------------- */
 
   if (isPdf) {
     return (
@@ -231,7 +249,7 @@ const PackingListsAll = () => {
                 <label for="rej_msg">
                   <b>Rejection message</b>
                 </label>
-                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg"  autocomplete="on" />
+                <input type="text" placeholder="Enter why you reject this proforma invoice" name="rej_msg" autocomplete="on" />
 
                 <button type="submit" class="btn">
                   Send
@@ -412,20 +430,29 @@ const PackingListsAll = () => {
                             <i class="uil uil-check"></i> Approve
                           </span>
                         </button>
-                        {!roles.includes("Financial") && (
-                          <button
-                            type="button"
-                            className="btn-table-status"
-                            onClick={() => {
-                              setCurrentPkl(pkl);
-                              handleShow();
-                            }}
-                          >
-                            <span>
-                              <i class="uil uil-trash-alt"></i> Delete
-                            </span>
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          className="btn-table-status"
+                          onClick={() => {
+                            setCurrentPkl(pkl);
+                            handleShow();
+                          }}
+                        >
+                          <span>
+                            <i class="uil uil-trash-alt"></i> Delete
+                          </span>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-table-status"
+                          onClick={() => {
+                            handleDepartClick();
+                          }}
+                        >
+                          <span>
+                            <i class="uil uil-trash-alt"></i> Depart
+                          </span>
+                        </button>
                       </div>
                     </td>
 

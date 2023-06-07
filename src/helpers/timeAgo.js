@@ -34,7 +34,7 @@ export const timeAgo = (date) => {
 
 export function formatDate(dateString) {
   // Split the date string into an array using "/" as the separator
-  const parts = dateString.split("/");
+  //const parts = dateString.split("/");
 
   // Create a new Date object using the parts of the date string in the "mm/dd/yyyy" format
   const date = new Date(dateString);
