@@ -54,9 +54,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/website" element={<WebsitePage />}></Route>
-          <Route path="/warranty" element={<CheckProduct />}></Route>
+          <Route path="/" element={<CheckProduct />}></Route>
 
-          <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
               <Route path="user" element={<UserLayout />}>
