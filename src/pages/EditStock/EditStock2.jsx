@@ -389,11 +389,17 @@ function ProductRow(props) {
       )}
       {selectedOptions.includes("code") && (
         <td>
-          <div className="td_padding customer_cell small_td">{props.item?.code}</div>
+          <div className="td_padding customer_cell small_td">
+            {props.item?.code}/{props.item?.capacity}
+          </div>
         </td>
       )}
       {selectedOptions.includes("total") && (
-        <td>
+        <td
+          onClick={() => {
+            dispatch(fetchStock());
+          }}
+        >
           <div className="td_padding small_td_capacity">{props.item?.productQty}</div>
         </td>
       )}
