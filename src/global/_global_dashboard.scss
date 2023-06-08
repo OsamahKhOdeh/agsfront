@@ -54,6 +54,23 @@ body{
         }
     }
 }
+.navbar-check{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--second-color);
+    color: #fff;
+    padding: 15px 24px;
+    font-size: 18px;
+}
+.menus-items{
+    margin: auto;
+    span{
+        display: inline-block;
+        padding: 10px;
+        font-size: 20px;
+    }
+}
 .parent-main{
     display: grid;
     grid-template-columns: 15% 1fr;

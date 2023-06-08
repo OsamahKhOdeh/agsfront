@@ -22,21 +22,70 @@ const CheckProduct = () => {
   return (
     <>
       {console.log(serialNumber)}
-      <div className="ags-header checker-header">
+      <div className="ags-header-deadline">
+        <h1>AGS</h1>
+        <div className="menus-items">
+          <a href="https://agsdubai.com/">Home</a>
+          <a href="http://143.42.61.215/website">Products</a>
+          <a href="https://agsdubai.com/supplier">Suppliers</a>
+          <a href="https://agsdubai.com/news">News</a>
+          <a href="http://ags-sales.com/check">Check Inverter</a>
+          <a href="https://agsdubai.com/contact.html">Contact Us</a>
+        </div>
+      </div>
+      {/* <div className="navbar-check">
+        <h1>AGS</h1>
+        <div className="menus-items">
+          <span>Home</span>
+          <span>Products</span>
+          <span>Suppliers</span>
+          <span>News</span>
+          <span>Login</span>
+          <span>Contact Us</span>
+        </div>
+        <button>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link active " href="home.html">
+                <span class="sr-only">(current)</span> Home{" "}
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://143.42.61.215/website">
+                Products
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="Supplier.html">
+                Suppliers
+              </a>
+            </li>
+            <li class="nav-item  ">
+              <a class="nav-link" href="News.html">
+                News
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="http://login.agsdubai.com/">
+                Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div> */}
+      {/* <div className="ags-header checker-header">
         <div className="ags-header-deadline">
           <h1>AGS</h1>
         </div>
-        {/* <div className="ags-header-switch">
-        <span><i class="uil uil-angle-left"></i> Daily <i className="uil uil-angle-right"></i> </span>
-      </div>
-      <div className="ags-header-profile">
-      <i className="uil uil-user-circle " id="navbarDropdown" role="button" data-toggle="dropdown"></i>
-        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" > <i className="uil uil-user"></i> Hussen</a>
-          <a className="dropdown-item"><i className="uil uil-sign-in-alt"></i> Logout</a>
-        </div>
       </div> */}
-      </div>
       <div className="checker-body">
         <div className="tittle">
           {/* <h4>Check Product</h4> */}
