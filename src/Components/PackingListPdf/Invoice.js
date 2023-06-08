@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
 const Invoice = ({ pkl, withPrice, fake }) => {
   console.log(pkl);
   let logo = logo_ags;
-  let stamp = ags_stamp;
+  console.log(pkl.exporter);
   if (
-    pkl.exporter ===
-    "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC. DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
+    pkl.exporter.includes(
+      "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae "
+    )
   ) {
     logo = logo_ajc;
-    stamp = ajc_stamp;
   }
 
   return (
@@ -81,7 +81,7 @@ const Invoice = ({ pkl, withPrice, fake }) => {
         {pkl.truckItems.map((truckItem) => (
           <InvoiceItemsTable truckItem={truckItem} withPrice={withPrice} fake={fake} />
         ))}
-        {/* <PklFooter truckItems={pkl.truckItems} fake={fake} /> */}
+        <PklFooter truckItems={pkl.truckItems} fake={fake} />
         {/* <InvoiceItemsTable pkl={pkl} />
         <View wrap={false}>
           <SellerBuyer exporter={pkl.exporter} buyer={pkl.buyerAddress} />

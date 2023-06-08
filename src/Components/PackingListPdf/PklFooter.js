@@ -38,27 +38,35 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
 });
-
 const PklFooter = ({ truckItems, fake }) => {
+  let pklTotalGrossWeightFake = 0;
+  let pklTotalNetWeightFake = 0;
   let pklTotalGrossWeight = 0;
   let pklTotalNetWeight = 0;
   let pklTotalAmount = 0;
-  truckItems.map((truckItem) => {
-    pklTotalGrossWeight += parseFloat(truckItem?.truckGrossWeightFake).toFixed(2);
-    pklTotalNetWeight += parseFloat(truckItem?.truckNetWeightFake).toFixed(2);
-    pklTotalAmount += parseFloat(truckItem?.truckTotalAmount).toFixed(2);
+
+  truckItems.forEach((truckItem) => {
+    console.log(truckItem?.truckGrossWeightFake);
+    pklTotalGrossWeightFake += parseFloat(truckItem?.truckGrossWeightFake);
+    pklTotalNetWeightFake += parseFloat(truckItem?.truckNetWeight);
+    pklTotalGrossWeight += parseFloat(truckItem?.truckGrossWeight);
+    pklTotalNetWeight += parseFloat(truckItem?.truckNetWeightFake);
+    pklTotalAmount += parseFloat(truckItem?.truckTotalAmount);
   });
+
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.col}>
-          <Text style={styles.col_row}>Packing List Total GROSSWEIGHT: {52000.0} KG</Text>{" "}
-          <Text style={styles.col_row}>Packing List Total NETWEIGHT: {50765.0} KG</Text>{" "}
-          <Text style={styles.col_rowNobutt}>Packing List Total Amount : {179790.0}</Text>
-        </View>{" "}
+      <View style={styles.col}>
+        <Text style={styles.col_row}>
+          Packing List Total GROSSWEIGHT:{" "}
+          {fake ? Math.round(pklTotalGrossWeightFake).toFixed(2) : Math.round(pklTotalGrossWeight).toFixed(2)} KG
+        </Text>
+        <Text style={styles.col_row}>
+          Packing List Total NETWEIGHT: {fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2)} KG
+        </Text>
+        <Text style={styles.col_rowNobutt}>Packing List Total Amount: {Math.round(pklTotalAmount).toFixed(2)}</Text>
       </View>
     </>
   );
 };
-
 export default PklFooter;

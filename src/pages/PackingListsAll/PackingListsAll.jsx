@@ -216,7 +216,7 @@ const PackingListsAll = () => {
             PREVIOUS
           </button>
         </div>
-        <PackingListPdf pkl={currentPkl} />
+        <PackingListPdf pkl={currentPkl} withPrice={true} fake={false} />
       </>
     );
   } else

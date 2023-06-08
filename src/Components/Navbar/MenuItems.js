@@ -38,7 +38,7 @@ export const AdminMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
@@ -120,7 +120,7 @@ export const EmployeeMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
@@ -159,7 +159,7 @@ export const SalesManagerMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
@@ -195,7 +195,7 @@ export const SalesManagerMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
@@ -236,7 +236,7 @@ export const FinancialMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
@@ -251,7 +251,7 @@ export const LogisticsMenuItems = [
   },
   {
     title: "Edit Stock",
-    path: "/user/editstock",
+    path: "/user/editstock2",
     cName: "dropdown-link",
     icon: "bxs-edit",
   },

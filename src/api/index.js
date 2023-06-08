@@ -21,7 +21,9 @@ export const fetchFilteredProducts = (filters) =>
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
 
-export const updateProductWarehouseBlQty = (id, newStock) => API.patch(`/products/productqty/${id}`, newStock);
+//export const updateProductWarehouseBlQty = (id, newStock) => API.patch(`/products/productqty/${id}`, newStock);
+
+export const updateProductWarehouseBlQty = (id, newStock) => API.patch(`/stock/productqty/${id}`, newStock);
 
 export const updateProductMoveToAvailable = (id, newStock) => API.patch(`/products/productmoveavailable/${id}`, newStock);
 

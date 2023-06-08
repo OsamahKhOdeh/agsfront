@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 const InvoiceTableRow = ({ truckItem, withPrice, fake }) => {
   let no = 0;
   const rows = truckItem.truckProductItems.map((item, index) => (
-    <View style={styles.container} key={index}>
+    <View wrap={true} style={styles.container} key={index}>
       <Text style={styles.no}>{index + 1}</Text>
       <Text style={styles.description}>
         {item.productCategory}&nbsp;
@@ -83,14 +83,18 @@ const InvoiceTableRow = ({ truckItem, withPrice, fake }) => {
   return (
     <Fragment>
       {rows}
-      <View style={styles.containerTotal}>
+      <View wrap={true} style={styles.containerTotal}>
         <Text style={styles.no}> </Text>
         <Text style={styles.descriptionTotal}>TOTAL</Text>
         <Text style={styles.amountTotal}>{truckItem.truckTotalPackages}</Text>
         <Text style={styles.amountTotal}>{truckItem?.truckTotalPallets}</Text>
-        <Text style={styles.amountTotal}>{!fake ? truckItem.truckNetWeight.toFixed(2) : truckItem.truckNetWeightFake.toFixed(2)}</Text>
-        <Text style={styles.amountTotal}>{!fake ? truckItem.truckGrossWeight.toFixed(2) : truckItem.truckGrossWeightFake?.toFixed(2)}</Text>
-        <Text style={styles.amount2Total}>{withPrice && truckItem?.truckTotalAmount.toFixed(2)}</Text>
+        <Text style={styles.amountTotal}>
+          {!fake ? Math.round(truckItem.truckNetWeight.toFixed(2)) : Math.round(truckItem.truckNetWeightFake).toFixed(2)}
+        </Text>
+        <Text style={styles.amountTotal}>
+          {!fake ? Math.round(truckItem.truckGrossWeight.toFixed(2)) : Math.round(truckItem.truckGrossWeightFake)?.toFixed(2)}
+        </Text>
+        <Text style={styles.amount2Total}>{withPrice && Math.round(truckItem?.truckTotalAmount).toFixed(2)}</Text>
       </View>
     </Fragment>
   );

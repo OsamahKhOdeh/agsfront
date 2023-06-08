@@ -26,24 +26,6 @@ import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import { fetchAll } from "../../store/stockSlice";
 import { fetchStock } from "../../actions/stock";
 
-function StockInput(props) {
-  const { username } = useAuth();
-  const [stock, setStock] = useState(props.stock);
-  const dispatch = useDispatch();
-  const handleChange = (e) => {
-    setStock(e.target.value);
-  };
-  const handleStockChange = () => {
-    dispatch(updateProductStock(props.id, { property: props.property, value: stock, employee: username }));
-  };
-
-  return (
-    <>
-      <input type="text" className="" value={stock || 0} onChange={handleChange} autocomplete="on" onBlur={handleStockChange}></input>
-    </>
-  );
-}
-
 function NewBL({ id, property, productCode, brand, capacity }) {
   const dispatch = useDispatch();
   const [showNewBl, setShowNewBl] = useState(false);
@@ -194,8 +176,8 @@ function ProductWareHouseBlQty(props) {
     console.log(props.bl);
     await props.handleQtyChange({
       qty: qty,
-      code: props.bl?.code,
-      date: props.bl?.date,
+      code: props.bl.bl,
+      date: props.bl?.blDate,
       booked: props.bl?.booked,
       property: props.property,
     });
@@ -268,7 +250,7 @@ function ProductWareHouseBl(props) {
             return (
               <ProductWareHouseBlQty
                 id={props.id}
-                warehouse={props.item?.warehouse}
+                warehouse={bl.warehouse}
                 property={props.property}
                 td={props.td}
                 key={index}
@@ -342,12 +324,13 @@ function ProductRow(props) {
   };
   const dispatch = useDispatch();
   const handleProductWarhouseBlQtyChange = (value) => {
-    console.log({ ...value, id: props.item._id });
+    console.log(props);
     if (value.property !== "booked") {
-      dispatch(updateProductWarehouseBlQty(props.item._id, value));
+      dispatch(updateProductWarehouseBlQty(props.item.productId, value));
     } else {
       dispatch(updateProductWarehouseBlBookedQty(props.item._id, value));
     }
+    dispatch(fetchStock());
   };
 
   useEffect(() => {

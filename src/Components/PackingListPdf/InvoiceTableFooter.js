@@ -47,8 +47,13 @@ const InvoiceTableFooter = ({ truckItem, fake }) => {
     <>
       <View style={styles.container}>
         <View style={styles.col}>
-          <Text style={styles.col_row}>NETWEIGHT : {!fake ? truckItem.truckNetWeight : truckItem.truckNetWeightFake} KG</Text>{" "}
-          <Text style={styles.col_row}>GROSSWEIGHT : {!fake ? truckItem.truckGrossWeight : truckItem.truckGrossWeightFake} KG</Text>{" "}
+          <Text style={styles.col_row}>
+            NETWEIGHT : {!fake ? Math.round(truckItem.truckNetWeight.toFixed(2)) : Math.round(truckItem.truckNetWeightFake).toFixed(2)} KG
+          </Text>{" "}
+          <Text style={styles.col_row}>
+            GROSSWEIGHT :{" "}
+            {!fake ? Math.round(truckItem.truckGrossWeight.toFixed(2)) : Math.round(truckItem.truckGrossWeightFake)?.toFixed(2)} KG
+          </Text>{" "}
           <Text style={styles.col_rowNobutt}>PACKAGES : {truckItem.truckTotalPackages}</Text>
         </View>{" "}
         <Text style={styles.bl}>BL : {truckItem.truckBls}</Text>{" "}
