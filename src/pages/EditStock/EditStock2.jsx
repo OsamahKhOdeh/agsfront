@@ -309,6 +309,7 @@ function ProductRow(props) {
   // }, [props?.item?.bl]);
 
   const handleTotalStockClick = () => {
+    dispatch(fetchStock());
     console.log(available);
     console.log(coming);
     setShowStockDetails((prevShow) => !prevShow);
@@ -323,10 +324,10 @@ function ProductRow(props) {
     setShowUnderProd((prevShow) => !prevShow);
   };
   const dispatch = useDispatch();
-  const handleProductWarhouseBlQtyChange = (value) => {
+  const handleProductWarhouseBlQtyChange = async (value) => {
     console.log(props);
     if (value.property !== "booked") {
-      dispatch(updateProductWarehouseBlQty(props.item.productId, value));
+      await dispatch(updateProductWarehouseBlQty(props.item.productId, value));
     } else {
       dispatch(updateProductWarehouseBlBookedQty(props.item._id, value));
     }
