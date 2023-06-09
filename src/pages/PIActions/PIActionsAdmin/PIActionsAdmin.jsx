@@ -156,6 +156,7 @@ const PIActionsAdmin = () => {
         })
       );
     }
+    dispatch(getProformaInvoicesAction());
   };
   const handleReject = (id) => {
     console.log("rreject");
@@ -187,6 +188,7 @@ const PIActionsAdmin = () => {
       );
     setPopupClass("form-popup hidden");
     event.target.rej_msg.value = "";
+    dispatch(getProformaInvoicesAction());
   };
 
   const handleDelete = (id) => {};
@@ -205,6 +207,7 @@ const PIActionsAdmin = () => {
     dispatch(deleteProformaInvoiceState(currentPi._id));
 
     dispatch(deleteProformaInvoice(currentPi._id));
+    dispatch(getProformaInvoicesAction());
   };
   const handleShow = () => {
     setShow(true);
@@ -223,6 +226,7 @@ const PIActionsAdmin = () => {
         console.log(error);
         // setIsLoading(false);
       });
+    dispatch(getProformaInvoicesAction());
   };
   /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
   const handleUnBookClick = (id) => {
@@ -237,6 +241,7 @@ const PIActionsAdmin = () => {
         console.log(error);
         // setIsLoading(false);
       });
+    dispatch(getProformaInvoicesAction());
   };
 
   /* -------------------------------------------------------------------------- */
@@ -506,6 +511,7 @@ const PIActionsAdmin = () => {
                             <>
                               <button
                                 type="button"
+                                disabled={proformaInvoice.stockStatus === "booked"}
                                 className="btn-table-status"
                                 onClick={() => {
                                   handleBookClick(proformaInvoice._id);
@@ -517,6 +523,7 @@ const PIActionsAdmin = () => {
                               </button>
                               <button
                                 type="button"
+                                disabled={proformaInvoice.stockStatus === "notBooked"}
                                 className="btn-table-status"
                                 onClick={() => {
                                   handleUnBookClick(proformaInvoice._id);

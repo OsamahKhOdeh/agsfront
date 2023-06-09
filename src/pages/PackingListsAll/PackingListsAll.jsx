@@ -412,6 +412,7 @@ const PackingListsAll = () => {
                     <td>
                       <div style={{ display: "flex" }}>
                         <button
+                          disabled={pkl.managerApproval === "Rejected"}
                           type="button"
                           className="btn-table-status"
                           onClick={() => {
@@ -424,7 +425,12 @@ const PackingListsAll = () => {
                             <i class="uil uil-times"></i>Reject
                           </span>
                         </button>
-                        <button type="button" className="btn-table-status" onClick={() => handleApprove(pkl._id)}>
+                        <button
+                          disabled={pkl.managerApproval === "Approved"}
+                          type="button"
+                          className="btn-table-status"
+                          onClick={() => handleApprove(pkl._id)}
+                        >
                           <span>
                             {" "}
                             <i class="uil uil-check"></i> Approve
@@ -442,17 +448,20 @@ const PackingListsAll = () => {
                             <i class="uil uil-trash-alt"></i> Delete
                           </span>
                         </button>
-                        <button
-                          type="button"
-                          className="btn-table-status"
-                          onClick={() => {
-                            handleDepartClick();
-                          }}
-                        >
-                          <span>
-                            <i class="uil uil-trash-alt"></i> Depart
-                          </span>
-                        </button>
+                        {roles.includes("Financial") && (
+                          <button
+                            type="button"
+                            disabled={pkl.pklStatus === "departed"}
+                            className="btn-table-status"
+                            onClick={() => {
+                              handleDepartClick(pkl.piId);
+                            }}
+                          >
+                            <span>
+                              <i class="uil uil-trash-alt"></i> Depart
+                            </span>
+                          </button>
+                        )}
                       </div>
                     </td>
 

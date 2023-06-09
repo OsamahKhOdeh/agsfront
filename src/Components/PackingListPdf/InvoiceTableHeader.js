@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
 
   description: {
     width: "40%",
+    fontSize: "9px",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     height: "100%",
@@ -78,7 +79,7 @@ const InvoiceTableHeader = ({ truckItem, withPrice }) => (
   <>
     <View style={styles.containerTruck}>
       <Text style={styles.noBlank}> </Text>
-      <Text style={styles.description}>Driver : {truckItem.truckDriverName} </Text>
+      <Text style={styles.description}>Driver:{truckItem.truckDriverName} </Text>
       <Text style={styles.amountColored}>Tel : </Text>
       <Text style={styles.driverVal}>{truckItem.truckDriverTel}</Text>
       <Text style={styles.amountColored}>TRUCK NO.</Text>

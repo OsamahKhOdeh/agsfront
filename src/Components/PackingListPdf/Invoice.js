@@ -65,7 +65,7 @@ const Invoice = ({ pkl, withPrice, fake }) => {
   console.log(pkl.exporter);
   if (
     pkl.exporter.includes(
-      "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae "
+      "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
     )
   ) {
     logo = logo_ajc;

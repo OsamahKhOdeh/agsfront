@@ -1774,6 +1774,40 @@ input {
   }
      
 }
+.grid-wharhouse{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1rem;
+  .box-wharhouse{
+    border: 1px solid #ccc;
+    // padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    .item-wharehouse-tittle{
+      display: flex;
+      justify-content: space-between;
+      background-color: #efefef;
+     padding: 3px 7px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+    }
+     .box-wharhouse-body{
+      padding: .5rem;
+     }
+    .table{
+      font: 12px;
+      // border: 1px solid #ccc;
+      margin-bottom: 0;
+      th,td{
+      border: 1px solid #ccc;
+      padding: 5px;
+      }
+      th{
+        // background-color: #efefef;
+      }
+    }
+  }
+}
 @media screen and (min-width: 768px) {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -1807,6 +1841,7 @@ input {
   }
 }
 .ags-header-deadline{
+
     display: flex;
     background-color: var(--second-color);
     color: #fff;
@@ -1826,7 +1861,9 @@ input {
         }
     }
 }
-
+.menus-items-mobile{
+    display: none;
+}
 @media(max-width: 768px) {
   // .body-content-pd-2 {
   //   padding: 0;
@@ -2136,15 +2173,17 @@ input {
 .buttons-navbar{
       display: flex;
 }
-    .ags-header-deadline{
-        
+   .ags-header-deadline{
+        justify-content: space-between;
+        align-items: center;
         .menus-items{
             margin: 5px auto;
-            a{
-                text-decoration: none;
-                padding: 4px;
-                font-size: 12px; 
-    
+            display: none;
+        }
+        .menus-items-mobile{
+            display: contents;
+            .uil-bars{
+                font-size: 1.4rem;
             }
         }
     }
@@ -2312,15 +2351,17 @@ input {
 .buttons-navbar{
       display: flex;
 }
-    .ags-header-deadline{
-        
+  .ags-header-deadline{
+        justify-content: space-between;
+        align-items: center;
         .menus-items{
             margin: 5px auto;
-            a{
-                text-decoration: none;
-                padding: 4px;
-                font-size: 12px; 
-    
+            display: none;
+        }
+        .menus-items-mobile{
+            display: contents;
+            .uil-bars{
+                font-size: 1.4rem;
             }
         }
     }

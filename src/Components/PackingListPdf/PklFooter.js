@@ -64,7 +64,7 @@ const PklFooter = ({ truckItems, fake }) => {
         <Text style={styles.col_row}>
           Packing List Total NETWEIGHT: {fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2)} KG
         </Text>
-        <Text style={styles.col_rowNobutt}>Packing List Total Amount: {Math.round(pklTotalAmount).toFixed(2)}</Text>
+        {!fake && <Text style={styles.col_rowNobutt}>Packing List Total Amount: {Math.round(pklTotalAmount).toFixed(2)}</Text>}
       </View>
     </>
   );

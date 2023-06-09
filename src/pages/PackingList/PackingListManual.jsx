@@ -52,6 +52,7 @@ const PackingListManual = () => {
       .then(async (response) => {
         // Handle the response data
         setPklInfo(response.data);
+        console.log(response.data);
         /* -------------------------------------------------------------------------- */
         let truckLoad = 26000;
         let possibleTruckOverWeight = 1000;
@@ -530,6 +531,34 @@ const PackingListManual = () => {
                     </div>
                   </div>
                 )}
+                <div className="col-12">
+                  <div className="form-group">
+                    <label htmlFor="customer">Warhouse / BL </label>
+                    <div>
+                      {pklInfo.allBooked.map((product) => (
+                        <>
+                          <div>
+                            <div>{product.product}</div>
+                            <div>
+                              {product.bookedWarehouses.map((warehouse) => (
+                                <div>
+                                  <div>{warehouse.warehouse}</div>
+                                  <div>
+                                    {warehouse.bl.map((item) => (
+                                      <div>
+                                        BL :{item.bl} / QTY : {item.qty}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* End Inputs Information */}
 
