@@ -14,7 +14,7 @@ const PiForm = ({ oldPi }) => {
   //   showModal: false
   // };
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true);  
   }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -462,8 +462,8 @@ const PiForm = ({ oldPi }) => {
                               <input
                                 type="text"
                                 name="product_price"
-                                autocomplete="on"
-                                value={calcPrice(product).toFixed(3) || ""}
+                                // autocomplete="on"
+                                value={calcPrice(product) || 0}
                                 onChange={(e) => handleProductPriceChange(e, product._id)}
                               />
                             </td>
@@ -561,7 +561,6 @@ const PiForm = ({ oldPi }) => {
                   </div>
                     </div>
                     </div>
-                 
                 </div>
                 <div className="col-lg-12 col-md-12">
                   <div className="form-group text-center">

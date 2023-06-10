@@ -229,16 +229,18 @@ const PIActionsAdmin = () => {
             <Modal.Title>Delete PI</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Are you sure you want to delete PI : </h4> <h4 style={{ color: "red", textAlign: "center" }}>{currentPi.pi_no}</h4>
-            <h4 style={{ color: "red" }}> for Customer : {currentPi.buyer_address}</h4>
+            <h5>Are you sure you want to delete PI : <span className="required">{currentPi.pi_no}</span></h5>
+            <h5> for customer : <span className="required"> {currentPi.buyer_address} </span></h5>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <div className="buttons-modal">
+            <button className="ags-btn-main" onClick={handleClose}>
               Close
-            </Button>
-            <Button variant="primary" onClick={handleConfirmDelete}>
+            </button>
+             <button className="ags-btn-main-fill" onClick={handleConfirmDelete}>
               Delete
-            </Button>
+            </button>
+            </div>
           </Modal.Footer>
         </Modal>
         <>

@@ -30,7 +30,8 @@ function DownloadPDFButton(props) {
 
   return (
     <button className="button_edit_pdf button_pdf" onClick={handleClick} disabled={loading}>
-      {loading ? "Downloading..." : "Confirmed PI"} <i class="uil uil-import"></i>
+      {loading ? "Downloading..." : "Confirmed PI"} 
+      {/* <i class="uil uil-import"></i> */}
     </button>
   );
 }

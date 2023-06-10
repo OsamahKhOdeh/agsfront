@@ -136,13 +136,17 @@ function LoginPage() {
 }
 }
   `;
-
+  let isPassword = false
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const psswd = useRef();
+ const psswd = useRef();
   const username = useRef();
   let autherized = true;
   const [isAutherized, setIsAutherized] = useState(true);
+  const [isHidden, setIsHidden] = useState(true);
+  // const [passowrd, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+
   const authState = useSelector((state) => state.auth.autherized);
   useEffect(() => {
     if (authState === false) {
@@ -153,26 +157,26 @@ function LoginPage() {
   console.log(isAutherized);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     try {
+     // console.log(psswd.current.value)
       const formData = { username: username.current.value, password: psswd.current.value };
       dispatch(login(formData, navigate));
       // navigate("/user");
-
-      if (psswd.current.value === "") {
-        alert("the value is empty");
-      } else {
-        if (psswd.current.value === "1234" && username.current.value === "ags") {
-          navigate("/website");
-        } else {
-          //alert("the password is not correct ");
-        }
-      }
+      // if (psswd.current.value === "") {
+      //   alert("the value is empty");
+      // } else {
+      //   if (psswd.current.value === "1234" && username.current.value === "ags") {
+      //     navigate("/website");
+      //   } else {
+      //     alert("the password is not correct ");
+      //   }
+      // }
     } catch (error) {}
   };
 
   return (
-    <SigninPage>
+    <>
+    {/* <SigninPage>
       <form className="login" onSubmit={handleSubmit}>
         <img src="/images/logo.png" alt="" srcSet="" />
         <input type="text" placeholder="User Name" ref={username} autocomplete="on" />
@@ -185,7 +189,86 @@ function LoginPage() {
           <p className="login_failure_message">Wrong credentials or missing access rights to application</p>
         </div>
       )}
-    </SigninPage>
+    </SigninPage> */}
+
+     <SigninPage>
+        {/* // New Page to login  */}
+        <div className="login-new desktop-design">
+        <div class="container right-panel-active" id="container">
+          <div class="form-container sign-up-container">
+            <form >
+              <h1>Login </h1>
+              {/* <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+              </div> */}
+              <br />
+              {/* <span>or use your email for registration</span> */}
+             <input type="text" placeholder="User Name" ref={username}     />
+              {/* <input type="email" placeholder="Email" /> */}
+              <div className="form-group">
+              <input type="password" placeholder="Password" ref={psswd}   />
+              </div>
+              <button type="button" onClick={handleSubmit}>Login </button>
+              {/* <input className="submit" type="submit" value="Log In" autocomplete="on" /> */}
+            </form>
+          </div>
+          <div class="form-container sign-in-container">
+            {/* <form >
+              <h1>Login</h1>
+              <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+              <span>or use your account</span>
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <a >Forgot your password?</a>
+              <button>Sign In</button>
+            </form> */}
+          </div>
+          <div class="overlay-container">
+            <div class="overlay">
+              <div class="overlay-panel overlay-right">
+              <img src="/images/logo_nav.png" className="img-login" alt="" />
+              </div>
+                  {/* <div class="overlay-panel overlay-left">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                  </div> */}
+                </div>
+          </div>
+      </div>
+        </div>
+        {/* design mobile  */}
+        <div className="login-new mobile-design">
+          <div className="card">
+          <form >
+            <div class="social-container">
+                <img src="/images/logo_nav.png" className="img-login" alt="" />
+              </div>
+              <h1>Login </h1>
+              <br />
+              <input type="text"  placeholder="User Name" ref={username} autocomplete="on" />
+              <div className="form-group">
+                <input type="password" placeholder="Password" ref={psswd} autocomplete="on" />
+                {/* {isHidden && 
+                <i class="uil uil-eye" onClick={() => setIsHidden(false)}></i>
+                }
+                {!isHidden &&
+                <i class="uil uil-eye-slash" onClick={() => setIsHidden(true)}></i>
+                } */}
+              </div>
+              <button onClick={handleSubmit}>Login </button>
+            </form>
+          </div>
+        </div>
+      </SigninPage>
+      </>
+
   );
 }
 

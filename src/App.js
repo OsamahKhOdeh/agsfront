@@ -46,12 +46,22 @@ import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
 import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
 import PackingListManual from "./pages/PackingList/PackingListManual";
 import Home from "./pages/Home/Home";
+import NewLayout from "./Components/NewLayout/NewLayout";
+import CheckProduct from "./Components/Check Product/CheckProduct";
+import AddIssue from "./Components/NewLayout/Modules/pages/Add-Issue/AddIssue";
 function App() {
   return (
-    <div style={{ background: "#f7f7f7" }}>
+    <div >
       <BrowserRouter>
         <Routes>
           <Route path="/website" element={<WebsitePage />}></Route>
+          {/* this are routes for new dashboard */}
+          <Route path="dashboard" element={<NewLayout />}>
+            <Route path="add-issue" element={<AddIssue />}></Route>
+          </Route>
+        {/* end routes dashboard */}
+
+          <Route path="check-product" element={<CheckProduct />}></Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>

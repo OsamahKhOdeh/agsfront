@@ -196,7 +196,7 @@ const Product = ({ product, index }) => {
               handleShow();
             }}
           >
-            <DeleteIcon />
+           <i class="uil uil-trash-alt "></i>
           </div>
         </div>
         <div className="product__description">

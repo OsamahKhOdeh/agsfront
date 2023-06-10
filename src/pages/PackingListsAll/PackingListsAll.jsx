@@ -210,14 +210,14 @@ const PackingListsAll = () => {
             <Modal.Title>Delete PI</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Are you sure you want to delete PI : </h4> <h4 style={{ color: "red", textAlign: "center" }}>{currentPkl.pklNo}</h4>
+            <h4>Are you sure you want to delete PI : <span className="required">{currentPkl.pklNo}</span></h4>
             <h4 style={{ color: "red" }}> for Customer : {currentPkl.buyerAddress}</h4>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button className="ags-btn-main" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleConfirmDelete}>
+            <Button className="ags-btn-main-fill" onClick={handleConfirmDelete}>
               Delete
             </Button>
           </Modal.Footer>

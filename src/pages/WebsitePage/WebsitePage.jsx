@@ -40,7 +40,22 @@ const WebsitePage = () => {
     </div>
   ) : (
     <>
-      {showNav && <Navbar />}
+      {showNav && 
+      //  <Navbar />
+      <div className="ags-header-deadline">
+      <h1>AGS</h1>
+      <div className='menus-items'>
+          <a href="https://agsdubai.com/">Home</a>
+          <a href="http://143.42.61.215/website">Products</a>
+          <a href="https://agsdubai.com/supplier">Suppliers</a>
+          <a href="https://agsdubai.com/news">News</a>
+          <a href="https://agsdubai.com/contact.html">Contact Us</a>
+      </div>
+    </div>
+       
+       
+       
+       }
       <div className="po_page_container">
         {/* <div className="po_filters"> */}
         <SearchBox onChange={handleSearchBoxChange} onCategoeyChange={handleCategoryChange} />

@@ -1,40 +1,487 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link, Outlet } from 'react-router-dom'
 
 const NewLayout = () => {
 
-    const [isOpen ,setIsoOpen] = useState(false)
-    const moveTop = () =>{
-        window.scrollTo(0, 0);
-        let mybutton = document.getElementById("btn-back-to-top");
-      }
+  const [isOpen ,setIsoOpen] = useState(false)
   return (
     <>
-    <div  className={`snippet-body ${isOpen ? '' : '' } `}>
-   <header className={`header ${isOpen ? '' : 'body-pd' } `} id="header">
-        {/* onClick={()=>setIsoOpen((prev)=>!prev)} */}
-        <div className="header_toggle" onClick={()=>setIsoOpen((prev)=>!prev)}> 
-        <i  className={`bx bx-menu ${isOpen ? '' : 'bx-x' } `} id="header-toggle"></i> 
+    <Outlet />
+    <div className="ags-header">
+      <div className="ags-header-deadline">
+        <span>25/3/2023</span>
+      </div>
+      <div className="ags-header-switch">
+        <span><i class="uil uil-angle-left"></i> Daily <i className="uil uil-angle-right"></i> </span>
+      </div>
+      <div className="ags-header-profile">
+      <i className="uil uil-user-circle " id="navbarDropdown" role="button" data-toggle="dropdown"></i>
+      {/* <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">
+          Dropdown
+        </a> */}
+        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a className="dropdown-item" > <i className="uil uil-user"></i> Hussen</a>
+          <a className="dropdown-item"><i className="uil uil-sign-in-alt"></i> Logout</a>
         </div>
-        <div className="header_img"> 
-        <img src="https://i.imgur.com/hczKIze.jpg" alt=""/> </div>
-    </header>
-    {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
-    <div className={`l-navbar  ${isOpen ? '' : 'show' } `} id="nav-bar">
-        <nav className="nav">
-            <div> <a href="#" className="nav_logo"> <i className='bx bx-layer nav_logo-icon'></i> <span className="nav_logo-name">AGS</span> </a>
-                <div className="nav_list">
-                     <a href="#" className="nav_link active">
-                         <i className='bx bx-grid-alt nav_icon'></i>
-                          <span className="nav_name">Dashboard</span> </a> <a href="#" className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">Users</span> </a> <a href="#" className="nav_link"> <i className='bx bx-message-square-detail nav_icon'></i> <span className="nav_name">Messages</span> </a> <a href="#" className="nav_link"> <i className='bx bx-bookmark nav_icon'></i> <span className="nav_name">Bookmark</span> </a> <a href="#" className="nav_link"> <i className='bx bx-folder nav_icon'></i> <span className="nav_name">Files</span> </a> <a href="#" className="nav_link"> <i className='bx bx-bar-chart-alt-2 nav_icon'></i> <span className="nav_name">Stats</span> </a> </div>
-            </div> <a href="#" className="nav_link"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
-        </nav>
+        {/* <span>Hussan</span>
+        <span>Logout</span> */}
+      </div>
     </div>
-    <div  className={`height-100 bg-light ${isOpen ? '' : 'body-content-pd' } `}>
-        <h4>Main Components</h4>
+    <div className="parent-main">
+    <div className="to-do-sidebar">
+      <div className="sidebar-tittle">
+       <h5>To Do</h5>
+      </div>
+      <div className='sidebar-body'>
+        <ul>
+          <li> <i class="uil uil-check-circle"></i> To_Do_1 </li>
+          <li><i class="uil uil-check-circle"></i> To_Do_2 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_3 </li>
+          <li><i class="uil uil-check-circle"></i> To_Do_4 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_5 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_6 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_7 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_8 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_10 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_11 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_12 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_13 </li>
+          <li> <i class="uil uil-check-circle"></i> To_Do_14 </li>
+        </ul>
+      </div>
     </div>
-</div>
-</>
+    <div className='main'>
+    <ul className="grid">
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Issues</h5>
+        </div>
+        <div className='item-body'>
+        <div className="issues">
+          <div className="issues-by-you">
+            <h6>By you</h6>
+            <div className='issues-item'>
+              <span>WFES fair</span>
+              <span>23/2/3</span>
+              <span>To Sales</span>
+              <span><i class="uil uil-times-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Sonex fair</span>
+              <span>23/2/3</span>
+              <span>To Accounting</span>
+              <span><i class="uil uil-check-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>New Sales</span>
+              <span>23/2/3</span>
+              <span>To Finance</span>
+              <span><i class="uil uil-clock-three"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Sonex fair</span>
+              <span>23/2/3</span>
+              <span>To Sales</span>
+              <span><i class="uil uil-check-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Sonex fair</span>
+              <span>23/2/3</span>
+              <span>To Sales</span>
+              <span><i class="uil uil-check-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Sonex fair</span>
+              <span>23/2/3</span>
+              <span>To Sales</span>
+              <span><i class="uil uil-check-circle"></i> </span>
+            </div>
+          </div>
+          <div className="issues-for-you">
+            <h6>For you</h6>
+            <div className='issues-item'>
+              <span>New product</span>
+              <span>23/2/3</span>
+              <span>To Logistic</span>
+              <span><i class="uil uil-clock-three"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Sonex fair</span>
+              <span>23/2/3</span>
+              <span>To Supplier</span>
+              <span><i class="uil uil-check-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>New Region</span>
+              <span>23/2/3</span>
+              <span>To Security</span>
+              <span><i className="uil uil-times-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Poor moving </span>
+              <span>23/2/3</span>
+              <span>To Supplier</span>
+              <span><i class="uil uil-times-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Poor moving </span>
+              <span>23/2/3</span>
+              <span>To Supplier</span>
+              <span><i class="uil uil-times-circle"></i> </span>
+            </div>
+            <div className='issues-item'>
+              <span>Poor moving </span>
+              <span>23/2/3</span>
+              <span>To Supplier</span>
+              <span><i class="uil uil-times-circle"></i> </span>
+            </div>
+          </div>
+        </div>
+         <div className="ags-btn-issue">
+            <span >
+              <Link to="/dashboard/add-issue">Issue an Issue</Link>
+            </span>
+          </div>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Marketing Material</h5>
+        </div>
+        <div className='item-body'>
+          <div className="marketing-item">
+              <h6>Video</h6>
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" className='border-start-0'>Title</th>
+                      <th scope="col">Person</th>
+                      <th scope="col" className='border-end-0'>E.Release</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className='border-start-0'>About Longi</td>
+                      <td>Abd</td>
+                      <td className='border-end-0'>After 3 Days</td>
+                    </tr>
+                    <tr>
+                      <td className='border-start-0'>Jinko</td>
+                      <td>Shoaib</td>
+                      <td className='border-end-0'>After 5 Days</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div className="marketing-item">
+          <h6>Photo</h6>
+          <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col " className='border-start-0'>Title</th>
+                  <th scope="col">Person</th>
+                  <th scope="col" className='border-end-0'>E.Release</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className='border-start-0'>About Longi</td>
+                  <td>Abd</td>
+                  <td className='border-end-0'>After 3 Days</td>
+                </tr>
+                <tr>
+                  <td className='border-start-0'>Jinko</td>
+                  <td>Shoaib</td>
+                  <td className='border-end-0'>After 5 Days</td>
+                </tr>
+              </tbody>
+          </table>
+          </div>
+          <div className="marketing-item">
+            <h6>Objective marketing Ordered</h6>
+          <table className="table mb-0">
+              <thead>
+                <tr>
+                  <th scope="col" className='border-start-0'>Title</th>
+                  <th scope="col">Person</th>
+                  <th scope="col" className='border-end-0'>E.Release</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className='border-start-0'>About Longi</td>
+                  <td>Abd</td>
+                  <td className='border-end-0'>After 3 Days</td>
+                </tr>
+                <tr>
+                  <td className='border-start-0 '>Jinko</td>
+                  <td className=' '>Shoaib</td>
+                  <td className='border-end-0 '>After 5 Days</td>
+                </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Customer Management</h5>
+        </div>
+        <div className='item-body'>
+          <div className="grid-managment">
+          <div className="managment-item">
+             <div className="pie pi_90" >90%</div>
+             <p>Customer Engagement target</p>
+          </div>
+          <div className="managment-item">
+            <div class="pie1">
+              <span class="overlay">
+                <span>50%</span>
+              </span>
+            </div>
+             <p>Customer Retention</p>
+          </div>
+          </div>
+          <hr />
+          <div className="marketing-item">
+              <h6>Declining customers</h6>
+              <table class="table marketing-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" className='border-start-0'>Name</th>
+                      <th scope="col">Handler</th>
+                      <th scope="col" className='border-end-0'>Last Purchace</th>
+                      <th scope="col" className='border-end-0'>Last interact</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className='border-start-0'>sad</td>
+                      <td>das</td>
+                      <td className='border-end-0'>Since 73 Days</td>
+                      <td className='border-end-0'><i class="uil uil-file-alt"></i></td>
+                    </tr>
+                    <tr>
+                      <td className='border-start-0'>sad</td>
+                      <td>das</td>
+                      <td className='border-end-0'>Since 73 Days</td>
+                      <td className='border-end-0'><i class="uil uil-file-alt"></i></td>
+                    </tr>
+                    <tr>
+                      <td className='border-start-0'>sad</td>
+                      <td>das</td>
+                      <td className='border-end-0'>Since 73 Days</td>
+                      <td className='border-end-0'><i class="uil uil-file-alt"></i></td>
+                    </tr>
+                    <tr>
+                      <td className='border-start-0'>sad</td>
+                      <td>das</td>
+                      <td className='border-end-0'>Since 73 Days</td>
+                      <td className='border-end-0'><i class="uil uil-file-alt"></i></td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Performa Invoices</h5>
+        </div>
+        <div className='item-body'>
+          <div className="marketing-item">
+          <table class="table performa-table ">
+          <thead>
+            <tr>
+              <th scope="col" className='border-start-0'>NO</th>
+              <th scope="col">Name</th>
+              <th scope="col" className='border-end-0'>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='border-start-0'>256</td>
+              <td>Osama</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>365</td>
+              <td>Sara</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>985</td>
+              <td>Hussam</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr> <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr> <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr> <tr>
+              <td className='border-start-0'>698</td>
+              <td>Ahmad</td>
+              <td className='border-end-0'>
+                <span>Take decision</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Hawk Eye </h5>
+        </div>
+        <div className='item-body'>
+        <table class="table  ">
+          <tbody>
+            <tr>
+              <td className='border-start-0'>PowernSun making new strides  to Iraq</td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>JA is offering new type of cells  and Nanosun </td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>PowernSun making new strides  to Iraq</td>
+            </tr>
+            <tr>
+              <td className='border-start-0 border-bottom-0'>PowernSun making new strides  to Iraq</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Department Projects </h5>
+        </div>
+        <div className='item-body'>
+          <table class="table  ">
+            <tbody>
+              <tr>
+                <td className='border-start-0'>Change in the Dynamic of Commission </td>
+              </tr>
+              <tr>
+                <td className='border-start-0'>Change in the Dynamic of Commission </td>
+              </tr>
+              <tr>
+                <td className='border-start-0'>Change in the Dynamic of Commission </td>
+              </tr>
+              <tr>
+                <td className='border-start-0 border-bottom-0'>Change in the Dynamic of Commission </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Latest Updates </h5>
+        </div>
+        <div className='item-body'>
+          <table class="table  ">
+            <tbody>
+              <tr>
+                <td className='border-start-0'>Increase in the budget of the departments</td>
+              </tr>
+              <tr>
+                <td className='border-start-0'>New Employees in Syrian Marketing team</td>
+              </tr>
+              <tr>
+                <td className='border-start-0'>Increase in the budget of  the departments</td>
+              </tr>
+              <tr>
+                <td className='border-start-0 border-bottom-0'> team</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+      <li className="grid-item">
+        <div className='item-tittle'>
+            <h5>Reporting </h5>
+        </div>
+        <div className='item-body'>
+        <table class="table  ">
+          <tbody>
+            <tr>
+              <td className='border-start-0'>Marketing campaign 211 for inverters</td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>SONEX event in Jordan Last june</td>
+            </tr>
+            <tr>
+              <td className='border-start-0'>Marketing campaign 211 for inverters</td>
+            </tr>
+            <tr>
+              <td className='border-start-0 border-bottom-0'>SONEX event in Jordan Last june</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </li>
+    </ul>
+    </div>
+    </div>
+   </>
   )
 }
 

@@ -1,13 +1,14 @@
 .select____status__class {
-    width: 100%;
-    padding: 5px 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: solid;
-    border-width: thin;
-    border-color: rgb(144, 146, 148);
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: solid;
+  border-width: thin;
+  border-color: rgb(205 205 205);
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-transform: lowercase;
   }
 
   .button_next_stage {

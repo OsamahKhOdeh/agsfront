@@ -332,7 +332,7 @@ function InvoiceInfo() {
               </div>
               {pi && (
                 <>
-                  <div className="col-lg-6 col-md-12">
+                  <div className="col-lg-3 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">PI Number </label>
                       <input
@@ -346,7 +346,13 @@ function InvoiceInfo() {
                       />
                     </div>
                   </div>
-                  <div className="col-lg-6 col-md-12">
+                 <div className="col-lg-3 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="date">Date</label>
+                      <input class="form-control" readOnly type="text" name="date" value={invoiceInfo.date} autocomplete="on" />
+                    </div>
+                </div>
+                  <div className="col-lg-3 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">Discount</label>
                       <input
@@ -359,7 +365,7 @@ function InvoiceInfo() {
                       />
                     </div>
                   </div>
-                  <div className="col-lg-6 col-md-12">
+                  <div className="col-lg-3 col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone_number">Additions</label>
                       <input
@@ -374,12 +380,6 @@ function InvoiceInfo() {
                   </div>
                 </>
               )}
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label htmlFor="date">Date</label>
-                  <input class="form-control" readOnly type="text" name="date" value={invoiceInfo.date} autocomplete="on" />
-                </div>
-              </div>
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="note">Note</label>

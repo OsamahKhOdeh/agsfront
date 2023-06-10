@@ -87,7 +87,7 @@ img {
   border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;
-  right: 0;
+  right: 7px;
   color: #437cce;
   font-size: 25px;
   display: grid;
@@ -99,7 +99,7 @@ img {
 
 .check__product:hover {
   color: white;
-  background-color: red;
+  background-color: var(--second-color);
   border: 0px;
   animation: 2s forwards;
 }
@@ -264,7 +264,7 @@ img {
   border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;
-  right: 0;
+  right: 7px;
   color: #437cce;
   font-size: 25px;
   display: grid;
@@ -449,7 +449,7 @@ img {
   border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;
-  right: 0;
+  right: 7px;
   color: #437cce;
   font-size: 25px;
   display: grid;
@@ -465,6 +465,12 @@ img {
   border: 0px;
   animation: 2s forwards;
   transition: all .4s ease-in-out;
+}
+.uil-trash-alt{
+  color: var(--second-color);
+  &:hover{
+    color: #fff;
+  }
 }
 
 .check__product__icon_unchecked{

@@ -32,7 +32,7 @@ const StatusSelect = ({ pi }) => {
   return (
     <>
       <select
-        className="select____status__class"
+        className="select____status__class "
         id="exporter"
         name="exporter"
         onChange={handleChange}
