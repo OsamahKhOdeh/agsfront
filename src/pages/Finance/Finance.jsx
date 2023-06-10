@@ -114,7 +114,6 @@ const Finance = () => {
       <div className={popupClass} id="myForm">
         <form onSubmit={handleRejectMessage} className="form-container">
           <h1>Reject with note</h1>
-
           <label htmlFor="rej_msg">
             <b>Rejection message</b>
           </label>
@@ -136,80 +135,104 @@ const Finance = () => {
         </form>
       </div>
 
-      <div className="search_container">
+      {/* <div className="search_container">
         <SearchBox onChange={handleSearchQueryChange}></SearchBox>
         <DropDownSelect onChange={handleFilterChange} options={options} />
-      </div>
+      </div> */}
+      
 
-      <table className="pi__table table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Employee</th>
-            <th scope="col">Date/Time</th>
-            <th scope="col">Customer</th>
-            <th scope="col">Proforma Invoice</th>
-            <th scope="col">Book Stock</th>
-            <th scope="col">unBook</th>
-            <th scope="col">Reject</th>
-            <th scope="col">Payments</th>
-            <th scope="col">Change Status</th>
-            <th scope="col">Current Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {proformaInvoices.map((proformaInvoice, index) => (
-            <tr key={index}>
-              <th scope="row">{proformaInvoice.pi_no}</th>
-              <td>{proformaInvoice.employee}</td>
-              <td>{proformaInvoice.createdAt}</td>
-              <td>{proformaInvoice.buyer_address}</td>
-              <td>
-                <DownloadPDFButton
-                  pi_id={proformaInvoice.pi_id}
-                  pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice.pi_id}`}
-                />
-              </td>
-              <td>
-                <div
-                  className={`book_but  ${proformaInvoice.status !== "CONFIRMED" ? "disabled_booked" : ""}`}
-                  style={{ backgroundColor: "#4CAF50" }}
-                  onClick={() => handleBookClick(proformaInvoice.pi_id)}
-                >
-                  BOOK
+          {/* this is search section  */}
+            <div className="search_container">
+              <div className="row">
+                <div className="col-lg-6 col-md12">
+                  <SearchBox onChange={handleSearchQueryChange}></SearchBox>
                 </div>
-              </td>
-              <td>
-                <div
-                  className={`book_but  ${proformaInvoice.status !== "BOOKED" ? "disabled_booked" : ""}`}
-                  style={{ backgroundColor: " #f44336" }}
-                  onClick={() => handleUnBookClick(proformaInvoice.pi_id)}
-                >
-                  UNBOOK
+                <div className="col-lg-6 col-md12">
+                  <DropDownSelect onChange={handleFilterChange} options={options} />
                 </div>
-              </td>
-              <td className="rej_cell">
-                <button
-                  className="fi_butt rej_button"
-                  onClick={() => {
-                    handleReject(proformaInvoice.pi_id);
-                  }}
-                >
-                  Reject
-                </button>
-              </td>
-              <td>
-                <PaymentsModal pi={proformaInvoice} />
-              </td>
-              <td>
-                <StatusSelect pi={proformaInvoice} />
-              </td>
+              </div>
+            </div>
 
-              <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice.status}</td>
+
+      <div className="finance-tabel">
+        <table className="pi__table table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Employee</th>
+              <th scope="col">Date/Time</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Proforma Invoice</th>
+              <th scope="col">Actions</th>
+              {/* <th scope="col">unBook</th>
+              <th scope="col">Reject</th> */}
+              <th scope="col">Payments</th>
+              <th scope="col">Change Status</th>
+              <th scope="col">Current Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {proformaInvoices.map((proformaInvoice, index) => (
+              <tr key={index}>
+                <th scope="row">{proformaInvoice.pi_no}</th>
+                <td>{proformaInvoice.employee}</td>
+                <td>{proformaInvoice.createdAt}</td>
+                <td>{proformaInvoice.buyer_address}</td>
+                <td>
+                  <DownloadPDFButton
+                    pi_id={proformaInvoice.pi_id}
+                    pdfName={`signed_${proformaInvoice.pi_no}_${proformaInvoice.employee}_${proformaInvoice.manager}_${proformaInvoice.pi_id}`}
+                  />
+                </td>
+                <td>
+                  <div className="buttons-finance">
+                  <button
+                    className={`ags-btn-sucess-fill  ${proformaInvoice.status !== "CONFIRMED" ? "disabled_booked" : ""}`}
+                    onClick={() => handleBookClick(proformaInvoice.pi_id)} >
+                    Book
+                  </button>
+                  <button
+                    className={`ags-btn-main-fill  ${proformaInvoice.status !== "BOOKED" ? "disabled_booked" : ""}`}
+                    onClick={() => handleUnBookClick(proformaInvoice.pi_id)}
+                  >
+                    Unbook
+                  </button>
+                  <button
+                    className="ags-btn-main"
+                    onClick={() => {
+                      handleReject(proformaInvoice.pi_id);
+                    }}
+                  >
+                    Reject
+                  </button>
+                  </div>
+                </td>
+                {/* <td>
+            
+                </td> */}
+                {/* <td className="rej_cell">
+                  <button
+                    className="fi_butt rej_button"
+                    onClick={() => {
+                      handleReject(proformaInvoice.pi_id);
+                    }}
+                  >
+                    Reject
+                  </button>
+                </td> */}
+                <td>
+                  <PaymentsModal pi={proformaInvoice} />
+                </td>
+                <td>
+                  <StatusSelect pi={proformaInvoice} />
+                </td>
+
+                <td className={colorByStatus(proformaInvoice?.status)}>{proformaInvoice.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

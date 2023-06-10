@@ -47,15 +47,24 @@ import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
 import PackingListManual from "./pages/PackingList/PackingListManual";
 import Home from "./pages/Home/Home";
 import EditStock2 from "./pages/EditStock/EditStock2";
+import NewLayout from "./Components/NewLayout/NewLayout";
+import AddIssue from "./Components/NewLayout/Modules/pages/Add-Issue/AddIssue";
 import CheckProduct from "./pages/CheckProduct/CheckProduct";
 function App() {
   return (
-    <div>
+    <div >
       <BrowserRouter>
         <Routes>
           <Route path="/website" element={<WebsitePage />}></Route>
           <Route path="/check" element={<CheckProduct />}></Route>
 
+          {/* this are routes for new dashboard */}
+          <Route path="dashboard" element={<NewLayout />}>
+            <Route path="add-issue" element={<AddIssue />}></Route>
+          </Route>
+        {/* end routes dashboard */}
+
+          <Route path="check-product" element={<CheckProduct />}></Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>

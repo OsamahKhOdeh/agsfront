@@ -130,50 +130,44 @@ const UserLayout = () => {
                       </a>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
-                      <a class="dropdown-item ">
-                        <Link
-                          to="/user/makepi"
-                          className="invoice-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
+                      {/* <a class="dropdown-item "> */}
+                        <Link  class="dropdown-item " to="/user/makepi" className="invoice-item dropdown-item" onClick={() => {  dispatch(emptyCart()); }}  >
                           Performa Invoice
                         </Link>
-                      </a>
-                      <a class="dropdown-item">
+                      {/* </a> */}
+                      {/* <a class="dropdown-item"> */}
                         <Link
                           to="/user/makepo"
-                          className="invoice-item"
+                          className="invoice-item dropdown-item"
                           onClick={() => {
                             dispatch(emptyCart());
                           }}
                         >
                           Purchase Order
                         </Link>
-                      </a>
-                      <a class="dropdown-item">
+                      {/* </a> */}
+                      {/* <a class="dropdown-item"> */}
                         <Link
                           to="/user/warranty"
-                          className="invoice-item"
+                          className="invoice-item dropdown-item"
                           onClick={() => {
                             dispatch(emptyCart());
                           }}
                         >
                           Quotation
                         </Link>
-                      </a>
-                      <a class="dropdown-item ">
+                      {/* </a> */}
+                      {/* <a class="dropdown-item "> */}
                         <Link
                           to="/user/packinglistmanual"
-                          className="invoice-item"
+                          className="invoice-item dropdown-item"
                           onClick={() => {
                             dispatch(emptyCart());
                           }}
                         >
                           Packing List
                         </Link>
-                      </a>
+                      {/* </a> */}
                       {/* <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a> */}
                     </div>
@@ -197,7 +191,7 @@ const UserLayout = () => {
             </div> */}
           </nav>
         </div>
-        <div className={`height-100  ${isOpen ? "body-content-pd-2" : "body-content-pd"} `}>
+        <div className={`height-100  ${isOpen ? "" : "body-pd"} `}>
           <Outlet />
         </div>
       </div>

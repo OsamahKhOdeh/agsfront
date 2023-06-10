@@ -14,7 +14,7 @@ const PiForm = ({ oldPi }) => {
   //   showModal: false
   // };
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true);  
   }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.

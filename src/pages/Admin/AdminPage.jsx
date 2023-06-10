@@ -250,7 +250,7 @@ const AdminPage = () => {
                       ))}
                     </div>
                   )}
-                  {/* </div> */}\
+                  {/* </div> */}
                   <SearchBox onChange={handleSearchBoxChange} />
                 </div>
               </div>

@@ -97,9 +97,11 @@ const PaymentsModal = ({ pi }) => {
   return (
     <div>
       <ToastContainer />
-      <button className="payments" onClick={openModal}>
-        Payments
-      </button>
+      <div className="buttons-finance">
+        <button className="ags-btn-sucess-fill" onClick={openModal}>
+          Payments
+        </button>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

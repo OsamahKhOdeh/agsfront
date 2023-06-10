@@ -18,6 +18,14 @@ const SearchBox = ({ onChange, onCategoeyChange }) => {
         </div>
         <div className="col-lg-6 col-md-6">
           <div className="group-buttons">
+          <span
+              className={`ags-btn-main-fill ${category === "all" ? "chosen_cat" : ""}`}
+              onClick={() => {
+                handleFilterClick("all");
+              }}
+            >
+              All
+            </span>
             <span
               className={`ags-btn-main-fill ${category === "battery" ? "chosen_cat" : ""}`}
               onClick={() => {
@@ -41,14 +49,6 @@ const SearchBox = ({ onChange, onCategoeyChange }) => {
               }}
             >
               Inverter
-            </span>
-            <span
-              className={`ags-btn-main-fill ${category === "all" ? "chosen_cat" : ""}`}
-              onClick={() => {
-                handleFilterClick("all");
-              }}
-            >
-              All
             </span>
           </div>
         </div>
