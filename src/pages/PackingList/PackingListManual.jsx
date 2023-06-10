@@ -4,7 +4,11 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { BASE_URL } from "../../api/index.js";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { showToastMessage } from "../../helpers/toaster";
 const PackingListManual = () => {
+  const navigate = useNavigate();
 
   const { username } = useAuth();
   console.log(username);
@@ -142,8 +146,18 @@ const PackingListManual = () => {
     console.log(pkl);
     await axios
       .post(`${BASE_URL}/packinglist`, pkl)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error.response.data));
+      .then((response) => {
+        console.log(response.data);
+        showToastMessage("PKL Added Succesfully", "success");
+
+        setTimeout(() => {
+          navigate("/user/orders");
+        }, 2000);
+      })
+      .catch((error) => {
+        showToastMessage("Please fill all required fields");
+        console.log(error.response.data);
+      });
   };
 
   const handleKeyDown = (e) => {
@@ -347,6 +361,7 @@ const PackingListManual = () => {
   };
   return (
     <>
+      <ToastContainer />
       {console.log(truckItems)}
       <div className="card-custom ">
         <div className="card-custom-tittle justify-content-center">
@@ -369,7 +384,7 @@ const PackingListManual = () => {
                 autocomplete="on"
               ></input>
             </div>
-            <button  type="button"   className="ags-btn-main" onClick={handleSearchPi}>
+            <button type="button" className="ags-btn-main" onClick={handleSearchPi}>
               {" "}
               Search{" "}
             </button>
@@ -512,7 +527,7 @@ const PackingListManual = () => {
                 <div className="col-12">
                   <div className="form-group">
                     <button className="ags-btn-main-fill btn-fake" onClick={() => setShowFake((prev) => !prev)}>
-                      <span>{!showFake ? 'Show' : 'Hide'}</span> Fake 
+                      <span>{!showFake ? "Show" : "Hide"}</span> Fake
                     </button>
                   </div>
                 </div>
@@ -559,36 +574,36 @@ const PackingListManual = () => {
                     </div>
                   </div>
                 </div> */}
-              <div className="col-12 wharehouse">
-                <div className="wh-info">
-                  {pklInfo.allBooked.map((product) => (
-                    <div className="wh-item">
-                      <details>
+                <div className="col-12 wharehouse">
+                  <div className="wh-info">
+                    {pklInfo.allBooked.map((product) => (
+                      <div className="wh-item">
+                        <details>
                           <summary>{product.product}</summary>
                           <ul>
-                          {product.bookedWarehouses.map((warehouse) => (
+                            {product.bookedWarehouses.map((warehouse) => (
                               <li>
-                                  <details>
-                                <summary>{warehouse.warehouse}</summary>
-                                <ul>
-                                {warehouse.bl.map((item) => (
-                                <li>
-                                  <div className="grid-bl">
-                                  <span>BL :{item.bl} </span>
-                                  <span>QTY : {item.qty}</span>
-                                  </div>
-                                </li>
-                                ))}
-                                </ul>
-                              </details>
+                                <details>
+                                  <summary>{warehouse.warehouse}</summary>
+                                  <ul>
+                                    {warehouse.bl.map((item) => (
+                                      <li>
+                                        <div className="grid-bl">
+                                          <span>BL :{item.bl} </span>
+                                          <span>QTY : {item.qty}</span>
+                                        </div>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </details>
                               </li>
-                          ))}
-                            </ul>
-                      </details>
+                            ))}
+                          </ul>
+                        </details>
+                      </div>
+                    ))}
                   </div>
-                  ))}
-                  </div>
-              </div>
+                </div>
               </div>
               {/* End Inputs Information */}
 
@@ -939,106 +954,106 @@ const PackingListManual = () => {
               {/* Truck lists from desktop  */}
               <div className="desktop-table">
                 {truckItems.map((truckItem, index) => (
-                <>
-                  {truckItem.truckNo !== "" && 
-                  <div className="truck-item-desktop " key={index}>
-                    <div className="tuck-item-tittle-desktop">
-                      <div>
-                        <label>
-                          {" "}
-                          <i class="uil uil-truck"></i> Truck No:
-                        </label>
-                        <span>{truckItem.truckNo}</span>
-                      </div>
-                      <div>
-                        <label>Truck Driver:</label>
-                        <span>{truckItem.truckDriverName}</span>
-                      </div>
-                    </div>
-                    <div className="tuck-item-body-desktop">
-                      <table className="pi__table table table-bordered">
-                        <thead>
-                          <tr className="th_style">
-                            <th scope="col">
-                              <div>#</div>
-                            </th>
-                            <th scope="col">
-                              <div>Description</div>
-                            </th>
-                            <th scope="col">
-                              <div>QTY(PCs)</div>
-                            </th>
-                            <th scope="col">
-                              <div>Pallet</div>
-                            </th>
-                            <th scope="col">
-                              <div>NW(KGs)</div>
-                            </th>
-                            <th scope="col">
-                              <div>GW(KGs)</div>
-                            </th>
-                            {showFake && (
-                              <th scope="col">
-                                <div>GW(KGs)(F)</div>
-                              </th>
-                            )}
-                            <th scope="col">
-                              <div>Total</div>
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {truckItem.truckProductItems.map((product, productIndex) => (
-                            <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
-                              <td>
-                                <div style={{ fontWeight: "bold" }} c>
-                                  {productIndex + 1}
-                                </div>
-                              </td>
-                              <td>
-                                <div>{product.productDescription}</div>
-                              </td>
-                              <td>
-                                <div c>{product.productQty}</div>
-                              </td>
-                              <td>
-                                <div>{product.productPalletQty}</div>
-                              </td>
-
-                              <td>
-                                <div c>{product.productTotalNetWeight?.toFixed(2)}</div>
-                              </td>
-
-                              <td>
-                                <div c>{product.productTotalGrossWeight?.toFixed(2)}</div>
-                              </td>
-                              {showFake && (
-                                <td>
-                                  <div c>{product.productTotalGrossWeightFake?.toFixed(2)}</div>
-                                </td>
-                              )}
-
-                              <td>
-                                <div c>{product.productTotalAmount?.toFixed(2)}</div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      <div className="row-bl">
-                        <div>
-                          <label>BL</label>
+                  <>
+                    {truckItem.truckNo !== "" && (
+                      <div className="truck-item-desktop " key={index}>
+                        <div className="tuck-item-tittle-desktop">
+                          <div>
+                            <label>
+                              {" "}
+                              <i class="uil uil-truck"></i> Truck No:
+                            </label>
+                            <span>{truckItem.truckNo}</span>
+                          </div>
+                          <div>
+                            <label>Truck Driver:</label>
+                            <span>{truckItem.truckDriverName}</span>
+                          </div>
                         </div>
-                        <div>
-                          <input
-                            type="text"
-                            value={truckItems[index].truckBls}
-                            onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                            autocomplete="on"
-                          />
-                        </div>
-                      </div>
-                      {/* <div className="truck" key={index}>
+                        <div className="tuck-item-body-desktop">
+                          <table className="pi__table table table-bordered">
+                            <thead>
+                              <tr className="th_style">
+                                <th scope="col">
+                                  <div>#</div>
+                                </th>
+                                <th scope="col">
+                                  <div>Description</div>
+                                </th>
+                                <th scope="col">
+                                  <div>QTY(PCs)</div>
+                                </th>
+                                <th scope="col">
+                                  <div>Pallet</div>
+                                </th>
+                                <th scope="col">
+                                  <div>NW(KGs)</div>
+                                </th>
+                                <th scope="col">
+                                  <div>GW(KGs)</div>
+                                </th>
+                                {showFake && (
+                                  <th scope="col">
+                                    <div>GW(KGs)(F)</div>
+                                  </th>
+                                )}
+                                <th scope="col">
+                                  <div>Total</div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {truckItem.truckProductItems.map((product, productIndex) => (
+                                <tr className={productIndex % 2 === 0 ? `tr_border` : `tr_border tr_dark`} key={productIndex}>
+                                  <td>
+                                    <div style={{ fontWeight: "bold" }} c>
+                                      {productIndex + 1}
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div>{product.productDescription}</div>
+                                  </td>
+                                  <td>
+                                    <div c>{product.productQty}</div>
+                                  </td>
+                                  <td>
+                                    <div>{product.productPalletQty}</div>
+                                  </td>
+
+                                  <td>
+                                    <div c>{product.productTotalNetWeight?.toFixed(2)}</div>
+                                  </td>
+
+                                  <td>
+                                    <div c>{product.productTotalGrossWeight?.toFixed(2)}</div>
+                                  </td>
+                                  {showFake && (
+                                    <td>
+                                      <div c>{product.productTotalGrossWeightFake?.toFixed(2)}</div>
+                                    </td>
+                                  )}
+
+                                  <td>
+                                    <div c>{product.productTotalAmount?.toFixed(2)}</div>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          <div className="row-bl">
+                            <div>
+                              <label>BL</label>
+                            </div>
+                            <div>
+                              <input
+                                type="text"
+                                value={truckItems[index].truckBls}
+                                onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                                autocomplete="on"
+                              />
+                            </div>
+                          </div>
+                          {/* <div className="truck" key={index}>
                 <div>
                   <div className="pkl_info">
                     <div className="info_row">
@@ -1070,29 +1085,30 @@ const PackingListManual = () => {
                 </div>
             
               </div> */}
-                    </div>
-                    <div className="tuck-item-footer-desktop">
-                      <div>
-                        <label>Net Weight:</label>
-                        <span>{truckItem.truckNetWeight.toFixed(2)}</span>
-                      </div>
-                      <div>
-                        <label>Gross Weight:</label>
-                        <span>{truckItem.truckGrossWeight.toFixed(2)}</span>
-                      </div>
-                      {showFake && (
-                        <div>
-                          <label>Gross Weight Fake:</label>
-                          <span>{truckItem.truckGrossWeightFake.toFixed(2)}</span>
                         </div>
-                      )}
-                      <div>
-                        <label> Packages:</label>
-                        <span>{truckItem.truckTotalPackages}</span>
+                        <div className="tuck-item-footer-desktop">
+                          <div>
+                            <label>Net Weight:</label>
+                            <span>{truckItem.truckNetWeight.toFixed(2)}</span>
+                          </div>
+                          <div>
+                            <label>Gross Weight:</label>
+                            <span>{truckItem.truckGrossWeight.toFixed(2)}</span>
+                          </div>
+                          {showFake && (
+                            <div>
+                              <label>Gross Weight Fake:</label>
+                              <span>{truckItem.truckGrossWeightFake.toFixed(2)}</span>
+                            </div>
+                          )}
+                          <div>
+                            <label> Packages:</label>
+                            <span>{truckItem.truckTotalPackages}</span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                }</>
+                    )}
+                  </>
                 ))}
                 {/* {truckItems.map((truckItem, index) => (
               <div className="truck" key={index}>
@@ -1201,74 +1217,74 @@ const PackingListManual = () => {
               <div>
                 {truckItems.map((truckItem, index) => (
                   <>
-                  {truckItem.truckNo !== "" && 
-                   <div className="truck-item-table-mobile" key={index}>
-                   <div className="wrapper-truck">
-                     <div className="wrapper-tittle">
-                       <h6> {truckItem.truckNo}</h6>
-                       <span>{truckItem.truckDriverName}</span>
-                     </div>
-                     {truckItem.truckProductItems.map((product, productIndex) => (
-                       <div className="wrapper" key={productIndex}>
-                         <div className="box">
-                           <h6>Description</h6>
-                           <span>{product.productDescription}</span>
-                         </div>
-                         <div className="box">
-                           <h6>QTY(PCs)</h6>
-                           <span>{product.productQty}</span>
-                         </div>
-                         <div className="box">
-                           <h6>Pallet</h6>
-                           <span>{product.productPalletQty}</span>
-                         </div>
-                         <div className="box">
-                           <h6>NW(KGs)</h6>
-                           <span>{product.productTotalNetWeight?.toFixed(2)}</span>
-                         </div>
-                         <div className="box">
-                           <h6>GW(KGs)</h6>
-                           <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
-                         </div>
-                         <div className="box">
-                           <h6>GW(KGs)</h6>
-                           <span>{product.productTotalGrossWeightFake?.toFixed(2)}</span>
-                         </div>
-                         <div className="box">
-                           <h6>Total </h6>
-                           <span>{product.productTotalAmount?.toFixed(2)}</span>
-                         </div>
-                       </div>
-                     ))}
-                     <div className="wrapper-footer">
-                       <div className="box">
-                         <h6>NetWeight</h6>
-                         <span>{truckItem.truckNetWeight}</span>
-                       </div>
-                       <div className="box">
-                         <h6>GrossWeight</h6>
-                         <span>{truckItem.truckGrossWeight}</span>
-                       </div>{" "}
-                       {showFake && (
-                         <div className="box">
-                           <h6>GrossWeight Fake</h6>
-                           <span>{truckItem.truckGrossWeightFake}</span>
-                         </div>
-                       )}
-                       <div className="box">
-                         <h6>Packages</h6>
-                         <span>{truckItem.truckTotalPackages}</span>
-                       </div>
-                       <div className="box">
-                         <h6>BL</h6>
-                         <input
-                           type="text"
-                           value={truckItems[index].truckBls}
-                           onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                           autocomplete="on"
-                         />
-                       </div>
-                       {/* <div className="wrapper-tittle">
+                    {truckItem.truckNo !== "" && (
+                      <div className="truck-item-table-mobile" key={index}>
+                        <div className="wrapper-truck">
+                          <div className="wrapper-tittle">
+                            <h6> {truckItem.truckNo}</h6>
+                            <span>{truckItem.truckDriverName}</span>
+                          </div>
+                          {truckItem.truckProductItems.map((product, productIndex) => (
+                            <div className="wrapper" key={productIndex}>
+                              <div className="box">
+                                <h6>Description</h6>
+                                <span>{product.productDescription}</span>
+                              </div>
+                              <div className="box">
+                                <h6>QTY(PCs)</h6>
+                                <span>{product.productQty}</span>
+                              </div>
+                              <div className="box">
+                                <h6>Pallet</h6>
+                                <span>{product.productPalletQty}</span>
+                              </div>
+                              <div className="box">
+                                <h6>NW(KGs)</h6>
+                                <span>{product.productTotalNetWeight?.toFixed(2)}</span>
+                              </div>
+                              <div className="box">
+                                <h6>GW(KGs)</h6>
+                                <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
+                              </div>
+                              <div className="box">
+                                <h6>GW(KGs)</h6>
+                                <span>{product.productTotalGrossWeightFake?.toFixed(2)}</span>
+                              </div>
+                              <div className="box">
+                                <h6>Total </h6>
+                                <span>{product.productTotalAmount?.toFixed(2)}</span>
+                              </div>
+                            </div>
+                          ))}
+                          <div className="wrapper-footer">
+                            <div className="box">
+                              <h6>NetWeight</h6>
+                              <span>{truckItem.truckNetWeight}</span>
+                            </div>
+                            <div className="box">
+                              <h6>GrossWeight</h6>
+                              <span>{truckItem.truckGrossWeight}</span>
+                            </div>{" "}
+                            {showFake && (
+                              <div className="box">
+                                <h6>GrossWeight Fake</h6>
+                                <span>{truckItem.truckGrossWeightFake}</span>
+                              </div>
+                            )}
+                            <div className="box">
+                              <h6>Packages</h6>
+                              <span>{truckItem.truckTotalPackages}</span>
+                            </div>
+                            <div className="box">
+                              <h6>BL</h6>
+                              <input
+                                type="text"
+                                value={truckItems[index].truckBls}
+                                onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                                autocomplete="on"
+                              />
+                            </div>
+                            {/* <div className="wrapper-tittle">
                  <div>
                  <div className="pkl_info">
                    <div className="info_row">
@@ -1296,10 +1312,10 @@ const PackingListManual = () => {
                  </div>
                </div>
                </div> */}
-                     </div>
-                   </div>
-                 </div>
-                  }
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </>
                 ))}
               </div>
@@ -1307,12 +1323,13 @@ const PackingListManual = () => {
               <div className="item"></div>
             </>
           )}
-          {pklInfo && <div className="text-right">
-            <button className="btn btn-danger danger" onClick={handleNextClick}>
-              Next
-            </button>
-          </div>
-          }
+          {pklInfo && (
+            <div className="text-right">
+              <button className="btn btn-danger danger" onClick={handleNextClick}>
+                Next
+              </button>
+            </div>
+          )}
           {/* </div> */}
         </div>
       </div>
