@@ -3,6 +3,7 @@
     --black: #111;
     --white: #fff;
     --green: #0a9935;
+    --warning: #ffc107;
     --light-color: #666;
     --light-bg: #eee;
     --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
@@ -123,7 +124,32 @@
     padding: 7px 10px;
     opacity: 1;
 }
-
+.ags-btn-primary-fill {
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--white);
+  transition: all .5s ease-in-out;
+  border-radius: 4px;
+  padding: 7px 10px;
+  opacity: 1;
+  &:hover{
+    background-color: transparent;
+    color: var(--primary-color);
+  }
+}
+.ags-btn-primary-outlin {
+  border: 2px solid var(--primary-color);
+  background-color: transparent;
+  color: var(--primary);
+  transition: all .5s ease-in-out;
+  border-radius: 4px;
+  padding: 7px 10px;
+  opacity: 1;
+  &:hover{
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
+}
 // Items Cards styles
 .item_card {
     /* border: 2px solid var(--second-color) ; */
