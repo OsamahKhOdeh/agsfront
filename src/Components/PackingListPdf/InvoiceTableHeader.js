@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingTop: 1,
   },
+  descriptionNo: {
+    width: "40%",
+    fontSize: "9px",
+
+    height: "100%",
+    paddingTop: 1,
+  },
   descriptionBlank: {
     width: "40%",
 
@@ -53,10 +60,21 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingTop: 1,
   },
+  driverValNo: {
+    width: "22%",
+    height: "100%",
+    paddingTop: 1,
+  },
   amount: { borderRightColor: borderColor, borderRightWidth: 1, width: "11%", height: "100%", paddingTop: 1 },
   amountColored: {
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    width: "11%",
+    height: "100%",
+    paddingTop: 1,
+    backgroundColor: "rgb(200, 234, 247)",
+  },
+  amountColoredNo: {
     width: "11%",
     height: "100%",
     paddingTop: 1,
@@ -75,14 +93,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableHeader = ({ truckItem, withPrice }) => (
+const InvoiceTableHeader = ({ truckItem, withPrice, currency }) => (
   <>
     <View style={styles.containerTruck}>
       <Text style={styles.noBlank}> </Text>
-      <Text style={styles.description}>Driver:{truckItem.truckDriverName} </Text>
-      <Text style={styles.amountColored}>Tel : </Text>
-      <Text style={styles.driverVal}>{truckItem.truckDriverTel}</Text>
-      <Text style={styles.amountColored}>TRUCK NO.</Text>
+      <Text style={styles.descriptionNo}>Driver:{truckItem.truckDriverName} </Text>
+      <Text style={styles.amountColoredNo}>Tel : </Text>
+      <Text style={styles.driverValNo}>{truckItem.truckDriverTel}</Text>
+      <Text style={styles.amountColoredNo}>TRUCK NO.</Text>
       <Text style={styles.amount2Colored}>{truckItem.truckNo}</Text>
     </View>
     <View style={styles.container}>
@@ -92,7 +110,7 @@ const InvoiceTableHeader = ({ truckItem, withPrice }) => (
       <Text style={styles.amount}>PALLET</Text>
       <Text style={styles.amount}>NW(KG)</Text>
       <Text style={styles.amount}>GW(KG)</Text>
-      <Text style={styles.amount2}>{withPrice && "TOTAL"}</Text>
+      <Text style={styles.amount2}>{withPrice && "TOTAL" + "(" + currency + ")"}</Text>
     </View>
   </>
 );

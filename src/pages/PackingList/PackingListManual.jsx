@@ -133,6 +133,7 @@ const PackingListManual = () => {
       exporter: pklInfo.exporter,
       piNo: pklInfo.piNo,
       piId: pklInfo.piId,
+      piCurrency: pklInfo.piCurrency,
       invoiceNo: invoiceNo,
       customer: customer,
       buyerAddress: buyer,

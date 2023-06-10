@@ -390,15 +390,45 @@ const PIActionsAdmin = () => {
                         <i class="uil uil-check" onClick={() => handleApprove(proformaInvoice._id)}></i> Approve
                       </button>
                       {!roles.includes("Financial") && (
-                        <button
-                          className="ags-btn-delete"
-                          onClick={() => {
-                            setCurrentPi(proformaInvoice);
-                            handleShow();
-                          }}
-                        >
-                          <i class="uil uil-trash-alt"></i>Delete
-                        </button>
+                        <>
+                          <button
+                            className="ags-btn-delete"
+                            onClick={() => {
+                              setCurrentPi(proformaInvoice);
+                              handleShow();
+                            }}
+                          >
+                            <i class="uil uil-trash-alt"></i>Delete
+                          </button>
+                        </>
+                      )}
+                      {roles.includes("Financial") && (
+                        <>
+                          <button
+                            type="button"
+                            disabled={proformaInvoice.stockStatus === "booked"}
+                            className="ags-btn-delete"
+                            onClick={() => {
+                              handleBookClick(proformaInvoice._id);
+                            }}
+                          >
+                            <span>
+                              <i class="uil "></i> Book
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            disabled={proformaInvoice.stockStatus === "notBooked"}
+                            className="ags-btn-delete"
+                            onClick={() => {
+                              handleUnBookClick(proformaInvoice._id);
+                            }}
+                          >
+                            <span>
+                              <i class="uil "></i> Unbook
+                            </span>
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -473,7 +503,7 @@ const PIActionsAdmin = () => {
                       </td>
                     ) : (
                       <td>
-                        <div style={{ display: "flex" }}>
+                        <div className="buttons-pls">
                           <button
                             type="button"
                             className="btn-table-status"
@@ -518,7 +548,7 @@ const PIActionsAdmin = () => {
                                 }}
                               >
                                 <span>
-                                  <i class="uil "></i> BOOK
+                                  <i class="uil "></i> Book
                                 </span>
                               </button>
                               <button
@@ -530,7 +560,7 @@ const PIActionsAdmin = () => {
                                 }}
                               >
                                 <span>
-                                  <i class="uil "></i> UNBOOK
+                                  <i class="uil "></i> Unbook
                                 </span>
                               </button>
                             </>

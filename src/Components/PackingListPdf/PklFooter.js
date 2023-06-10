@@ -1,5 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { moneyToWords, numberToWordMoney } from "../../helpers/moneyConverter";
+import { numberToWords } from "../../helpers/numberToWords";
 
 const borderColor = "black";
 const styles = StyleSheet.create({
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
 });
-const PklFooter = ({ truckItems, fake }) => {
+const PklFooter = ({ truckItems, fake, withPrice, currency }) => {
   let pklTotalGrossWeightFake = 0;
   let pklTotalNetWeightFake = 0;
   let pklTotalGrossWeight = 0;
@@ -58,13 +60,33 @@ const PklFooter = ({ truckItems, fake }) => {
     <>
       <View style={styles.col}>
         <Text style={styles.col_row}>
-          Packing List Total GROSSWEIGHT:{" "}
-          {fake ? Math.round(pklTotalGrossWeightFake).toFixed(2) : Math.round(pklTotalGrossWeight).toFixed(2)} KG
+          PackingList GROSSWEIGHT: {fake ? Math.round(pklTotalGrossWeightFake).toFixed(2) : Math.round(pklTotalGrossWeight).toFixed(2)} KG |{" "}
+          {numberToWords(fake ? Math.round(pklTotalGrossWeightFake).toFixed(2) : Math.round(pklTotalGrossWeight).toFixed(2))} KG
         </Text>
         <Text style={styles.col_row}>
-          Packing List Total NETWEIGHT: {fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2)} KG
+          PackingList NETWEIGHT: {fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2)} KG |{" "}
+          {numberToWords(fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2))} KG
         </Text>
-        {!fake && <Text style={styles.col_rowNobutt}>Packing List Total Amount: {Math.round(pklTotalAmount).toFixed(2)}</Text>}
+        {withPrice && (
+          <Text style={styles.col_rowNobutt}>
+            PackingList Amount: {Math.round(pklTotalAmount).toFixed(2)}&nbsp;{currency} |{" "}
+            {moneyToWords(Math.round(pklTotalAmount).toFixed(2), currency)}
+          </Text>
+        )}
+        {/* <Text style={styles.col_row}>
+          Packing List Total GROSSWEIGHT:{" "}
+          {numberToWords(fake ? Math.round(pklTotalGrossWeightFake).toFixed(2) : Math.round(pklTotalGrossWeight).toFixed(2))} KG
+        </Text>
+        <Text style={styles.col_row}>
+          Packing List Total NETWEIGHT:{" "}
+          {numberToWords(fake ? Math.round(pklTotalNetWeightFake).toFixed(2) : Math.round(pklTotalNetWeight).toFixed(2))} KG
+        </Text>
+
+        {!fake && (
+          <Text style={styles.col_rowNobutt}>
+            Packing List Total Amount: {moneyToWords(Math.round(pklTotalAmount).toFixed(2), currency)}
+          </Text>
+        )} */}
       </View>
     </>
   );

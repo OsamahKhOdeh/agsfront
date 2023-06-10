@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceItemsTable = ({ truckItem, withPrice, fake }) => {
+const InvoiceItemsTable = ({ truckItem, withPrice, fake, currency }) => {
   return (
     <View style={styles.tableContainer}>
-      <InvoiceTableHeader truckItem={truckItem} withPrice={withPrice} />
-      <InvoiceTableRow truckItem={truckItem} withPrice={withPrice} fake={fake} />
-      <InvoiceTableFooter truckItem={truckItem} withPrice={withPrice} fake={fake} />
+      <InvoiceTableHeader truckItem={truckItem} withPrice={withPrice} currency={currency} />
+      <InvoiceTableRow truckItem={truckItem} withPrice={withPrice} fake={fake} currency={currency} />
+      <InvoiceTableFooter truckItem={truckItem} withPrice={withPrice} fake={fake} currency={currency} />
     </View>
   );
 };

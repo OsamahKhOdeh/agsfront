@@ -79,9 +79,9 @@ const Invoice = ({ pkl, withPrice, fake }) => {
         <InvoiceTitle title="INVOICE/PACKING LIST" />
         <InvoiceInfo pkl={pkl} />
         {pkl.truckItems.map((truckItem) => (
-          <InvoiceItemsTable truckItem={truckItem} withPrice={withPrice} fake={fake} />
+          <InvoiceItemsTable currency={pkl.piCurrency} truckItem={truckItem} withPrice={withPrice} fake={fake} />
         ))}
-        <PklFooter truckItems={pkl.truckItems} fake={fake} />
+        <PklFooter truckItems={pkl.truckItems} fake={fake} withPrice={withPrice} currency={pkl.piCurrency} />
         {/* <InvoiceItemsTable pkl={pkl} />
         <View wrap={false}>
           <SellerBuyer exporter={pkl.exporter} buyer={pkl.buyerAddress} />

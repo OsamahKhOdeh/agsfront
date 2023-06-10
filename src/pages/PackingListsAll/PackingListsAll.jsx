@@ -410,7 +410,7 @@ const PackingListsAll = () => {
                     </td>
 
                     <td>
-                      <div style={{ display: "flex" }}>
+                      <div className="buttons-pls">
                         <button
                           disabled={pkl.managerApproval === "Rejected"}
                           type="button"
