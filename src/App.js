@@ -50,6 +50,8 @@ import EditStock2 from "./pages/EditStock/EditStock2";
 import NewLayout from "./Components/NewLayout/NewLayout";
 import AddIssue from "./Components/NewLayout/Modules/pages/Add-Issue/AddIssue";
 import CheckProduct from "./pages/CheckProduct/CheckProduct";
+import HomeDashboard from "./Components/NewLayout/Modules/pages/Home-Dashboard/HomeDashboard";
+import Issues from "./Components/NewLayout/Modules/pages/All-Issues/Issues";
 function App() {
   return (
     <div >
@@ -60,7 +62,9 @@ function App() {
 
           {/* this are routes for new dashboard */}
           <Route path="dashboard" element={<NewLayout />}>
+            <Route index path="home" element={<HomeDashboard />}></Route>
             <Route path="add-issue" element={<AddIssue />}></Route>
+            <Route path="issues" element={<Issues />}></Route>
           </Route>
         {/* end routes dashboard */}
 

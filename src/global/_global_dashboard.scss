@@ -93,6 +93,7 @@ body{
         border-top-right-radius: 8px;
         h5{
             margin: 0;
+            font-size: 16px;
         }
        }
        .sidebar-body{
@@ -123,7 +124,7 @@ body{
        }
     }
     .main{
-        padding: 5px 20px;
+        padding: 0 20px;
         // border: 5px solid var(--second-color); 
         .grid {
             display: grid;
@@ -148,6 +149,7 @@ body{
                 color: var(--white);
                 h5{
                     margin: 0;
+                    font-size: 18px;
                 }
             }
             .item-body{
@@ -537,9 +539,31 @@ body{
     }
     .parent-main{
         grid-template-columns: 1fr;
+        .to-do-sidebar{
+            .sidebar-tittle{
+                h5{
+                    font-size: 15px;
+                }
+            }
+        }
     }
     .parent-main .main{
         padding: 5px 5px;
+    }
+    .ags-header{
+        padding: 1px 15px;
+        font-size: 15px;
+        .ags-header-profile{
+            .uil-user-circle{
+                font-size: 1.8rem;
+            }
+            span{
+                border: 1px solid white;
+                padding: 2px 6px;
+                border-radius: 3px;
+                margin: 10px;
+            }
+        }
     }
     .ags-header-deadline{
         justify-content: space-between;
@@ -557,19 +581,28 @@ body{
     }
 }
 @media(max-width: 576px){
-    .ags-header-deadline{
-        justify-content: space-between;
-        align-items: center;
-        .menus-items{
-            margin: 5px auto;
-            display: none;
-        }
-        .menus-items-mobile{
-            display: contents;
-            .uil-bars{
-                font-size: 1.4rem;
+    .ags-header{
+        padding: 1px 15px;
+        font-size: 15px;
+        .ags-header-profile{
+            .uil-user-circle{
+                font-size: 1.8rem;
+            }
+            span{
+                border: 1px solid white;
+                padding: 2px 6px;
+                border-radius: 3px;
+                margin: 10px;
             }
         }
+    }
+    .ags-header-deadline{
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+    .ags-header-switch{
+        font-size: 1.1rem;
     }
     .checker-body{
         display: grid;
