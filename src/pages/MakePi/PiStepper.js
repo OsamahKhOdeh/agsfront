@@ -1,18 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import MakiPi from "./MakePi";
 import InvoiceInfo from "./InvoiceInfo";
 import Table from "../../Components/Table/Table";
-import FinalPi from "./FinalPi";
-import Invoice from "../../Components/Invoice/Invoice";
-import { PDFViewer } from "@react-pdf/renderer";
-import invoiceData from "../../data/invoice-data";
-import ProformaInvoice from "../../Components/PoformaInvoice/ProformaInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import { createProformaInvoice } from "../../actions/proformaInvoice";
 import { clearPi, setIsPI } from "../../store/piSlice";
@@ -102,7 +93,7 @@ export default function PiStepper() {
   };
   useEffect(() => {
     dispatch(setIsPI(true));
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <ToastContainer/>
@@ -263,7 +254,7 @@ export default function PiStepper() {
                   </Button>
                 ) : (
                   <Button size="large" variant="contained" onClick={handleNext}>
-                    {" "}
+                    {" "}      
                     Next
                   </Button>
                 )}

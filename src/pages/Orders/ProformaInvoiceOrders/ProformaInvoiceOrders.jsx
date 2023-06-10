@@ -87,7 +87,7 @@ const ProformaInvoiceOrders = () => {
     // return () => {
     //   clearInterval(interval);
     // };
-  }, [dispatch]);
+  }, [dispatch, username]);
 
   let proformaInvoices = useSelector((state) => state.proformaInvoices.proformaInvoices);
   /* ------------------------------- searchQuery ------------------------------ */

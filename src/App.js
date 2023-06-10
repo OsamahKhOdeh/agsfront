@@ -46,15 +46,18 @@ import PackingListPdf from "./Components/PackingListPdf/PackingListPdf";
 import PackingListsAll from "./pages/PackingListsAll/PackingListsAll";
 import PackingListManual from "./pages/PackingList/PackingListManual";
 import Home from "./pages/Home/Home";
+import EditStock2 from "./pages/EditStock/EditStock2";
 import NewLayout from "./Components/NewLayout/NewLayout";
-import CheckProduct from "./Components/Check Product/CheckProduct";
 import AddIssue from "./Components/NewLayout/Modules/pages/Add-Issue/AddIssue";
+import CheckProduct from "./pages/CheckProduct/CheckProduct";
 function App() {
   return (
     <div >
       <BrowserRouter>
         <Routes>
           <Route path="/website" element={<WebsitePage />}></Route>
+          <Route path="/check" element={<CheckProduct />}></Route>
+
           {/* this are routes for new dashboard */}
           <Route path="dashboard" element={<NewLayout />}>
             <Route path="add-issue" element={<AddIssue />}></Route>
@@ -85,6 +88,7 @@ function App() {
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>
+                <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
                 <Route path="packinglistmanual" element={<PackingListManual />}></Route>{" "}
                 <Route path="packinglistpdf" element={<PackingListPdf />}></Route>

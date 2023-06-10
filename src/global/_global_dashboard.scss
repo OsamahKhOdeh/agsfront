@@ -608,5 +608,8 @@ body{
     }
     .parent-main .main{
         padding: 5px 5px;
+        .grid{
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
     }
 }

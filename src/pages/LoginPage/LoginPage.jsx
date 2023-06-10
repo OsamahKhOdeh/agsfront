@@ -136,11 +136,14 @@ function LoginPage() {
 }
 }
   `;
-  let isPassword = false
+  let isPassword = false;
   const navigate = useNavigate();
   const dispatch = useDispatch();
- const psswd = useRef();
+  const psswd = useRef();
+  const usernameD = useRef();
+  const psswdD = useRef();
   const username = useRef();
+  console.log({ username: username, psswd: psswd });
   let autherized = true;
   const [isAutherized, setIsAutherized] = useState(true);
   const [isHidden, setIsHidden] = useState(true);
@@ -158,8 +161,9 @@ function LoginPage() {
 
   const handleSubmit = (event) => {
     try {
-     // console.log(psswd.current.value)
+      // console.log(psswd.current.value)
       const formData = { username: username.current.value, password: psswd.current.value };
+      console.log({ username: username, psswd: psswd });
       dispatch(login(formData, navigate));
       // navigate("/user");
       // if (psswd.current.value === "") {
@@ -173,10 +177,18 @@ function LoginPage() {
       // }
     } catch (error) {}
   };
+  const handleSubmitD = (event) => {
+    try {
+      // console.log(psswd.current.value)
+      const formData = { username: usernameD.current.value, password: psswdD.current.value };
+      console.log({ username: username, psswd: psswd });
+      dispatch(login(formData, navigate));
+    } catch (error) {}
+  };
 
   return (
     <>
-    {/* <SigninPage>
+      {/* <SigninPage>
       <form className="login" onSubmit={handleSubmit}>
         <img src="/images/logo.png" alt="" srcSet="" />
         <input type="text" placeholder="User Name" ref={username} autocomplete="on" />
@@ -191,31 +203,33 @@ function LoginPage() {
       )}
     </SigninPage> */}
 
-     <SigninPage>
+      <SigninPage>
         {/* // New Page to login  */}
         <div className="login-new desktop-design">
-        <div class="container right-panel-active" id="container">
-          <div class="form-container sign-up-container">
-            <form >
-              <h1>Login </h1>
-              {/* <div class="social-container">
+          <div class="container right-panel-active" id="container">
+            <div class="form-container sign-up-container">
+              <form>
+                <h1>Login </h1>
+                {/* <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
               </div> */}
-              <br />
-              {/* <span>or use your email for registration</span> */}
-             <input type="text" placeholder="User Name" ref={username}     />
-              {/* <input type="email" placeholder="Email" /> */}
-              <div className="form-group">
-              <input type="password" placeholder="Password" ref={psswd}   />
-              </div>
-              <button type="button" onClick={handleSubmit}>Login </button>
-              {/* <input className="submit" type="submit" value="Log In" autocomplete="on" /> */}
-            </form>
-          </div>
-          <div class="form-container sign-in-container">
-            {/* <form >
+                <br />
+                {/* <span>or use your email for registration</span> */}
+                <input type="text" placeholder="User Name" ref={usernameD} />
+                {/* <input type="email" placeholder="Email" /> */}
+                <div className="form-group">
+                  <input type="password" placeholder="Password" ref={psswdD} />
+                </div>
+                <button type="button" onClick={handleSubmitD}>
+                  Login{" "}
+                </button>
+                {/* <input className="submit" type="submit" value="Log In" autocomplete="on" /> */}
+              </form>
+            </div>
+            <div class="form-container sign-in-container">
+              {/* <form >
               <h1>Login</h1>
               <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -228,31 +242,31 @@ function LoginPage() {
               <a >Forgot your password?</a>
               <button>Sign In</button>
             </form> */}
-          </div>
-          <div class="overlay-container">
-            <div class="overlay">
-              <div class="overlay-panel overlay-right">
-              <img src="/images/logo_nav.png" className="img-login" alt="" />
-              </div>
-                  {/* <div class="overlay-panel overlay-left">
+            </div>
+            <div class="overlay-container">
+              <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                  <img src="/images/logo_nav.png" className="img-login" alt="" />
+                </div>
+                {/* <div class="overlay-panel overlay-left">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
                     <button class="ghost" id="signUp">Sign Up</button>
                   </div> */}
-                </div>
+              </div>
+            </div>
           </div>
-      </div>
         </div>
         {/* design mobile  */}
         <div className="login-new mobile-design">
           <div className="card">
-          <form >
-            <div class="social-container">
+            <form>
+              <div class="social-container">
                 <img src="/images/logo_nav.png" className="img-login" alt="" />
               </div>
               <h1>Login </h1>
               <br />
-              <input type="text"  placeholder="User Name" ref={username} autocomplete="on" />
+              <input type="text" placeholder="User Name" ref={username} autocomplete="on" />
               <div className="form-group">
                 <input type="password" placeholder="Password" ref={psswd} autocomplete="on" />
                 {/* {isHidden && 
@@ -262,13 +276,14 @@ function LoginPage() {
                 <i class="uil uil-eye-slash" onClick={() => setIsHidden(true)}></i>
                 } */}
               </div>
-              <button onClick={handleSubmit}>Login </button>
+              <button type="button" onClick={handleSubmit}>
+                Login{" "}
+              </button>
             </form>
           </div>
         </div>
       </SigninPage>
-      </>
-
+    </>
   );
 }
 

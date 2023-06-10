@@ -4,8 +4,8 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { BASE_URL } from "../../api/index.js";
 import { useEffect } from "react";
-
 const PackingListManual = () => {
+
   const { username } = useAuth();
   console.log(username);
   const [pklInfo, setPklInfo] = useState(null);
@@ -344,7 +344,6 @@ const PackingListManual = () => {
     updatedTruckItems.pop();
     setTruckItems(updatedTruckItems);
   };
-
   return (
     <>
       {console.log(truckItems)}
@@ -511,14 +510,14 @@ const PackingListManual = () => {
                 </div>
                 <div className="col-12">
                   <div className="form-group">
-                    <button className="ags-btn-main-fill" onClick={() => setShowFake((prev) => !prev)}>
-                      Show Fake <i className="uil uil-eye"></i>
+                    <button className="ags-btn-main-fill btn-fake" onClick={() => setShowFake((prev) => !prev)}>
+                      <span>{!showFake ? 'Show' : 'Hide'}</span> Fake 
                     </button>
                   </div>
                 </div>
                 {showFake && (
                   <div className="col-12">
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                       <label htmlFor="customer">Decrease Rate </label>
                       <input
                         type="number"
@@ -531,7 +530,7 @@ const PackingListManual = () => {
                     </div>
                   </div>
                 )}
-                <div className="col-12">
+                {/* <div className="col-12">
                   <div className="form-group">
                     <label htmlFor="customer">Warhouse / BL </label>
                     <div>
@@ -558,7 +557,37 @@ const PackingListManual = () => {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div> */}
+              <div className="col-12 wharehouse">
+                <div className="wh-info">
+                  {pklInfo.allBooked.map((product) => (
+                    <div className="wh-item">
+                      <details>
+                          <summary>{product.product}</summary>
+                          <ul>
+                          {product.bookedWarehouses.map((warehouse) => (
+                              <li>
+                                  <details>
+                                <summary>{warehouse.warehouse}</summary>
+                                <ul>
+                                {warehouse.bl.map((item) => (
+                                <li>
+                                  <div className="grid-bl">
+                                  <span>BL :{item.bl} </span>
+                                  <span>QTY : {item.qty}</span>
+                                  </div>
+                                </li>
+                                ))}
+                                </ul>
+                              </details>
+                              </li>
+                          ))}
+                            </ul>
+                      </details>
+                  </div>
+                  ))}
+                  </div>
+              </div>
               </div>
               {/* End Inputs Information */}
 
@@ -909,6 +938,8 @@ const PackingListManual = () => {
               {/* Truck lists from desktop  */}
               <div className="desktop-table">
                 {truckItems.map((truckItem, index) => (
+                <>
+                  {truckItem.truckNo !== "" && 
                   <div className="truck-item-desktop " key={index}>
                     <div className="tuck-item-tittle-desktop">
                       <div>
@@ -1060,6 +1091,7 @@ const PackingListManual = () => {
                       </div>
                     </div>
                   </div>
+                }</>
                 ))}
                 {/* {truckItems.map((truckItem, index) => (
               <div className="truck" key={index}>
@@ -1167,114 +1199,119 @@ const PackingListManual = () => {
               {/* trucks list for mobile  */}
               <div>
                 {truckItems.map((truckItem, index) => (
-                  <div className="truck-item-table-mobile" key={index}>
-                    <div className="wrapper-truck">
-                      <div className="wrapper-tittle">
-                        <h6> {truckItem.truckNo}</h6>
-                        <span>{truckItem.truckDriverName}</span>
-                      </div>
-                      {truckItem.truckProductItems.map((product, productIndex) => (
-                        <div className="wrapper" key={productIndex}>
-                          <div className="box">
-                            <h6>Description</h6>
-                            <span>{product.productDescription}</span>
-                          </div>
-                          <div className="box">
-                            <h6>QTY(PCs)</h6>
-                            <span>{product.productQty}</span>
-                          </div>
-                          <div className="box">
-                            <h6>Pallet</h6>
-                            <span>{product.productPalletQty}</span>
-                          </div>
-                          <div className="box">
-                            <h6>NW(KGs)</h6>
-                            <span>{product.productTotalNetWeight?.toFixed(2)}</span>
-                          </div>
-                          <div className="box">
-                            <h6>GW(KGs)</h6>
-                            <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
-                          </div>
-                          <div className="box">
-                            <h6>GW(KGs)</h6>
-                            <span>{product.productTotalGrossWeightFake?.toFixed(2)}</span>
-                          </div>
-                          <div className="box">
-                            <h6>Total </h6>
-                            <span>{product.productTotalAmount?.toFixed(2)}</span>
-                          </div>
-                        </div>
-                      ))}
-                      <div className="wrapper-footer">
-                        <div className="box">
-                          <h6>NetWeight</h6>
-                          <span>{truckItem.truckNetWeight}</span>
-                        </div>
-                        <div className="box">
-                          <h6>GrossWeight</h6>
-                          <span>{truckItem.truckGrossWeight}</span>
-                        </div>{" "}
-                        {showFake && (
-                          <div className="box">
-                            <h6>GrossWeight Fake</h6>
-                            <span>{truckItem.truckGrossWeightFake}</span>
-                          </div>
-                        )}
-                        <div className="box">
-                          <h6>Packages</h6>
-                          <span>{truckItem.truckTotalPackages}</span>
-                        </div>
-                        <div className="box">
-                          <h6>BL</h6>
-                          <input
-                            type="text"
-                            value={truckItems[index].truckBls}
-                            onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                            autocomplete="on"
-                          />
-                        </div>
-                        {/* <div className="wrapper-tittle">
-                  <div>
-                  <div className="pkl_info">
-                    <div className="info_row">
-                      <div className="label_div">NetWeight : </div>
-                      <div className="val_div">{truckItem.truckNetWeight}</div>
-                    </div>
-                    <div className="info_row">
-                      <div className="label_div">GrossWeight: </div>
-                      <div className="val_div">{truckItem.truckGrossWeight}</div>
-                    </div>
-                    <div className="info_row">
-                      <div className="label_div">Packages : </div>
-                      <div className="val_div">{truckItem.truckTotalPackages}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="info_row">
-                  <div className="label_div">BL : </div>
-                  <div style={{ width: "100%" }}>
-                    <input
-                      type="text"
-                      value={truckItems[index].truckBls}
-                      onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                    ></input>
-                  </div>
-                </div>
-                </div> */}
-                      </div>
-                    </div>
-                  </div>
+                  <>
+                  {truckItem.truckNo !== "" && 
+                   <div className="truck-item-table-mobile" key={index}>
+                   <div className="wrapper-truck">
+                     <div className="wrapper-tittle">
+                       <h6> {truckItem.truckNo}</h6>
+                       <span>{truckItem.truckDriverName}</span>
+                     </div>
+                     {truckItem.truckProductItems.map((product, productIndex) => (
+                       <div className="wrapper" key={productIndex}>
+                         <div className="box">
+                           <h6>Description</h6>
+                           <span>{product.productDescription}</span>
+                         </div>
+                         <div className="box">
+                           <h6>QTY(PCs)</h6>
+                           <span>{product.productQty}</span>
+                         </div>
+                         <div className="box">
+                           <h6>Pallet</h6>
+                           <span>{product.productPalletQty}</span>
+                         </div>
+                         <div className="box">
+                           <h6>NW(KGs)</h6>
+                           <span>{product.productTotalNetWeight?.toFixed(2)}</span>
+                         </div>
+                         <div className="box">
+                           <h6>GW(KGs)</h6>
+                           <span>{product.productTotalGrossWeight?.toFixed(2)}</span>
+                         </div>
+                         <div className="box">
+                           <h6>GW(KGs)</h6>
+                           <span>{product.productTotalGrossWeightFake?.toFixed(2)}</span>
+                         </div>
+                         <div className="box">
+                           <h6>Total </h6>
+                           <span>{product.productTotalAmount?.toFixed(2)}</span>
+                         </div>
+                       </div>
+                     ))}
+                     <div className="wrapper-footer">
+                       <div className="box">
+                         <h6>NetWeight</h6>
+                         <span>{truckItem.truckNetWeight}</span>
+                       </div>
+                       <div className="box">
+                         <h6>GrossWeight</h6>
+                         <span>{truckItem.truckGrossWeight}</span>
+                       </div>{" "}
+                       {showFake && (
+                         <div className="box">
+                           <h6>GrossWeight Fake</h6>
+                           <span>{truckItem.truckGrossWeightFake}</span>
+                         </div>
+                       )}
+                       <div className="box">
+                         <h6>Packages</h6>
+                         <span>{truckItem.truckTotalPackages}</span>
+                       </div>
+                       <div className="box">
+                         <h6>BL</h6>
+                         <input
+                           type="text"
+                           value={truckItems[index].truckBls}
+                           onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                           autocomplete="on"
+                         />
+                       </div>
+                       {/* <div className="wrapper-tittle">
+                 <div>
+                 <div className="pkl_info">
+                   <div className="info_row">
+                     <div className="label_div">NetWeight : </div>
+                     <div className="val_div">{truckItem.truckNetWeight}</div>
+                   </div>
+                   <div className="info_row">
+                     <div className="label_div">GrossWeight: </div>
+                     <div className="val_div">{truckItem.truckGrossWeight}</div>
+                   </div>
+                   <div className="info_row">
+                     <div className="label_div">Packages : </div>
+                     <div className="val_div">{truckItem.truckTotalPackages}</div>
+                   </div>
+                 </div>
+               </div>
+               <div className="info_row">
+                 <div className="label_div">BL : </div>
+                 <div style={{ width: "100%" }}>
+                   <input
+                     type="text"
+                     value={truckItems[index].truckBls}
+                     onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
+                   ></input>
+                 </div>
+               </div>
+               </div> */}
+                     </div>
+                   </div>
+                 </div>
+                  }
+                  </>
                 ))}
               </div>
 
               <div className="item"></div>
             </>
           )}
-          <div className="text-right">
+          {pklInfo && <div className="text-right">
             <button className="btn btn-danger danger" onClick={handleNextClick}>
               Next
             </button>
           </div>
+          }
           {/* </div> */}
         </div>
       </div>

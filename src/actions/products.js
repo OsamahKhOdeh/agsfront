@@ -71,13 +71,13 @@ export const updateStock = (id, newStock) => async (dispatch) => {
   console.log("here");
   console.log(id);
 
-  try {
-    const { data } = await api.updateStock(id, newStock);
-    console.log(data);
-    dispatch(updateStockState({ id, data })); //instant change
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   const { data } = await api.updateStock(id, newStock);
+  //   console.log(data);
+  //   dispatch(updateStockState({ id, data })); //instant change
+  // } catch (error) {
+  //   console.log(error);
+  // }
   try {
     const { data } = await api.newStockItem(id, newStock);
     console.log(data);
@@ -90,11 +90,12 @@ export const updateStock = (id, newStock) => async (dispatch) => {
 export const updateProductWarehouseBlQty = (id, newStock) => async (dispatch) => {
   console.log("here");
   console.log(id);
+  console.log(newStock);
 
   try {
     const { data } = await api.updateProductWarehouseBlQty(id, newStock);
     console.log(data);
-    dispatch(updateStockState({ id, data })); //instant change
+    // dispatch(updateStockState({ id, data })); //instant change
   } catch (error) {
     console.log(error);
   }

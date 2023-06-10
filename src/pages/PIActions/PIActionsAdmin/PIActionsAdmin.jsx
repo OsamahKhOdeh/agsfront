@@ -3,7 +3,12 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProformaInvoice, getProformaInvoicesAction, updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
+import {
+  deleteProformaInvoice,
+  getProformaInvoicesAction,
+  updateProformaInvoiceStatus,
+  updateSignedProformaInvoiceStatus,
+} from "../../../actions/proformaInvoice";
 import { changeProformaInvoiceStatus, deleteProformaInvoiceState } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
@@ -13,6 +18,8 @@ import SearchBox from "../../../Components/SearchBox/SearchBox";
 import DropDownSelect from "../../../Components/DropDownSelect/DropDownSelect";
 import Modal from "react-bootstrap/Modal";
 import { Button, TextField } from "@material-ui/core";
+import axios from "axios";
+import { BASE_URL } from "../../../api/index.js";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -149,6 +156,7 @@ const PIActionsAdmin = () => {
         })
       );
     }
+    dispatch(getProformaInvoicesAction());
   };
   const handleReject = (id) => {
     console.log("rreject");
@@ -180,6 +188,7 @@ const PIActionsAdmin = () => {
       );
     setPopupClass("form-popup hidden");
     event.target.rej_msg.value = "";
+    dispatch(getProformaInvoicesAction());
   };
 
   const handleDelete = (id) => {};
@@ -198,11 +207,46 @@ const PIActionsAdmin = () => {
     dispatch(deleteProformaInvoiceState(currentPi._id));
 
     dispatch(deleteProformaInvoice(currentPi._id));
+    dispatch(getProformaInvoicesAction());
   };
   const handleShow = () => {
     setShow(true);
   };
   /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  const handleBookClick = (id) => {
+    axios
+      .patch(`${BASE_URL}/stock/book/${id}`)
+      .then((response) => {
+        //  dispatch(updateSignedProformaInvoiceStatus({ id, status: "BOOKED" }));
+
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsLoading(false);
+      });
+    dispatch(getProformaInvoicesAction());
+  };
+  /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
+  const handleUnBookClick = (id) => {
+    axios
+      .patch(`${BASE_URL}/stock/unbook/${id}`)
+      .then((response) => {
+        dispatch(updateSignedProformaInvoiceStatus({ id, status: "CONFIRMED" }));
+
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsLoading(false);
+      });
+    dispatch(getProformaInvoicesAction());
+  };
+
+  /* -------------------------------------------------------------------------- */
+
+  /* -------------------------------------------------------------------------- */ /* -------------------------------------------------------------------------- */
 
   if (isPdf) {
     return (
@@ -464,6 +508,34 @@ const PIActionsAdmin = () => {
                                 <i class="uil uil-trash-alt"></i> Delete
                               </span>
                             </button>
+                          )}{" "}
+                          {roles.includes("Financial") && (
+                            <>
+                              <button
+                                type="button"
+                                disabled={proformaInvoice.stockStatus === "booked"}
+                                className="btn-table-status"
+                                onClick={() => {
+                                  handleBookClick(proformaInvoice._id);
+                                }}
+                              >
+                                <span>
+                                  <i class="uil "></i> BOOK
+                                </span>
+                              </button>
+                              <button
+                                type="button"
+                                disabled={proformaInvoice.stockStatus === "notBooked"}
+                                className="btn-table-status"
+                                onClick={() => {
+                                  handleUnBookClick(proformaInvoice._id);
+                                }}
+                              >
+                                <span>
+                                  <i class="uil "></i> UNBOOK
+                                </span>
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>

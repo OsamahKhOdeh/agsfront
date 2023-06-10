@@ -98,10 +98,13 @@ const UserLayout = () => {
               </a>
             </div>
           </div> */}
-         <div className="buttons-navbar">
-         <button className="ags-btn-main-fill" >  {user} </button>
-         <button className="ags-btn-main" onClick={logout}>  Sign out</button>
-         </div>
+          <div className="buttons-navbar">
+            <button className="ags-btn-main-fill"> {user} </button>
+            <button className="ags-btn-main" onClick={logout}>
+              {" "}
+              Sign out
+            </button>
+          </div>
         </header>
         {/* {`l-navbar  ${isOpen ? '' : 'show' } `} */}
         <div className={`l-navbar  ${isOpen ? "" : "show"} `} id="nav-bar">

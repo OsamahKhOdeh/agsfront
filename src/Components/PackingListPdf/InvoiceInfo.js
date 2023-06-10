@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 
 const InvoiceInfo = ({ pkl }) => {
   return (
-    <View fixed style={styles.tableContainer}>
+    <View style={styles.tableContainer}>
       <Row_1 pkl={pkl} />
       <Row_2 pkl={pkl} />
     </View>

@@ -23,24 +23,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { warehouses } from "../../data";
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
-
-function StockInput(props) {
-  const { username } = useAuth();
-  const [stock, setStock] = useState(props.stock);
-  const dispatch = useDispatch();
-  const handleChange = (e) => {
-    setStock(e.target.value);
-  };
-  const handleStockChange = () => {
-    dispatch(updateProductStock(props.id, { property: props.property, value: stock, employee: username }));
-  };
-
-  return (
-    <>
-      <input type="text" className="" value={stock || 0} onChange={handleChange} autocomplete="on" onBlur={handleStockChange}></input>
-    </>
-  );
-}
+import { fetchAll } from "../../store/stockSlice";
+import { fetchStock } from "../../actions/stock";
 
 function NewBL({ id, property, productCode, brand, capacity }) {
   const dispatch = useDispatch();
@@ -76,6 +60,7 @@ function NewBL({ id, property, productCode, brand, capacity }) {
       })
     );
     setShowNewBl(false);
+    dispatch(fetchStock());
     clear();
   };
   return (
@@ -180,143 +165,31 @@ function NewBL({ id, property, productCode, brand, capacity }) {
     </>
   );
 }
-function MoveToComingForm(props) {
-  const [warehouse, setWarehouse] = useState("coming");
-  const dispatch = useDispatch();
-  const [blDate, setBlDate] = useState(new Date());
-  const [blCode, setBlCode] = useState("");
-  const [showMoveToStockForm, setShowMoveToStockForm] = useState(false);
-
-  const handeleMoveProductionToComing = () => {
-    dispatch(
-      updateProductMoveToComing(props.id, {
-        qty: props.qty,
-        code: blCode,
-        warehouse: warehouse.toLocaleLowerCase(),
-        date: blDate,
-      })
-    );
-    setShowMoveToStockForm(false);
-  };
-  return (
-    <div className="container_move">
-      <div
-        className="move_to_stock"
-        onClick={() => {
-          setShowMoveToStockForm((prevShow) => !prevShow);
-        }}
-      >
-        Move to coming
-      </div>
-      {showMoveToStockForm && (
-        <>
-          {" "}
-          <div className="column_div">
-            <div className="header_div">BL/Code</div>
-            <div className="value_div">
-              <input
-                value={blCode}
-                onChange={(e) => setBlCode(e.target.value)}
-                autocomplete="on"
-                className="bl_val_input"
-                type="text"
-              ></input>{" "}
-            </div>
-          </div>
-          <div className="column_div">
-            <div className="value_div">
-              <DatePicker showIcon selected={blDate} onChange={(date) => setBlDate(date)} />{" "}
-            </div>
-          </div>
-          <div className="new_bl_add_butt" onClick={handeleMoveProductionToComing}>
-            Add to Production
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function MoveToAvailableForm(props) {
-  const [warehouse, setWarehouse] = useState("");
-  const dispatch = useDispatch();
-  const [blDate, setBlDate] = useState(new Date());
-  const [showMoveToStockForm, setShowMoveToStockForm] = useState(false);
-
-  const handeleMoveComingToStock = () => {
-    dispatch(
-      updateProductMoveToAvailable(props.id, {
-        code: props.bl.code,
-        warehouse: warehouse.toLocaleLowerCase(),
-        date: blDate,
-      })
-    );
-    setShowMoveToStockForm(false);
-  };
-  return (
-    <div className="container_move">
-      <div
-        className="move_to_stock"
-        onClick={() => {
-          setShowMoveToStockForm((prevShow) => !prevShow);
-        }}
-      >
-        Move to stock
-      </div>
-      {showMoveToStockForm && (
-        <>
-          {" "}
-          <div className="value_div">
-            {/* <input value={warehouse} onChange={(e) => setWarehouse(e.target.value)} className="bl_val_input" type="text"></input>*/}
-            <select value={warehouse} onChange={(e) => setWarehouse(e.target.value)} className="bl_val_input">
-              <>
-                {" "}
-                <option value="" selected disabled>
-                  Choose Warhouse ....
-                </option>
-                {warehouses.map((warehouse) => (
-                  <option value={warehouse}>{warehouse}</option>
-                ))}
-              </>
-            </select>{" "}
-          </div>
-          <div className="column_div">
-            <div className="value_div">
-              <DatePicker showIcon selected={blDate} onChange={(date) => setBlDate(date)} />{" "}
-            </div>
-          </div>
-          <div className="new_bl_add_butt" onClick={handeleMoveComingToStock}>
-            Add to stock
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
 
 function ProductWareHouseBlQty(props) {
-  const [qty, setQty] = useState(props.property !== "booked" ? props.bl?.qty - props.bl?.booked : props.bl?.booked);
+  const [qty, setQty] = useState(props.property !== "booked" ? props.bl.blAvailableQty : props.bl.blBookedQty);
 
   useEffect(() => {
-    setQty(props.property !== "booked" ? props.bl?.qty - props.bl?.booked : props.bl?.booked);
-  }, [props.bl?.booked, props.bl?.qty, props.property]);
+    setQty(props.property !== "booked" ? props.bl.blAvailableQty : props.bl.blBookedQty);
+  }, [props.bl.blAvailableQty, props.bl.blBookedQty, props.property]);
   const handleQtyChange = async () => {
     console.log(props.bl);
     await props.handleQtyChange({
       qty: qty,
-      code: props.bl?.code,
-      date: props.bl?.date,
+      code: props.bl.bl,
+      date: props.bl?.blDate,
       booked: props.bl?.booked,
       property: props.property,
     });
     //  setQty(props.property !== "booked" ? props.bl?.qty - props.bl?.booked : props.bl?.booked);
   };
+  console.log(props.bl.date);
 
   return (
     <div className="warehouse_bl_item">
       <div className="warehouse_bl_item_code">
-        {props.warehouse === "production" ? "Under production" : props.bl?.code}
-        <p className="bl_date">{formatDate(props.bl?.date)}</p>
+        {props.warehouse === "production" ? "Under production" : props.bl.bl}
+        <p className="bl_date">{formatDate(props.bl.blDate)}</p>
       </div>
       <div className="warehouse_bl_item_qty">
         {" "}
@@ -327,14 +200,14 @@ function ProductWareHouseBlQty(props) {
           value={qty}
           onChange={(e) => setQty(e.target.value)}
           onBlur={handleQtyChange}
-          disabled={
-            (props.warehouse === "coming" && props?.td === "coming") || (props.warehouse === "production" && props?.td === "production")
-          }
+          // disabled={
+          //   (props.warehouse === "coming" && props?.td === "coming") || (props.warehouse === "production" && props?.td === "production")
+          // }
         />
-        {props.warehouse === "coming" && props?.td === "coming" && (
+        {/* {props.warehouse === "coming" && props?.td === "coming" && (
           <MoveToAvailableForm id={props.id} bl={props.bl} warehouse={props.warehouse}></MoveToAvailableForm>
         )}
-        {props.warehouse === "production" && props?.td === "production" && <MoveToComingForm id={props.id} qty={qty}></MoveToComingForm>}
+        {props.warehouse === "production" && props?.td === "production" && <MoveToComingForm id={props.id} qty={qty}></MoveToComingForm>} */}
       </div>
     </div>
   );
@@ -344,16 +217,16 @@ function ProductWareHouseBl(props) {
   const [warehouseQty, setWarehouseQty] = useState(0);
   const [warehouseBookedQty, setWarehouseBookedQty] = useState(0);
   const [showBls, setShowBls] = useState(false);
-  useEffect(() => {
-    let WHBookedQty = 0;
-    let WHQty = 0;
-    props.item.bl.map((i) => {
-      WHQty += parseInt(i.qty);
-      WHBookedQty += parseInt(i.booked);
-    });
-    setWarehouseQty(parseInt(WHQty));
-    setWarehouseBookedQty(WHBookedQty);
-  }, [props.item.bl]);
+  // useEffect(() => {
+  //   let WHBookedQty = 0;
+  //   let WHQty = 0;
+  //   props.item.bl.map((i) => {
+  //     WHQty += parseInt(i.qty);
+  //     WHBookedQty += parseInt(i.booked);
+  //   });
+  //   setWarehouseQty(parseInt(WHQty));
+  //   setWarehouseBookedQty(WHBookedQty);
+  // }, [props.item.bl]);
 
   const handleQtyChange = (value) => {
     console.log(props.item);
@@ -369,15 +242,15 @@ function ProductWareHouseBl(props) {
         }}
       >
         {" "}
-        {props.item?.warehouse} ({props.property === "booked" ? warehouseBookedQty : warehouseQty - warehouseBookedQty})
+        {props.item?.warehouse} ({props.property === "booked" ? warehouseBookedQty : props.item?.warehouseAvailableQty})
       </div>
       {showBls && (
         <>
-          {props.item?.bl?.map((bl, index) => {
+          {props.item?.warehouseBLs?.map((bl, index) => {
             return (
               <ProductWareHouseBlQty
                 id={props.id}
-                warehouse={props.item?.warehouse}
+                warehouse={bl.warehouse}
                 property={props.property}
                 td={props.td}
                 key={index}
@@ -410,32 +283,33 @@ function ProductRow(props) {
 
   const selectedOptions = props.selectedOptions;
 
-  useEffect(() => {
-    let warehouses = [];
+  // useEffect(() => {
+  //   let warehouses = [];
 
-    let warehousesNames = [];
-    props?.item?.bl.map((item) => {
-      if (warehousesNames.indexOf(item.warehouse) === -1) warehousesNames.push(item.warehouse);
-    });
-    warehousesNames.map((warehouse) => {
-      warehouses.push({ warehouse: warehouse, bl: [] });
-    });
+  //   let warehousesNames = [];
+  //   props?.item?.bl.map((item) => {
+  //     if (warehousesNames.indexOf(item.warehouse) === -1) warehousesNames.push(item.warehouse);
+  //   });
+  //   warehousesNames.map((warehouse) => {
+  //     warehouses.push({ warehouse: warehouse, bl: [] });
+  //   });
 
-    warehouses.map((xitem) => {
-      props?.item?.bl.map((item) => {
-        if (item.warehouse === xitem.warehouse) {
-          //  console.log("k");
-          xitem.bl.push({ code: item.code, qty: item.qty, date: item.date, status: item.status, booked: item.booked });
-        }
-      });
-    });
+  //   warehouses.map((xitem) => {
+  //     props?.item?.bl.map((item) => {
+  //       if (item.warehouse === xitem.warehouse) {
+  //         //  console.log("k");
+  //         xitem.bl.push({ code: item.code, qty: item.qty, date: item.date, status: item.status, booked: item.booked });
+  //       }
+  //     });
+  //   });
 
-    setAvailable(warehouses.filter((item) => item.warehouse !== "coming" && item.warehouse !== "production"));
-    setComing(warehouses.filter((item) => item.warehouse === "coming"));
-    setProduction(warehouses.filter((item) => item.warehouse === "production"));
-  }, [props?.item?.bl]);
+  //   setAvailable(warehouses.filter((item) => item.warehouse !== "coming" && item.warehouse !== "production"));
+  //   setComing(warehouses.filter((item) => item.warehouse === "coming"));
+  //   setProduction(warehouses.filter((item) => item.warehouse === "production"));
+  // }, [props?.item?.bl]);
 
   const handleTotalStockClick = () => {
+    dispatch(fetchStock());
     console.log(available);
     console.log(coming);
     setShowStockDetails((prevShow) => !prevShow);
@@ -450,13 +324,14 @@ function ProductRow(props) {
     setShowUnderProd((prevShow) => !prevShow);
   };
   const dispatch = useDispatch();
-  const handleProductWarhouseBlQtyChange = (value) => {
-    console.log({ ...value, id: props.item._id });
+  const handleProductWarhouseBlQtyChange = async (value) => {
+    console.log(props);
     if (value.property !== "booked") {
-      dispatch(updateProductWarehouseBlQty(props.item._id, value));
+      await dispatch(updateProductWarehouseBlQty(props.item.productId, value));
     } else {
       dispatch(updateProductWarehouseBlBookedQty(props.item._id, value));
     }
+    dispatch(fetchStock());
   };
 
   useEffect(() => {
@@ -502,7 +377,7 @@ function ProductRow(props) {
             }}
             className="td_padding"
           >
-            <img className="product_image_td " src={props.item?.image[0]} alt="imager" />
+            <img className="product_image_td " src={props.item?.image} alt="imager" />
           </div>
         </td>
       )}
@@ -514,12 +389,18 @@ function ProductRow(props) {
       )}
       {selectedOptions.includes("code") && (
         <td>
-          <div className="td_padding customer_cell small_td">{props.item?.code}</div>
+          <div className="td_padding customer_cell small_td">
+            {props.item?.code}/{props.item?.capacity}
+          </div>
         </td>
       )}
       {selectedOptions.includes("total") && (
-        <td>
-          <div className="td_padding small_td_capacity">{totalStock}</div>
+        <td
+          onClick={() => {
+            dispatch(fetchStock());
+          }}
+        >
+          <div className="td_padding small_td_capacity">{props.item?.productQty}</div>
         </td>
       )}
       {/* ------------------------------- td Availabe ------------------------------ */}
@@ -528,12 +409,12 @@ function ProductRow(props) {
           <div className={"td_padding availble_width"}>
             <>
               <div className="total_stock_div available_color" onClick={handleTotalStockClick}>
-                {totalStock - totalAvailableBooked}
+                {props.item?.productAvailableQty}
               </div>
               {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
                */}{" "}
               <NewBL
-                id={props.item._id}
+                id={props.item.productId}
                 property="available"
                 productCode={props.item.code}
                 brand={props.item.brand}
@@ -541,8 +422,8 @@ function ProductRow(props) {
               ></NewBL>
               {showStockDetails && (
                 <div className="warehouses">
-                  {available &&
-                    available.map((item, index) => {
+                  {props.item?.productWarehouseQuantities &&
+                    props.item?.productWarehouseQuantities.map((item, index) => {
                       return (
                         <ProductWareHouseBl
                           key={index}
@@ -559,42 +440,7 @@ function ProductRow(props) {
       )}
 
       {/* -------------------------------- coming td ------------------------------- */}
-      {selectedOptions.includes("coming") && (
-        <td>
-          <div className={"td_padding coming_width"}>
-            <>
-              <div className="total_stock_div coming_color" onClick={handleTotalComingClick}>
-                {totalComing - totalComingBooked}
-              </div>
-              {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
-               */}{" "}
-              <NewBL
-                id={props.item._id}
-                property="coming"
-                productCode={props.item.code}
-                brand={props.item.brand}
-                capacity={props.item.capacity}
-              ></NewBL>
-              {showComing && (
-                <div className="warehouses">
-                  {coming &&
-                    coming.map((item, index) => {
-                      return (
-                        <ProductWareHouseBl
-                          td={"coming"}
-                          id={props.item._id}
-                          key={index}
-                          item={item}
-                          handleWarhouseBlQtyChange={handleProductWarhouseBlQtyChange}
-                        ></ProductWareHouseBl>
-                      );
-                    })}
-                </div>
-              )}
-            </>
-          </div>
-        </td>
-      )}
+
       {/* -------------------------------- coming td end ------------------------------- */}
 
       {/*....................................................Booked TD..................................................................  */}
@@ -603,25 +449,14 @@ function ProductRow(props) {
           <div className="td_padding booked_width">
             <>
               <div className="total_stock_div booked_color" onClick={handleTotalBookedClick}>
-                <b className="available_color">{totalAvailableBooked} </b>| <b className="coming_color">{totalComingBooked}</b>
+                <b className="available_color"> {props.item?.productBookedQty}</b>
               </div>
               {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
                */}{" "}
               {showBooked && (
                 <div className="warehouses">
-                  {available &&
-                    available.map((item, index) => {
-                      return (
-                        <ProductWareHouseBl
-                          property={"booked"}
-                          key={index}
-                          item={item}
-                          handleWarhouseBlQtyChange={handleProductWarhouseBlQtyChange}
-                        ></ProductWareHouseBl>
-                      );
-                    })}
-                  {coming &&
-                    coming.map((item, index) => {
+                  {props.item?.productWarehouseQuantities &&
+                    props.item?.productWarehouseQuantities.map((item, index) => {
                       return (
                         <ProductWareHouseBl
                           property={"booked"}
@@ -639,42 +474,7 @@ function ProductRow(props) {
       )}
       {/*.................................................................................................................................  */}
       {/* -------------------------------- Under Production td ------------------------------- */}
-      {selectedOptions.includes("production") && (
-        <td>
-          <div className={"td_padding coming_width"}>
-            <>
-              <div className="total_stock_div coming_color" onClick={handleTotalUnderProdClick}>
-                {totalUnderProduction}
-              </div>
-              {/*            <StockInput updateKey={props.updateKey} property={"stock"} id={props.item._id} stock={props.item?.stock}></StockInput>
-               */}{" "}
-              <NewBL
-                id={props.item._id}
-                property="production"
-                productCode={props.item.code}
-                brand={props.item.brand}
-                capacity={props.item.capacity}
-              ></NewBL>
-              {showUnderProd && (
-                <div className="warehouses">
-                  {production &&
-                    production.map((item, index) => {
-                      return (
-                        <ProductWareHouseBl
-                          td={"production"}
-                          id={props.item._id}
-                          key={index}
-                          item={item}
-                          handleWarhouseBlQtyChange={handleProductWarhouseBlQtyChange}
-                        ></ProductWareHouseBl>
-                      );
-                    })}
-                </div>
-              )}
-            </>
-          </div>
-        </td>
-      )}
+
       {/* -------------------------------- Under Production td end ------------------------------- */}
       {selectedOptions.includes("update") && (
         <td className={""}>
@@ -688,7 +488,7 @@ function ProductRow(props) {
   );
 }
 
-const EditStock = () => {
+const EditStock2 = () => {
   const today = new Date();
   const [showFiltered, setShowFiltered] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(false);
@@ -701,7 +501,7 @@ const EditStock = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(fetchStock());
 
     // const interval = setInterval(() => dispatch(getProducts()), 30 * 1000);
     // return () => {
@@ -709,7 +509,7 @@ const EditStock = () => {
     // };
   }, [dispatch]);
 
-  let products = useSelector((state) => state.products.products);
+  let products = useSelector((state) => state.stock.products);
 
   /* ------------------------------- searchQuery ------------------------------ */
 
@@ -833,21 +633,12 @@ const EditStock = () => {
               </th>
             )}
 
-            {selectedOptions.includes("coming") && (
-              <th className="th_large th_fixed" style={{ width: "175px" }} scope="col">
-                <div className="th_cell_div"> Coming</div>
-              </th>
-            )}
             {selectedOptions.includes("booked") && (
               <th className="th_large th_fixed" scope="col">
                 <div className="th_cell_div">Booked</div>
               </th>
             )}
-            {selectedOptions.includes("production") && (
-              <th className="th_large th_fixed" style={{ width: "175px" }} scope="col">
-                <div className="th_cell_div"> Under Production</div>
-              </th>
-            )}
+
             {selectedOptions.includes("update") && (
               <th className="th_small th_fixed" scope="col">
                 <div className="th_cell_div"> Last Upadte(by)</div>
@@ -857,7 +648,7 @@ const EditStock = () => {
         </thead>
         <tbody>
           {!showFiltered
-            ? products.map((item, index) => (
+            ? products?.map((item, index) => (
                 <ProductRow selectedOptions={selectedOptions} key={index} updateKey={updateKey} item={item} index={index}></ProductRow>
               ))
             : filteredProducts.map((item, index) => (
@@ -869,4 +660,4 @@ const EditStock = () => {
   );
 };
 
-export default EditStock;
+export default EditStock2;

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   containerTruck: {
-    backgroundColor: "#c9eaf2",
+    backgroundColor: "rgb(200, 234, 247)",
     flexDirection: "row",
 
     borderColor: "black",
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
 
   description: {
     width: "40%",
+    fontSize: "9px",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     height: "100%",
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     width: "11%",
     height: "100%",
     paddingTop: 1,
-    backgroundColor: "#ebfbff",
+    backgroundColor: "rgb(200, 234, 247)",
   },
   amount2: {
     width: "13%",
@@ -74,11 +75,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableHeader = ({ truckItem }) => (
+const InvoiceTableHeader = ({ truckItem, withPrice }) => (
   <>
     <View style={styles.containerTruck}>
       <Text style={styles.noBlank}> </Text>
-      <Text style={styles.description}>Driver : {truckItem.truckDriverName} </Text>
+      <Text style={styles.description}>Driver:{truckItem.truckDriverName} </Text>
       <Text style={styles.amountColored}>Tel : </Text>
       <Text style={styles.driverVal}>{truckItem.truckDriverTel}</Text>
       <Text style={styles.amountColored}>TRUCK NO.</Text>
@@ -91,7 +92,7 @@ const InvoiceTableHeader = ({ truckItem }) => (
       <Text style={styles.amount}>PALLET</Text>
       <Text style={styles.amount}>NW(KG)</Text>
       <Text style={styles.amount}>GW(KG)</Text>
-      <Text style={styles.amount2}>TOTAL</Text>
+      <Text style={styles.amount2}>{withPrice && "TOTAL"}</Text>
     </View>
   </>
 );

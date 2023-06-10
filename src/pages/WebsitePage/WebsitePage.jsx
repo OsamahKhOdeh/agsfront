@@ -40,22 +40,54 @@ const WebsitePage = () => {
     </div>
   ) : (
     <>
-      {showNav && 
-      //  <Navbar />
-      <div className="ags-header-deadline">
-      <h1>AGS</h1>
-      <div className='menus-items'>
-          <a href="https://agsdubai.com/">Home</a>
-          <a href="http://143.42.61.215/website">Products</a>
-          <a href="https://agsdubai.com/supplier">Suppliers</a>
-          <a href="https://agsdubai.com/news">News</a>
-          <a href="https://agsdubai.com/contact.html">Contact Us</a>
-      </div>
-    </div>
-       
-       
-       
-       }
+      {showNav && (
+        // <Navbar />
+        <div className="ags-header-deadline">
+          <h1>AGS</h1>
+          <div className="menus-items">
+            <a href="https://agsdubai.com/">Home</a>
+            <a href="http://143.42.61.215/website">Products</a>
+            <a href="https://agsdubai.com/supplier">Suppliers</a>
+            <a href="https://agsdubai.com/news">News</a>
+            <a href="http://ags-sales.com/check">Check Inverter</a>
+            <a href="https://agsdubai.com/contact.html">Contact Us</a>
+          </div>
+
+          <div className="menus-items-mobile">
+            <button class="nav_link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="invoice">
+                <i class="uil uil-bars"></i>
+              </a>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
+              <a href="https://agsdubai.com/" className="dropdown-item">
+                {" "}
+                Home{" "}
+              </a>
+              <a href="http://143.42.61.215/website" className="dropdown-item">
+                {" "}
+                Products{" "}
+              </a>
+              <a href="https://agsdubai.com/supplier" className="dropdown-item">
+                {" "}
+                Suppliers{" "}
+              </a>
+              <a href="https://agsdubai.com/news" className="dropdown-item">
+                {" "}
+                News{" "}
+              </a>{" "}
+              <a href="http://ags-sales.com/check" className="dropdown-item">
+                {" "}
+                Check Inverter{" "}
+              </a>
+              <a href="https://agsdubai.com/contact.html" className="dropdown-item">
+                {" "}
+                Contact Us{" "}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="po_page_container">
         {/* <div className="po_filters"> */}
         <SearchBox onChange={handleSearchBoxChange} onCategoeyChange={handleCategoryChange} />
