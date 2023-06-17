@@ -245,12 +245,12 @@ const TablePage = () => {
 
                   {pi && (
                     <td>
-                      <p className="font-medium">{item.grossWeight}</p>
+                      <p className="font-medium">{item.grossWeight?.toFixed(3)}</p>
                     </td>
                   )}
                   {pi && (
                     <td>
-                      <p className="font-medium">{item.grossWeight * item.qty}</p>
+                      <p className="font-medium">{(item.grossWeight * item.qty)?.toFixed(2)}</p>
                     </td>
                   )}
                   {pi && (

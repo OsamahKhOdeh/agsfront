@@ -12,7 +12,10 @@ import { FormControl, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, Ra
 import * as api from "../../api/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setAdditionsDescription,
   setDeliveryDate,
+  setDiscountDescription,
+  setDocumentCharges,
   setPaymentPercentage,
   setPiAdditions,
   setPiBankDetails,
@@ -47,7 +50,11 @@ function InvoiceInfo() {
   const dispatch = useDispatch();
   const [piNoState, setPiNoState] = useState(0);
   const [paymentPercentageState, setPaymentPercentageState] = useState(useSelector((state) => state.pi.piInfo?.paymentPercentage));
+  const [documentChargesState, setDocumentChargesState] = useState(useSelector((state) => state.pi.piInfo?.documentCharges));
   const [deliveryDateState, setDeliveryDateState] = useState(useSelector((state) => state.pi.piInfo?.deliveryDate));
+  const [discountDescriptionState, setDiscountDescriptionState] = useState(useSelector((state) => state.pi.piInfo?.discountDescription));
+  const [additionsDescriptionState, setAdditionsDescriptionState] = useState(useSelector((state) => state.pi.piInfo?.additionsDescription));
+
   const invoiceNumber = useSelector((state) => state.pi.piInfo.invoiceNo);
   const currency = useSelector((state) => state.filters.currency);
   const location = useSelector((state) => state.filters.location);
@@ -134,6 +141,15 @@ function InvoiceInfo() {
   };
   const handelDeliveryDateChange = (e) => {
     dispatch(setDeliveryDate(deliveryDateState));
+  };
+  const handelDocumentChargesChange = (e) => {
+    dispatch(setDocumentCharges(documentChargesState));
+  };
+  const handeleAdditionsDescriptionChange = (e) => {
+    dispatch(setAdditionsDescription(additionsDescriptionState));
+  };
+  const handeleDiscountDescriptionChange = (e) => {
+    dispatch(setDiscountDescription(discountDescriptionState));
   };
   const handelBankDetailsChange = (e) => {
     const { value, checked } = e.target;
@@ -346,21 +362,37 @@ function InvoiceInfo() {
                       />
                     </div>
                   </div>
-                 <div className="col-lg-3 col-md-12">
+                  <div className="col-lg-3 col-md-12">
                     <div className="form-group">
                       <label htmlFor="date">Date</label>
                       <input class="form-control" readOnly type="text" name="date" value={invoiceInfo.date} autocomplete="on" />
                     </div>
-                </div>
+                  </div>
                   <div className="col-lg-3 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="phone_number">Discount</label>
+                      <label htmlFor="phone_number">Discount / Depist</label>
                       <input
                         class="form-control"
                         type="text"
                         name="discount"
                         value={invoiceInfo.discount}
                         onChange={handleChange}
+                        autocomplete="on"
+                      />
+                    </div>
+                  </div>{" "}
+                  <div className="col-lg-9 col-sm-12">
+                    <div className="form-group">
+                      <label htmlFor="phone_number">Discount description</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="discount"
+                        onBlur={handeleDiscountDescriptionChange}
+                        value={discountDescriptionState}
+                        onChange={(e) => {
+                          setDiscountDescriptionState(e.target.value);
+                        }}
                         autocomplete="on"
                       />
                     </div>
@@ -377,13 +409,63 @@ function InvoiceInfo() {
                         autocomplete="on"
                       />
                     </div>
+                  </div>{" "}
+                  <div className="col-lg-9 col-sm-12">
+                    <div className="form-group">
+                      <label htmlFor="phone_number">Additions description</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="discount"
+                        onBlur={handeleAdditionsDescriptionChange}
+                        value={additionsDescriptionState}
+                        onChange={(e) => {
+                          setAdditionsDescriptionState(e.target.value);
+                        }}
+                        autocomplete="on"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="payment">Document Charges</label>
+                      {/* <input name="note" className="form-control"  value={invoiceInfo.note} onChange={handleChange} /> */}
+                      <div class="input-group ">
+                        {/* <span class="input-group-text" id="basic-addon3"> <b>{paymentPercentageState}%</b> Balance to be paid (time providing copy of BL/before goods dispatch)</span> */}
+                        <input
+                          type="text"
+                          class="form-control"
+                          value={documentChargesState}
+                          onBlur={handelDocumentChargesChange}
+                          onChange={(e) => {
+                            setDocumentChargesState(e.target.value);
+                          }}
+                          autocomplete="on"
+                        />
+                      </div>
+                      <small class="class-secondary">
+                        {" "}
+                        Document and certification charges : <b>{documentChargesState}</b>
+                      </small>
+                    </div>
                   </div>
                 </>
               )}
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="note">Note</label>
-                  <input name="note" className="form-control" row="1" value={invoiceInfo.note} onChange={handleChange} autocomplete="on" />
+                  <input
+                    name="note"
+                    className="form-control mb-2"
+                    row="1"
+                    value={invoiceInfo.note}
+                    onChange={handleChange}
+                    autocomplete="on"
+                  />
+                  <small class="class-secondary">
+                    {" "}
+                    <br />
+                  </small>
                 </div>
               </div>
               {pi && (

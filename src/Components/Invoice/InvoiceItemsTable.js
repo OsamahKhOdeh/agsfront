@@ -17,7 +17,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceItemsTable = ({ products, currency, location, discount, usdToAedRate, additions, note }) => {
+const InvoiceItemsTable = ({
+  products,
+  currency,
+  location,
+  discount,
+  usdToAedRate,
+  additions,
+  note,
+  documentCharges,
+  discountDescription,
+  additionsDescription,
+}) => {
   console.log(location);
   return (
     <View style={styles.tableContainer}>
@@ -31,6 +42,9 @@ const InvoiceItemsTable = ({ products, currency, location, discount, usdToAedRat
         location={location}
         additions={additions}
         note={note}
+        discountDescription={discountDescription}
+        additionsDescription={additionsDescription}
+        documentCharges={documentCharges}
       />
     </View>
   );

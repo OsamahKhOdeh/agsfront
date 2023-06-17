@@ -58,7 +58,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate }) => {
+const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate, documentCharges, note }) => {
+  if (!documentCharges) {
+    documentCharges = 0;
+  }
   console.log(deliveryDate);
   console.log(terms[0]);
   let allTerms = terms_collections.filter((coll) => {
@@ -70,8 +73,10 @@ const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate }) => {
     if (terms[0] === "EXWAREHOUSE") {
       aditionali_term = `Advance Payment ${paymentPercentage}% Balance to be paid before goods Despatch.`;
     }
+    let documentCharges_term = `Document and certification charges : / ${documentCharges} /`;
     allTerms.unshift(deliveryDate_term);
     allTerms.unshift(aditionali_term);
+    allTerms.push(documentCharges_term);
   }, []);
   const allTermsUnique = [...new Set(allTerms)];
 
@@ -79,6 +84,9 @@ const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate }) => {
 
   return (
     <View wrap={true}>
+      <View style={styles.row}>
+        <Text style={styles.header}>Notes : ({note})</Text>
+      </View>
       <View style={styles.row}>
         <Text style={styles.header}>Terms and Conditions : ({terms[0]})</Text>
       </View>

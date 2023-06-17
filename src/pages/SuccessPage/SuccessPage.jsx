@@ -26,7 +26,7 @@ const SuccessPage = () => {
     }
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
-    } 
+    }
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
@@ -118,11 +118,29 @@ const SuccessPage = () => {
                       <strong>Discount </strong>
                       <p className={colorByStatus(piInfo.discount)}>{piInfo.discount}</p>
                     </div>
+                  </div>{" "}
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Discount Description </strong>
+                      <p className={colorByStatus(piInfo.discountDescription)}>{piInfo.discountDescription}</p>
+                    </div>
                   </div>
                   <div className="col-lg-6 col-md-12">
                     <div className="summary-item">
                       <strong>Additions</strong>
                       <p className={colorByStatus(piInfo.additions)}>{piInfo.additions}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Additions description </strong>
+                      <p className={colorByStatus(piInfo.additionsDescription)}>{piInfo.additionsDescription}</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="summary-item">
+                      <strong>Document charges</strong>
+                      <p className={colorByStatus(piInfo.documentCharges)}>{piInfo.documentCharges}</p>
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-12">
@@ -254,6 +272,12 @@ const SuccessPage = () => {
                     </tr>
                     <tr>
                       <td style={{ textAlign: "center" }} colSpan={4}>
+                        Document charges
+                      </td>
+                      <td>{piInfo.documentCharges}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
                         Additions
                       </td>
                       <td>{piInfo.additions}</td>
@@ -262,7 +286,7 @@ const SuccessPage = () => {
                       <td style={{ textAlign: "center" }} colSpan={4}>
                         Final
                       </td>
-                      <td>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</td>
+                      <td>{total.toFixed(3) - piInfo.additions - piInfo.discount - piInfo.documentCharges}</td>
                     </tr>
                   </tfoot>
                 </table>

@@ -84,10 +84,19 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
           location={location}
           usdToAedRate={usdToAedRate}
           currency={currency}
+          documentCharges={pi.piInfo.documentCharges}
           additions={pi.piInfo.additions}
           note={pi.piInfo.note}
+          additionsDescription={pi.piInfo.additionsDescription}
+          discountDescription={pi.piInfo.discountDescription}
         />
-        <InvoiceTerms terms={pi.piInfo.terms} paymentPercentage={pi.piInfo.paymentPercentage} deliveryDate={pi.piInfo.deliveryDate} />
+        <InvoiceTerms
+          note={pi.piInfo.note}
+          terms={pi.piInfo.terms}
+          paymentPercentage={pi.piInfo.paymentPercentage}
+          deliveryDate={pi.piInfo.deliveryDate}
+          documentCharges={pi.piInfo.documentCharges}
+        />
         <BankDetails bankDetails={pi.piInfo.bankDetails} />
         <View wrap={false}>
           <SellerBuyer exporter={pi.piInfo.exporter} buyer={pi.piInfo.buyerAdress} />

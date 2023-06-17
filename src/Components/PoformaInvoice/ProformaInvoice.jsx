@@ -47,9 +47,12 @@ const ProformaInvoice = ({ adminPi }) => {
         bankDetails: adminPi.bankDetails,
         paymentPercentage: adminPi.paymentPercentage,
         deliveryDate: adminPi.deliveryDate,
+        documentCharges: adminPi.documentCharges,
         currency: adminPi.currency,
         location: adminPi.location,
         manager: adminPi.manager,
+        additionsDescription: adminPi.additionsDescription,
+        discountDescription: adminPi.discountDescription,
       },
       isPi: true,
     };

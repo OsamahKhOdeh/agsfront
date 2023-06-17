@@ -85,7 +85,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ products, currency, location, discount, additions, usdToAedRate, note }) => {
+const InvoiceTableFooter = ({
+  products,
+  currency,
+  location,
+  discount,
+  additions,
+  usdToAedRate,
+  note,
+  documentCharges,
+  additionsDescription,
+  discountDescription,
+}) => {
+  if (!documentCharges) {
+    documentCharges = 0;
+  }
   let currency_word = "";
   let sub_currency_word = "";
   if (currency === "USD") {
@@ -265,6 +279,12 @@ const InvoiceTableFooter = ({ products, currency, location, discount, additions,
   calcTotal();
   console.log(total);
   console.log(totalPcs);
+  if (!additionsDescription) {
+    additionsDescription = "";
+  }
+  if (!discountDescription) {
+    discountDescription = "";
+  }
 
   return (
     <>
@@ -282,21 +302,27 @@ const InvoiceTableFooter = ({ products, currency, location, discount, additions,
         </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.description}>DISCOUNT</Text>
+        <Text style={styles.description}>DISCOUNT / DEPOSIT {discountDescription && " : " + discountDescription}</Text>
         <Text style={styles.total}>
           {discount}&nbsp;{currency}
         </Text>
       </View>{" "}
       <View style={styles.row}>
-        <Text style={styles.description}>ADDITIONS : ({note})</Text>
+        <Text style={styles.description}>Document and certification charges</Text>
+        <Text style={styles.total}>
+          {documentCharges}&nbsp;{currency}
+        </Text>
+      </View>{" "}
+      <View style={styles.row}>
+        <Text style={styles.description}>ADDITIONS {additionsDescription && " : " + additionsDescription}</Text>
         <Text style={styles.total}>
           {additions}&nbsp;{currency}
         </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.description}>{moneyToEng(total - discount + parseInt(additions))}&nbsp;only</Text>
+        <Text style={styles.description}>{moneyToEng(total - discount - documentCharges + parseInt(additions))}&nbsp;only</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total - discount + parseInt(additions))?.toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat(total - discount - documentCharges + parseInt(additions))?.toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
     </>
