@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
   col_rowNobutt: { fontSize: 8, height: 13, width: "100%", textAlign: "left", paddingLeft: "4px", paddingTop: 1 },
   bl: {
     backgroundColor: "#ccffdb",
-    paddingTop: "15px",
+    paddingTop: 5,
     paddingLeft: "5px",
     height: "100%",
     width: "57%",
-    fontSize: 9,
+    fontSize: 8,
     textAlign: "left",
   },
 });

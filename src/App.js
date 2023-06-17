@@ -52,11 +52,13 @@ import AddIssue from "./Components/NewLayout/Modules/pages/Add-Issue/AddIssue";
 import CheckProduct from "./pages/CheckProduct/CheckProduct";
 import HomeDashboard from "./Components/NewLayout/Modules/pages/Home-Dashboard/HomeDashboard";
 import Issues from "./Components/NewLayout/Modules/pages/All-Issues/Issues";
+import FileUploader from "./pages/Test";
 function App() {
   return (
-    <div >
+    <div>
       <BrowserRouter>
         <Routes>
+          <Route path="test" element={<FileUploader />} />
           <Route path="/website" element={<WebsitePage />}></Route>
           <Route path="/check" element={<CheckProduct />}></Route>
 
@@ -66,7 +68,7 @@ function App() {
             <Route path="add-issue" element={<AddIssue />}></Route>
             <Route path="issues" element={<Issues />}></Route>
           </Route>
-        {/* end routes dashboard */}
+          {/* end routes dashboard */}
 
           <Route path="check-product" element={<CheckProduct />}></Route>
           <Route path="/" element={<Layout />}>

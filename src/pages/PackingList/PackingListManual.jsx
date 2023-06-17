@@ -131,6 +131,16 @@ const PackingListManual = () => {
   };
 
   const handleNextClick = async () => {
+    /* --------------------------------remove empty rows------------------------------------------ */
+
+    let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
+    updatedTruckItems = updatedTruckItems.map((truckItem) => {
+      truckItem.truckProductItems = truckItem.truckProductItems.filter((item) => item.productQty !== 0);
+      return truckItem;
+    });
+    console.log(updatedTruckItems);
+    setTruckItems(updatedTruckItems);
+    /* -------------------------------------------------------------------------- */
     const pkl = {
       employee: username,
       date: new Date(Date.now()),
@@ -141,7 +151,7 @@ const PackingListManual = () => {
       invoiceNo: invoiceNo,
       customer: customer,
       buyerAddress: buyer,
-      truckItems,
+      truckItems: updatedTruckItems,
     };
     console.log(pkl);
     await axios

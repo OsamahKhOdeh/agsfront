@@ -17,6 +17,7 @@ const Products = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
+  console.log(products);
 
   const isLoading = useSelector((state) => state.show.isLoading);
   const cart = useSelector((state) => state.cart.cart);

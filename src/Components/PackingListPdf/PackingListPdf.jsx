@@ -305,6 +305,7 @@ const pkl = {
   __v: 0,
 };
 const PackingListPdf = ({ pkl, withPrice, fake }) => {
+  console.log({ withPrice, fake });
   return (
     <div style={{ width: "100%" }}>
       <PDFViewer width="100%" height="1200" className="app">

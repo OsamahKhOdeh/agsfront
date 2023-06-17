@@ -50,9 +50,9 @@ const PklFooter = ({ truckItems, fake, withPrice, currency }) => {
   truckItems.forEach((truckItem) => {
     console.log(truckItem?.truckGrossWeightFake);
     pklTotalGrossWeightFake += parseFloat(truckItem?.truckGrossWeightFake);
-    pklTotalNetWeightFake += parseFloat(truckItem?.truckNetWeight);
+    pklTotalNetWeightFake += parseFloat(truckItem?.truckNetWeightFake);
     pklTotalGrossWeight += parseFloat(truckItem?.truckGrossWeight);
-    pklTotalNetWeight += parseFloat(truckItem?.truckNetWeightFake);
+    pklTotalNetWeight += parseFloat(truckItem?.truckNetWeight);
     pklTotalAmount += parseFloat(truckItem?.truckTotalAmount);
   });
 

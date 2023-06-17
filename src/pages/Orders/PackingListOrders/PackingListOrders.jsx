@@ -286,7 +286,7 @@ const PackingListOrders = () => {
                                 <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, false)}>
                                   PKL
                                 </button>
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false, false)}>
+                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, true)}>
                                   PKL/No
                                 </button>{" "}
                                 <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false, true)}>
