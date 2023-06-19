@@ -28,7 +28,6 @@ const Orders = () => {
         pageContent = <OrderTrackingUser />;
         break;
     default:
-      break;
   }
   return (
     <div>
@@ -53,6 +52,6 @@ const Orders = () => {
       {pageContent}
     </div>
   );
-};
+}
 
 export default Orders;
