@@ -61,6 +61,7 @@ const PIActionsAdmin = () => {
   const [currentPi, setCurrentPi] = useState({});
   const [popupClass, setPopupClass] = useState("form-popup hidden");
   const { username, roles } = useAuth();
+  const [refresh, setRefresh] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
