@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
-
+import '../../Components/NewLayout/Modules/pages/newLoayout.scss'
 const NewLayout = () => {
 
   const [isOpen ,setIsoOpen] = useState(false)
@@ -54,7 +54,7 @@ const NewLayout = () => {
       <Outlet />
     </div>
     </div>
-   </>
+    </>
   )
 }
 

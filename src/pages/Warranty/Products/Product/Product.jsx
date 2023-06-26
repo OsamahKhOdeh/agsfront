@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addProductToWarrantyList, removeProductFromWarrantyList, setProductQty } from "../../../../store/warrantySlice";
 
 import { addProducttocart, deletProductformCart } from "../../../../store/cartSlice";
-import product from "../Product/style/product.css";
-import Price from "./Price";
 import axios from "axios";
 import { BASE_URL, downloadDatasheet } from "../../../../actions/products";
 const Product = ({ product, index }) => {

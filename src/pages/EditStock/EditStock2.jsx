@@ -21,10 +21,10 @@ import useAuth from "../../hooks/useAuth";
 import { dummyStock } from "./dummyStock";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { warehouses } from "../../data";
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import { fetchAll } from "../../store/stockSlice";
 import { fetchStock } from "../../actions/stock";
+import { warehouses } from "../../data";
 
 function NewBL({ id, property, productCode, brand, capacity }) {
   const dispatch = useDispatch();

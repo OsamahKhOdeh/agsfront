@@ -233,15 +233,15 @@ const ProformaInvoiceOrders = () => {
                             </button>
                           ) : proformaInvoice.managerApproval === "Rejected" || proformaInvoice.financiaApproval === "Rejected" ? (
                             <>
-                              <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
-                                <i class="uil uil-edit"></i>{" "}
-                              </button>
                               <p className="warnning">
                                 From {proformaInvoice.financiaApproval === "Rejected" && "Finance :"}
                                 {proformaInvoice?.financeMessage + "/"}
                                 {proformaInvoice.managerApproval === "Rejected" && "Sales Manger :"}
                                 {proformaInvoice?.managerMessage}
                               </p>
+                                <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
+                                <i class="uil uil-edit"></i>{" "}
+                              </button>
                             </>
                           ) : (
                             <>

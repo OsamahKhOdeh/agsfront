@@ -6,4 +6,5 @@ export const ROLES = {
   Financial: "Financial",
   Logistics: "Logistics",
   SyriaEmployee: "SyriaEmployee",
+  SyriaSales: "SyriaSales",
 };

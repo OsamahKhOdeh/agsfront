@@ -55,6 +55,10 @@ import Issues from "./Components/NewLayout/Modules/pages/All-Issues/Issues";
 import FileUploader from "./pages/Test";
 import OrderTracking from "./Components/Order Tracking/OrderTracking";
 import OrderTrackingUser from "./Components/OrderTrackingUser/OrderTrackingUser";
+import DeparturesLogistic from "./Components/NewLayout/Modules/pages/Logistic/DeparturesLogistic";
+import ComingLogistic from "./Components/NewLayout/Modules/pages/Logistic/ComingLogistic";
+import AllLogistic from "./Components/NewLayout/Modules/pages/Logistic/AllLogistic";
+import HomeFinanace from "./Components/NewLayout/Modules/pages/Finanace/HomeFinanace";
 function App() {
   return (
     <div>
@@ -69,7 +73,14 @@ function App() {
             <Route index path="home" element={<HomeDashboard />}></Route>
             <Route path="add-issue" element={<AddIssue />}></Route>
             <Route path="issues" element={<Issues />}></Route>
+            {/* This is logistic routes */}
+            <Route path="allLogistic" element={<AllLogistic />}></Route>
+            <Route path="comingLogistic" element={<ComingLogistic />}></Route>
+            <Route path="departuresLogistic" element={<DeparturesLogistic />}></Route>
+            {/* This is Finanace routes */}
+            <Route path="homeFinanace" element={<HomeFinanace />}></Route>
           </Route>
+          
           {/* end routes dashboard */}
 
           <Route path="check-product" element={<CheckProduct />}></Route>

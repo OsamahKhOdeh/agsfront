@@ -1,0 +1,356 @@
+// this is design for logistic
+.grid-logistic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  .grid-item {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    .grid-item-tittle {
+      padding: 5px;
+      background: #efefef;
+      text-align: center;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      font-weight: 600;
+    }
+    .grid-item-content {
+      padding: 10px 5px;
+      .table {
+        margin: 7px auto;
+        thead {
+          th,
+          td {
+            background-color: #efefef;
+            border: 1px solid #e7e7e7;
+          }
+        }
+        th,
+        td {
+          border: 1px solid #e9e7e7;
+          padding: 5px;
+          font-size: 13px;
+        }
+      }
+      .grid-item-content-truck {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        .box {
+          text-align: center;
+          border: 1px solid #efefef;
+          border-radius: 5px;
+          .box-tittle {
+            border: 1px solid #efefef;
+            background: #efefef;
+            font-weight: 500;
+            padding: 3px;
+          }
+          .box-content {
+            .box-row {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 5px;
+              font-size: 13px;
+              p {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+      .dispatching-shipments {
+        display: grid;
+        grid-template-columns: 0.5fr 1.5fr;
+        text-align: center;
+        border: 1px solid #efefef;
+        .dispatching-shipment {
+          p {
+            border-bottom: 1px solid #ededed;
+            padding: 2px;
+            background: #efefef;
+            margin-bottom: 0;
+            font-weight: 500;
+          }
+
+          .dispatching-shipment-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            .under-production {
+              p {
+                font-size: 14px;
+                background-color: transparent;
+                border: 0;
+              }
+            }
+            .dispatching-shipment-content-left {
+              border-right: 1px solid #dfdfdf;
+            }
+            .dispatching-shipment-content-left,
+            .dispatching-shipment-content-right {
+              span {
+                display: block;
+                border-bottom: 1px solid #ededed;
+                padding: 2px;
+                font-size: 14px;
+                font-weight: 500;
+                color: #000;
+              }
+              p {
+                background: transparent;
+                border: 0;
+                font-size: 13px;
+                font-weight: 400;
+                margin: 4px auto;
+              }
+            }
+          }
+        }
+        .dispatching-shipment:nth-child(1) {
+          border-right: 1px solid #dfdfdf;
+          .dispatching-shipment-content {
+            display: block !important;
+            p {
+              font-size: 13px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+      .warehouse-stats {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr;
+        text-align: center;
+        .list-of-items,
+        .stats {
+          // padding: 5px;
+          p {
+            font-size: 13px;
+            // margin-bottom: .5rem;
+          }
+        }
+        .list-of-items {
+          border-right: 1px solid #dfdfdf;
+        }
+      }
+    }
+  }
+  .grid-item:last-child {
+    grid-row: 2;
+    grid-column: 1/3;
+  }
+}
+// this is design for finanace
+.finance-home {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)) !important;
+    .grid-item{
+        // .grid-managment{
+        //     .managment-item{
+        //         display: flex;
+        //         justify-content: center;
+        //         align-items: center;
+        //     }
+        // }
+    }
+    .grid-managment{
+        // .managment-item{
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+        // }
+    }
+  }
+}
+@media (max-width: 768px) {
+  // this is design for logistic
+  .grid-logistic {
+    grid-template-columns: 1fr;
+    .grid-item {
+      .warehouse-stats {
+        grid-template-columns: 1fr;
+      }
+      .grid-item-content {
+        .grid-item-content-truck {
+          grid-template-columns: 1fr;
+        }
+        .dispatching-shipments {
+          .dispatching-shipment {
+            p {
+              font-size: 11px;
+            }
+            .dispatching-shipment-content {
+              .under-production {
+                p {
+                  font-size: 11px;
+                }
+              }
+
+              .dispatching-shipment-content-left,
+              .dispatching-shipment-content-right {
+                span {
+                  font-size: 11px;
+                }
+                p {
+                  font-size: 11px;
+                }
+              }
+            }
+          }
+          .dispatching-shipment:nth-child(1) {
+            .dispatching-shipment-content {
+              p {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+        .table {
+          th,
+          td {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    .grid-item:last-child {
+      grid-row: 2;
+      grid-column: 1;
+    }
+  }
+}
+@media (max-width: 576px) {
+  // this is design for logistic
+  .grid-logistic {
+    grid-template-columns: 1fr;
+    .grid-item {
+      .warehouse-stats {
+        grid-template-columns: 1fr;
+      }
+      .grid-item-content {
+        .grid-item-content-truck {
+          grid-template-columns: 1fr;
+          .box {
+            .box-tittle {
+            }
+            .box-content {
+              .box-row {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+        .table {
+          th,
+          td {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    .grid-item:last-child {
+      grid-row: 2;
+      grid-column: 1;
+    }
+  }
+  .ags-btn-sm-main-outlin,
+  .ags-btn-sm-primary-outlin,
+  .ags-btn-sm-sucess-outlin {
+    font-size: 11px;
+  }
+}
+.all {
+  display: flex;
+}
+.circle-wrap .inside-circle {
+  // width: 124px;
+  // height: 124px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #212020;
+  line-height: 120px;
+  text-align: center;
+//   margin-top: 13px;
+//   margin-left: 13px;
+  color: white;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 2em;
+}
+.circle-wrap {
+  display: grid;
+  grid-template-columns: repeat(1, 160px);
+  grid-gap: 80px;
+//   margin-top: 100px;
+//   margin-left: 50px;
+//   width: 150px;
+//   height: 150px;
+    width: 115px;
+    height: 115px;
+  background: #d9d7da;
+  border-radius: 50%;
+}
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill-1,
+.circle-wrap .circle .fill-2,
+.circle-wrap .circle .fill-3 {
+  //   width: 150px;
+  //   height: 150px;
+  width: 115px;
+  height: 115px;
+  position: absolute;
+  border-radius: 50%;
+}
+.circle-wrap .circle .mask {
+  clip: rect(0px, 150px, 150px, 75px);
+}
+@keyframes fill-1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(153deg);
+  }
+}
+
+.circle-wrap .inside-circle {
+  // width: 124px;
+  // height: 124px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff;
+  line-height: 95px;
+  text-align: center;
+  margin-top: 13px;
+  margin-left: 13px;
+  color: #212020;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.mask .fill-3 {
+  clip: rect(0px, 75px, 150px, 0px);
+  background-color: var(--second-color);
+}
+.mask.full-3,
+.circle .fill-3 {
+  animation: fill-3 ease-in-out 3s;
+  transform: rotate(135deg);
+}
+@keyframes fill-3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(135deg);
+  }
+}

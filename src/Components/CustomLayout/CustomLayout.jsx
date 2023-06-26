@@ -8,7 +8,6 @@ import "../../global/_global.scss";
 import "../../global/_global_dashboard.scss";
 import {
   AdminMenuItems,
-  AdminSyriaMenuItems,
   EmployeeMenuItems,
   FinancialMenuItems,
   LogisticsMenuItems,
@@ -18,7 +17,7 @@ import useAuth from "../../hooks/useAuth";
 import { logOut } from "../../store/authSlice";
 import { emptyCart } from "../../store/cartSlice";
 import { clearFilters } from "../../store/filtersSlice";
-const UserLayout = () => {
+const CustomLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState(useAuth()?.username);
@@ -39,9 +38,6 @@ const UserLayout = () => {
   }
   if (roles.includes("Logistics")) {
     MenuItems = LogisticsMenuItems;
-  }
-  if(roles.includes("AdminSyria")){
-    MenuItems = AdminSyriaMenuItems
   }
   const logout = (r) => {
     dispatch(logOut());
@@ -205,4 +201,4 @@ const UserLayout = () => {
     </>
   );
 };
-export default UserLayout;
+export default CustomLayout;

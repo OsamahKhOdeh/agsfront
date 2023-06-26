@@ -5,6 +5,8 @@ import { BASE_URL } from "../../../api/index";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateProformaInvoiceStatus } from "../../../actions/proformaInvoice";
+import { useEffect } from "react";
+import { pdf } from "@react-pdf/renderer";
 
 function UploadPdf({ pi, setLoading }) {
   const showToastMessage = (msg, status) => {
@@ -32,10 +34,12 @@ function UploadPdf({ pi, setLoading }) {
       });
     }
   };
-  const [pdfFile, setPdfFile] = useState(null);
+  const [pdfFile, setPdfFile] = useState();
+
   const dispatch = useDispatch();
   const handleFileChange = (event) => {
     setPdfFile(event.target.files[0]);
+    console.log(pdfFile);
   };
 
   const handleSubmit = (event) => {
@@ -56,6 +60,7 @@ function UploadPdf({ pi, setLoading }) {
         setLoading(false);
         showToastMessage("file uploaded successfully", "success");
         console.log("PDF file uploaded successfully");
+        setPdfFile({});
       })
       .catch((error) => {
         setLoading(false);
@@ -67,15 +72,11 @@ function UploadPdf({ pi, setLoading }) {
   return (
     <>
       <ToastContainer />
-      <form onSubmit={handleSubmit}>
-        <input id="pi_upload" style={{ width: "100px" }} type="file" accept="application/pdf" onChange={handleFileChange}  autocomplete="on"/>
-        <button
-          className={pdfFile ? `button_edit_pdf button_edit is_file` : `button_edit_pdf button_edit no_file`}
-          type="submit"
-          disabled={!pdfFile}
-        >
-          Upload
-        </button>
+      <form className="form_upload" onSubmit={handleSubmit}>
+        <label htmlFor="pi_upload"><i class="uil uil-upload"></i>
+        <input id="pi_upload"    style={{ width: "110px" }} type="file" accept="application/pdf" onChange={handleFileChange}  autocomplete="on"/>
+        </label>
+        <button type="submit" className="ags-btn-main-fill" disabled={!pdfFile}  > Upload </button>
       </form>
     </>
   );

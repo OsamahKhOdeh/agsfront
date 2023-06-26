@@ -10,7 +10,6 @@ export const createProduct = (newProduct) => {
   console.log(newProduct);
   API.post("/products", newProduct);
 };
-
 export const fetchProducts = () => API.get(`/products`);
 
 export const fetchFilteredProducts = (filters) =>

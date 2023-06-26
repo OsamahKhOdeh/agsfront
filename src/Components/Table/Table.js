@@ -43,7 +43,7 @@ const TablePage = () => {
   const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
   useEffect(() => {
     dispatch(setPICurrencyLocation({ currency, location }));
-  }, []);
+  }, [currency, dispatch, location]);
 
   const [qty, setQty] = useState("");
 
@@ -201,10 +201,7 @@ const TablePage = () => {
             </thead>
             <tbody className="">
               {selectedProducts.map((item, index) => (
-                <tr
-                  className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
-                  key={index}
-                >
+                <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100" key={index}>
                   <td className="pl-4 cursor-pointer">
                     <div>{index + 1}</div>
                   </td>
@@ -274,7 +271,7 @@ const TablePage = () => {
                           }}
                           onChange={(e) => {
                             handleQuantityChange(index, e);
-                            setQty(e.target.value);
+                            // setQty(e.target.value);
                           }}
                         />
                         {/* <TextField

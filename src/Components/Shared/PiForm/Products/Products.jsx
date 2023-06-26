@@ -6,7 +6,7 @@ import { BASE_URL } from "../../../../api/index.js";
 import LoadingSpinner from "../../../LoadingSpinner/LoadingSpinner";
 import { useSelector } from "react-redux";
 import SearchBox from "../../../SearchBox/SearchBox";
-
+import './products_styles.css'
 const Products = ({ handleAddToPi }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);

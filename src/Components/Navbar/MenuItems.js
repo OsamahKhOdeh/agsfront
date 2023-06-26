@@ -269,3 +269,17 @@ export const SyriaEmployeeMenuItems = [
     icon: "bx-money",
   },
 ];
+export const AdminSyriaMenuItems = [
+  {
+    title: "PO",
+    path: "/user/makepi",
+    cName: "dropdown-link",
+    icon: "bx-money",
+  },
+  {
+    title: "Orders",
+    path: "/user/orders",
+    cName: "dropdown-link",
+    icon: "bx-border-radius",
+  },
+];
