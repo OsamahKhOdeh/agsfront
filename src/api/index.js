@@ -1,13 +1,15 @@
 import axios from "axios";
-import store from '../store/store'
-import jwtDecode from 'jwt-decode'
+import store from "../store/store";
+import jwtDecode from "jwt-decode";
 
 import { useSelector } from "react-redux";
 import { logOut, setAutherized, setCredentials } from "../store/authSlice";
 import { emptyCart } from "../store/cartSlice";
 import { clearFilters } from "../store/filtersSlice";
 import { useNavigate } from "react-router-dom";
-export const BASE_URL = "http://localhost:5000";
+//143.42.61.215/user/piadmin
+export const BASE_URL = "143.42.61.215:5000";
+// export const BASE_URL = "http://localhost:5001";
 // export const BASE_URL = "http://10.255.254.16:5000";
 const API = axios.create({ baseURL: BASE_URL });
 const stateToken = store.getState();
@@ -16,7 +18,6 @@ console.log(stateToken);
 //"http://localhost:5000"
 //export const createProduct = (newProduct) => API.post("/products", newProduct);
 //export const createProduct = (newProduct) => axios.post("https://server1-ustg.onrender.com/products", newProduct);
-
 
 /* -------------------------------------------------------------------------- */
 const getToken = () => {
@@ -29,52 +30,50 @@ const isTokenExpired = () => {
   const token = getToken();
   if (!token) return true;
 
-  const decoded = jwtDecode(token)
-  const { exp } = decoded.UserInfo
+  const decoded = jwtDecode(token);
+  const { exp } = decoded.UserInfo;
   return exp * 1000 < Date.now(); // Compare expiration time with current time
 };
 
 const getRefreshedToken = async () => {
-  console.log('getRefreshedToken');
-  const response = await axios.get(`${BASE_URL}/auth/refresh`,{withCredentials : true});
+  console.log("getRefreshedToken");
+  const response = await axios.get(`${BASE_URL}/auth/refresh`, { withCredentials: true });
   console.log(response);
   return response.data.token;
 };
 export const refreshToken = async () => {
   console.log("Get refresh token");
-  try{const newToken = await getRefreshedToken();  console.log('new token', newToken);
-}catch(e){console.log(e)}
+  try {
+    const newToken = await getRefreshedToken();
+    console.log("new token", newToken);
+  } catch (e) {
+    console.log(e);
+  }
   // store.dispatch(setCredentials(newToken))
   // store.dispatch(setAutherized(true));
   // console.log('Token refreshed');
- // setToken(newToken);
+  // setToken(newToken);
 };
 /* -------------------------------------------------------------------------- */
 
-
-
 API.interceptors.request.use(async (req) => {
-
   if (isTokenExpired()) {
     console.log("expired token");
-  // await refreshToken();
-  }
-  else{
+    // await refreshToken();
+  } else {
     console.log("token not expired");
   }
-  
-  if (localStorage.getItem('token')) {
-    console.log(JSON.parse(localStorage.getItem('token')));
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('token'))}`;
-  }
-  else{
+
+  if (localStorage.getItem("token")) {
+    console.log(JSON.parse(localStorage.getItem("token")));
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
+  } else {
     const stateToken = store.getState().auth.token;
     console.log(stateToken);
     req.headers.Authorization = `Bearer ${stateToken}`;
   }
   return req;
 });
-
 
 const logoutAction = (r) => {
   store.dispatch(logOut());
@@ -91,9 +90,9 @@ export const fetchProducts = () => API.get(`/products`);
 
 export const fetchFilteredProducts = (filters) =>
   API.get(
-    `/products/search?categories=${filters.categories || ""}&countries=${filters.countries || ""}&companies=${
-      filters.companies || ""
-    }&brands=${filters.brands || ""}&capacities=${JSON.stringify(filters.capacities) || ""}`
+    `/products/search?categories=${filters.categories || ""}&countries=${filters.countries || ""}&companies=${filters.companies || ""}&brands=${filters.brands || ""}&capacities=${
+      JSON.stringify(filters.capacities) || ""
+    }`
   );
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
@@ -126,8 +125,7 @@ export const getPurchaseOrders = () => API.get(`/purchaseorder`);
 
 export const getEmployeePurchaseOrders = (empolyee_name) => API.get(`/purchaseorder/employee?employeename=${empolyee_name}`);
 
-export const updatePurchaseOrderStatus = ({ id, newStatus, managerMessage, manager }) =>
-  API.patch(`/purchaseorder/${id}`, { newStatus, managerMessage, manager });
+export const updatePurchaseOrderStatus = ({ id, newStatus, managerMessage, manager }) => API.patch(`/purchaseorder/${id}`, { newStatus, managerMessage, manager });
 
 export const deletePurchaseOrder = (id) => API.delete(`/purchaseOrder/${id}`);
 
@@ -167,7 +165,7 @@ export const getAllOrdes = () => API.get(`/process`);
 
 export const getEmployeeOrders = (empolyee_name) => API.get(`/process/${empolyee_name}`);
 
-export const updateOrderStatus = (id,isNext) => API.patch(`/process/${id}`,{action:isNext ? 'next' : 'prev'});
+export const updateOrderStatus = (id, isNext) => API.patch(`/process/${id}`, { action: isNext ? "next" : "prev" });
 
 export const updateSignedProformaInvoiceStatus = ({ id, status }) => API.patch(`/pi/pisigned/${id}`, { status });
 
@@ -175,7 +173,9 @@ export const updateSignedProformaInvoiceStatus = ({ id, status }) => API.patch(`
 /*                                    AUTH                                    */
 /* -------------------------------------------------------------------------- */
 
-export const login = ({ username, password }) => axios.post(`${BASE_URL}/auth`, { username, password },{withCredentials : true});
+export const login = ({ username, password }) => {
+  return axios.post(`${BASE_URL}/auth`, { username, password }, { withCredentials: true });
+};
 
 export const logout = () => API.post("/auth/logout");
 
