@@ -8,7 +8,7 @@ import { emptyCart } from "../store/cartSlice";
 import { clearFilters } from "../store/filtersSlice";
 import { useNavigate } from "react-router-dom";
 //143.42.61.215/user/piadmin
-export const BASE_URL = "143.42.61.215:5000";
+export const BASE_URL = "http://143.42.61.215:5000";
 // export const BASE_URL = "http://localhost:5001";
 // export const BASE_URL = "http://10.255.254.16:5000";
 const API = axios.create({ baseURL: BASE_URL });
@@ -174,7 +174,7 @@ export const updateSignedProformaInvoiceStatus = ({ id, status }) => API.patch(`
 /* -------------------------------------------------------------------------- */
 
 export const login = ({ username, password }) => {
-  return axios.post(`${BASE_URL}/auth`, { username, password }, { withCredentials: true });
+  return API.post("/auth", { username, password });
 };
 
 export const logout = () => API.post("/auth/logout");

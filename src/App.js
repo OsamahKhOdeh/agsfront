@@ -98,8 +98,7 @@ function App() {
                 <Route path="editstock" element={<EditStock />}></Route>
                 <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
-                <Route path="packinglistmanual" element={<PackingListManual />}></Route>{" "}
-                <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
+                <Route path="packinglistmanual" element={<PackingListManual />}></Route> <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
                 <Route path="allpkl" element={<PackingListsAll />}></Route>
                 <Route path="table" element={<ProformaInvoice />}></Route>
                 <Route path="pricelistinfo" element={<PriceListInfo />}></Route>
