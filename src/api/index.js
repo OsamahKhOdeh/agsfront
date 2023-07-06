@@ -14,9 +14,9 @@ export const fetchProducts = () => API.get(`/products`);
 
 export const fetchFilteredProducts = (filters) =>
   API.get(
-    `/products/search?categories=${filters.categories || ""}&countries=${filters.countries || ""}&companies=${
-      filters.companies || ""
-    }&brands=${filters.brands || ""}&capacities=${JSON.stringify(filters.capacities) || ""}`
+    `/products/search?categories=${filters.categories || ""}&countries=${filters.countries || ""}&companies=${filters.companies || ""}&brands=${filters.brands || ""}&capacities=${
+      JSON.stringify(filters.capacities) || ""
+    }`
   );
 
 export const updateProduct = (id, updatedProduct) => API.patch(`/products/${id}`, updatedProduct);
@@ -49,8 +49,7 @@ export const getPurchaseOrders = () => API.get(`/purchaseorder`);
 
 export const getEmployeePurchaseOrders = (empolyee_name) => API.get(`/purchaseorder/employee?employeename=${empolyee_name}`);
 
-export const updatePurchaseOrderStatus = ({ id, newStatus, managerMessage, manager }) =>
-  API.patch(`/purchaseorder/${id}`, { newStatus, managerMessage, manager });
+export const updatePurchaseOrderStatus = ({ id, newStatus, managerMessage, manager }) => API.patch(`/purchaseorder/${id}`, { newStatus, managerMessage, manager });
 
 export const deletePurchaseOrder = (id) => API.delete(`/purchaseOrder/${id}`);
 
@@ -90,7 +89,7 @@ export const getAllOrdes = () => API.get(`/process`);
 
 export const getEmployeeOrders = (empolyee_name) => API.get(`/process/${empolyee_name}`);
 
-export const updateOrderStatus = (id,isNext) => API.patch(`/process/${id}`,{action:isNext ? 'next' : 'prev'});
+export const updateOrderStatus = (id, isNext) => API.patch(`/process/${id}`, { action: isNext ? "next" : "prev" });
 
 export const updateSignedProformaInvoiceStatus = ({ id, status }) => API.patch(`/pi/pisigned/${id}`, { status });
 

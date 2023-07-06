@@ -1,6 +1,6 @@
 .item_card {
-  border: 0.3px solid rgb(231, 225, 225) ;
-  box-shadow: 1px 1px 1px 1px rgba(124, 118, 118, 0.1);
+  /* border: 0.3px solid rgb(231, 225, 225) ; */
+  /* box-shadow: 1px 1px 1px 1px rgba(124, 118, 118, 0.1); */
   max-width: 300px;
   width: 240px;
   margin: auto;
@@ -9,11 +9,14 @@
   background-color: #fff;
   padding: 0px 0px 10px 0px;;
   transition: 0.5s;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: 0;
+  border-radius: 15px !important;
   
 }
 .item_card:hover{
   border: 0.9px solid rgb(201, 192, 192) ;
-  background-color: #eef1f3;
+  background-color: #fff;
 }
 
 .datasheet_but{

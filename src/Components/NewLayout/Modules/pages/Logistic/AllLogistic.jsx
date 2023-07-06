@@ -158,7 +158,6 @@ export const AllLogistic = () => {
                         <p>PI 276</p>
                         <span className='ags-btn-sm-main-outlin'>Enter Information</span>
                       </div>
-
                       <div className="box-row">
                         <p>PI 276</p>
                         <span className='ags-btn-sm-main-outlin'>Enter Information</span>

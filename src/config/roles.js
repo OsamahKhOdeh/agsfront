@@ -8,3 +8,7 @@ export const ROLES = {
   SyriaEmployee: "SyriaEmployee",
   SyriaSales: "SyriaSales",
 };
+export const Branches = {
+  Syria: "SYRIA",
+  Dubai: "DUBAI",
+};

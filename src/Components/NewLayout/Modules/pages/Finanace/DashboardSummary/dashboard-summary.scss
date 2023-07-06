@@ -1,0 +1,95 @@
+.dashboard-summary {
+  margin: 1rem;
+  .brands-section {
+    .tittle-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--second-color);
+      color: #fff;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      p {
+        padding-left: 16px;
+      }
+    }
+    .tow-dates {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      .date-item {
+        display: flex;
+        align-items: center;
+        span {
+          font-size: 13px;
+          padding-right: 13px;
+          color: #fff;
+        }
+        .react-datepicker__view-calendar-icon input {
+          width: 57%;
+          font-size: 12px;
+          padding: 5px 5px 5px 10px;
+          color: #000;
+          margin: 4px 0;
+        }
+      }
+    }
+    .table-responsive {
+      .table {
+        thead {
+          th {
+            background: #efefef;
+            padding: 4px;
+            font-size: 13px;
+            border: 1px solid #dbdbdb;
+            text-align: center;
+            vertical-align: baseline;
+          }
+        }
+        tbody {
+          th,
+          td {
+            padding: 4px;
+            font-size: 13px;
+            border: 1px solid #dbdbdb;
+            text-align: center;
+            vertical-align: baseline;
+            select {
+              font-size: 12px;
+              width: fit-content;
+              margin: 2px auto;
+            }
+            .form-select:focus {
+              border-color: var(--second-color);
+              outline: 0;
+              box-shadow: none;
+            }
+            .uil {
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+    .wrapper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: center;
+    }
+    .tittle {
+      h5 {
+        margin: 0;
+        background-color: var(--second-color);
+        color: #fff;
+        padding: 7px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        font-size: 15px;
+      }
+    }
+  }
+  //   .buttons-group {
+  //     margin: 1rem auto;
+  //   }
+}

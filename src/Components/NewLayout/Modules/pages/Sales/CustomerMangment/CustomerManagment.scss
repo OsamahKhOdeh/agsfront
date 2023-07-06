@@ -1,0 +1,312 @@
+.customer-managemnt {
+  margin: 1rem;
+  .wrapper-grid-managment {
+    display: grid;
+    grid-template-columns: 1.5fr 0.8fr;
+    gap: 16px;
+    .left-side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      .box {
+        .card {
+          height: 100%;
+          .card-header {
+            .tittle-card {
+              p {
+                font-size: 14px;
+              }
+            }
+          }
+          .card-body {
+            .item {
+              display: flex;
+              justify-content: space-between;
+              margin: 0.5rem auto;
+            }
+            .table {
+              text-align: center;
+              th,
+              td {
+                width: 10%;
+                border: 1px solid #efefef !important;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .right-side {
+      .box {
+        height: 100%;
+        .card {
+          height: 100%;
+          .customer-profile {
+            .item {
+              h6 {
+                padding: 10px 7px;
+                border: 1px solid #efefef;
+                border-radius: 3px;
+                margin: 1rem auto;
+                background: #f4f4f4;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all 0.5s ease-in-out;
+                .uil {
+                  font-size: 18px;
+                  font-weight: 700;
+                }
+                small {
+                  font-weight: 500;
+                  padding-left: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.modal {
+  .modal-header {
+    .close {
+      filter: grayscale(0) invert(0);
+    }
+    // ************** users style ***********
+  }
+  .users-section {
+    .grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      grid-gap: 1rem !important;
+      margin: 1.3rem auto;
+      grid-gap: 1rem;
+      .card {
+        --background: #fff;
+        --background-checkbox: var(--second-color);
+        --background-image: #fff, #{rgba(var(--second-color), 0.2)};
+        --text-color: #666;
+        --text-headline: #000;
+        --card-shadow: var(--second-color);
+        --card-height: 70px;
+        --card-width: 70px;
+        --card-radius: 5px;
+        --header-height: 70px;
+        --blend-mode: overlay;
+        --transition: 0.15s;
+        user-select: none;
+        padding: 5px;
+        // border: 1px solid #ccc !important;
+        border-radius: 13px !important;
+        border: 0 !important;
+        width: fit-content;
+        &__input {
+          position: absolute;
+          display: block;
+          outline: none;
+          border: none;
+          background: none;
+          padding: 0;
+          margin: 0;
+          opacity: 0;
+          &:checked {
+            & ~ .card__body {
+              --shadow: 0 0 0 3px var(--card-shadow);
+              .card__body {
+                &-cover-checkbox {
+                  --check-bg: var(--background-checkbox);
+                  --check-border: #fff;
+                  --check-scale: 0.8;
+                  --check-opacity: 1;
+                  &--svg {
+                    --stroke-color: #fff;
+                    --stroke-dashoffset: 0;
+                  }
+                }
+                &-cover {
+                  &:after {
+                    --opacity-bg: 0;
+                  }
+                  &-image {
+                    --filter-bg: grayscale(0);
+                  }
+                }
+              }
+            }
+          }
+          &:disabled {
+            & ~ .card__body {
+              cursor: not-allowed;
+              opacity: 0.5;
+              &:active {
+                --scale: 1;
+              }
+            }
+          }
+        }
+        &__body {
+          // display: grid;
+          grid-auto-rows: calc(var(--card-height) - var(--header-height)) auto;
+          background: var(--background);
+          height: var(--card-height);
+          width: var(--card-width);
+          border-radius: var(--card-radius);
+          overflow: hidden;
+          position: relative;
+          cursor: pointer;
+          box-shadow: var(--shadow, 0 4px 4px 0 rgba(0, 0, 0, 0.02));
+          transition: transform var(--transition), box-shadow var(--transition);
+          transform: scale(var(--scale, 1)) translateZ(0);
+          &:active {
+            --scale: 0.96;
+          }
+          &-cover {
+            --c-border: var(--card-radius) var(--card-radius) 0 0;
+            --c-width: 100%;
+            --c-height: 85px;
+            position: relative;
+            overflow: hidden;
+            &:after {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: var(--c-width);
+              height: var(--c-height);
+              border-radius: var(--c-border);
+              background: linear-gradient(to bottom right, var(--background-image));
+              mix-blend-mode: var(--blend-mode);
+              opacity: var(--opacity-bg, 1);
+              transition: opacity var(--transition) linear;
+            }
+            &-image {
+              width: var(--c-width);
+              height: var(--c-height);
+              object-fit: cover;
+              border-radius: var(--c-border);
+              filter: var(--filter-bg, grayscale(1));
+              // transition: filter var(--transition) linear; // not working properly in Chrome
+              clip-path: polygon(0% 0%, 100% 0%, var(--x-y1, 100% 90%), var(--x-y2, 67% 83%), var(--x-y3, 33% 90%), var(--x-y4, 0% 85%));
+            }
+            &-checkbox {
+              background: var(--check-bg, var(--background-checkbox));
+              border: 1px solid var(--check-border, #fff);
+              position: absolute;
+              right: -2px;
+              top: -2px;
+              z-index: 1;
+              width: 25px;
+              height: 25px;
+              border-radius: 50%;
+              opacity: var(--check-opacity, 0);
+              transition: transform var(--transition), opacity calc(var(--transition) * 1.2) linear, -webkit-transform var(--transition) ease;
+              transform: scale(var(--check-scale, 0));
+              &--svg {
+                width: 13px;
+                height: 11px;
+                display: inline-block;
+                vertical-align: top;
+                fill: none;
+                margin: 7px 0 0 5px;
+                stroke: var(--stroke-color, #fff);
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-dasharray: 16px;
+                stroke-dashoffset: var(--stroke-dashoffset, 16px);
+                transition: stroke-dashoffset 0.4s ease var(--transition);
+              }
+            }
+          }
+          &-header {
+            height: var(--header-height);
+            background: var(--background);
+            padding: 0 10px 10px 10px;
+            &-title {
+              color: var(--text-headline);
+              font-weight: 700;
+              margin-bottom: 8px;
+            }
+            &-subtitle {
+              color: var(--text-color);
+              font-weight: 500;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .customer-managemnt {
+    margin: 1rem;
+    .wrapper-grid-managment {
+      grid-template-columns: 1fr;
+      .left-side {
+        grid-template-columns: 1fr;
+      }
+      .right-side {
+        .box {
+          height: 100%;
+          .card {
+            height: 100%;
+            .customer-profile {
+              .item {
+                h6 {
+                  font-size: 12px;
+                  margin: 0.7rem auto;
+                  padding: 7px 5px;
+                  .uil {
+                    font-size: 16px;
+                  }
+                  small {
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 576px) {
+  .customer-managemnt {
+    margin: 1rem;
+    .wrapper-grid-managment {
+      grid-template-columns: 1fr;
+      .left-side {
+        grid-template-columns: 1fr;
+      }
+      .right-side {
+        .box {
+          height: 100%;
+          .card {
+            height: 100%;
+            .customer-profile {
+              .item {
+                h6 {
+                  font-size: 12px;
+                  margin: 0.7rem auto;
+                  padding: 7px 5px;
+                  .uil {
+                    font-size: 16px;
+                  }
+                  small {
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

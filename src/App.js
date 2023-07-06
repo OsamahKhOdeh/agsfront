@@ -59,6 +59,12 @@ import DeparturesLogistic from "./Components/NewLayout/Modules/pages/Logistic/De
 import ComingLogistic from "./Components/NewLayout/Modules/pages/Logistic/ComingLogistic";
 import AllLogistic from "./Components/NewLayout/Modules/pages/Logistic/AllLogistic";
 import HomeFinanace from "./Components/NewLayout/Modules/pages/Finanace/HomeFinanace";
+import AddExpense from "./Components/NewLayout/Modules/pages/Finanace/AddExpense/AddExpense";
+import OrderPayment from "./Components/NewLayout/Modules/pages/Finanace/OrderPayment/OrderPayment";
+import DashboardSummary from "./Components/NewLayout/Modules/pages/Finanace/DashboardSummary/DashboardSummary";
+import CustomerManagment from "./Components/NewLayout/Modules/pages/Sales/CustomerMangment/CustomerManagment";
+import Blogs from "./Components/NewLayout/Modules/pages/Sales/Blogs/Blogs";
+import { ReportEvent } from "./Components/NewLayout/Modules/pages/Sales/ReportEvent/ReportEvent";
 function App() {
   return (
     <div>
@@ -67,7 +73,6 @@ function App() {
           <Route path="test" element={<FileUploader />} />
           <Route path="/website" element={<WebsitePage />}></Route>
           <Route path="/check" element={<CheckProduct />}></Route>
-
           {/* this are routes for new dashboard */}
           <Route path="dashboard" element={<NewLayout />}>
             <Route index path="home" element={<HomeDashboard />}></Route>
@@ -79,10 +84,14 @@ function App() {
             <Route path="departuresLogistic" element={<DeparturesLogistic />}></Route>
             {/* This is Finanace routes */}
             <Route path="homeFinanace" element={<HomeFinanace />}></Route>
+            <Route path="addExpense" element={<AddExpense />}></Route>
+            <Route path="orderPyment" element={<OrderPayment />}></Route>
           </Route>
-          
+          <Route path="dashboardSummary" element={<DashboardSummary />}></Route>
+          <Route path="customerManagment" element={<CustomerManagment />}></Route>
+          <Route path="blogs" element={<Blogs />}></Route>
+          <Route path="report" element={<ReportEvent />}></Route>
           {/* end routes dashboard */}
-
           <Route path="check-product" element={<CheckProduct />}></Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />}></Route>
@@ -109,8 +118,7 @@ function App() {
                 <Route path="editstock" element={<EditStock />}></Route>
                 <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
-                <Route path="packinglistmanual" element={<PackingListManual />}></Route>{" "}
-                <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
+                <Route path="packinglistmanual" element={<PackingListManual />}></Route> <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
                 <Route path="allpkl" element={<PackingListsAll />}></Route>
                 <Route path="table" element={<ProformaInvoice />}></Route>
                 <Route path="pricelistinfo" element={<PriceListInfo />}></Route>

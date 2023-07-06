@@ -148,21 +148,81 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)) !important;
-    .grid-item{
-        // .grid-managment{
-        //     .managment-item{
-        //         display: flex;
-        //         justify-content: center;
-        //         align-items: center;
-        //     }
-        // }
+    .grid-item {
+      .item-body {
+        .pie1 {
+          margin-top: 1.5rem;
+        }
+        .recived-payment-table {
+          tbody {
+            tr {
+              td,
+              th {
+                padding: 0.3rem;
+              }
+            }
+          }
+        }
+      }
+      .grid-item-content {
+        .grid-item-content-truck {
+          .box {
+            text-align: center;
+            // border: 1px solid #efefef;
+            border-radius: 5px;
+            .box-tittle {
+              border: 1px solid #efefef;
+              background: #efefef;
+              font-weight: 500;
+              padding: 3px;
+            }
+            .box-content {
+              margin: 10px auto;
+              .box-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                font-size: 13px;
+                p {
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    .grid-managment{
-        // .managment-item{
-        //     display: flex;
-        //     justify-content: center;
-        //     align-items: center;
-        // }
+    .grid-item:nth-child(1) {
+      .item-body {
+        padding: 10px !important;
+      }
+    }
+    .item-purchase-orders {
+      .item-body {
+        margin: 10px 10px 0;
+        .table {
+          margin-bottom: 1rem;
+          th,
+          td {
+            font-size: 12px !important;
+            padding: 0.48rem !important;
+          }
+        }
+      }
+    }
+    .btn-actions {
+      text-align: center;
+      .ags-btn-sm-sucess-outlin {
+        padding: 10px 5px;
+        margin: 12px 10px;
+      }
+    }
+    .btn-finance {
+      text-align: center;
+      padding: 5px 10px;
+      width: 50%;
+      margin: auto;
     }
   }
 }
@@ -275,8 +335,8 @@
   background: #212020;
   line-height: 120px;
   text-align: center;
-//   margin-top: 13px;
-//   margin-left: 13px;
+  //   margin-top: 13px;
+  //   margin-left: 13px;
   color: white;
   position: absolute;
   z-index: 100;
@@ -285,16 +345,17 @@
 }
 .circle-wrap {
   display: grid;
-  grid-template-columns: repeat(1, 160px);
+  grid-template-columns: repeat(1, 115px);
   grid-gap: 80px;
-//   margin-top: 100px;
-//   margin-left: 50px;
-//   width: 150px;
-//   height: 150px;
-    width: 115px;
-    height: 115px;
+  //   margin-top: 100px;
+  //   margin-left: 50px;
+  //   width: 150px;
+  //   height: 150px;
+  width: 115px;
+  height: 115px;
   background: #d9d7da;
   border-radius: 50%;
+  margin: 16px auto;
 }
 .circle-wrap .circle .mask,
 .circle-wrap .circle .fill-1,

@@ -14,7 +14,7 @@
    transition: all .5s ease-in-out;
 }
 .card:hover{
-  border: 1px solid  var(--second-color) !important;
+  border: 0 !important;
 }
 
 .card::before {

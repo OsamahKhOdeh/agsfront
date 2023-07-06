@@ -20,6 +20,7 @@ import Modal from "react-bootstrap/Modal";
 import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index.js";
+import { Branches } from "../../../config/roles";
 
 // Define a function that takes a date as an argument
 // and returns a string that represents how long ago the date was
@@ -499,7 +500,9 @@ const PIActionsAdmin = () => {
                         </span>
                       </button>
                     </td>
-                    {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
+                 {proformaInvoice.branch === Branches.Dubai ? (
+                      <>
+                    {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved"   ? (
                       <td>
                         <div>Waiting for Sales M Approval</div>
                       </td>
@@ -570,6 +573,82 @@ const PIActionsAdmin = () => {
                         </div>
                       </td>
                     )}
+                    </>
+                    ) : (
+                      <td>From {proformaInvoice.branch}</td>
+                    )}
+
+                    {/* {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
+                      <td>
+                        <div>Waiting for Sales M Approval</div>
+                      </td>
+                    ) : (
+                      <td>
+                        <div className="buttons-pls">
+                          <button
+                            type="button"
+                            className="btn-table-status"
+                            onClick={() => {
+                              setCurrentPi(proformaInvoice);
+                              handleReject(proformaInvoice._id);
+                            }}
+                          >
+                            <span>
+                              {" "}
+                              <i class="uil uil-times"></i>Reject
+                            </span>
+                          </button>
+                          <button type="button" className="btn-table-status" onClick={() => handleApprove(proformaInvoice._id)}>
+                            <span>
+                              {" "}
+                              <i class="uil uil-check"></i> Approve
+                            </span>
+                          </button>
+                          {!roles.includes("Financial") && (
+                            <button
+                              type="button"
+                              className="btn-table-status"
+                              onClick={() => {
+                                setCurrentPi(proformaInvoice);
+                                handleShow();
+                              }}
+                            >
+                              <span>
+                                <i class="uil uil-trash-alt"></i> Delete
+                              </span>
+                            </button>
+                          )}{" "}
+                          {roles.includes("Financial") && (
+                            <>
+                              <button
+                                type="button"
+                                disabled={proformaInvoice.stockStatus === "booked"}
+                                className="btn-table-status"
+                                onClick={() => {
+                                  handleBookClick(proformaInvoice._id);
+                                }}
+                              >
+                                <span>
+                                  <i class="uil "></i> Book
+                                </span>
+                              </button>
+                              <button
+                                type="button"
+                                disabled={proformaInvoice.stockStatus === "notBooked"}
+                                className="btn-table-status"
+                                onClick={() => {
+                                  handleUnBookClick(proformaInvoice._id);
+                                }}
+                              >
+                                <span>
+                                  <i class="uil "></i> Unbook
+                                </span>
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    )} */}
                     <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>
                       {proformaInvoice.managerMessage}
                     </td>

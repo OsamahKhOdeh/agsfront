@@ -10,8 +10,9 @@
   --border: 0.1rem solid rgba(0, 0, 0, 0.3);
   --font-secondary: ui-monospace;
   --primary-color: #1976d2;
-  --second-color: #682666;
-  --second-color: #cf0a2c;
+  // --second-color: #682666;
+  // --second-color: #cf0a2c;
+  --second-color: #ba0021;
   --third-color: #e73e51;
   --fourth-color: #030303;
   --main-color: #cf0a2c;
@@ -137,17 +138,17 @@
   opacity: 1;
 }
 .ags-btn-sm-sucess-outlin {
-  border: 1px solid var(--green);
-  background-color: transparent;
-  color: var(--green);
+  border: 1px solid var(--green) !important;
+  background-color: transparent !important;
+  color: var(--green) !important;
   transition: all 0.5s ease-in-out;
   border-radius: 3px;
   padding: 2px 5px;
   font-size: 13px;
   &:hover {
-    background: transparent;
-    color: #fff;
-    background-color: var(--green);
+    background: transparent !important;
+    color: #fff !important;
+    background-color: var(--green) !important;
     cursor: pointer;
   }
 }
@@ -2269,6 +2270,7 @@ button:disabled {
 //     font-size: 13px;
 //   }
 // }
+
 @media screen and (min-width: 768px) {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
