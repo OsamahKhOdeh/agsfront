@@ -1,11 +1,87 @@
 import axios from "axios";
-export const BASE_URL = "http://143.42.61.215:5000";
+import store from "../store/store";
+import jwtDecode from "jwt-decode";
+
+import { useSelector } from "react-redux";
+import { logOut, setAutherized, setCredentials } from "../store/authSlice";
+import { emptyCart } from "../store/cartSlice";
+import { clearFilters } from "../store/filtersSlice";
+import { useNavigate } from "react-router-dom";
+//143.42.61.215/user/piadmin
+export const BASE_URL = "https://agints.vip/api";
+export const BASE_DOMAIN = "https://agints.vip";
+// export const BASE_URL = "http://localhost:5001";
 // export const BASE_URL = "http://10.255.254.16:5000";
 const API = axios.create({ baseURL: BASE_URL });
+const stateToken = store.getState();
+console.log(stateToken);
 // http://143.42.61.215:5000
 //"http://localhost:5000"
 //export const createProduct = (newProduct) => API.post("/products", newProduct);
 //export const createProduct = (newProduct) => axios.post("https://server1-ustg.onrender.com/products", newProduct);
+
+/* -------------------------------------------------------------------------- */
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+const setToken = (token) => {
+  localStorage.setItem("token", token);
+};
+const isTokenExpired = () => {
+  const token = getToken();
+  if (!token) return true;
+
+  const decoded = jwtDecode(token);
+  const { exp } = decoded.UserInfo;
+  return exp * 1000 < Date.now(); // Compare expiration time with current time
+};
+
+const getRefreshedToken = async () => {
+  console.log("getRefreshedToken");
+  const response = await axios.get(`${BASE_URL}/auth/refresh`, { withCredentials: true });
+  console.log(response);
+  return response.data.token;
+};
+export const refreshToken = async () => {
+  console.log("Get refresh token");
+  try {
+    const newToken = await getRefreshedToken();
+    console.log("new token", newToken);
+  } catch (e) {
+    console.log(e);
+  }
+  // store.dispatch(setCredentials(newToken))
+  // store.dispatch(setAutherized(true));
+  // console.log('Token refreshed');
+  // setToken(newToken);
+};
+/* -------------------------------------------------------------------------- */
+
+API.interceptors.request.use(async (req) => {
+  if (isTokenExpired()) {
+    console.log("expired token");
+    // await refreshToken();
+  } else {
+    console.log("token not expired");
+  }
+
+  if (localStorage.getItem("token")) {
+    console.log(JSON.parse(localStorage.getItem("token")));
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
+  } else {
+    const stateToken = store.getState().auth.token;
+    console.log(stateToken);
+    req.headers.Authorization = `Bearer ${stateToken}`;
+  }
+  return req;
+});
+
+const logoutAction = (r) => {
+  store.dispatch(logOut());
+  store.dispatch(emptyCart());
+  store.dispatch(clearFilters());
+};
+
 export const createProduct = (newProduct) => {
   console.log(newProduct);
   API.post("/products", newProduct);
@@ -93,7 +169,17 @@ export const updateOrderStatus = (id, isNext) => API.patch(`/process/${id}`, { a
 
 export const updateSignedProformaInvoiceStatus = ({ id, status }) => API.patch(`/pi/pisigned/${id}`, { status });
 
-export const login = ({ username, password }) => API.post("/auth", { username, password });
+/* -------------------------------------------------------------------------- */
+/*                                    AUTH                                    */
+/* -------------------------------------------------------------------------- */
+
+export const login = ({ username, password }) => {
+  return API.post("/auth", { username, password });
+};
+
+export const logout = () => API.post("/auth/logout");
+
+/* -------------------------------------------------------------------------- */
 
 export const uploadDatasheet = (datasheet) => API.post("/upload", datasheet);
 

@@ -31,7 +31,7 @@ export const processStatusesEnum = {
 };
 export const ordersModel = [
   { status: processStatusesEnum.STARTED,name: "Started"},
-  { status: processStatusesEnum.APPROVED_BY_SALES_MANAGER,name: "Arrpoved by Sales Manager"},
+  { status: processStatusesEnum.APPROVED_BY_SALES_MANAGER,name: "Approved by Sales Manager"},
   { status: processStatusesEnum.APPROVED_BY_FINANCE,name: "Approved by Finance"},
   { status: processStatusesEnum.STAMPED_BY_CUSTOMER,name: "Sramped by Customer"},
   { status: processStatusesEnum.DEPOSIT_PAID,name: "Deposit paid"},

@@ -9,6 +9,7 @@ import { useState } from "react";
 import SearchBox from "./SearchBox";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useLocation } from "react-router-dom";
+import { BASE_DOMAIN } from "../../api/index";
 const WebsitePage = () => {
   let location = useLocation();
   React.useEffect(() => {
@@ -46,7 +47,7 @@ const WebsitePage = () => {
           <h1>AGS</h1>
           <div className="menus-items">
             <a href="https://agsdubai.com/">Home</a>
-            <a href="http://143.42.61.215/website">Products</a>
+            <a href={`${BASE_DOMAIN}/website`}>Products</a>
             <a href="https://agsdubai.com/supplier">Suppliers</a>
             <a href="https://agsdubai.com/news">News</a>
             <a href="http://ags-sales.com/check">Check Inverter</a>
@@ -64,7 +65,7 @@ const WebsitePage = () => {
                 {" "}
                 Home{" "}
               </a>
-              <a href="http://143.42.61.215/website" className="dropdown-item">
+              <a href={`${BASE_DOMAIN}/website`} className="dropdown-item">
                 {" "}
                 Products{" "}
               </a>

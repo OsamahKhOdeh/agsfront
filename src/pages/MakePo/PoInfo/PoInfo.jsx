@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../../hooks/useAuth";
 import { createPurchaseOrder } from "../../../actions/purchaseOrder";
+import { BASE_URL } from "../../../api/index";
 const PoInfo = () => {
   const [poInfoChoices, setPoInfoChoices] = useState();
   const [exporter, setExporter] = useState();
@@ -69,7 +70,7 @@ const PoInfo = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/poinfo")
+      .get(`${BASE_URL}/poinfo`)
       .then(function (response) {
         setPoInfoChoices(response.data);
         console.log(response.data);
@@ -348,14 +349,10 @@ const PoInfo = () => {
             </div>
             <div className="po_product_capacity">{poProduct.capacity}</div>
             <div className="po_product_qty">
-              <input
-                onChange={(e) => handleProductQtyChange(e, poProduct._id)}
-                type="text"
-                className="po_product_qty po_product_qty_input"  autocomplete="on"
-              ></input>
+              <input onChange={(e) => handleProductQtyChange(e, poProduct._id)} type="text" className="po_product_qty po_product_qty_input" autocomplete="on"></input>
             </div>
             <div className="po_product_price">
-              <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="po_product_price"  autocomplete="on"></input>
+              <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="po_product_price" autocomplete="on"></input>
             </div>
             {console.log(poProduct.price)}
             <div className="po_product_total_amount">

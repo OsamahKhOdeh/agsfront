@@ -286,7 +286,7 @@ const SuccessPage = () => {
                       <td style={{ textAlign: "center" }} colSpan={4}>
                         Final
                       </td>
-                      <td>{total.toFixed(3) - piInfo.additions - piInfo.discount - piInfo.documentCharges}</td>
+                      <td>{((total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges)).toFixed(2)}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -395,7 +395,9 @@ const SuccessPage = () => {
                 </div>
                 <div className="form-group">
                   <strong>Final : </strong>
-                  <span>{total.toFixed(3) - -piInfo.additions - piInfo.discount}</span>
+                  {console.log(parseFloat(piInfo.additions))}{console.log(parseFloat(piInfo.discount))}{console.log(parseFloat(piInfo.documentCharges))}{console.log(parseFloat(total))}
+                  {console.log((total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges))}
+                  <span>{(total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges)}</span>
                 </div>
               </div>
             </div>

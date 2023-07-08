@@ -320,9 +320,10 @@ const InvoiceTableFooter = ({
         </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.description}>{moneyToEng(total - discount - documentCharges + parseInt(additions))}&nbsp;only</Text>
+        {/* {((total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges)).toFixed(2)} */}
+        <Text style={styles.description}>{moneyToEng(total - discount + documentCharges + parseInt(additions))}&nbsp;only</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(total - discount - documentCharges + parseInt(additions))?.toFixed(2)}&nbsp;{currency}
+          {Number.parseFloat(total - discount + documentCharges + parseInt(additions))?.toFixed(2)}&nbsp;{currency}
         </Text>
       </View>
     </>

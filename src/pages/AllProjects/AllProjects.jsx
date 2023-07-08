@@ -232,14 +232,12 @@ const AllProjects = () => {
   const options = [
     { name: "Employee", value: "employee" },
     { name: "Project Name", value: "projectName" },
-
     { name: "Task", value: "tasks" },
   ];
 
   const dateOptions = [
     { name: "Today", value: today },
     { name: "Last 2 hours", value: Date(new Date().valueOf() - 3 * 1000 * 60 * 60) },
-
     { name: "Yesterday", value: new Date(new Date().valueOf() - 1000 * 60 * 60 * 24) },
     { name: "All", value: "All" },
   ];

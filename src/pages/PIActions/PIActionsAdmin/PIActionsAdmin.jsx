@@ -3,12 +3,7 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteProformaInvoice,
-  getProformaInvoicesAction,
-  updateProformaInvoiceStatus,
-  updateSignedProformaInvoiceStatus,
-} from "../../../actions/proformaInvoice";
+import { deleteProformaInvoice, getProformaInvoicesAction, updateProformaInvoiceStatus, updateSignedProformaInvoiceStatus } from "../../../actions/proformaInvoice";
 import { changeProformaInvoiceStatus, deleteProformaInvoiceState } from "../../../store/proformaInvoicesSlice";
 import { useNavigate } from "react-router-dom";
 import ProformaInvoice from "../../../Components/PoformaInvoice/ProformaInvoice";
@@ -62,6 +57,7 @@ const PIActionsAdmin = () => {
   const [currentPi, setCurrentPi] = useState({});
   const [popupClass, setPopupClass] = useState("form-popup hidden");
   const { username, roles } = useAuth();
+  const [refresh, setRefresh] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
@@ -274,17 +270,22 @@ const PIActionsAdmin = () => {
             <Modal.Title>Delete PI</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h5>Are you sure you want to delete PI : <span className="required">{currentPi.pi_no}</span></h5>
-            <h5> for customer : <span className="required"> {currentPi.buyer_address} </span></h5>
+            <h5>
+              Are you sure you want to delete PI : <span className="required">{currentPi.pi_no}</span>
+            </h5>
+            <h5>
+              {" "}
+              for customer : <span className="required"> {currentPi.buyer_address} </span>
+            </h5>
           </Modal.Body>
           <Modal.Footer>
             <div className="buttons-modal">
-            <button className="ags-btn-main" onClick={handleClose}>
-              Close
-            </button>
-             <button className="ags-btn-main-fill" onClick={handleConfirmDelete}>
-              Delete
-            </button>
+              <button className="ags-btn-main" onClick={handleClose}>
+                Close
+              </button>
+              <button className="ags-btn-main-fill" onClick={handleConfirmDelete}>
+                Delete
+              </button>
             </div>
           </Modal.Footer>
         </Modal>
@@ -345,16 +346,8 @@ const PIActionsAdmin = () => {
                   </div>
                   <div class="box c">
                     <p className="text-secondary">Status</p>
-                    <h6
-                      className={`status-table-label ${colorByStatus(
-                        roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                      )}`}
-                    >
-                      <i
-                        className={`uil uil-${iconByStatus(
-                          roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                        )}`}
-                      ></i>
+                    <h6 className={`status-table-label ${colorByStatus(roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval)}`}>
+                      <i className={`uil uil-${iconByStatus(roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval)}`}></i>
                       {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
                     </h6>
                   </div>
@@ -479,16 +472,8 @@ const PIActionsAdmin = () => {
                       <div className=" customer_cell">{proformaInvoice.buyer_address}</div>
                     </td>
                     <td>
-                      <div
-                        className={`status-table-label ${colorByStatus(
-                          roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                        )}`}
-                      >
-                        <i
-                          className={`uil uil-${iconByStatus(
-                            roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval
-                          )}`}
-                        ></i>
+                      <div className={`status-table-label ${colorByStatus(roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval)}`}>
+                        <i className={`uil uil-${iconByStatus(roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval)}`}></i>
                         {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
                       </div>
                     </td>
@@ -500,84 +485,6 @@ const PIActionsAdmin = () => {
                         </span>
                       </button>
                     </td>
-                 {proformaInvoice.branch === Branches.Dubai ? (
-                      <>
-                    {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved"   ? (
-                      <td>
-                        <div>Waiting for Sales M Approval</div>
-                      </td>
-                    ) : (
-                      <td>
-                        <div className="buttons-pls">
-                          <button
-                            type="button"
-                            className="btn-table-status"
-                            onClick={() => {
-                              setCurrentPi(proformaInvoice);
-                              handleReject(proformaInvoice._id);
-                            }}
-                          >
-                            <span>
-                              {" "}
-                              <i class="uil uil-times"></i>Reject
-                            </span>
-                          </button>
-                          <button type="button" className="btn-table-status" onClick={() => handleApprove(proformaInvoice._id)}>
-                            <span>
-                              {" "}
-                              <i class="uil uil-check"></i> Approve
-                            </span>
-                          </button>
-                          {!roles.includes("Financial") && (
-                            <button
-                              type="button"
-                              className="btn-table-status"
-                              onClick={() => {
-                                setCurrentPi(proformaInvoice);
-                                handleShow();
-                              }}
-                            >
-                              <span>
-                                <i class="uil uil-trash-alt"></i> Delete
-                              </span>
-                            </button>
-                          )}{" "}
-                          {roles.includes("Financial") && (
-                            <>
-                              <button
-                                type="button"
-                                disabled={proformaInvoice.stockStatus === "booked"}
-                                className="btn-table-status"
-                                onClick={() => {
-                                  handleBookClick(proformaInvoice._id);
-                                }}
-                              >
-                                <span>
-                                  <i class="uil "></i> Book
-                                </span>
-                              </button>
-                              <button
-                                type="button"
-                                disabled={proformaInvoice.stockStatus === "notBooked"}
-                                className="btn-table-status"
-                                onClick={() => {
-                                  handleUnBookClick(proformaInvoice._id);
-                                }}
-                              >
-                                <span>
-                                  <i class="uil "></i> Unbook
-                                </span>
-                              </button>
-                            </>
-                          )}
-                        </div>
-                      </td>
-                    )}
-                    </>
-                    ) : (
-                      <td>From {proformaInvoice.branch}</td>
-                    )}
-
                     {/* {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
                       <td>
                         <div>Waiting for Sales M Approval</div>
@@ -649,9 +556,162 @@ const PIActionsAdmin = () => {
                         </div>
                       </td>
                     )} */}
-                    <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>
-                      {proformaInvoice.managerMessage}
-                    </td>
+                    {proformaInvoice.branch === Branches.Dubai ? (
+                      <>
+                        {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
+                          <td>
+                            <div>Waiting for Sales M Approval</div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="buttons-pls">
+                              <button
+                                type="button"
+                                className="btn-table-status"
+                                onClick={() => {
+                                  setCurrentPi(proformaInvoice);
+                                  handleReject(proformaInvoice._id);
+                                }}
+                              >
+                                <span>
+                                  {" "}
+                                  <i class="uil uil-times"></i>Reject
+                                </span>
+                              </button>
+                              <button type="button" className="btn-table-status" onClick={() => handleApprove(proformaInvoice._id)}>
+                                <span>
+                                  {" "}
+                                  <i class="uil uil-check"></i> Approve
+                                </span>
+                              </button>
+                              {!roles.includes("Financial") && (
+                                <button
+                                  type="button"
+                                  className="btn-table-status"
+                                  onClick={() => {
+                                    setCurrentPi(proformaInvoice);
+                                    handleShow();
+                                  }}
+                                >
+                                  <span>
+                                    <i class="uil uil-trash-alt"></i> Delete
+                                  </span>
+                                </button>
+                              )}{" "}
+                              {roles.includes("Financial") && (
+                                <>
+                                  <button
+                                    type="button"
+                                    disabled={proformaInvoice.stockStatus === "booked"}
+                                    className="btn-table-status"
+                                    onClick={() => {
+                                      handleBookClick(proformaInvoice._id);
+                                    }}
+                                  >
+                                    <span>
+                                      <i class="uil "></i> Book
+                                    </span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={proformaInvoice.stockStatus === "notBooked"}
+                                    className="btn-table-status"
+                                    onClick={() => {
+                                      handleUnBookClick(proformaInvoice._id);
+                                    }}
+                                  >
+                                    <span>
+                                      <i class="uil "></i> Unbook
+                                    </span>
+                                  </button>
+                                </>
+                              )}
+                            </div>
+                          </td>
+                        )}{" "}
+                        */}
+                        {proformaInvoice.branch === Branches.Dubai ? (
+                          <>
+                            {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
+                              <td>
+                                <div>Waiting for Sales M Approval</div>
+                              </td>
+                            ) : (
+                              <td>
+                                <div className="buttons-pls">
+                                  <button
+                                    type="button"
+                                    className="btn-table-status"
+                                    onClick={() => {
+                                      setCurrentPi(proformaInvoice);
+                                      handleReject(proformaInvoice._id);
+                                    }}
+                                  >
+                                    <span>
+                                      {" "}
+                                      <i class="uil uil-times"></i>Reject
+                                    </span>
+                                  </button>
+                                  <button type="button" className="btn-table-status" onClick={() => handleApprove(proformaInvoice._id)}>
+                                    <span>
+                                      {" "}
+                                      <i class="uil uil-check"></i> Approve
+                                    </span>
+                                  </button>
+                                  {!roles.includes("Financial") && (
+                                    <button
+                                      type="button"
+                                      className="btn-table-status"
+                                      onClick={() => {
+                                        setCurrentPi(proformaInvoice);
+                                        handleShow();
+                                      }}
+                                    >
+                                      <span>
+                                        <i class="uil uil-trash-alt"></i> Delete
+                                      </span>
+                                    </button>
+                                  )}{" "}
+                                  {roles.includes("Financial") && (
+                                    <>
+                                      <button
+                                        type="button"
+                                        disabled={proformaInvoice.stockStatus === "booked"}
+                                        className="btn-table-status"
+                                        onClick={() => {
+                                          handleBookClick(proformaInvoice._id);
+                                        }}
+                                      >
+                                        <span>
+                                          <i class="uil "></i> Book
+                                        </span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={proformaInvoice.stockStatus === "notBooked"}
+                                        className="btn-table-status"
+                                        onClick={() => {
+                                          handleUnBookClick(proformaInvoice._id);
+                                        }}
+                                      >
+                                        <span>
+                                          <i class="uil "></i> Unbook
+                                        </span>
+                                      </button>
+                                    </>
+                                  )}
+                                </div>
+                              </td>
+                            )}
+                          </>
+                        ) : (
+                          <td>From {proformaInvoice.branch}</td>
+                        )}
+                      </>
+                    ) : (
+                      <td>From {proformaInvoice.branch}</td>
+                    )}
+                    <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>{proformaInvoice.managerMessage}</td>
                   </tr>
                 ))}
               </tbody>

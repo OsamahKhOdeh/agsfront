@@ -27,6 +27,7 @@ export const getLastPiNo = () => async (dispatch) => {
 export const updateProformaInvoiceStatus = (data) => async (dispatch) => {
   try {
     const { res_data } = await api.updateProformaInvoiceStatus(data);
+    console.log(data);
     console.log(res_data);
     dispatch(changeProformaInvoiceStatus(data));
   } catch (error) {

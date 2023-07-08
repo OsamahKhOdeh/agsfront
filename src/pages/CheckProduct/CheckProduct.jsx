@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../api/index.js";
+import { BASE_DOMAIN, BASE_URL } from "../../api/index.js";
 
 const CheckProduct = () => {
   const [serialNumber, setSerialNumber] = useState("");
@@ -26,7 +26,7 @@ const CheckProduct = () => {
         <h1>AGS</h1>
         <div className="menus-items">
           <a href="https://agsdubai.com/">Home</a>
-          <a href="http://143.42.61.215/website">Products</a>
+          <a href={`${BASE_DOMAIN}/website`}>Products</a>
           <a href="https://agsdubai.com/supplier">Suppliers</a>
           <a href="https://agsdubai.com/news">News</a>
           <a href="http://ags-sales.com/check">Check Inverter</a>
@@ -43,7 +43,7 @@ const CheckProduct = () => {
               {" "}
               Home{" "}
             </a>
-            <a href="http://143.42.61.215/website" className="dropdown-item">
+            <a href={`${BASE_DOMAIN}/website`} className="dropdown-item">
               {" "}
               Products{" "}
             </a>

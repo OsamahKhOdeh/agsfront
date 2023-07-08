@@ -11,10 +11,12 @@ background-color: rgb(231, 243, 243);
 
 
 .projects_filters_container{
-            background-color: #dddddd;
-    height: 68px;
-    padding-left: 22px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.75fr .25fr  ;
+    align-items: center;
+    gap: 20px;    
+    background-color: #fff;
+
 }
 
 .project_tasks_all{

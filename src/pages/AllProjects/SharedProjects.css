@@ -10,7 +10,7 @@
 }
 
 .shared_projects_name{
-        text-align: center;
+    text-align: center;
     font-size: 26px;
     font-weight: bold;
     padding: 20px;
@@ -48,7 +48,7 @@
     }
 
     .sh_task{
-             border-bottom: solid;
+     border-bottom: solid;
     border-bottom-color: #ada8a3;
     padding: 10px;
     background-color: #edf7ff;
@@ -62,4 +62,30 @@
     display: block;
     height: 900px;
     width: 85%;
+}
+.shared-projects .task-date{
+    border: 1px solid #ccc;
+    color: #efefef;
+    border-radius: 6px;
+    margin: 5px 0;
+    padding: 5px;
+    height: 100%;
+}
+.shared-projects .filter select{
+    height: 42px;
+    padding: 5px 10px;
+    box-shadow: none;
+}
+.shared-projects .filter select:focus{
+    border: 1px solid var(--second-color);
+}
+.shared-projects .task-item{
+  justify-content: flex-start;
+      /* height: fit-content; */
+}
+.task-date strong{
+        color: #000;
+}
+.task-date small{
+    padding: 3px;
 }

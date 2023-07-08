@@ -13,10 +13,63 @@ import { addProject, addTask } from "../../store/projectSlice";
 import SearchBox from "../../Components/SearchBox/SearchBox";
 import DropDownSelect from "../../Components/DropDownSelect/DropDownSelect";
 import { timeAgo } from "./AllProjects";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { ListSubheader } from "@material-ui/core";
+
+function ItemTask(props) {
+  const [expanded, setExpanded] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  return (
+    <div class="task-item">
+      <div className="task-info">
+        <h6>{props.project.employee}</h6>
+        {/* <span>{project.employee}</span> */}
+      </div>
+      {props.project.tasks.slice(0, 2).map((task) => (
+        <div className="task-date" style={showMore ? { height: "auto" } : { height: "100%" }}>
+          <small>
+            <span key={props.index}>
+              <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
+            </span>
+          </small>
+          <small>
+            <span>
+              <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
+            </span>
+          </small>
+        </div>
+      ))}
+      {showMore &&
+        props.project.tasks.slice(2).map((task) => (
+          <div className="task-date" style={showMore ? { height: "100%" } : { height: "auto" }}>
+            <small>
+              <span key={props.index}>
+                <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
+              </span>
+            </small>
+            <small>
+              <span>
+                <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
+              </span>
+            </small>
+          </div>
+        ))}
+      <button type="button" class="ags-btn-sm-main-outlin" onClick={() => setShowMore(!showMore)}>
+        {showMore ? "Show Less" : "Show More"}
+      </button>
+    </div>
+  );
+}
 
 const SharedProjects = () => {
   const today = new Date();
-
+  MyListSubheader.muiSkipListHighlight = true;
+  function MyListSubheader(props) {
+    return <ListSubheader {...props} />;
+  }
   const { username, isAdmin, status } = useAuth();
   const [refresh, setRefresh] = useState(0);
 
@@ -61,13 +114,20 @@ const SharedProjects = () => {
   };
 
   const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+    console.log("value", e.target.value);
+    let option = options.find((item) => item.name.toString().toLowerCase().includes(e.target.value.toLowerCase()));
+    if (option) {
+      setFilter(e.target.value);
+    } else {
+      setDateFilter(e.target.value);
+    }
   };
   const handleDateChange = (e) => {
     setDateFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    projects = projects.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
+    console.log("this is from search");
+    projects = projects.filter((item) => item.projectName.toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (dateFilter !== "All") {
@@ -83,12 +143,13 @@ const SharedProjects = () => {
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    projects = projects.filter((item) => item["employee"].toString().includes(searchQuery.toLowerCase()));
+    console.log("this is from search");
+    projects = projects.filter((item) => item["projectName"].toString().includes(searchQuery.toLowerCase()));
   }
 
   let allProjectsNames = [];
   projects?.forEach((project) => {
-    allProjectsNames.push(project.projectName);
+    allProjectsNames.push({ projectName: project.projectName, _id: project._id });
   });
   console.log(allProjectsNames);
   const projectsNames = [...new Set(allProjectsNames)];
@@ -98,24 +159,24 @@ const SharedProjects = () => {
 
   const options = [
     { name: "Employee", value: "employee" },
-    { name: "Project Name", value: "projectName" },
-
+    // { name: "Project Name", value: "projectName" },
     { name: "Task", value: "tasks" },
   ];
 
   const dateOptions = [
     { name: "Today", value: today },
     { name: "Last 2 hours", value: Date(new Date().valueOf() - 3 * 1000 * 60 * 60) },
-
     { name: "Yesterday", value: new Date(new Date().valueOf() - 1000 * 60 * 60 * 24) },
     { name: "All", value: "All" },
   ];
-
+  const removeSpacesFromStr = (str) => {
+    return `id_${str.toString().replaceAll(/\s/g, "")}`;
+  };
   /* -------------------------------------------------------------------------- */
   return (
     <>
       <ToastContainer />
-      <div className="project_page_container_shared">
+      {/* <div className="project_page_container_shared">
         <div className="projects_filters_container">
           <SearchBox onChange={handleSearchQueryChange}></SearchBox>
           <DropDownSelect onChange={handleFilterChange} options={options} />
@@ -153,6 +214,77 @@ const SharedProjects = () => {
                 </>
               )}
             </div>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="projects shared-projects">
+        <div className="projects_filters_container">
+          <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+          {/* <DropDownSelect onChange={handleFilterChange} options={options} />
+          <DropDownSelect onChange={handleDateChange} options={dateOptions} /> */}
+          <div className="filter">
+            <select class="form-select" onChange={handleFilterChange}>
+              <option selected disabled>
+                Filter
+              </option>
+              {options.map((op) => (
+                <option value={op.value}>{op.name}</option>
+              ))}
+              {dateOptions.map((op) => (
+                <option value={op.value}>{op.name}</option>
+              ))}
+              {/* <option value="1">option #1</option>
+              <option value="2">option #2</option>
+              <option value="3">option #3</option> */}
+            </select>
+          </div>
+        </div>
+        <div className="project">
+          <div className="card-project-tittle">
+            <h5>My Projects</h5>
+          </div>
+          <div className="card-project-body">
+            <>
+              {/* <div className="project_item" onClick={() => setCurrentProject(project)}>
+                  <h6>{project.projectName}</h6>
+                </div> */}
+              <div class="accordion accordion-flush" id="accordionFlushExample">
+                {projectsNames?.map((item) => (
+                  <div class="accordion-item" onClick={() => setCurrentProjectName(item.projectName)}>
+                    <h2 class="accordion-header" id={removeSpacesFromStr(item._id)}>
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#${removeSpacesFromStr(item._id)}_1`}
+                        aria-expanded="false"
+                        aria-controls={`${removeSpacesFromStr(item._id)}_1.`}
+                      >
+                        {item.projectName}
+                      </button>
+                    </h2>
+                    <div
+                      id={`${removeSpacesFromStr(item._id)}_1`}
+                      class="accordion-collapse collapse"
+                      aria-labelledby={removeSpacesFromStr(item._id)}
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        {currentProjectName && (
+                          <div className="tasks">
+                            {projects?.map((project, index) => (
+                              <ItemTask project={project} index={index}></ItemTask>
+                            ))}
+                          </div>
+                        )}
+                        {/* </div> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           </div>
         </div>
       </div>

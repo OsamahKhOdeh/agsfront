@@ -1,3 +1,5 @@
+import { BASE_DOMAIN } from "../../api/index";
+
 export const AdminMenuItems = [
   // {
   //   title: "Performa Invoice",
@@ -93,7 +95,7 @@ export const AdminMenuItems = [
   },
   {
     title: "Datasheet",
-    path: "http://143.42.61.215/website",
+    path: `${BASE_DOMAIN}/website`,
     cName: "dropdown-link",
     icon: "bx-data",
   },
@@ -194,7 +196,7 @@ export const SalesManagerMenuItems = [
   },
   {
     title: "Datasheet",
-    path: "http://143.42.61.215/website",
+    path: `${BASE_DOMAIN}/website`,
     cName: "dropdown-link",
     icon: "bx-data",
   },
