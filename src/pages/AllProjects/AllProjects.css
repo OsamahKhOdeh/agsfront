@@ -1,7 +1,7 @@
 .project_page_container_all{
     display: block;
-    height: 900px;
-    width: 85%;
+    /* height: 900px; */
+    width:100%;
 }
 .projects_list{
 width: 20%;
@@ -19,15 +19,34 @@ background-color: rgb(231, 243, 243);
 
 }
 
-.project_tasks_all{
-    width: 100%;
-    height: 79%;
-    background-color:#f9f9f9;
-    margin-top: 18px;
-overflow-y: scroll;
-background-color: rgb(252, 252, 252);
+.project_tasks_all .add-task{
+    display: grid;
+    grid-template-columns: 1fr .25fr;
+    gap: 16px;
+    align-items: center;
 }
-
+.project_tasks_all .add-task .ags-btn-main-fill{
+    height: fit-content;
+    padding: 8px 10px;
+    text-align: center;
+}
+.project_tasks_all .add-task .form-control{
+     height: 45px;
+}
+.project_tasks_all .task-item{
+   padding: 10px 16px;
+   margin: .7rem 0;
+   border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
+.project_tasks_all .task-item .date-task{
+    display: flex;
+    justify-content: space-between;
+  
+}
+ .project_tasks_all .task-item .date-task span{
+        color: var(--second-color);
+    }
 .project_item{
              height: 64px;
     padding-left: 22px;
@@ -40,7 +59,14 @@ background-color: rgb(252, 252, 252);
     border-width: unset;
     border-color: aliceblue;
 }
-
+.shared-projects .filter select{
+    height: 42px;
+    padding: 5px 10px;
+    box-shadow: none;
+}
+.shared-projects .filter select:focus{
+    border: 1px solid var(--second-color);
+}
 .project_item:hover {
  background-color: #bbb;
 }

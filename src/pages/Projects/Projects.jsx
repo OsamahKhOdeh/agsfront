@@ -165,8 +165,8 @@ const Projects = () => {
                             {currentProject?.tasks?.map((task, index) => (
                               <div class="task-item">
                                 <div className="task-info">
-                                  <h6>Task {index}</h6>
-                                  <span>{task.task}</span>
+                                  <h6>{task.task}</h6>
+                                  {/* <span>{task.task}</span> */}
                                 </div>
                                 <div className="task-date">
                                   {task?.adminTask && (
@@ -192,7 +192,6 @@ const Projects = () => {
                             <span> No Tasks Addedd Yet!</span>
                           </div>
                         )}
-
                         {/* </div> */}
                       </div>
                     </div>
@@ -203,7 +202,7 @@ const Projects = () => {
           </div>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -219,7 +218,7 @@ const Projects = () => {
         <div className="add_proj" onClick={handleNewProject}>
           Add Project
         </div>
-      </Modal>
+      </Modal> */}
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

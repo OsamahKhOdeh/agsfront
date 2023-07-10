@@ -629,7 +629,6 @@ const PIActionsAdmin = () => {
                             </div>
                           </td>
                         )}{" "}
-                        */}
                         {proformaInvoice.branch === Branches.Dubai ? (
                           <>
                             {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (

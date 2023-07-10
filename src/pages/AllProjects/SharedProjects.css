@@ -63,6 +63,10 @@
     height: 900px;
     width: 85%;
 }
+.shared-projects .tasks{
+    grid-template-columns: 1fr;
+}
+
 .shared-projects .task-date{
     border: 1px solid #ccc;
     color: #efefef;
@@ -71,17 +75,30 @@
     padding: 5px;
     height: 100%;
 }
-.shared-projects .filter select{
+.projects_filters_container .filter select{
     height: 42px;
     padding: 5px 10px;
     box-shadow: none;
 }
-.shared-projects .filter select:focus{
+.projects_filters_container .filter select:focus{
     border: 1px solid var(--second-color);
 }
 .shared-projects .task-item{
   justify-content: flex-start;
-      /* height: fit-content; */
+    padding: 10px 20px;
+}
+.shared-projects .task-item {
+/* height: fit-content !important; */
+}
+.shared-projects .task-item  .wrapper-tasks{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 1rem 0;
+}
+.shared-projects .task-item  .btn-more {
+    display: block;
+    margin: auto;
 }
 .task-date strong{
         color: #000;

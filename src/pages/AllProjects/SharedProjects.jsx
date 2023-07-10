@@ -20,46 +20,59 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ListSubheader } from "@material-ui/core";
 
 function ItemTask(props) {
-  const [expanded, setExpanded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   return (
-    <div class="task-item">
+    <div class="task-item" style={showMore ? { height: "fit-content !important;" } : { height: "auto;" }}>
       <div className="task-info">
         <h6>{props.project.employee}</h6>
         {/* <span>{project.employee}</span> */}
       </div>
-      {props.project.tasks.slice(0, 2).map((task) => (
-        <div className="task-date" style={showMore ? { height: "auto" } : { height: "100%" }}>
-          <small>
-            <span key={props.index}>
-              <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
-            </span>
-          </small>
-          <small>
-            <span>
-              <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
-            </span>
-          </small>
+      {props.project.tasks.length > 0 && (
+        <div className="wrapper-tasks">
+          {props.project.tasks.slice(0, 3).map((task) => (
+            <div className="task-date">
+              <small>
+                <span key={props.index}>
+                  <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
+                </span>
+              </small>
+              <small>
+                <span>
+                  <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
+                </span>
+              </small>
+            </div>
+          ))}
+          {showMore &&
+            props.project.tasks.slice(2).map((task) => (
+              <div className="task-date">
+                <small>
+                  <span key={props.index}>
+                    <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
+                  </span>
+                </small>
+                <small>
+                  <span>
+                    <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
+                  </span>
+                </small>
+              </div>
+            ))}
         </div>
-      ))}
-      {showMore &&
-        props.project.tasks.slice(2).map((task) => (
-          <div className="task-date" style={showMore ? { height: "100%" } : { height: "auto" }}>
-            <small>
-              <span key={props.index}>
-                <i class="uil uil-table"></i> <strong>Task</strong>: {task.task}
-              </span>
-            </small>
-            <small>
-              <span>
-                <i class="uil uil-calendar-alt"></i> <strong>Date</strong>: {new Date(task.date).toLocaleString()}
-              </span>
-            </small>
-          </div>
-        ))}
-      <button type="button" class="ags-btn-sm-main-outlin" onClick={() => setShowMore(!showMore)}>
-        {showMore ? "Show Less" : "Show More"}
-      </button>
+      )}
+      {props.project.tasks.length <= 0 && (
+        <div className="no-tasks">
+          <i class="uil uil-folder-slash"></i>
+          <span> No Tasks Addedd Yet!</span>
+        </div>
+      )}
+      {props.project.tasks.length > 0 && (
+        <div className="btn-more">
+          <button type="button" class="ags-btn-sm-main-outlin" onClick={() => setShowMore(!showMore)}>
+            {showMore ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -100,7 +113,6 @@ const SharedProjects = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("k;olpkllllllllll");
     dispatch(getAllProjects());
   }, []);
 
@@ -126,7 +138,6 @@ const SharedProjects = () => {
     setDateFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    console.log("this is from search");
     projects = projects.filter((item) => item.projectName.toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
@@ -217,12 +228,9 @@ const SharedProjects = () => {
           </div>
         </div>
       </div> */}
-
       <div className="projects shared-projects">
         <div className="projects_filters_container">
           <SearchBox onChange={handleSearchQueryChange}></SearchBox>
-          {/* <DropDownSelect onChange={handleFilterChange} options={options} />
-          <DropDownSelect onChange={handleDateChange} options={dateOptions} /> */}
           <div className="filter">
             <select class="form-select" onChange={handleFilterChange}>
               <option selected disabled>
@@ -234,9 +242,6 @@ const SharedProjects = () => {
               {dateOptions.map((op) => (
                 <option value={op.value}>{op.name}</option>
               ))}
-              {/* <option value="1">option #1</option>
-              <option value="2">option #2</option>
-              <option value="3">option #3</option> */}
             </select>
           </div>
         </div>

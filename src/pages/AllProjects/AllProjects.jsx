@@ -46,49 +46,48 @@ export const timeAgo = (date) => {
 };
 
 function ProjectTasks(props) {
+  const [showMore, setShowMore] = useState(false);
   return (
     <div className="project_tasks_all">
-      <div className="modal_title">
+      {/* <div className="modal_title">
         {props.currentProject.projectName} ({props.currentProject.employee})
-      </div>
-      {props.currentProject?.tasks?.map((task, index) => (
-        <div
-          className={index % 2 === 0 ? `task` : `task dark_row`}
-          style={
-            task?.adminTask
-              ? {
-                  backgroundColor: "#8aff91",
-                }
-              : null
-          }
-          key={index}
-        >
-          <div className="task_date">{new Date(task.date).toLocaleString()}</div>
-          <div className="task_text">
-            {task?.adminTask && <h6>From Admin : {task.adminName}</h6>}
-            {task.task}
-          </div>
-        </div>
-      ))}
-
+      </div> */}
       {props.currentProject.projectName && (
-        <div className="add_task">
-          <input
-            type="text"
-            className="new_task_text"
-            placeholder="update task here"
-            onChange={(e) => props.setNewTask(e.target.value)}
-            autocomplete="on"
-            style={{
-              width: "85%",
-              borderRadius: "0px",
-              margin: "0px",
-              height: "55px",
-            }}
-          ></input>
-          <div className="new_task" onClick={props.handleNewTask}>
+        <div className="add-task">
+          <input type="text" className="form-control" placeholder="Update Task here" onChange={(e) => props.setNewTask(e.target.value)} autocomplete="on"></input>
+          <div className="ags-btn-main-fill" onClick={props.handleNewTask}>
             Add
           </div>
+        </div>
+      )}
+      {props.currentProject?.tasks?.slice(0, 3).map((task, index) => (
+        <>
+          <div className="task-item">
+            <div className="date-task">
+              <span>{new Date(task.date).toLocaleString()}</span>
+              <span>{timeAgo(new Date(task.date))}</span>
+            </div>
+            <div className="date-info">{task.task}</div>
+          </div>
+        </>
+      ))}
+      {showMore &&
+        props.currentProject?.tasks?.slice(2).map((task, index) => (
+          <>
+            <div className="task-item">
+              <div className="date-task">
+                <span>{new Date(task.date).toLocaleString()}</span>
+                <span>{timeAgo(new Date(task.date))}</span>
+              </div>
+              <div className="date-info">{task.task}</div>
+            </div>
+          </>
+        ))}
+      {props.currentProject.tasks?.length > 0 && (
+        <div className="btn-more text-center">
+          <button type="button" class="ags-btn-sm-main-outlin" onClick={() => setShowMore(!showMore)}>
+            {showMore ? "Show Less" : "Show More"}
+          </button>
         </div>
       )}
     </div>
@@ -204,13 +203,19 @@ const AllProjects = () => {
   };
 
   const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+    console.log("value", e.target.value);
+    let option = options.find((item) => item.name.toString().toLowerCase().includes(e.target.value.toLowerCase()));
+    if (option) {
+      setFilter(e.target.value);
+    } else {
+      setDateFilter(e.target.value);
+    }
   };
   const handleDateChange = (e) => {
     setDateFilter(e.target.value);
   };
   if (filter.length > 0 && searchQuery.length > 0) {
-    projects = projects.filter((item) => item[filter].toString().toLowerCase().includes(searchQuery.toLowerCase()));
+    projects = projects.filter((item) => item.projectName.toString().toLowerCase().includes(searchQuery.toLowerCase()));
   }
 
   if (dateFilter !== "All") {
@@ -226,7 +231,7 @@ const AllProjects = () => {
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    projects = projects.filter((item) => item["employee"].toString().includes(searchQuery.toLowerCase()));
+    projects = projects.filter((item) => item["projectName"].toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
@@ -247,12 +252,28 @@ const AllProjects = () => {
     <>
       <ToastContainer />
       <div className="project_page_container_all">
-        <div className="projects_filters_container">
+        {/* <div className="projects_filters_container">
           <SearchBox onChange={handleSearchQueryChange}></SearchBox>
           <DropDownSelect onChange={handleFilterChange} options={options} />
           <DropDownSelect onChange={handleDateChange} options={dateOptions} />
+        </div> */}
+        <div className="projects_filters_container">
+          <SearchBox onChange={handleSearchQueryChange}></SearchBox>
+          <div className="filter">
+            <select class="form-select" onChange={handleFilterChange}>
+              <option selected disabled>
+                Filter
+              </option>
+              {options.map((op) => (
+                <option value={op.value}>{op.name}</option>
+              ))}
+              {dateOptions.map((op) => (
+                <option value={op.value}>{op.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="projects_list" style={{ width: "100%", margin: "auto" }}>
+        {/* <div className="projects_list" style={{ width: "100%", margin: "auto" }}>
           {projects?.map((project) => (
             <>
               <div
@@ -278,9 +299,43 @@ const AllProjects = () => {
               </div>
             </>
           ))}
+        </div> */}
+
+        {/* New Design  */}
+        <div className=" pi__table  pi__table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Project Name</th>
+                <th scope="col">Employee</th>
+                <th scope="col">Time</th>
+                <th scope="col">Last Task</th>
+                <th scope="col">Tasks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projects?.map((project) => (
+                <tr>
+                  <th scope="row">{project.projectName}</th>
+                  <td>{project.employee}</td>
+                  <td>{timeAgo(new Date(project.updatedAt))}</td>
+                  <td>{project?.tasks[project?.tasks?.length - 1]?.task}</td>
+                  <td
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    onClick={() => {
+                      setCurrentProject(project);
+                    }}
+                  >
+                    <i class="uil uil-eye uil-medium required"></i>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -293,7 +348,31 @@ const AllProjects = () => {
           Exit
         </div>
         <ProjectTasks setNewTask={setNewTask} currentProject={currentProject} handleNewTask={handleNewTask}></ProjectTasks>
-      </Modal>
+      </Modal> */}
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                {currentProject.projectName} ({currentProject.employee})
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ProjectTasks setNewTask={setNewTask} currentProject={currentProject} handleNewTask={handleNewTask}></ProjectTasks>
+              {/* <input type="text" className="from-control" placeholder="Enter project name here" onChange={(e) => setNewProject(e.target.value)} autocomplete="on"></input> */}
+            </div>
+            {/* <div class="modal-footer">
+              <button type="button" class="ags-btn-sm-main-outlin" data-dismiss="modal" onClick={handleNewProject}>
+                Add Project
+              </button>
+            </div> */}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
