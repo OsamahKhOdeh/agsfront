@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./AllProjects.css";
+import "./AllProjects.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProjects, getEmployeeProjects } from "../../actions/projects";
 import useAuth from "../../hooks/useAuth";
@@ -273,66 +273,74 @@ const AllProjects = () => {
             </select>
           </div>
         </div>
-        {/* <div className="projects_list" style={{ width: "100%", margin: "auto" }}>
-          {projects?.map((project) => (
-            <>
-              <div
-                style={{ display: "flex" }}
-                className="project_item"
-                onClick={() => {
-                  setCurrentProject(project);
-                  openModal(true);
-                }}
-              >
-                <div className="project_name">
-                  <h5>{project.projectName}</h5>
-                </div>{" "}
-                <div className="project_employee">
-                  <b style={{ color: "red" }}> {project.employee}</b>
-                </div>
-                <div>
-                  <h6 className="project_time" style={{ color: "blue" }}>
-                    {timeAgo(new Date(project.updatedAt))}
-                  </h6>
-                </div>
-                <div className="project_last_task">{project?.tasks[project?.tasks?.length - 1]?.task}</div>
-              </div>
-            </>
-          ))}
-        </div> */}
 
-        {/* New Design  */}
-        <div className=" pi__table  pi__table">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Project Name</th>
-                <th scope="col">Employee</th>
-                <th scope="col">Time</th>
-                <th scope="col">Last Task</th>
-                <th scope="col">Tasks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects?.map((project) => (
+        <div className="pi-list">
+          {/* Mobile Design */}
+          {projects.map((project, index) => (
+            <div className="item-pi">
+              <div className="item-pi-tittle">
+                <span>{project.employee}</span>
+                <span>{timeAgo(new Date(project.updatedAt))}</span>
+              </div>
+              <div className="item-pi-body">
+                <div class="wrapper-project">
+                  <div class="box">
+                    <p className="text-secondary">Project Name</p>
+                    <h6>{project.projectName}</h6>
+                  </div>
+                  <div class="box">
+                    <p className="text-secondary">Last Task</p>
+                    <h6>{project?.tasks[project?.tasks?.length - 1]?.task}</h6>
+                  </div>
+                  <div class="box">
+                    <p className="text-secondary">Tasks</p>
+                    <h6
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      onClick={() => {
+                        setCurrentProject(project);
+                      }}
+                    >
+                      <i class="uil uil-eye uil-medium required"></i>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {/* New Design  */}
+          <div className=" pi__table  pi__table">
+            <table class="table">
+              <thead>
                 <tr>
-                  <th scope="row">{project.projectName}</th>
-                  <td>{project.employee}</td>
-                  <td>{timeAgo(new Date(project.updatedAt))}</td>
-                  <td>{project?.tasks[project?.tasks?.length - 1]?.task}</td>
-                  <td
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    onClick={() => {
-                      setCurrentProject(project);
-                    }}
-                  >
-                    <i class="uil uil-eye uil-medium required"></i>
-                  </td>
+                  <th scope="col">Project Name</th>
+                  <th scope="col">Employee</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Last Task</th>
+                  <th scope="col">Tasks</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {projects?.map((project) => (
+                  <tr>
+                    <th scope="row">{project.projectName}</th>
+                    <td>{project.employee}</td>
+                    <td>{timeAgo(new Date(project.updatedAt))}</td>
+                    <td>{project?.tasks[project?.tasks?.length - 1]?.task}</td>
+                    <td
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      onClick={() => {
+                        setCurrentProject(project);
+                      }}
+                    >
+                      <i class="uil uil-eye uil-medium required"></i>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       {/* <Modal

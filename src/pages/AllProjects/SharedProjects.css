@@ -106,3 +106,12 @@
 .task-date small{
     padding: 3px;
 }
+@media (max-width: 576px) {
+.shared-projects .task-item {
+    padding: 10px ;
+}
+.shared-projects .task-item  .wrapper-tasks{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+}

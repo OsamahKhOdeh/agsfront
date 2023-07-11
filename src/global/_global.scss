@@ -956,12 +956,15 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
     background: var(--second-color);
     color: #fff;
-    padding: 12px 16px;
+    padding: 8px 12px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     h6 {
       margin-bottom: 0;
       font-weight: 600;
+    }
+    i:hover {
+      cursor: pointer;
     }
   }
   .card-custom-body {

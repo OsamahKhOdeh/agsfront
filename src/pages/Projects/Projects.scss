@@ -267,7 +267,7 @@
       // padding: 1rem 1rem 0 1rem;
       // margin-bottom: 1rem;
       h6 {
-        font-size: 20px;
+        font-size: 15px;
         color: #464e56;
         font-weight: 600;
         text-align: left;
@@ -296,5 +296,35 @@
   }
   span {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .projects {
+    .project {
+      .accordion-item {
+        .accordion-header {
+          .accordion-button {
+            border-radius: 6px;
+          }
+        }
+        .accordion-body {
+          padding: 7px;
+          .btn-task {
+            .form-group {
+              .form-control {
+                padding: 6px 20px;
+              }
+            }
+            .ags-btn-main-fill {
+              padding: 4px 9px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .tasks {
+    grid-template-columns: 1fr;
   }
 }

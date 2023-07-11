@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./AllProjects.css";
+import "./AllProjects.scss";
 import "./SharedProjects.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProjects, getEmployeeProjects } from "../../actions/projects";

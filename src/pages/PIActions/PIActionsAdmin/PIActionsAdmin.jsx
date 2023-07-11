@@ -202,7 +202,6 @@ const PIActionsAdmin = () => {
   const handleConfirmDelete = () => {
     setShow(false);
     dispatch(deleteProformaInvoiceState(currentPi._id));
-
     dispatch(deleteProformaInvoice(currentPi._id));
     dispatch(getProformaInvoicesAction());
   };

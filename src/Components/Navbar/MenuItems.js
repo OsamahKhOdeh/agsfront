@@ -99,6 +99,12 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
     icon: "bx-data",
   },
+  {
+    title: "Add Supplier",
+    path: `/user/suppliers`,
+    cName: "dropdown-link",
+    icon: "bx-plus",
+  },
 ];
 export const EmployeeMenuItems = [
   {

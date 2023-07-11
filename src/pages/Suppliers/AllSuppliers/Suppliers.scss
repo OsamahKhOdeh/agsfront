@@ -1,0 +1,46 @@
+.blogs_container {
+  .card-custom {
+    .card-custom-body {
+      .wrapper-blogs {
+        .blog {
+          .card {
+            width: auto;
+            height: 100%;
+            .card__body {
+              .actions {
+                position: absolute;
+                right: 10px;
+                .uil {
+                  padding: 1px;
+                  border-radius: 50%;
+                  margin: 5px;
+                }
+                .uil-trash-alt {
+                  border: 1px solid var(--second-color);
+                  color: var(--second-color);
+                  transition: all 0.5s ease;
+                  &:hover {
+                    background-color: var(--second-color);
+                    color: var(--white);
+                  }
+                }
+                .uil-edit-alt {
+                  border: 1px solid var(--green);
+                  color: var(--green);
+                  transition: all 0.5s ease;
+                  &:hover {
+                    background-color: var(--green);
+                    color: var(--white);
+                  }
+                }
+              }
+              p {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

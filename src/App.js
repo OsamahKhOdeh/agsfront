@@ -65,6 +65,9 @@ import DashboardSummary from "./Components/NewLayout/Modules/pages/Finanace/Dash
 import CustomerManagment from "./Components/NewLayout/Modules/pages/Sales/CustomerMangment/CustomerManagment";
 import Blogs from "./Components/NewLayout/Modules/pages/Sales/Blogs/Blogs";
 import { ReportEvent } from "./Components/NewLayout/Modules/pages/Sales/ReportEvent/ReportEvent";
+import AddSupplier from "./pages/Suppliers/AddSupplier/AddSupplier";
+import Suppliers from "./pages/Suppliers/AllSuppliers/Suppliers";
+import UpdateSupplier from "./pages/Suppliers/UpdateSupplier/UpdateSupplier";
 function App() {
   return (
     <div>
@@ -128,6 +131,9 @@ function App() {
                   <Route path="admin" element={<AdminPage />}></Route>
                   <Route path="employees" element={<Employees />}></Route>
                   <Route path="new_user" element={<NewUser />}></Route>
+                  <Route path="addSupplier" element={<AddSupplier />}></Route>
+                  <Route path="updateSupplier" element={<UpdateSupplier />}></Route>
+                  <Route path="suppliers" element={<Suppliers />}></Route>
                 </Route>
                 <Route path="warranty-check" element={<WarrantyCheck />}></Route>
                 <Route path="customer-price-list" element={<CustomerPriceList />}></Route>

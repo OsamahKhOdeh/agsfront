@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, updateUser } from "../../actions/users";
 import { changeUserPassword, changeUserPhoneNumber, changeUserStatus } from "../../store/usersSlice";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const UsersTable = () => {
   const navigate = useNavigate();
@@ -25,104 +25,121 @@ const UsersTable = () => {
   };
   return (
     <>
-    <ToastContainer />
-          <div className="card-custom">
-            <div className="card-custom-tittle">
-              <h6>Users</h6>
-              <span className="ags-btn-main-fill border-btn" onClick={()=>{navigate('/user/new_user')}}><i class="uil uil-plus" ></i> Add New</span>
-          </div>
-            <div className="card-custom-body ">
-              {/* for desktop */}
-              <div className="table-pi-list">
-                <div className="pi__table table">
-                  <table className="w-full ">
+      <ToastContainer />
+      <div className="card-custom">
+        <div className="card-custom-tittle">
+          <h6>Users</h6>
+          {/* <span className="ags-btn-main-fill border-btn">
+            <i class="uil uil-plus"></i> Add New
+          </span> */}
+          <i
+            class="uil uil-plus-circle uil-lage"
+            onClick={() => {
+              navigate("/user/new_user");
+            }}
+          ></i>
+        </div>
+        <div className="card-custom-body ">
+          {/* for desktop */}
+          <div className="table-pi-list">
+            <div className="pi__table table">
+              <table className="w-full ">
                 <thead>
                   <tr className="h-10  text-sm leading-none text-gray-800">
-                    <th  >User Name</th>
-                    <th  >Role</th>
-                    <th  >ACTIONS</th>
-                    <th  >Password / Phone</th>
+                    <th>User Name</th>
+                    <th>Role</th>
+                    <th>ACTIONS</th>
+                    <th>Password / Phone</th>
                   </tr>
                 </thead>
                 <tbody className="">
                   {users.map((user, index) => (
                     <tr className="h-10 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100" key={index}>
-                    {/* Name  */}
-                      <td  >
-                        <p className="text-sm font-medium leading-none text-gray-800">
-                          {user.username}
-                        </p>
+                      {/* Name  */}
+                      <td>
+                        <p className="text-sm font-medium leading-none text-gray-800">{user.username}</p>
                       </td>
-                      
-                      <td  >
-                        <p className="font-medium">
-                          {user.roles}
-                        </p>
+
+                      <td>
+                        <p className="font-medium">{user.roles}</p>
                       </td>
-                      <td  >
-                        <button className="ags-btn-main-fill"
+                      <td>
+                        <button
+                          className="ags-btn-main-fill"
                           onClick={() => {
-                          dispatch(changeUserStatus({id :user._id , active : user.active? false : true}));
+                            dispatch(changeUserStatus({ id: user._id, active: user.active ? false : true }));
                           }}
-                          style={{ marginRight: "20px" ,width : "80px" }}
+                          style={{ marginRight: "20px", width: "80px" }}
                         >
-                        {user.active ?"Block" : "Unblock"}
+                          {user.active ? "Block" : "Unblock"}
                         </button>
-                      
-                        <button className="ags-btn-main"
+
+                        <button
+                          className="ags-btn-main"
                           onClick={() => {
-                            dispatch(deleteUser(user._id))
+                            dispatch(deleteUser(user._id));
                             showToastMessage(`User ${user.username} deleted Succesfully`);
                           }}
                           variant="contained"
-                          style={{marginRight: "20px"}}
+                          style={{ marginRight: "20px" }}
                         >
                           Delete
                         </button>
 
-                        <button className="ags-btn-sucess-outlin"
+                        <button
+                          className="ags-btn-sucess-outlin"
                           onClick={() => {
-                            dispatch(updateUser(user._id,user))
+                            dispatch(updateUser(user._id, user));
                             showToastMessage(`User ${user.username} updated Succesfully`);
                           }}
                         >
                           Confirm
                         </button>
-                     
                       </td>
                       <td>
                         <div>
-                        <input className="password_txt" style={{width: "180px"}} type="text" placeholder="password"   onChange={(e) => {
-                            dispatch(changeUserPassword({id :user._id, password : e.target.value}));
-                          }}/>
-                          <input className="password_txt" style={{width: "180px"}} type="text" placeholder="Phone Number" value={user.phone} onChange={(e) => {
-                            dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
-                          }}/>
+                          <input
+                            className="password_txt"
+                            style={{ width: "180px" }}
+                            type="text"
+                            placeholder="password"
+                            onChange={(e) => {
+                              dispatch(changeUserPassword({ id: user._id, password: e.target.value }));
+                            }}
+                          />
+                          <input
+                            className="password_txt"
+                            style={{ width: "180px" }}
+                            type="text"
+                            placeholder="Phone Number"
+                            value={user.phone}
+                            onChange={(e) => {
+                              dispatch(changeUserPhoneNumber({ id: user._id, phone: e.target.value }));
+                            }}
+                          />
                         </div>
-                  
                       </td>
                     </tr>
                   ))}
-                  
                 </tbody>
-                  </table>
+              </table>
+            </div>
+          </div>
+          {/* for mobile  */}
+          <div className="pi-list">
+            {users.map((user, index) => (
+              <div className="item-pi">
+                <div className="item-pi-tittle">
+                  <span>{user.username}</span>
+                  <span>{user.roles}</span>
                 </div>
-              </div>
-                {/* for mobile  */}
-                <div className="pi-list">
-                {users.map((user, index) => (
-                  <div className="item-pi">
-                  <div className="item-pi-tittle">
-                    <span>{user.username}</span>
-                    <span>{user.roles}</span>
-                  </div>
-                  <div className="item-pi-body">
-                    <div class="wrapper">
-                      {/* <div class="box a">
+                <div className="item-pi-body">
+                  <div class="wrapper">
+                    {/* <div class="box a">
                         <p className="text-secondary">PI.No</p>
                         <h6>{proformaInvoice.pi_no}</h6>
                       </div> */}
-                      {/* <div class="box b">
+                    {/* <div class="box b">
                         <p className="text-secondary">Employee</p>
                         <h6>{proformaInvoice?.employee?.split("/")[0]}</h6>
                       </div>
@@ -141,7 +158,7 @@ const UsersTable = () => {
                           {roles.includes("Financial") ? proformaInvoice?.financiaApproval : proformaInvoice.managerApproval}
                         </h6>
                       </div> */}
-                      {/* <div class="box d">
+                    {/* <div class="box d">
                         <p className="text-secondary">PDF</p>
                         <button className="ags-btn-pdf" onClick={() => handlePDF(proformaInvoice)}>
                           <span>
@@ -150,62 +167,79 @@ const UsersTable = () => {
                           </span>
                         </button>
                       </div> */}
-                      <div class="box e">
-                        <p className="text-secondary">Customer</p>
-                        <div>
-                              <input className="password_txt" style={{width: "180px"}} type="text"  autocomplete="on" placeholder="password"  onChange={(e) => {
-                                  dispatch(changeUserPassword({id :user._id, password : e.target.value}));
-                                }}/> 
-                                <input className="password_txt" style={{width: "180px"}} type="text"  autocomplete="on" placeholder="Phone Number" value={user.phone} onChange={(e) => {
-                                  dispatch(changeUserPhoneNumber({id :user._id, phone : e.target.value}));
-                                }}/>
-                          </div>
+                    <div class="box e">
+                      <p className="text-secondary">Customer</p>
+                      <div>
+                        <input
+                          className="password_txt"
+                          style={{ width: "180px" }}
+                          type="text"
+                          autocomplete="on"
+                          placeholder="password"
+                          onChange={(e) => {
+                            dispatch(changeUserPassword({ id: user._id, password: e.target.value }));
+                          }}
+                        />
+                        <input
+                          className="password_txt"
+                          style={{ width: "180px" }}
+                          type="text"
+                          autocomplete="on"
+                          placeholder="Phone Number"
+                          value={user.phone}
+                          onChange={(e) => {
+                            dispatch(changeUserPhoneNumber({ id: user._id, phone: e.target.value }));
+                          }}
+                        />
                       </div>
-                      {/* <div class="box f">
+                    </div>
+                    {/* <div class="box f">
                         <p className="text-secondary">Note</p>
                         <h6> {proformaInvoice.managerMessage}</h6>
                       </div> */}
-                      <div class="box g">
-                        <p className="text-secondary">Actions</p>
-                        <div className="ags-action">
+                    <div class="box g">
+                      <p className="text-secondary">Actions</p>
+                      <div className="ags-action">
+                        <button
+                          className="ags-btn-main-fill"
+                          onClick={() => {
+                            dispatch(changeUserStatus({ id: user._id, active: user.active ? false : true }));
+                          }}
+                          style={{ marginRight: "20px", width: "80px" }}
+                        >
+                          {user.active ? "Block" : "Unblock"}
+                        </button>
 
-                              <button className="ags-btn-main-fill"
-                                onClick={() => {
-                                dispatch(changeUserStatus({id :user._id , active : user.active? false : true}));
-                                }}
-                                style={{ marginRight: "20px" ,width : "80px" }}
-                              >
-                              {user.active ?"Block" : "Unblock"}
-                              </button>
-                            
-                              <button className="ags-btn-main"
-                                onClick={() => {
-                                  dispatch(deleteUser(user._id))
-                                  showToastMessage(`User ${user.username} deleted Succesfully`);
-                                }}
-                                variant="contained"
-                                style={{marginRight: "20px"}}
-                              >
-                                Delete
-                              </button>
+                        <button
+                          className="ags-btn-main"
+                          onClick={() => {
+                            dispatch(deleteUser(user._id));
+                            showToastMessage(`User ${user.username} deleted Succesfully`);
+                          }}
+                          variant="contained"
+                          style={{ marginRight: "20px" }}
+                        >
+                          Delete
+                        </button>
 
-                              <button className="ags-btn-sucess-outlin"
-                                onClick={() => {
-                                  dispatch(updateUser(user._id,user))
-                                  showToastMessage(`User ${user.username} updated Succesfully`);
-                                }}
-                              >
-                                Confirm
-                              </button>
-                        </div>
+                        <button
+                          className="ags-btn-sucess-outlin"
+                          onClick={() => {
+                            dispatch(updateUser(user._id, user));
+                            showToastMessage(`User ${user.username} updated Succesfully`);
+                          }}
+                        >
+                          Confirm
+                        </button>
                       </div>
                     </div>
                   </div>
-                  </div>
-                ))}
                 </div>
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
+      </div>
       {/* <div className="container mx-auto">
         <table className="w-full whitespace-nowrap">
           <thead>
