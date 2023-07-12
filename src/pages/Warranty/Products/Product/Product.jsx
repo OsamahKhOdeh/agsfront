@@ -175,9 +175,7 @@ const Product = ({ product, index }) => {
                       <div>
                         {currency === "AED" ? (
                           <>
-                            {location === "freezone"
-                              ? (product.freezonePrice * usdToAedRate)?.toFixed(2)
-                              : (product.LocalPrice * usdToAedRate)?.toFixed(2)}
+                            {location === "freezone" ? (product.freezonePrice * usdToAedRate)?.toFixed(2) : (product.LocalPrice * usdToAedRate)?.toFixed(2)}
                             &nbsp;AED
                           </>
                         ) : (

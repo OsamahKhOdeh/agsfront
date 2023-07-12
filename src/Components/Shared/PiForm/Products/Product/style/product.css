@@ -71,7 +71,7 @@ img {
   max-width: 100%;
   max-width: 100%;
   object-fit: fill;
-  height: 200px;
+  height: 170px;
 }
 
 .product__image {
@@ -248,7 +248,7 @@ img {
   max-width: 100%;
   max-width: 100%;
   object-fit: fill;
-  height: 200px;
+  height: 170px;
 }
 
 .product__image {
@@ -263,7 +263,7 @@ img {
 .check__product {
   width: 28px;
   height: 28px;
-  border-radius: 15%;
+  border-radius: 20%;
   border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;
@@ -433,7 +433,7 @@ img {
   max-width: 100%;
   max-width: 100%;
   object-fit: fill;
-  height: 200px;
+  height: 170px;
 }
 
 .product__image {
@@ -448,7 +448,7 @@ img {
 .check__product {
   width: 28px;
   height: 28px;
-  border-radius: 15%;
+  border-radius: 20%;
   border: 1px solid #aab5c5;
   position: absolute;
   top: 5px;

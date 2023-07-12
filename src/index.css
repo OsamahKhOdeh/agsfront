@@ -554,8 +554,8 @@ p {
 }
 .ags-btn-top {
   position: fixed;
-  right: 5px;
-  top: 125px;
+  right: 25px;
+  bottom: 25px;
   width: 45px;
   height: 45px;
   border-radius: 50%;

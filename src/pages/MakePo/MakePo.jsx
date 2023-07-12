@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../actions/products";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import Products from "./Products/Products";
-import "./MakePo.css";
+import "./MakePo.scss";
 import { useState } from "react";
 import SearchBox from "./SearchBox";
 import arrowRight from "./right-arrow.png";
@@ -32,22 +32,37 @@ const MakePo = () => {
     </div>
   ) : (
     <div className="po_page_container">
-      <div
-        onClick={() => {
-          navigate("/user/poinfo");
-        }}
-        className="next_button_fixed"
-      >
-        <FontAwesomeIcon icon={faChevronRight} fade style={{ color: "#ffffff", width: "45px", height: "45px" }} />{" "}
-      </div>
-      <div className="po_filters">
-        <SearchBox onChange={handleSearchBoxChange} />
-        <div className="no_of_items">
-          items :<b style={{ color: "red" }}> {poProucts?.length} </b>
+      <div className="po-header">
+        {/* <div
+          onClick={() => {
+            navigate("/user/poinfo");
+          }}
+          className="next_button_fixed"
+        >
+          <FontAwesomeIcon icon={faChevronRight} fade style={{ color: "#ffffff", width: "45px", height: "45px" }} />{" "}
+        </div> */}
+        <div className="po_filters">
+          <SearchBox onChange={handleSearchBoxChange} />
+          <button
+            className="no_of_items"
+            disabled={poProucts?.length <= 0}
+            onClick={() => {
+              navigate("/user/poinfo");
+            }}
+          >
+            <div className="item_info">
+              {/* <p>Items: </p> */}
+              {/* <b className="pl-2"> {poProucts?.length} </b> */}
+              {/* <span class="w3-badge">9</span> */}
+              {/* <div className="item_icon"> */}
+              <i class="uil uil-angle-right-b"></i>
+              {/* </div> */}
+            </div>
+            {/* <i class="uil uil-arrow-circle-right"></i> */}
+          </button>
+          {console.log(poProucts)}
         </div>
-        {console.log(poProucts)}
       </div>
-
       <Products searchQuery={searchQuery} />
     </div>
   );

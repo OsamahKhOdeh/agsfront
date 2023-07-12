@@ -87,3 +87,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .blogs_container {
+    .wrapper-blogs {
+      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    }
+  }
+}

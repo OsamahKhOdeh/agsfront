@@ -1,0 +1,113 @@
+.spinner_container {
+  margin: auto;
+}
+.po_page_container {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.next_button_fixed {
+  position: fixed;
+  z-index: 99;
+  right: 0px;
+  top: 50%;
+  border-radius: 50%;
+  background-color: #3bc763;
+  padding: 22px;
+  cursor: pointer;
+  opacity: 0.5;
+  /* color: white; */
+}
+
+.next_button_fixed:hover {
+  opacity: 1;
+}
+
+.search_box_po {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid var(--second-color);
+  width: 100%;
+  background: #fff;
+  margin-left: 40px;
+}
+
+// .search_div_po {
+//   width: 20%;
+// }
+
+.po_filters {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+// New Styles
+.po-header {
+  display: grid;
+  grid-template-columns: 1.75fr 0.25fr;
+  gap: 16px;
+  .po_filters {
+    padding-bottom: 0.5%;
+
+    .search_div_po {
+      width: 97.5%;
+      .search_box_po {
+        padding: 9px 20px !important;
+        margin: 9px 0 !important;
+        border: 1px solid var(--second-color) !important;
+        background: #fff !important;
+      }
+    }
+    .no_of_items {
+      position: fixed;
+      right: 1rem;
+      top: 80px;
+      margin-top: auto;
+      margin-bottom: auto;
+      background-color: var(--second-color);
+      padding: 5px 10px;
+      color: #fff;
+      font-family: monospace;
+      z-index: 10;
+      opacity: 0.7;
+      border-radius: 50%;
+      width: 48px;
+      height: 45px;
+      line-height: 1.2;
+      .item_info {
+        display: flex;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          margin-bottom: 0;
+        }
+        b {
+          color: var(--second-color);
+        }
+        .uil {
+          font-size: 1.8rem;
+        }
+      }
+      &:hover {
+        color: #fff;
+        background-color: var(--second-color);
+        opacity: 1;
+        cursor: pointer;
+      }
+    }
+  }
+}

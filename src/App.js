@@ -68,6 +68,10 @@ import { ReportEvent } from "./Components/NewLayout/Modules/pages/Sales/ReportEv
 import AddSupplier from "./pages/Suppliers/AddSupplier/AddSupplier";
 import Suppliers from "./pages/Suppliers/AllSuppliers/Suppliers";
 import UpdateSupplier from "./pages/Suppliers/UpdateSupplier/UpdateSupplier";
+import AddForwarder from "./pages/Forwarders/AddForwarder/AddForwarder";
+import UpdateForwarder from "./pages/Forwarders/UpdateForwarder/UpdateForwarder";
+import AllForwarders from "./pages/Forwarders/AllForwarders/Forwarders";
+import Forwarders from "./pages/Forwarders/AllForwarders/Forwarders";
 function App() {
   return (
     <div>
@@ -131,9 +135,14 @@ function App() {
                   <Route path="admin" element={<AdminPage />}></Route>
                   <Route path="employees" element={<Employees />}></Route>
                   <Route path="new_user" element={<NewUser />}></Route>
+                  {/* Suppliers Routes */}
                   <Route path="addSupplier" element={<AddSupplier />}></Route>
                   <Route path="updateSupplier" element={<UpdateSupplier />}></Route>
                   <Route path="suppliers" element={<Suppliers />}></Route>
+                  {/* Forwarders Routes */}
+                  <Route path="forwarders" element={<Forwarders />}></Route>
+                  <Route path="updateForwarder" element={<UpdateForwarder />}></Route>
+                  <Route path="addForwarder" element={<AddForwarder />}></Route>
                 </Route>
                 <Route path="warranty-check" element={<WarrantyCheck />}></Route>
                 <Route path="customer-price-list" element={<CustomerPriceList />}></Route>

@@ -61,7 +61,7 @@ export const AdminMenuItems = [
     title: "Show all PKLs",
     path: "/user/allpkl",
     cName: "dropdown-link",
-    icon: "bx-list-ul",
+    icon: "bxs-package",
   },
   {
     title: "Show all PO/s",
@@ -98,6 +98,12 @@ export const AdminMenuItems = [
     path: `/user/suppliers`,
     cName: "dropdown-link",
     icon: "bx-selection",
+  },
+  {
+    title: "Forwarders",
+    path: `/user/forwarders`,
+    cName: "dropdown-link",
+    icon: "bx-trip",
   },
   {
     title: "Datasheet",
@@ -238,7 +244,7 @@ export const FinancialMenuItems = [
     title: "Show all PKLs",
     path: "/user/allpkl",
     cName: "dropdown-link",
-    icon: "bx-list-ul",
+    icon: "bxs-package",
   },
 
   {

@@ -1,0 +1,20 @@
+.forwarders {
+  .table {
+    margin-bottom: 0;
+    th,
+    td {
+      padding: 4px !important;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+  .wrapper-blogs {
+    .blog {
+      .card {
+        .card__footer {
+          padding: 0.25rem 1rem 1rem !important;
+        }
+      }
+    }
+  }
+}

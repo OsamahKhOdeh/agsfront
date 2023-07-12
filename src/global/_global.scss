@@ -461,7 +461,7 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
   background: var(--second-color);
   width: 30px;
-  height: 28px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -517,7 +517,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 .nav_logo {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .nav_logo-icon {
   font-size: 1.25rem;
@@ -530,7 +530,8 @@ body::-webkit-scrollbar-thumb {
 .nav_link {
   position: relative;
   color: var(--second-color-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 15px;
   transition: 0.3s;
   a {
     display: flex;
@@ -591,6 +592,7 @@ body::-webkit-scrollbar-thumb {
   height: 100vh;
   padding-right: 10px;
   background-color: #fff;
+  padding-top: 2px !important;
   // padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
   padding: 0 1rem 0 calc(var(--nav-width) + 2rem);
   // padding: 0 ;
@@ -2282,7 +2284,51 @@ button:disabled {
 //     font-size: 13px;
 //   }
 // }
-
+.custom-card {
+  padding: 0;
+  margin: 1rem auto;
+  border: 1px solid var(--second-color);
+  display: inline-block;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  width: 100%;
+  .custom-card-header {
+    text-align: center;
+    background-color: var(--second-color);
+    color: var(--white);
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .custom-card-tittle {
+      h6 {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .custom-card-body {
+    padding: 0.5rem;
+    .row {
+      display: flex !important;
+      gap: 0;
+      .col-lg-6 {
+        .form-group {
+          margin: 0.7rem auto;
+          label {
+            font-weight: 500;
+            padding: 0 0 0.5rem 0.3rem;
+          }
+          .form-select {
+            padding: 9px 20px;
+            &:focus {
+              box-shadow: none;
+              border: 1px solid var(--second-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
 @media screen and (min-width: 768px) {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
