@@ -2317,7 +2317,8 @@ button:disabled {
             font-weight: 500;
             padding: 0 0 0.5rem 0.3rem;
           }
-          .form-select {
+          .form-select,
+          .form-control {
             padding: 9px 20px;
             &:focus {
               box-shadow: none;

@@ -87,7 +87,7 @@ const PoInfo = () => {
 
   return (
     <>
-      {/* <div className="custom-card">
+      <div className="custom-card">
         <div className="custom-card-header">
           <div className="custom-card-tittle">
             <h6>Add Po</h6>
@@ -216,7 +216,7 @@ const PoInfo = () => {
                 </select>
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-4">
               <div className="form-group">
                 <label htmlFor="exporter">Incoterms</label>
                 <select
@@ -236,7 +236,7 @@ const PoInfo = () => {
                 </select>
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-4">
               <div className="form-group">
                 <label htmlFor="exporter">Currency</label>
                 <select
@@ -256,7 +256,7 @@ const PoInfo = () => {
                 </select>
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-4">
               <div className="form-group">
                 <label htmlFor="exporter">Discount (%) </label>
                 <input
@@ -576,8 +576,8 @@ const PoInfo = () => {
             </div>
           </div>
         </div>
-      </div> */}
-      <div className="poinfo_page_container">
+      </div>
+      {/* <div className="poinfo_page_container">
         <div className="info_item">
           <label className="info_item_label">Exporter</label>
           <select
@@ -879,7 +879,7 @@ const PoInfo = () => {
             Next
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
