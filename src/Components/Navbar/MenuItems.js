@@ -94,16 +94,16 @@ export const AdminMenuItems = [
     icon: "bx-dialpad-alt",
   },
   {
+    title: "Suppliers",
+    path: `/user/suppliers`,
+    cName: "dropdown-link",
+    icon: "bx-selection",
+  },
+  {
     title: "Datasheet",
     path: `${BASE_DOMAIN}/website`,
     cName: "dropdown-link",
     icon: "bx-data",
-  },
-  {
-    title: "Add Supplier",
-    path: `/user/suppliers`,
-    cName: "dropdown-link",
-    icon: "bx-plus",
   },
 ];
 export const EmployeeMenuItems = [
