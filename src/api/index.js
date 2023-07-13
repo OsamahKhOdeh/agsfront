@@ -8,9 +8,9 @@ import { emptyCart } from "../store/cartSlice";
 import { clearFilters } from "../store/filtersSlice";
 import { useNavigate } from "react-router-dom";
 //143.42.61.215/user/piadmin
-export const BASE_URL = "https://agints.vip/api";
-// export const BASE_URL = "http://localhost:5001";
 // export const BASE_URL = "https://agints.vip/api";
+// export const BASE_URL = "http://localhost:5001";
+export const BASE_URL = "https://agints.vip/api";
 export const BASE_DOMAIN = "https://agints.vip";
 // export const BASE_URL = "http://10.255.254.15:5000";
 // export const BASE_URL = "http://10.255.254.46:5000";

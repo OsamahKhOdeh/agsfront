@@ -1,4 +1,25 @@
 .forwarder {
+  .card-header {
+    padding: 5px;
+    .tittle-back {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      .btn-back {
+        padding: 0 5px;
+        .uil {
+          font-size: 1.5rem;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      p {
+        margin: auto;
+      }
+    }
+  }
+
   .mian-info,
   .address-info,
   .additional-info {

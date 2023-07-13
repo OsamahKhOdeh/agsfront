@@ -221,7 +221,6 @@ const PoInfo = () => {
                 <label htmlFor="exporter">Incoterms</label>
                 <select
                   class="form-select "
-                  aria-label=".form-select-lg example"
                   value={poInfo.incoterms}
                   onChange={(e) => {
                     handleItemChange(e, "incoterms");
@@ -241,7 +240,6 @@ const PoInfo = () => {
                 <label htmlFor="exporter">Currency</label>
                 <select
                   class="form-select"
-                  aria-label=".form-select-lg example"
                   value={poInfo.currency}
                   onChange={(e) => {
                     handleItemChange(e, "currency");
@@ -271,9 +269,91 @@ const PoInfo = () => {
                 />
               </div>
             </div>
+            <div className="col-12 mt-3 mb-3">
+              <table class="table table-bordered">
+                <thead className="table-light">
+                  <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {poInfo.products.map((poProduct, index) => (
+                    <tr>
+                      <td>
+                        {poProduct.code}&nbsp;({poProduct.brand})
+                      </td>
+                      <td>{poProduct.capacity}</td>
+                      <td>
+                        <input onChange={(e) => handleProductQtyChange(e, poProduct._id)} type="text" className="form-control w-75" autocomplete="on"></input>
+                      </td>
+                      <td>
+                        <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="form-control w-75" autocomplete="on"></input>
+                      </td>
+                      <td>
+                        {(poProduct.price * poProduct.qty)?.toFixed(3)} &nbsp;{poInfo.currency}{" "}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td colSpan={4}>
+                      <strong>Sub Total</strong>
+                    </td>
+                    <td>
+                      <strong>
+                        {totalAll.toFixed(2)}&nbsp;{poInfo.currency}
+                      </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4}>
+                      <strong>Discount (0 %)</strong>
+                    </td>
+                    <td>
+                      <strong>
+                        {" "}
+                        {((totalAll * parseInt(poInfo.discount)) / 100).toFixed(2)}&nbsp;{poInfo.currency}
+                      </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4}>
+                      <strong>Total</strong>
+                    </td>
+                    <td>
+                      <strong>
+                        {(totalAll - (totalAll * parseInt(poInfo.discount)) / 100).toFixed(2)}&nbsp;{poInfo.currency}
+                      </strong>
+                    </td>
+                  </tr>
+                  {/* {poInfo.products.map((poProduct, index) => (
+                    <div className="po_product">
+                      <div className="po_product_num">{index + 1}</div>
+                      <div className="po_product_code">
+                        {poProduct.code}&nbsp;({poProduct.brand})
+                      </div>
+                      <div className="po_product_capacity">{poProduct.capacity}</div>
+                      <div className="po_product_qty">
+                        <input onChange={(e) => handleProductQtyChange(e, poProduct._id)} type="text" className="form-control" autocomplete="on"></input>
+                      </div>
+                      <div className="po_product_price">
+                        <input onChange={(e) => handleProductPriceChange(e, poProduct._id)} type="text" className="form-control" autocomplete="on"></input>
+                      </div>
+                      {console.log(poProduct.price)}
+                      <div className="po_product_total_amount">
+                        {(poProduct.price * poProduct.qty)?.toFixed(3)} &nbsp;{poInfo.currency}{" "}
+                      </div>
+                    </div>
+                  ))} */}
+                </tbody>
+              </table>
+            </div>
           </div>
           <div className="poinfo_page_container">
-            <div className="info_item">
+            {/* <div className="info_item">
               <label className="info_item_label">Exporter</label>
               <select
                 class="form-select  info_item_select"
@@ -511,8 +591,8 @@ const PoInfo = () => {
                 }}
                 autocomplete="on"
               ></input>
-            </div>{" "}
-            <div className="po_products">
+            </div>{" "} */}
+            {/* <div className="po_products">
               <div className="po_product head_title">
                 <div className="po_product_num">#</div>
                 <div className="po_product_code">Products</div>
@@ -564,7 +644,7 @@ const PoInfo = () => {
                   {(totalAll - (totalAll * parseInt(poInfo.discount)) / 100).toFixed(2)}&nbsp;{poInfo.currency}
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="next_back_buttons">
               <div style={{ backgroundColor: "#e6899c" }} className="next_back_button">
                 Back

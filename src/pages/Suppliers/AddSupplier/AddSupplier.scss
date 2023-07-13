@@ -1,4 +1,26 @@
 .supplier {
+  .card {
+    .card-header {
+      padding: 0 0 5px 0;
+    }
+  }
+  .tittle-back {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    .btn-back {
+      padding: 0 5px;
+      .uil {
+        font-size: 1.5rem;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    p {
+      margin: auto;
+    }
+  }
   .mian-info,
   .address-info,
   .additional-info {
@@ -105,6 +127,9 @@
     .ags-btn-main-fill {
       padding: 3px 10px;
     }
+  }
+    .btn-upload:hover{
+    cursor: pointer;
   }
 }
 .modal {

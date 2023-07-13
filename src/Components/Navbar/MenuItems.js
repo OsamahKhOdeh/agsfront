@@ -274,6 +274,18 @@ export const LogisticsMenuItems = [
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
+  {
+    title: "Suppliers",
+    path: `/user/suppliers`,
+    cName: "dropdown-link",
+    icon: "bx-selection",
+  },
+  {
+    title: "Forwarders",
+    path: `/user/forwarders`,
+    cName: "dropdown-link",
+    icon: "bx-trip",
+  },
 ];
 export const SyriaEmployeeMenuItems = [
   {

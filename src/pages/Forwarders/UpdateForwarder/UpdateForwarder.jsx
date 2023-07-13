@@ -7,9 +7,10 @@ import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const UpdateForwarder = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(state);
   const [noValidEmail, showNoValidEmail] = useState(false);
   const [noValidPhone, showNoValidPhone] = useState(false);
@@ -73,14 +74,14 @@ const UpdateForwarder = () => {
         (formData.contactPerson !== "") &
         (formData.contactPhone !== "") &
         (formData.contactEmail !== "") &
-        (formData.etd !== "") &
-        (formData.transitTime !== "") &
+        // (formData.etd !== "") &
+        // (formData.transitTime !== "") &
         (formData.country !== "") &
-        (formData.costPerContainer !== "") &
-        (formData.communicationMethod !== "") &
-        (formData.freeStorageDuration !== "") &
-        (formData.availableContainerCount !== "")
+        // (formData.costPerContainer !== "") &
+        (formData.communicationMethod !== "")
     ) {
+      // (formData.freeStorageDuration !== "") &
+      // (formData.availableContainerCount !== "")
       return true;
     } else {
       return false;
@@ -92,7 +93,10 @@ const UpdateForwarder = () => {
       <div className="container forwarder">
         <div className="card">
           <div class="card-header">
-            <div class="tittle-card">
+            <div class="tittle-card tittle-back">
+              <div className="btn-back" onClick={() => navigate("/user/forwarders")}>
+                <i class="uil uil-arrow-circle-left"></i>
+              </div>
               <p> Update Forwarder </p>
             </div>
           </div>
@@ -265,42 +269,32 @@ const UpdateForwarder = () => {
                 <div className="wrapper-forwarder-second">
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Free Storage Duration <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="freeStorageDuration" value={formData.freeStorageDuration} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Free Storage Duration</label>
+                      <input type="text" className="form-control" name="freeStorageDuration" value={formData.freeStorageDuration} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Etd <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="etd" value={formData.etd} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Etd</label>
+                      <input type="text" className="form-control" name="etd" value={formData.etd} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Transit Time <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="transitTime" value={formData.transitTime} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Transit Time</label>
+                      <input type="text" className="form-control" name="transitTime" value={formData.transitTime} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Available Container Count <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="availableContainerCount" value={formData.availableContainerCount} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Available Container Count</label>
+                      <input type="text" className="form-control" name="availableContainerCount" value={formData.availableContainerCount} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Cost per Container <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="costPerContainer" value={formData.costPerContainer} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Cost per Container</label>
+                      <input type="text" className="form-control" name="costPerContainer" value={formData.costPerContainer} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">

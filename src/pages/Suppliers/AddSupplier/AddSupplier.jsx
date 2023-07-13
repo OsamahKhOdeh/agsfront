@@ -6,6 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AddSupplier = () => {
   const [formData, setFormData] = useState({
     supplierName: "",
@@ -20,12 +21,13 @@ const AddSupplier = () => {
     paymentTerms: "",
     taxID: "",
     website: "",
-    logo: "",
+    logo: "https://placehold.co/150x150",
     communicationMethod: "Whatsapp",
     cashBackTerms: {},
     bankAccount: [],
     notes: "",
   });
+  const navigate = useNavigate();
   const [file, setFile] = useState();
   const handleFileChange = (e) => {
     if (e.target.files) {
@@ -160,8 +162,6 @@ const AddSupplier = () => {
         (formData.country !== "") &
         (formData.productCategories !== "") &
         (formData.paymentTerms !== "") &
-        (formData.taxID !== "") &
-        (formData.logo !== "") &
         (formData.bankAccount.length > 0)
     ) {
       return true;
@@ -175,7 +175,10 @@ const AddSupplier = () => {
       <div className="container supplier">
         <div className="card">
           <div class="card-header">
-            <div class="tittle-card">
+            <div class="tittle-card tittle-back">
+              <div className="btn-back" onClick={() => navigate("/user/suppliers")}>
+                <i class="uil uil-arrow-circle-left"></i>
+              </div>
               <p> Add Supplier </p>
             </div>
           </div>
@@ -283,20 +286,16 @@ const AddSupplier = () => {
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Website <span className="required">*</span>
-                      </label>
+                      <label htmlFor="supplier_name">Website</label>
                       <input type="text" className="form-control" name="website" value={formData.website} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Logo <span className="required">*</span>
-                      </label>
+                      <label htmlFor="supplier_name">Logo</label>
                       <div class="input-group ">
-                        <input type="file" class="form-control" required id="inputGroupFile02" onChange={handleFileChange} />
-                        <label class="input-group-text" onClick={handleUpload}>
+                        <input type="file" class="form-control" id="inputGroupFile02" onChange={handleFileChange} />
+                        <label class="input-group-text btn-upload" onClick={handleUpload}>
                           Upload
                         </label>
                       </div>
@@ -376,10 +375,8 @@ const AddSupplier = () => {
                 <div className="wrapper-supplier-second">
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Tax Id <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="taxID" value={formData.taxID} onChange={handleChange} />
+                      <label htmlFor="supplier_name">Tax Id</label>
+                      <input type="text" className="form-control" name="taxID" value={formData.taxID} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">

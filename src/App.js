@@ -135,20 +135,20 @@ function App() {
                   <Route path="admin" element={<AdminPage />}></Route>
                   <Route path="employees" element={<Employees />}></Route>
                   <Route path="new_user" element={<NewUser />}></Route>
-                  {/* Suppliers Routes */}
-                  <Route path="addSupplier" element={<AddSupplier />}></Route>
-                  <Route path="updateSupplier" element={<UpdateSupplier />}></Route>
-                  <Route path="suppliers" element={<Suppliers />}></Route>
-                  {/* Forwarders Routes */}
-                  <Route path="forwarders" element={<Forwarders />}></Route>
-                  <Route path="updateForwarder" element={<UpdateForwarder />}></Route>
-                  <Route path="addForwarder" element={<AddForwarder />}></Route>
                 </Route>
                 <Route path="warranty-check" element={<WarrantyCheck />}></Route>
                 <Route path="customer-price-list" element={<CustomerPriceList />}></Route>
                 <Route path="checkCustomer" element={<CheckCustomer />}></Route>
                 <Route path="order-tracking" element={<OrderTracking />}></Route>
                 {/* <Route path="order-tracking-user" element={<OrderTrackingUser />}></Route> */}
+                {/* Suppliers Routes */}
+                <Route path="addSupplier" element={<AddSupplier />}></Route>
+                <Route path="updateSupplier" element={<UpdateSupplier />}></Route>
+                <Route path="suppliers" element={<Suppliers />}></Route>
+                {/* Forwarders Routes */}
+                <Route path="forwarders" element={<Forwarders />}></Route>
+                <Route path="updateForwarder" element={<UpdateForwarder />}></Route>
+                <Route path="addForwarder" element={<AddForwarder />}></Route>
               </Route>
             </Route>
           </Route>

@@ -2310,7 +2310,8 @@ button:disabled {
     .row {
       display: flex !important;
       gap: 0;
-      .col-lg-6 {
+      .col-lg-6,
+      .col-lg-4 {
         .form-group {
           margin: 0.7rem auto;
           label {
@@ -2323,6 +2324,31 @@ button:disabled {
             &:focus {
               box-shadow: none;
               border: 1px solid var(--second-color);
+            }
+          }
+          .form-control {
+            margin: 0;
+          }
+        }
+      }
+      .col-12 {
+        .table {
+          text-align: center;
+          thead {
+            th {
+              // background-color: var(--second-color);
+              // border-right: 1px solid var(--white-color);
+              // color: #fff;
+            }
+          }
+          th,
+          td {
+            width: 10%;
+            vertical-align: baseline;
+            padding: 5px;
+            // border: 1px solid var(--second-color);
+            .form-control {
+              padding: 5px;
             }
           }
         }

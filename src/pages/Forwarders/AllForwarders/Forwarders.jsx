@@ -26,7 +26,7 @@ const Forwarders = () => {
         });
     };
     getAllFrowarders();
-  });
+  }, []);
   const updateForwarder = (item) => {
     navigate("/user/updateForwarder", { state: { ...item } });
   };
