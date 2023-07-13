@@ -10,7 +10,7 @@ export const emailValidation = (value) => {
 
 export const phoneValidation = (value) => {
   console.log(value);
-  const phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  const phoneno = "^[0-9]*$";
   if (value && value.match(phoneno)) {
     return true;
     // setInput(e.target.value);

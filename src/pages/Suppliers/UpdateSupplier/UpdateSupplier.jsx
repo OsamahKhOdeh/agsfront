@@ -219,7 +219,6 @@ const UpdateSupplier = () => {
                         name="contactPhone"
                         required
                         value={formData.contactPhone}
-                        maxLength={10}
                         onChange={handleChange}
                         onInput={(e) => validatePhone(e)}
                       />
