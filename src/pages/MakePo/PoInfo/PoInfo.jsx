@@ -7,6 +7,9 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import useAuth from "../../../hooks/useAuth";
 import { createPurchaseOrder } from "../../../actions/purchaseOrder";
 import { BASE_URL } from "../../../api/index";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { showToastMessage } from "../../../helpers/toaster";
 const PoInfo = () => {
   const [poInfoChoices, setPoInfoChoices] = useState();
   const [exporter, setExporter] = useState();
@@ -21,6 +24,7 @@ const PoInfo = () => {
   const [poProducts, setPoProducts] = useState(useSelector((state) => state.po.products));
 
   const { username } = useAuth();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     const updatedValues = {
@@ -83,10 +87,12 @@ const PoInfo = () => {
 
   const handleNext = () => {
     dispatch(createPurchaseOrder(poInfo));
+    showToastMessage("Add PO Succesfully", "success");
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="custom-card">
         <div className="custom-card-header">
           <div className="custom-card-tittle">
@@ -646,13 +652,13 @@ const PoInfo = () => {
               </div>
             </div> */}
             <div className="next_back_buttons">
-              <div style={{ backgroundColor: "#e6899c" }} className="next_back_button">
-                Back
-              </div>
-              <div onClick={handleNext} style={{ backgroundColor: "#339316" }} className="next_back_button">
+              <button className="ags-btn-main " onClick={() => navigate("/user/makepo")}>
+                Back{" "}
+              </button>
+              <button className="ags-btn-main-fill" onClick={handleNext}>
                 {" "}
-                Next
-              </div>
+                Add
+              </button>
             </div>
           </div>
         </div>

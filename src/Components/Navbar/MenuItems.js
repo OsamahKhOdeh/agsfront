@@ -275,6 +275,18 @@ export const LogisticsMenuItems = [
     icon: "bxs-edit",
   },
   {
+    title: "Packing List",
+    path: "/user/packinglistmanual",
+    cName: "dropdown-link",
+    icon: "bx-package",
+  },
+  {
+    title: "Orders",
+    path: "/user/orders",
+    cName: "dropdown-link",
+    icon: "bx-border-radius",
+  },
+  {
     title: "Suppliers",
     path: `/user/suppliers`,
     cName: "dropdown-link",
