@@ -88,6 +88,9 @@ const PoInfo = () => {
   const handleNext = () => {
     dispatch(createPurchaseOrder(poInfo));
     showToastMessage("Add PO Succesfully", "success");
+    setTimeout(() => {
+      navigate("/user/orders", { state: "purchaseOrderOrders" });
+    }, 3000);
   };
 
   return (

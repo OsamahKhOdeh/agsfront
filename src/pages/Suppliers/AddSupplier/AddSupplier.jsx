@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./AddSupplier.scss";
 import { emailValidation, phoneValidation } from "../../../helpers/Validations";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import FormGroup from "@mui/material/FormGroup";
+import makeAnimated from "react-select/animated";
+import CreatableSelect from "react-select/creatable";
+
+const animatedComponents = makeAnimated();
+
+export const communicationMethods = [
+  { name: "Whatsapp", isSelected: false },
+  { name: "Wechat", isSelected: false },
+  { name: "Email", isSelected: false },
+];
+export const products = [
+  { label: "Batteries", value: "batteries" },
+  { label: "Solar Panels", value: "solarPanels" },
+  { label: "Inverters", value: "inverters" },
+  { label: "Connectors", value: "connectors" },
+  { label: "Chargers", value: "chargers" },
+];
 const AddSupplier = () => {
+  // const [options, setOptions] = useState([]);
+
+  const [value, setValue] = useState([]);
+
+  const createOption = (label) => ({
+    label,
+    value: label,
+  });
   const [formData, setFormData] = useState({
     supplierName: "",
     contactPerson: "",
@@ -17,12 +43,12 @@ const AddSupplier = () => {
     city: "",
     country: "",
     postalCode: "",
-    productCategories: "",
+    productCategories: [],
     paymentTerms: "",
     taxID: "",
     website: "",
     logo: "https://placehold.co/150x150",
-    communicationMethod: "Whatsapp",
+    communicationMethod: [],
     cashBackTerms: {},
     bankAccount: [],
     notes: "",
@@ -53,6 +79,8 @@ const AddSupplier = () => {
   });
   const [noValidEmail, showNoValidEmail] = useState(false);
   const [noValidPhone, showNoValidPhone] = useState(false);
+  const [bufferBank, setBufferBank] = useState({});
+  const [indexEdit, setIndexEdit] = useState({});
   const validateEmail = (e) => {
     if (emailValidation(e.target?.value)) {
       showNoValidEmail(false);
@@ -77,6 +105,10 @@ const AddSupplier = () => {
   const handleChangeBank = (event) => {
     const { name, value } = event.target;
     setBankInfo((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+  const handleChangeBankUpdate = (event) => {
+    const { name, value } = event.target;
+    setBufferBank((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const handleSubmit = () => {
     const formDataBuff = new FormData();
@@ -115,9 +147,17 @@ const AddSupplier = () => {
     setFormData((prevFormData) => ({ ...prevFormData, bankAccount: formData.bankAccount }));
     resetFrom(true);
   };
-  const deleteBank = (index) => {
-    formData.bankAccount.pop();
+  const deleteBank = () => {
+    let updateBanks = [...formData.bankAccount];
+    let index = updateBanks.findIndex((b) => b.bankName === bufferBank.bankName);
+    updateBanks.splice(index, 1);
+    console.log(updateBanks);
+    setFormData((prevFormData) => ({ ...prevFormData, bankAccount: updateBanks }));
+  };
+  const updateBankInformation = () => {
+    formData.bankAccount[indexEdit] = bufferBank;
     setFormData((prevFormData) => ({ ...prevFormData, bankAccount: formData.bankAccount }));
+    console.log(formData.bankAccount);
   };
   const resetFrom = (isBank) => {
     if (isBank) {
@@ -168,6 +208,51 @@ const AddSupplier = () => {
     } else {
       return false;
     }
+  };
+  const handleChangeCommunication = (event) => {
+    let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
+    communicationMethods[index].isSelected = event.target.checked;
+    let bufferMethods = communicationMethods
+      .filter((c) => c.isSelected === true)
+      .map(function (item) {
+        return item["name"];
+      });
+    setFormData((prevFormData) => ({ ...prevFormData, communicationMethod: bufferMethods }));
+    console.log(formData.communicationMethod);
+  };
+  const handleChangeProducts = (choice) => {
+    console.log(choice);
+    let bufferProducts = choice.map(function (item) {
+      return item["label"];
+    });
+    setFormData((prevFormData) => ({ ...prevFormData, productCategories: bufferProducts }));
+    console.log("");
+  };
+  // const onOptionsChanged = (newOptions) => {
+  //   const validUrlsWithOrigins = newOptions.filter((option) => {
+  //     try {
+  //       return !!new URL(option.value).origin;
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   });
+  //   const newOptionsOrigins = validUrlsWithOrigins.map((option) => new URL(option.value).origin).map((origin) => createOption(origin));
+
+  //   setValue(newOptionsOrigins);
+
+  //   //get all options without duplicates
+  //   const allUniqueOptions = {};
+  //   [...newOptionsOrigins, ...options].forEach((option) => {
+  //     allUniqueOptions[option.value] = option.value;
+  //   });
+  //   setOptions(Object.keys(allUniqueOptions).map((option) => createOption(option)));
+  //   console.log(products);
+  // };
+  const saveIndex = (bank) => {
+    let index = formData.bankAccount.findIndex((b) => b.bankName === bank.bankName);
+    console.log(index);
+    setIndexEdit(index);
+    setBufferBank(bank);
   };
   return (
     <>
@@ -275,12 +360,22 @@ const AddSupplier = () => {
                       <label htmlFor="supplier_name">
                         Product Categories <span className="required">*</span>
                       </label>
-                      <select class="form-select" required name="productCategories" value={formData.productCategories} onChange={handleChange}>
+                      {/* <select class="form-select" required name="productCategories" value={formData.productCategories} onChange={handleChange}>
                         <option selected>Select Category</option>
                         <option value="Battaries">Battaries</option>
                         <option value="SolarPanels">Solar Panels</option>
                         <option value="Inverters">Inverters</option>
                       </select>
+                      <ReactMultiSelectCheckboxes options={options} /> */}
+                      {/* <Select closeMenuOnSelect={false} onChange={(choice) => handleChangeProducts(choice)} isMulti options={products} /> */}
+                      <CreatableSelect
+                        isMulti
+                        options={products}
+                        // onChange={onOptionsChanged}
+                        onChange={(choice) => handleChangeProducts(choice)}
+                        components={animatedComponents}
+                        placeholder="New Option(Type something and press enter...)"
+                      />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -306,17 +401,13 @@ const AddSupplier = () => {
                         Communication Method <span className="required">*</span>
                       </label>
                       <div className="communication">
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="communicationMethod"
-                          value={formData.communicationMethod}
-                          onChange={handleChange}
-                        >
-                          <FormControlLabel value="Whatsapp" control={<Radio />} label="Whatsapp" />
-                          <FormControlLabel value="Wechat" control={<Radio />} label="Wechat" />
-                          <FormControlLabel value="Email" control={<Radio />} label="Email" />
-                        </RadioGroup>
+                        <FormGroup>
+                          {communicationMethods.map((item, index) => (
+                            <>
+                              <FormControlLabel value={item.name} onChange={handleChangeCommunication} control={<Checkbox />} label={item.name} />
+                            </>
+                          ))}
+                        </FormGroup>
                       </div>
                     </div>
                   </div>
@@ -405,6 +496,7 @@ const AddSupplier = () => {
                               <th scope="col">Bank Name </th>
                               <th scope="col">Swift BIC</th>
                               <th scope="col">Currency</th>
+                              <th scope="col">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -414,6 +506,12 @@ const AddSupplier = () => {
                                 <td>{item.bankName}</td>
                                 <td>{item.swiftBIC}</td>
                                 <td>{item.currency}</td>
+                                <td>
+                                  <div className="btn-actions">
+                                    <i class="uil uil-edit-alt " onClick={() => saveIndex(item)} data-toggle="modal" data-target="#exampleModal3"></i>
+                                    <i class="uil uil-trash-alt " onClick={() => setBufferBank(item)} data-toggle="modal" data-target="#exampleModal1"></i>
+                                  </div>
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -484,7 +582,7 @@ const AddSupplier = () => {
                     <option selected>Select Currency</option>
                     <option value="USD">USD</option>
                     <option value="AED">AED</option>
-                    <option value="RMD">RMD</option>
+                    <option value="RMB">RMB</option>
                     <option value="INR">INR</option>
                   </select>
                 </div>
@@ -494,6 +592,83 @@ const AddSupplier = () => {
             <div class="modal-footer">
               <button type="button" onClick={addBank} class="ags-btn-sm-main-outlin" data-dismiss="modal">
                 Add Bank
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Edit Bank */}
+      <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Update Bank
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {/* <div className="row"> */}
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Bank Name </label>
+                  <input type="text" className="form-control" name="bankName" value={bufferBank.bankName} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="bankName">Bank Number </label>
+                  <input type="text" className="form-control" name="accountNumber" value={bufferBank.accountNumber} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Swift BIC </label>
+                  <input type="text" className="form-control" name="swiftBIC" value={bufferBank.swiftBIC} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Currency </label>
+                  <select class="form-select" name="currency" value={bufferBank.currency} onChange={handleChangeBankUpdate}>
+                    <option selected>Select Currency</option>
+                    <option value="USD">USD</option>
+                    <option value="AED">AED</option>
+                    <option value="RMB">RMB</option>
+                    <option value="INR">INR</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            {/* </div> */}
+            <div class="modal-footer">
+              <button type="button" onClick={updateBankInformation} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Update Bank
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Delete Bank */}
+      <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Delete {bufferBank.bankName}
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <p className="mt-3">Are you sure to delete bank </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onClick={() => deleteBank()} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Ok
               </button>
             </div>
           </div>

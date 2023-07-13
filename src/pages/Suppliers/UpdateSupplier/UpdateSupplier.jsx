@@ -1,17 +1,37 @@
 import React, { useState } from "react";
 import "./UpdateSupplier.scss";
 import { emailValidation, phoneValidation } from "../../../helpers/Validations";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup } from "@mui/material";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import CreatableSelect from "react-select/creatable";
+import makeAnimated from "react-select/animated";
+const animatedComponents = makeAnimated();
+export const products = [
+  { label: "Batteries", value: "batteries" },
+  { label: "Solar Panels", value: "solarPanels" },
+  { label: "Inverters", value: "inverters" },
+  { label: "Connectors", value: "connectors" },
+  { label: "Chargers", value: "chargers" },
+];
+
 const UpdateSupplier = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  console.log(state);
   const [formData, setFormData] = useState({ ...state });
   const [file, setFile] = useState();
+  const [bufferBank, setBufferBank] = useState({});
+  const [indexEdit, setIndexEdit] = useState({});
+  const [communicationMethods, setCommunicationMethods] = useState([
+    { name: "Whatsapp", isSelected: formData.communicationMethod.includes("Whatsapp") ? true : false },
+    { name: "Wechat", isSelected: formData.communicationMethod.includes("Wechat") ? true : false },
+    { name: "Email", isSelected: formData.communicationMethod.includes("Email") ? true : false },
+  ]);
+  console.log("communicationMethods", communicationMethods);
   const handleFileChange = (e) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
@@ -98,10 +118,6 @@ const UpdateSupplier = () => {
     setFormData((prevFormData) => ({ ...prevFormData, bankAccount: formData.bankAccount }));
     resetFrom(true);
   };
-  const deleteBank = (index) => {
-    formData.bankAccount.pop();
-    setFormData((prevFormData) => ({ ...prevFormData, bankAccount: formData.bankAccount }));
-  };
   const resetFrom = (isBank) => {
     if (isBank) {
       setBankInfo({
@@ -153,6 +169,51 @@ const UpdateSupplier = () => {
     } else {
       return false;
     }
+  };
+  const handleChangeBankUpdate = (event) => {
+    const { name, value } = event.target;
+    setBufferBank((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+  const deleteBank = () => {
+    let updateBanks = [...formData.bankAccount];
+    let index = updateBanks.findIndex((b) => b.bankName === bufferBank.bankName);
+    updateBanks.splice(index, 1);
+    console.log(updateBanks);
+    setFormData((prevFormData) => ({ ...prevFormData, bankAccount: updateBanks }));
+  };
+  const updateBankInformation = () => {
+    formData.bankAccount[indexEdit] = bufferBank;
+    setFormData((prevFormData) => ({ ...prevFormData, bankAccount: formData.bankAccount }));
+    console.log(formData.bankAccount);
+  };
+  const saveIndex = (bank) => {
+    let index = formData.bankAccount.findIndex((b) => b.bankName === bank.bankName);
+    console.log(index);
+    setIndexEdit(index);
+    setBufferBank(bank);
+  };
+  const handleChangeProducts = (choice) => {
+    console.log(choice);
+    setFormData((prevFormData) => ({ ...prevFormData, productCategories: choice }));
+    console.log("");
+  };
+  const handleChangeCommunication = (event) => {
+    let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
+    communicationMethods[index].isSelected = event.target.checked;
+    formData.communicationMethod.forEach((key, i) => (formData.communicationMethod[key] = communicationMethods[i].name));
+    // for (let index = 0; index < communicationMethods.length; index++) {
+    //   for (let j = 0; index < formData.communicationMethod.length; j++) {
+    //     communicationMethods[index].isSelected = communicationMethods[index].name === formData.communicationMethod[j] ? true : false;
+    //   }
+    // }
+    console.log(communicationMethods);
+    let bufferMethods = communicationMethods
+      .filter((c) => c.isSelected === true)
+      .map(function (item) {
+        return item["name"];
+      });
+    console.log(bufferMethods);
+    setFormData((prevFormData) => ({ ...prevFormData, communicationMethod: bufferMethods }));
   };
   return (
     <>
@@ -260,12 +321,20 @@ const UpdateSupplier = () => {
                       <label htmlFor="supplier_name">
                         Product Categories <span className="required">*</span>
                       </label>
-                      <select class="form-select" required name="productCategories" value={formData.productCategories} onChange={handleChange}>
+                      {/* <select class="form-select" required name="productCategories" value={formData.productCategories} onChange={handleChange}>
                         <option selected>Select Category</option>
                         <option value="Battaries">Battaries</option>
                         <option value="SolarPanels">Solar Panels</option>
                         <option value="Inverters">Inverters</option>
-                      </select>
+                      </select> */}
+                      <CreatableSelect
+                        isMulti
+                        options={products}
+                        // onChange={onOptionsChanged}
+                        onChange={(choice) => handleChangeProducts(choice)}
+                        components={animatedComponents}
+                        placeholder="New Option(Type something and press enter...)"
+                      />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -291,17 +360,19 @@ const UpdateSupplier = () => {
                         Communication Method <span className="required">*</span>
                       </label>
                       <div className="communication">
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="communicationMethod"
-                          value={formData.communicationMethod}
-                          onChange={handleChange}
-                        >
-                          <FormControlLabel value="Whatsapp" control={<Radio />} label="Whatsapp" />
-                          <FormControlLabel value="Wechat" control={<Radio />} label="Wechat" />
-                          <FormControlLabel value="Email" control={<Radio />} label="Email" />
-                        </RadioGroup>
+                        <FormGroup>
+                          {communicationMethods.map((item, index) => (
+                            <>
+                              <FormControlLabel
+                                value={item.name}
+                                checked={formData.communicationMethod.includes(item.name)}
+                                onChange={handleChangeCommunication}
+                                control={<Checkbox />}
+                                label={item.name}
+                              />
+                            </>
+                          ))}
+                        </FormGroup>
                       </div>
                     </div>
                   </div>
@@ -390,6 +461,7 @@ const UpdateSupplier = () => {
                               <th scope="col">Bank Name </th>
                               <th scope="col">Swift BIC</th>
                               <th scope="col">Currency</th>
+                              <th scope="col">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -399,6 +471,12 @@ const UpdateSupplier = () => {
                                 <td>{item.bankName}</td>
                                 <td>{item.swiftBIC}</td>
                                 <td>{item.currency}</td>
+                                <td>
+                                  <div className="btn-actions">
+                                    <i class="uil uil-edit-alt " onClick={() => saveIndex(item)} data-toggle="modal" data-target="#exampleModal3"></i>
+                                    <i class="uil uil-trash-alt " onClick={() => setBufferBank(item)} data-toggle="modal" data-target="#exampleModal1"></i>
+                                  </div>
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -469,7 +547,7 @@ const UpdateSupplier = () => {
                     <option selected>Select Currency</option>
                     <option value="USD">USD</option>
                     <option value="AED">AED</option>
-                    <option value="RMD">RMD</option>
+                    <option value="RMB">RMB</option>
                     <option value="INR">INR</option>
                   </select>
                 </div>
@@ -479,6 +557,83 @@ const UpdateSupplier = () => {
             <div class="modal-footer">
               <button type="button" onClick={addBank} class="ags-btn-sm-main-outlin" data-dismiss="modal">
                 Add Bank
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Edit Bank */}
+      <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Update Bank
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {/* <div className="row"> */}
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Bank Name </label>
+                  <input type="text" className="form-control" name="bankName" value={bufferBank.bankName} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="bankName">Bank Number </label>
+                  <input type="text" className="form-control" name="accountNumber" value={bufferBank.accountNumber} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Swift BIC </label>
+                  <input type="text" className="form-control" name="swiftBIC" value={bufferBank.swiftBIC} onChange={handleChangeBankUpdate} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="banmNmake">Currency </label>
+                  <select class="form-select" name="currency" value={bufferBank.currency} onChange={handleChangeBankUpdate}>
+                    <option selected>Select Currency</option>
+                    <option value="USD">USD</option>
+                    <option value="AED">AED</option>
+                    <option value="RMB">RMB</option>
+                    <option value="INR">INR</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            {/* </div> */}
+            <div class="modal-footer">
+              <button type="button" onClick={updateBankInformation} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Update Bank
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Delete Bank */}
+      <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Delete {bufferBank.bankName}
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <p className="mt-3">Are you sure to delete bank </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onClick={() => deleteBank()} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Ok
               </button>
             </div>
           </div>

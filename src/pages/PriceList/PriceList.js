@@ -19,7 +19,6 @@ import thailand from "./thailand.json";
 
 import useStyles from "./styles";
 import { categories, countries } from "../../data";
-import Select from "react-select";
 import Products from "../../Components/Products/Products";
 import { availabiltyStatus, priceCurrency, priceOnLocation } from "./showingFilters";
 import { changeShowDatasheet, changeShowPrice, changeShowStock } from "../../store/showingSlice";

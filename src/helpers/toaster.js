@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 
-export const showToastMessage = (msg ,status) => {
-    if(status === "success") {
+export const showToastMessage = (msg, status) => {
+  if (status === "success") {
     toast.success(`${msg} `, {
       position: "top-right",
-      autoClose: 4000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -12,10 +12,10 @@ export const showToastMessage = (msg ,status) => {
       progress: undefined,
       theme: "colored",
     });
-  }else {
+  } else {
     toast.error(msg, {
       position: "top-right",
-      autoClose: 4000,
+      autoClose: 3000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -24,4 +24,4 @@ export const showToastMessage = (msg ,status) => {
       theme: "colored",
     });
   }
-  };
+};

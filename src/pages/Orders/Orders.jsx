@@ -2,13 +2,15 @@ import React from "react";
 import { useState } from "react";
 import ProformaInvoiceOrders from "./ProformaInvoiceOrders/ProformaInvoiceOrders";
 import SignedProformaInvoices from "./SignedProformaInvoices/SignedProformaInvoices";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Orders.css";
 import PurchaseOrderOrders from "./PurchaseOrderOrders/PurchaseOrderOrders";
 import PackingListOrders from "./PackingListOrders/PackingListOrders";
 import OrderTrackingUser from "../../Components/OrderTrackingUser/OrderTrackingUser";
 
 const Orders = () => {
+  const { state } = useLocation();
+  console.log(state);
   let pageContent = <ProformaInvoiceOrders />;
   const [page, setPage] = useState("orders");
   switch (page) {
@@ -24,9 +26,9 @@ const Orders = () => {
     case "purchaseOrderOrders":
       pageContent = <PurchaseOrderOrders />;
       break;
-      case "ordersTracking":
-        pageContent = <OrderTrackingUser />;
-        break;
+    case "ordersTracking":
+      pageContent = <OrderTrackingUser />;
+      break;
     default:
   }
   return (
@@ -45,13 +47,13 @@ const Orders = () => {
           PKL Orders
         </button>
         <button className="btn_nav" onClick={() => setPage("ordersTracking")}>
-           Orders Tracking
+          Orders Tracking
         </button>
       </div>
 
       {pageContent}
     </div>
   );
-}
+};
 
 export default Orders;

@@ -56,7 +56,7 @@
       }
       .communication {
         .MuiFormGroup-root {
-          justify-content: space-evenly;
+              display: contents;
         }
       }
     }
@@ -99,6 +99,24 @@
       td {
         border: 1px solid #efefef;
         font-size: 13px;
+            vertical-align: middle;
+      }
+      .btn-actions{
+        display: flex;
+        justify-content: space-evenly;
+        color: var(--green);
+        .uil{
+          font-size: 1rem;  
+          &:hover{
+            cursor: pointer;
+          }
+        }
+         .uil-trash-alt{
+            color: var(--second-color) !important ;
+            &:hover{
+            color: var(--second-color) !important ;
+            }
+          }
       }
     }
     .no-banks {
@@ -131,6 +149,9 @@
     .btn-upload:hover{
     cursor: pointer;
   }
+  .css-1fdsijx-ValueContainer{
+      padding: 0.2rem 0.75rem!important;
+   } 
 }
 .modal {
   .form-select {

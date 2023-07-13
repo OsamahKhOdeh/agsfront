@@ -94,6 +94,7 @@
       td {
         border: 1px solid #efefef;
         font-size: 13px;
+         vertical-align: middle;
       }
     }
     .no-banks {
@@ -125,6 +126,9 @@
   }
   .btn-upload:hover{
     cursor: pointer;
+  }
+  .css-1fdsijx-ValueContainer{
+    padding: 0.2rem 0.75rem!important;
   }
 }
 .modal {
