@@ -31,7 +31,7 @@ const UpdateSupplier = () => {
     { name: "Wechat", isSelected: formData.communicationMethod.includes("Wechat") ? true : false },
     { name: "Email", isSelected: formData.communicationMethod.includes("Email") ? true : false },
   ]);
-  console.log("communicationMethods", communicationMethods);
+  console.log("formData", formData);
   const handleFileChange = (e) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
@@ -106,6 +106,7 @@ const UpdateSupplier = () => {
         // console.log(response.data);
         showToastMessage("Supplier Updated Succesfully", "success");
         setFormData(response.data);
+        navigate("/user/suppliers");
       })
       .catch((error) => {
         // Handle any errors
@@ -159,7 +160,8 @@ const UpdateSupplier = () => {
         (formData.address !== "") &
         (formData.city !== "") &
         (formData.country !== "") &
-        (formData.productCategories !== "") &
+        (formData.productCategories.length > 0) &
+        (formData.communicationMethod.length > 0) &
         (formData.paymentTerms !== "") &
         // (formData.taxID !== "") &
         // (formData.logo !== "") &
@@ -193,8 +195,10 @@ const UpdateSupplier = () => {
     setBufferBank(bank);
   };
   const handleChangeProducts = (choice) => {
-    console.log(choice);
-    setFormData((prevFormData) => ({ ...prevFormData, productCategories: choice }));
+    let bufferProducts = choice.map(function (item) {
+      return item["label"];
+    });
+    setFormData((prevFormData) => ({ ...prevFormData, productCategories: bufferProducts }));
     console.log("");
   };
   const handleChangeCommunication = (event) => {
@@ -333,8 +337,19 @@ const UpdateSupplier = () => {
                         // onChange={onOptionsChanged}
                         onChange={(choice) => handleChangeProducts(choice)}
                         components={animatedComponents}
+                        defaultValue={products.filter((element) => formData.productCategories.includes(element.label))}
                         placeholder="New Option(Type something and press enter...)"
                       />
+                      {/* <button
+                        type="button"
+                        onClick={() => {
+                          console.log(products.filter((element) => formData.productCategories.includes(element.label)));
+                          console.log(products);
+                          console.log(formData.productCategories);
+                        }}
+                      >
+                        console
+                      </button> */}
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -449,7 +464,7 @@ const UpdateSupplier = () => {
                           Bank Account <span className="required">*</span>
                         </label>
                         <span>
-                          <i class="uil uil-minus-circle" onClick={deleteBank}></i>
+                          {/* <i class="uil uil-minus-circle" onClick={deleteBank}></i> */}
                           <i class="uil uil-plus-circle" data-toggle="modal" data-target="#exampleModal"></i>
                         </span>
                       </div>

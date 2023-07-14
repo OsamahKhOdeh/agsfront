@@ -200,7 +200,8 @@ const AddSupplier = () => {
         (formData.address !== "") &
         (formData.city !== "") &
         (formData.country !== "") &
-        (formData.productCategories !== "") &
+        (formData.productCategories.length > 0) &
+        (formData.communicationMethod.length > 0) &
         (formData.paymentTerms !== "") &
         (formData.bankAccount.length > 0)
     ) {
@@ -484,7 +485,7 @@ const AddSupplier = () => {
                           Bank Account <span className="required">*</span>
                         </label>
                         <span>
-                          <i class="uil uil-minus-circle" onClick={deleteBank}></i>
+                          {/* <i class="uil uil-minus-circle" onClick={deleteBank}></i> */}
                           <i class="uil uil-plus-circle" data-toggle="modal" data-target="#exampleModal"></i>
                         </span>
                       </div>
