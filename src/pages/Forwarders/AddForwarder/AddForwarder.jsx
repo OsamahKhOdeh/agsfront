@@ -53,8 +53,13 @@ const AddForwarder = () => {
   const [services, setServices] = useState([]);
   const [service, setService] = useState({
     serviceName: "",
-    servicePrice: "",
+    serviceCost: "",
   });
+  const [communicationMethods, setCommunicationMethods] = useState([
+    { name: "Whatsapp", isSelected: false },
+    { name: "Wechat", isSelected: false },
+    { name: "Email", isSelected: false },
+  ]);
   const [buffService, setBuffService] = useState({});
   const [modelContact, setModelContact] = useState({
     contactPersonName: "",
@@ -133,6 +138,11 @@ const AddForwarder = () => {
         resetFrom(false);
         setServices([]);
         setContacts([]);
+        setCommunicationMethods([
+          { name: "Whatsapp", isSelected: false },
+          { name: "Wechat", isSelected: false },
+          { name: "Email", isSelected: false },
+        ]);
       })
       .catch((error) => {
         // Handle any errors
@@ -233,7 +243,7 @@ const AddForwarder = () => {
     setServices(updatedServices);
     setService({
       serviceName: "",
-      servicePrice: "",
+      serviceCost: "",
     });
   };
   const deleteService = () => {
@@ -448,7 +458,7 @@ const AddForwarder = () => {
                             {services.map((service, index) => (
                               <tr>
                                 <td>{service.serviceName}</td>
-                                <td>{service.servicePrice}</td>
+                                <td>{service.serviceCost}</td>
                                 <td>
                                   <div className="btn-actions">
                                     <i class="uil uil-trash-alt " onClick={() => setBuffService(service)} data-toggle="modal" data-target="#deleteServiceModal"></i>
@@ -631,13 +641,13 @@ const AddForwarder = () => {
                 <div className="form-group">
                   {" "}
                   <label htmlFor="officePhone">Service Price </label>
-                  <input type="text" className="form-control" name="servicePrice" value={service.servicePrice} onChange={handleChangeContactService} />
+                  <input type="text" className="form-control" name="serviceCost" value={service.serviceCost} onChange={handleChangeContactService} />
                 </div>
               </div>
             </div>
             {/* </div> */}
             <div class="modal-footer">
-              <button type="button" onClick={addService} disabled={service.serviceName === "" || service.servicePrice === ""} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+              <button type="button" onClick={addService} disabled={service.serviceName === "" || service.serviceCost === ""} class="ags-btn-sm-main-outlin" data-dismiss="modal">
                 Add Service
               </button>
             </div>
