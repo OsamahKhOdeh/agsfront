@@ -75,6 +75,9 @@ import Forwarders from "./pages/Forwarders/AllForwarders/Forwarders";
 import Customers from "./pages/Customers/Customers/Customers";
 import AddCustomer from "./pages/Customers/AddCustomer/AddCustomer";
 import UpdateCustomer from "./pages/Customers/UpdateCustomer/UpdateCustomer";
+import UpdateShipmentAgent from "./pages/ShipmentsAgents/UpdateShipmentAgent/UpdateShipmentAgent";
+import AddShipmentAgent from "./pages/ShipmentsAgents/AddShipmentAgent/AddShipmentAgent";
+import AllShipmentsAgents from "./pages/ShipmentsAgents/AllShipmentsAgents/AllShipmentsAgents";
 function App() {
   return (
     <div>
@@ -156,6 +159,10 @@ function App() {
                 <Route path="customers" element={<Customers />}></Route>
                 <Route path="updateCustomer" element={<UpdateCustomer />}></Route>
                 <Route path="addCustomer" element={<AddCustomer />}></Route>
+                {/* Shipment Agents  Routes*/}
+                <Route path="shipmentAgents" element={<AllShipmentsAgents />}></Route>
+                <Route path="addShipmentAgent" element={<AddShipmentAgent />}></Route>
+                <Route path="updateShipmentAgent" element={<UpdateShipmentAgent />}></Route>
               </Route>
             </Route>
           </Route>

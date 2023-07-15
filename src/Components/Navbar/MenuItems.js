@@ -106,6 +106,18 @@ export const AdminMenuItems = [
     icon: "bx-trip",
   },
   {
+    title: "Shipment Agents",
+    path: `/user/shipmentAgents`,
+    cName: "dropdown-link",
+    icon: "bxs-truck",
+  },
+  {
+    title: "Customers",
+    path: `/user/customers`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
+  {
     title: "Datasheet",
     path: `${BASE_DOMAIN}/website`,
     cName: "dropdown-link",

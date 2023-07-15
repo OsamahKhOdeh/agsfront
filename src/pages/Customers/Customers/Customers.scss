@@ -1,172 +1,20 @@
-.customer {
-  .card {
-    .card-header {
-      padding: 0 0 5px 0;
-    }
-  }
-  .tittle-back {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    .btn-back {
-      padding: 0 5px;
-      .uil {
-        font-size: 1.5rem;
-      }
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    p {
-      margin: auto;
-    }
-  }
-  .mian-info,
-  .address-info,
-  .additional-info {
-    margin-bottom: 2rem;
-    .tittle-section {
-      h6 {
-        margin: 1rem auto;
-        font-size: 18px;
-      }
-    }
-  }
-  .wrapper-customer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    align-items: center;
-    .col-lg-4,
-    .col-md-12 {
-      width: 100%;
-      .form-select {
-        padding: 0.5rem 0.75rem !important;
-        margin: 8px 0;
-        &:focus {
-          box-shadow: none;
-          border: 1px solid var(--second-color);
-        }
-      }
-      .form-control {
-        padding: 0.5rem 0.75rem !important;
-      }
-      input[type="file"] {
-        padding: 0.375rem 0.75rem !important;
-      }
-      .communication {
-        .MuiFormGroup-root {
-          display: contents;
-        }
-      }
-    }
-  }
-  .wrapper-customer-second {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    align-items: center;
-    .col-lg-4,
-    .col-md-12 {
-      width: 100%;
-      .banks {
-        border: 1px solid #efefef;
-        border-radius: 5px;
-        // padding: 5px;
-        .bank-tittle {
-          display: flex;
-          justify-content: space-between;
-          background-color: #efefef;
-          padding: 5px;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
-          span {
-            .uil {
-              font-size: 1.2rem;
-              transition: all 0.4s ease-in-out;
-              &:hover {
-                cursor: pointer;
-              }
-            }
-          }
-        }
-      }
-    }
-    .table {
-      margin-bottom: 0;
+.forwarders {
+  .table {
+    margin-bottom: 0;
+    th,
+    td {
+      padding: 4px !important;
+      font-size: 12px;
       text-align: center;
-      th,
-      td {
-        border: 1px solid #efefef;
-        font-size: 13px;
-        vertical-align: middle;
-      }
-      .btn-actions {
-        display: flex;
-        justify-content: space-evenly;
-        color: var(--green);
-        .uil {
-          font-size: 1rem;
-          &:hover {
-            cursor: pointer;
-          }
-        }
-        .uil-trash-alt {
-          color: var(--second-color) !important ;
-          &:hover {
-            color: var(--second-color) !important ;
-          }
+    }
+  }
+  .wrapper-blogs {
+    .blog {
+      .card {
+        .card__footer {
+          padding: 0.25rem 1rem 1rem !important;
         }
       }
-    }
-    .no-banks {
-      padding: 1rem;
-      text-align: center;
-      .uil {
-        font-size: 2.8rem;
-      }
-      p {
-        font-size: 13px;
-        color: #606060;
-      }
-    }
-  }
-  textarea {
-    width: 100%;
-    padding: 14px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border-radius: 4px;
-    box-sizing: border-box;
-    border: 1px solid #ced4da;
-  }
-  .add-btn-customer {
-    text-align: center;
-    .ags-btn-main-fill {
-      padding: 3px 10px;
-    }
-  }
-  .btn-upload:hover {
-    cursor: pointer;
-  }
-  .css-1fdsijx-ValueContainer {
-    padding: 0.2rem 0.75rem !important;
-  }
-}
-.modal {
-  .form-select {
-    padding: 12px 20px !important;
-    &:focus {
-      box-shadow: none;
-      border: 1px solid var(--second-color);
-    }
-  }
-}
-@media (max-width: 768px) {
-  .customer {
-    .wrapper-customer {
-      grid-template-columns: 1fr;
-      gap: 10px;
     }
   }
 }

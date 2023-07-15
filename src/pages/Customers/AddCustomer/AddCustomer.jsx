@@ -6,7 +6,9 @@ import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { emailValidation, phoneValidation } from "../../../helpers/Validations";
+import { useNavigate } from "react-router-dom";
 const AddCustomer = () => {
+  const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
   const [noValidPhone, showNoValidPhone] = useState(false);
   const [file, setFile] = useState();
@@ -19,13 +21,23 @@ const AddCustomer = () => {
     state: "",
     country: "",
     postalCode: "",
+    notes: "",
+  });
+  const [bufferContact, setBufferContact] = useState({});
+  const [contacts, setContacts] = useState([]);
+  const [modelContact, setModelContact] = useState({
+    contactPersonName: "",
+    phone: "",
+    officePhone: "",
+    email: "",
+    position: "",
   });
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const validate = () => {
-    if ((formData.name !== "") & (formData.contact.length > 0)) {
+    if (formData.name !== "") {
       return true;
     } else {
       return false;
@@ -61,28 +73,52 @@ const AddCustomer = () => {
     //     // Handle any errors
     //     console.error(error);
     //   });
-    console.log(formData);
+    let model = {
+      name: formData.name,
+      image: formData.image,
+      contact: contacts,
+      address: {
+        street: formData.street,
+        city: formData.city,
+        state: formData.state,
+        country: formData.country,
+        postalCode: formData.postalCode,
+      },
+      notes: formData.notes,
+    };
+    axios
+      .post(`${BASE_URL}/forwarder`, model)
+      .then((response) => {
+        // console.log(response.data);
+        showToastMessage("Forwarder Added Successfully", "success");
+        resetFrom(false);
+        setContacts([]);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
+    console.log(model);
   };
-  const resetFrom = (isBank) => {
-    if (isBank) {
-      // setBankInfo({
-      //   bankName: "",
-      //   accountNumber: "",
-      //   swiftBIC: "",
-      //   currency: "USD",
-      // });
+  const resetFrom = (isContact) => {
+    if (isContact) {
+      setModelContact({
+        contactPersonName: "",
+        phone: "",
+        officePhone: "",
+        email: "",
+        position: "",
+      });
     } else {
       setFormData({
         name: "",
         image: "https://placehold.co/150x150",
         contact: [],
-        address: {
-          street: "",
-          city: "",
-          state: "",
-          country: "",
-          postalCode: "",
-        },
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+        postalCode: "",
       });
     }
   };
@@ -124,6 +160,26 @@ const AddCustomer = () => {
     console.log(formData);
     showToastMessage("Image Uploaded Succesfully", "success");
   };
+  const handleChangeContact = (event) => {
+    const { name, value } = event.target;
+    setModelContact((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+  const addContact = () => {
+    console.log(modelContact);
+    const updatedContacts = [...contacts];
+    updatedContacts.push(modelContact);
+    setContacts(updatedContacts);
+    console.log(contacts);
+    resetFrom(true);
+    showNoValidEmail(false);
+  };
+  const deleteContact = () => {
+    let updateContacts = [...contacts];
+    let index = updateContacts.findIndex((b) => b.email === bufferContact.email);
+    console.log(index);
+    updateContacts.splice(index, 1);
+    setContacts(updateContacts);
+  };
   return (
     <div>
       <>
@@ -132,7 +188,7 @@ const AddCustomer = () => {
           <div className="card">
             <div class="card-header">
               <div class="tittle-card tittle-back">
-                <div className="btn-back">
+                <div className="btn-back" onClick={() => navigate("/user/customers")}>
                   <i class="uil uil-arrow-circle-left"></i>
                 </div>
                 <p> Add Customer </p>
@@ -154,7 +210,7 @@ const AddCustomer = () => {
                         <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                       </div>
                     </div>
-                    <div className="col-lg-4 col-md-12">
+                    {/* <div className="col-lg-4 col-md-12">
                       <div className="form-group">
                         <label htmlFor="customer_name">
                           Contact Email <span className="required">*</span>
@@ -195,7 +251,7 @@ const AddCustomer = () => {
                         />
                         {noValidPhone && <span className="required">Phone must be only numbers</span>}
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
                         <label htmlFor="customer_name">
@@ -236,13 +292,69 @@ const AddCustomer = () => {
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="supplier_name">Logo</label>
+                        <label htmlFor="supplier_name">Image </label>
                         <div class="input-group ">
                           <input type="file" class="form-control" id="inputGroupFile02" onChange={handleFileChange} />
                           {/* <label class="input-group-text btn-upload" onClick={handleUpload}>
                             Upload
                           </label> */}
                         </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-md-12">
+                      <div className="form-group">
+                        <label htmlFor="customer_name">Notes</label>
+                        <input type="text" className="form-control" name="notes" value={formData.notes} onChange={handleChange} />
+                      </div>
+                    </div>
+                    <div className="col-12 contact-row">
+                      <div className="banks">
+                        <div className="bank-tittle">
+                          <label className="pb-0" htmlFor="account">
+                            Contact <span className="required">*</span>
+                          </label>
+                          <span>
+                            {/* <i class="uil uil-minus-circle" onClick={deleteBank}></i> */}
+                            <i class="uil uil-plus-circle" data-toggle="modal" data-target="#exampleModal"></i>
+                          </span>
+                        </div>
+                        {contacts.length > 0 && (
+                          <table class="table mb-0">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone </th>
+                                <th scope="col">Office Phone</th>
+                                <th scope="col">Contact Email</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {contacts.map((item, index) => (
+                                <tr>
+                                  <td>{item.contactPersonName}</td>
+                                  <td>{item.phone}</td>
+                                  <td>{item.officePhone}</td>
+                                  <td>{item.email}</td>
+                                  <td>{item.position}</td>
+                                  <td>
+                                    <div className="btn-actions">
+                                      {/* <i class="uil uil-edit-alt " onClick={() => saveIndex(item)} data-toggle="modal" data-target="#exampleModal3"></i> */}
+                                      <i class="uil uil-trash-alt " onClick={() => setBufferContact(item)} data-toggle="modal" data-target="#exampleModal1"></i>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        )}
+                        {contacts.length <= 0 && (
+                          <div className="no-banks">
+                            <i class="uil uil-credit-card"></i>
+                            <p> No Contacts Added Yet!</p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -253,6 +365,88 @@ const AddCustomer = () => {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+        {/* Add Contact */}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  New Contact
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {/* <div className="row"> */}
+                <div className="col-12">
+                  <div className="form-group">
+                    {" "}
+                    <label htmlFor="contactPersonName"> Contact Name </label>
+                    <input type="text" className="form-control" name="contactPersonName" value={modelContact.contactPersonName} onChange={handleChangeContact} />
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="form-group">
+                    <label htmlFor="contactEmail">Contact Email </label>
+                    <input type="text" className="form-control" name="email" onInput={(e) => validateEmail(e)} value={modelContact.email} onChange={handleChangeContact} />
+                  </div>
+                  {noValidEmail && <span className="required">Email not valid</span>}
+                </div>
+                <div className="col-12">
+                  <div className="form-group">
+                    {" "}
+                    <label htmlFor="contactPersonName">Contact Phone </label>
+                    <input type="text" className="form-control" name="officePhone" value={modelContact.officePhone} onChange={handleChangeContact} />
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="form-group">
+                    {" "}
+                    <label htmlFor="officePhone">Office Phone </label>
+                    <input type="text" className="form-control" name="phone" value={modelContact.phone} onChange={handleChangeContact} />
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="form-group">
+                    {" "}
+                    <label htmlFor="officePhone">Position </label>
+                    <input type="text" className="form-control" name="position" value={modelContact.position} onChange={handleChangeContact} />
+                  </div>
+                </div>
+              </div>
+              {/* </div> */}
+              <div class="modal-footer">
+                <button type="button" onClick={addContact} disabled={noValidEmail || modelContact.email === ""} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                  Add Contact
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Delete Contact */}
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Delete {bufferContact.contactPersonName}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <p className="mt-3">Are you sure to delete {bufferContact.contactPersonName} </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" onClick={() => deleteContact()} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                  Ok
+                </button>
+              </div>
             </div>
           </div>
         </div>

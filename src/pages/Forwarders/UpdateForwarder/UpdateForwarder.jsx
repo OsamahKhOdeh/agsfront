@@ -141,7 +141,7 @@ const UpdateForwarder = () => {
     };
     console.log(model);
     axios
-      .put(`${BASE_URL}/forwarder`, model)
+      .put(`${BASE_URL}/forwarder/${state._id}`, model)
       .then((response) => {
         // console.log(response.data);
         showToastMessage("Forwarder Updated Successfully", "success");

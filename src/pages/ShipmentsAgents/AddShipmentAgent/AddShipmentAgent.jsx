@@ -1,9 +1,9 @@
 import React from "react";
-import "./AddForwarder.scss";
 import { emailValidation, phoneValidation } from "../../../helpers/Validations";
 import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup } from "@mui/material";
 import axios, { isCancel } from "axios";
 import { BASE_URL } from "../../../api/index";
+import "./AddShipmentAgent.scss";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export const communicationMethods = [
   { name: "Wechat", isSelected: false },
   { name: "Email", isSelected: false },
 ];
-const AddForwarder = () => {
+const AddShipmentAgent = () => {
   const handleChangeCommunication = (event) => {
     let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
     communicationMethods[index].isSelected = event.target.checked;
@@ -33,16 +33,12 @@ const AddForwarder = () => {
     state: "",
     country: "",
     postalCode: "",
-    etd: "",
-    transitTime: "",
     website: "",
     contact: [],
-    costPerContainer: "",
-    communicationMethod: [],
     services: [],
-    freeStorageDuration: "",
-    availableContainerCount: "",
     notes: "",
+    openFrom: "",
+    openTo: "",
   });
   const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
@@ -90,24 +86,6 @@ const AddForwarder = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const handleSubmit = () => {
-    const formDataBuff = new FormData();
-    // formDataBuff.append("forwarderName", formData.forwarderName);
-    // formDataBuff.append("contactPerson", formData.contactPerson);
-    // formDataBuff.append("contactPhone", formData.contactPhone);
-    // formDataBuff.append("contactEmail", formData.contactEmail);
-    // formDataBuff.append("address", formData.address);
-    // formDataBuff.append("city", formData.city);
-    // formDataBuff.append("country", formData.country);
-    // formDataBuff.append("postalCode", formData.postalCode);
-    // formDataBuff.append("productCategories", formData.productCategories);
-    // formDataBuff.append("taxID", formData.taxID);
-    // formDataBuff.append("logo", "file");
-    // formDataBuff.append("website", formData.website);
-    // formDataBuff.append("paymentTerms", formData.paymentTerms);
-    // formDataBuff.append("communicationMethod", formData.communicationMethod);
-    // formDataBuff.append("cashBackTerms", {});
-    // formDataBuff.append("notes", formData.notes);
-    // formDataBuff.append("bankAccount", formData.bankAccount);
     let model = {
       name: formData.name,
       image: formData.image,
@@ -119,15 +97,13 @@ const AddForwarder = () => {
         country: formData.country,
         postalCode: formData.postalCode,
       },
-      etd: formData.etd,
-      transitTime: formData.transitTime,
       website: formData.website,
-      costPerContainer: formData.costPerContainer,
-      communicationMethod: formData.communicationMethod,
-      freeStorageDuration: formData.freeStorageDuration,
-      availableContainerCount: formData.availableContainerCount,
       notes: formData.notes,
       services: services,
+      operatingHours: {
+        from: formData.openFrom,
+        to: formData.openTo,
+      },
     };
     console.log(model);
     axios
@@ -138,11 +114,6 @@ const AddForwarder = () => {
         resetFrom(false);
         setServices([]);
         setContacts([]);
-        setCommunicationMethods([
-          { name: "Whatsapp", isSelected: false },
-          { name: "Wechat", isSelected: false },
-          { name: "Email", isSelected: false },
-        ]);
       })
       .catch((error) => {
         // Handle any errors
@@ -191,7 +162,6 @@ const AddForwarder = () => {
         // (formData.transitTime !== "") &
         (formData.country !== "") &
         // (formData.costPerContainer !== "") &
-        (formData.communicationMethod.length > 0) &
         (contacts.length > 0)
     ) {
       // (formData.freeStorageDuration !== "") &
@@ -263,21 +233,21 @@ const AddForwarder = () => {
               <div className="btn-back" onClick={() => navigate("/user/forwarders")}>
                 <i class="uil uil-arrow-circle-left"></i>
               </div>
-              <p> Add Forwarder </p>
+              <p> Add Shipment Agent </p>
             </div>
           </div>
           <div className="card-body">
             <form>
               {/* main information */}
-              <div className="mian-info">
-                <div className="tittle-section">
+              <div className="mian-info mt-2">
+                {/* <div className="tittle-section">
                   <h6>Primary Information</h6>
-                </div>
+                </div> */}
                 <div className="wrapper-forwarder">
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
                       <label htmlFor="forwarder_name">
-                        Forwarder Name <span className="required">*</span>
+                        Shipment Agent Name <span className="required">*</span>
                       </label>
                       <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
@@ -363,6 +333,18 @@ const AddForwarder = () => {
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
+                      <label htmlFor="forwarder_name">Open From </label>
+                      <input type="time" className="form-control" name="openFrom" value={formData.openFrom} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="forwarder_name">Open To </label>
+                      <input type="time" className="form-control" name="openTo" value={formData.openTo} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
                       <label htmlFor="supplier_name">Logo</label>
                       <div class="input-group ">
                         <input type="file" class="form-control" id="inputGroupFile02" onChange={handleFileChange} />
@@ -371,20 +353,20 @@ const AddForwarder = () => {
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Communication Method <span className="required">*</span>
+                      <label className="px-0" htmlFor="notes">
+                        Notes
                       </label>
-                      <div className="communication">
-                        <FormGroup>
-                          {communicationMethods.map((item, index) => (
-                            <>
-                              <FormControlLabel value={item.name} onChange={handleChangeCommunication} control={<Checkbox />} label={item.name} />
-                            </>
-                          ))}
-                        </FormGroup>
-                      </div>
+                      <input type="text" className="form-control" name="notes" value={formData.notes} onChange={handleChange} />
                     </div>
                   </div>
+                </div>
+              </div>
+              {/* address information */}
+              <div className="additional-info">
+                {/* <div className="tittle-section">
+                  <h6>Additional Information</h6>
+                </div> */}
+                <div className="wrapper-agent-second">
                   <div className="col-12 contact-row">
                     <div className="banks">
                       <div className="bank-tittle">
@@ -480,55 +462,9 @@ const AddForwarder = () => {
                   </div>
                 </div>
               </div>
-              {/* address information */}
-              <div className="additional-info">
-                <div className="tittle-section">
-                  <h6>Additional Information</h6>
-                </div>
-                <div className="wrapper-forwarder-second">
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">Free Storage Duration</label>
-                      <input type="text" className="form-control" name="freeStorageDuration" value={formData.freeStorageDuration} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">Etd</label>
-                      <input type="text" className="form-control" name="etd" value={formData.etd} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">Transit Time</label>
-                      <input type="text" className="form-control" name="transitTime" value={formData.transitTime} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">Available Container Count</label>
-                      <input type="text" className="form-control" name="availableContainerCount" value={formData.availableContainerCount} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">Cost per Container</label>
-                      <input type="text" className="form-control" name="costPerContainer" value={formData.costPerContainer} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label className="px-0" htmlFor="notes">
-                        Notes
-                      </label>
-                      <input type="text" className="from-control" name="notes" value={formData.notes} onChange={handleChange} />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="add-btn-forwarder">
                 <button type="button" disabled={!validate()} className="ags-btn-main-fill" onClick={handleSubmit}>
-                  Add Forwarder
+                  Add Shipment Agent
                 </button>
               </div>
             </form>
@@ -588,7 +524,7 @@ const AddForwarder = () => {
             {/* </div> */}
             <div class="modal-footer">
               <button type="button" onClick={addContact} disabled={noValidEmail || modelContact.email === ""} class="ags-btn-sm-main-outlin" data-dismiss="modal">
-                Add Contact
+                Add Shipment Agent
               </button>
             </div>
           </div>
@@ -682,4 +618,4 @@ const AddForwarder = () => {
   );
 };
 
-export default AddForwarder;
+export default AddShipmentAgent;
