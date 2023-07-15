@@ -71,7 +71,7 @@ const Forwarders = () => {
                           <i class="uil uil-trash-alt" onClick={() => setForwarder(item)} data-toggle="modal" data-target="#exampleModal"></i>
                           <i class="uil uil-edit-alt" onClick={() => updateForwarder(item)}></i>
                         </span>
-                        <h4>{item.forwarderName}</h4>
+                        <h4>{item.name}</h4>
                         <table class="table table-bordered">
                           <thead>
                             <tr>
@@ -84,24 +84,24 @@ const Forwarders = () => {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>{item.etd}</td>
-                              <td>{item.freeStorageDuration}</td>
-                              <td>{item.transitTime}</td>
-                              <td>{item.costPerContainer}</td>
-                              <td>{item.availableContainerCount}</td>
+                              <td>{item.etd ? item.etd : 0}</td>
+                              <td>{item.freeStorageDuration ? item.freeStorageDuration : 0}</td>
+                              <td>{item.transitTime ? item.transitTime : 0}</td>
+                              <td>{item.costPerContainer ? item.costPerContainer : 0}</td>
+                              <td>{item.availableContainerCount ? item.transitTime : 0}</td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                       <div class="card__footer">
                         <div class="user">
-                          {/* <img src={item.logo} alt="user__image" class="user__image" /> */}
+                          <img src={item.image} alt="user__image" class="user__image" />
                           <div class="user__info">
                             <h5>
-                              {item.country} | {item.contactPerson}
+                              {item.address.country}, {item.address.city}, {item.address.state} {item.address.street}
                             </h5>
                             <small>
-                              {item.contactEmail} | {item.contactPhone}
+                              {item.contact[0].email} | {item.contact[0].phone}
                             </small>
                           </div>
                         </div>
@@ -119,13 +119,12 @@ const Forwarders = () => {
           </div>
         </div>
       </div>
-
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Delete {forwarder.forwarderName}
+                Delete {forwarder.name}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

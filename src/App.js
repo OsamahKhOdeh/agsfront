@@ -72,6 +72,9 @@ import AddForwarder from "./pages/Forwarders/AddForwarder/AddForwarder";
 import UpdateForwarder from "./pages/Forwarders/UpdateForwarder/UpdateForwarder";
 import AllForwarders from "./pages/Forwarders/AllForwarders/Forwarders";
 import Forwarders from "./pages/Forwarders/AllForwarders/Forwarders";
+import Customers from "./pages/Customers/Customers/Customers";
+import AddCustomer from "./pages/Customers/AddCustomer/AddCustomer";
+import UpdateCustomer from "./pages/Customers/UpdateCustomer/UpdateCustomer";
 function App() {
   return (
     <div>
@@ -149,6 +152,10 @@ function App() {
                 <Route path="forwarders" element={<Forwarders />}></Route>
                 <Route path="updateForwarder" element={<UpdateForwarder />}></Route>
                 <Route path="addForwarder" element={<AddForwarder />}></Route>
+                {/* Customer  Routes*/}
+                <Route path="customers" element={<Customers />}></Route>
+                <Route path="updateCustomer" element={<UpdateCustomer />}></Route>
+                <Route path="addCustomer" element={<AddCustomer />}></Route>
               </Route>
             </Route>
           </Route>
