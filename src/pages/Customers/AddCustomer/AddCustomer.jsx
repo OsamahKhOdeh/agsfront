@@ -1,12 +1,18 @@
 import React from "react";
 import "./AddCustomer.scss";
-import { ToastContainer } from "react-bootstrap";
+import { FormGroup, ToastContainer } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { emailValidation, phoneValidation } from "../../../helpers/Validations";
 import { useNavigate } from "react-router-dom";
+import { Checkbox, FormControlLabel } from "@mui/material";
+export const communicationMethods = [
+  { name: "Whatsapp", isSelected: false },
+  { name: "Wechat", isSelected: false },
+  { name: "Email", isSelected: false },
+];
 const AddCustomer = () => {
   const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
@@ -21,7 +27,9 @@ const AddCustomer = () => {
     state: "",
     country: "",
     postalCode: "",
-    notes: "",
+    // notes: "",
+    website: "",
+    communicationMethod: [],
   });
   const [bufferContact, setBufferContact] = useState({});
   const [contacts, setContacts] = useState([]);
@@ -37,14 +45,13 @@ const AddCustomer = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const validate = () => {
-    if (formData.name !== "") {
+    if ((formData.name !== "") & (formData.communicationMethod.length > 0) & (contacts.length > 0)) {
       return true;
     } else {
       return false;
     }
   };
   const handleSubmit = () => {
-    const formDataBuff = new FormData();
     // formDataBuff.append("supplierName", formData.supplierName);
     // formDataBuff.append("contactPerson", formData.contactPerson);
     // formDataBuff.append("contactPhone", formData.contactPhone);
@@ -77,6 +84,7 @@ const AddCustomer = () => {
       name: formData.name,
       image: formData.image,
       contact: contacts,
+      website: formData.website,
       address: {
         street: formData.street,
         city: formData.city,
@@ -84,13 +92,14 @@ const AddCustomer = () => {
         country: formData.country,
         postalCode: formData.postalCode,
       },
-      notes: formData.notes,
+      // notes: formData.notes,
+      communicationMethod: formData.communicationMethod,
     };
     axios
-      .post(`${BASE_URL}/forwarder`, model)
+      .post(`${BASE_URL}/customer`, model)
       .then((response) => {
         // console.log(response.data);
-        showToastMessage("Forwarder Added Successfully", "success");
+        showToastMessage("Customer Added Successfully", "success");
         resetFrom(false);
         setContacts([]);
       })
@@ -119,6 +128,7 @@ const AddCustomer = () => {
         state: "",
         country: "",
         postalCode: "",
+        website: "",
       });
     }
   };
@@ -179,6 +189,17 @@ const AddCustomer = () => {
     console.log(index);
     updateContacts.splice(index, 1);
     setContacts(updateContacts);
+  };
+  const handleChangeCommunication = (event) => {
+    let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
+    communicationMethods[index].isSelected = event.target.checked;
+    let bufferMethods = communicationMethods
+      .filter((c) => c.isSelected === true)
+      .map(function (item) {
+        return item["name"];
+      });
+    setFormData((prevFormData) => ({ ...prevFormData, communicationMethod: bufferMethods }));
+    console.log(formData.communicationMethod);
   };
   return (
     <div>
@@ -262,25 +283,19 @@ const AddCustomer = () => {
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          City <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">City</label>
                         <input type="text" className="form-control" required name="city" value={formData.city} onChange={handleChange} />
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          Street <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">Street</label>
                         <input type="text" className="form-control" required name="street" value={formData.street} onChange={handleChange} />
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          State <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">State</label>
                         <input type="text" className="form-control" required name="state" value={formData.state} onChange={handleChange} />
                       </div>
                     </div>
@@ -303,8 +318,24 @@ const AddCustomer = () => {
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">Notes</label>
-                        <input type="text" className="form-control" name="notes" value={formData.notes} onChange={handleChange} />
+                        <label htmlFor="customer_name">Website</label>
+                        <input type="text" className="form-control" name="website" value={formData.website} onChange={handleChange} />
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-md-12">
+                      <div className="form-group">
+                        <label htmlFor="forwarder_name">
+                          Communication Method <span className="required">*</span>
+                        </label>
+                        <div className="communication">
+                          <FormGroup>
+                            {communicationMethods.map((item, index) => (
+                              <>
+                                <FormControlLabel value={item.name} onChange={handleChangeCommunication} control={<Checkbox />} label={item.name} />
+                              </>
+                            ))}
+                          </FormGroup>
+                        </div>
                       </div>
                     </div>
                     <div className="col-12 contact-row">

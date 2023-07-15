@@ -63,10 +63,7 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
   let logo = logo_ags;
   let stamp = ags_stamp;
   console.log(location);
-  if (
-    pi.piInfo.exporter ===
-    "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
-  ) {
+  if (pi.piInfo.exporter === "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae") {
     logo = logo_ajc;
     stamp = ajc_stamp;
   }
@@ -103,8 +100,7 @@ const Invoice = ({ pi, currency, location, usdToAedRate }) => {
           <Image style={styles.logo} src={stamp} />
         </View>
         <Text style={styles.salesEngineer}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number :{" "}
-          {pi.piInfo.employeePhone}{" "}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Engineer : &nbsp;{pi.piInfo.employee}&nbsp;&nbsp;&nbsp;&nbsp; Phone Number : {pi.piInfo.employeePhone}{" "}
         </Text>
       </Page>
     </Document>
