@@ -1,7 +1,6 @@
 import React from "react";
-import { emailValidation, phoneValidation } from "../../../helpers/Validations";
-import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup } from "@mui/material";
-import axios, { isCancel } from "axios";
+import { emailValidation } from "../../../helpers/Validations";
+import axios from "axios";
 import { BASE_URL } from "../../../api/index";
 import "./AddShipmentAgent.scss";
 import { showToastMessage } from "../../../helpers/toaster";
@@ -107,13 +106,14 @@ const AddShipmentAgent = () => {
     };
     console.log(model);
     axios
-      .post(`${BASE_URL}/forwarder`, model)
+      .post(`${BASE_URL}/shipping-agent`, model)
       .then((response) => {
         // console.log(response.data);
         showToastMessage("Forwarder Added Successfully", "success");
         resetFrom(false);
         setServices([]);
         setContacts([]);
+        navigate("/user/shipmentAgents");
       })
       .catch((error) => {
         // Handle any errors
@@ -154,18 +154,7 @@ const AddShipmentAgent = () => {
     }
   };
   const validate = () => {
-    if (
-      !noValidEmail &&
-      (formData.name !== "") &
-        (formData.contactPersonName !== "") &
-        // (formData.etd !== "") &
-        // (formData.transitTime !== "") &
-        (formData.country !== "") &
-        // (formData.costPerContainer !== "") &
-        (contacts.length > 0)
-    ) {
-      // (formData.freeStorageDuration !== "") &
-      // (formData.availableContainerCount !== "")
+    if ((formData.name !== "") & (formData.country !== "") & (contacts.length > 0)) {
       return true;
     } else {
       return false;
@@ -252,47 +241,6 @@ const AddShipmentAgent = () => {
                       <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
                   </div>
-                  {/* <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Contact Email <span className="required">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        required
-                        name="contactEmail"
-                        value={formData.contactEmail}
-                        onInput={(e) => validateEmail(e)}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    {noValidEmail && <span className="required">Email not valid</span>}
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Contact Person Name <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="contactPersonName" value={formData.contactPersonName} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Contact Phone <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" name="contactPhone" required value={formData.contactPhone} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="officePhone">
-                        Office Phone <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" name="officePhone" required value={formData.officePhone} onChange={handleChange} />
-                    </div>
-                  </div> */}
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
                       <label htmlFor="forwarder_name">

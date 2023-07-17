@@ -161,6 +161,12 @@ export const EmployeeMenuItems = [
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
+  {
+    title: "Customers",
+    path: `/user/customers`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
 ];
 
 export const SalesManagerMenuItems = [
@@ -231,6 +237,12 @@ export const SalesManagerMenuItems = [
     icon: "bxs-edit",
   },
   {
+    title: "Customers",
+    path: `/user/customers`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
+  {
     title: "Make PKL",
     path: "/user/packinglistmanual",
     cName: "dropdown-link",
@@ -264,6 +276,12 @@ export const FinancialMenuItems = [
     path: "/user/projects",
     cName: "dropdown-link",
     icon: "bx-pie-chart-alt-2",
+  },
+  {
+    title: "Customers",
+    path: `/user/customers`,
+    cName: "dropdown-link",
+    icon: "bx-group",
   },
   {
     title: "Edit Stock",
@@ -303,6 +321,12 @@ export const LogisticsMenuItems = [
     path: `/user/suppliers`,
     cName: "dropdown-link",
     icon: "bx-selection",
+  },
+  {
+    title: "Customers",
+    path: `/user/customers`,
+    cName: "dropdown-link",
+    icon: "bx-group",
   },
   {
     title: "Forwarders",
