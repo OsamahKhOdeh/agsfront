@@ -6,20 +6,42 @@ import { useDispatch } from "react-redux";
 import "./layout_styles.css";
 import "../../global/_global.scss";
 import "../../global/_global_dashboard.scss";
-import {
-  AdminMenuItems,
-  AdminSyriaMenuItems,
-  EmployeeMenuItems,
-  FinancialMenuItems,
-  LogisticsMenuItems,
-  SalesManagerMenuItems,
-} from "../../Components/Navbar/MenuItems";
+import { AdminMenuItems, AdminSyriaMenuItems, EmployeeMenuItems, FinancialMenuItems, LogisticsMenuItems, SalesManagerMenuItems } from "../../Components/Navbar/MenuItems";
 import useAuth from "../../hooks/useAuth";
 import { logOut } from "../../store/authSlice";
 import { emptyCart } from "../../store/cartSlice";
 import { clearFilters } from "../../store/filtersSlice";
+import { MenuItem, MenuList } from "@material-ui/core";
+import { Button } from "../../Components/Navbar/Button";
+import { useRef } from "react";
+const MenuItemsOthers = [
+  {
+    name: "Suppliers",
+    link: "/user/suppliers",
+  },
+  {
+    name: "Forwarders",
+    link: "/user/forwarders",
+  },
+  {
+    name: "Shipping Agents",
+    link: "/user/shippingAgents",
+  },
+  {
+    name: "Clearance Agents",
+    link: "/user/clearanceAgents",
+  },
+  {
+    name: "Customers",
+    link: "/user/customers",
+  },
+];
 const UserLayout = () => {
+  const anchorRef = useRef(null);
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState("home");
+  const [isOpen, setIsoOpen] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState(useAuth()?.username);
   const moveTop = () => {
@@ -40,8 +62,8 @@ const UserLayout = () => {
   if (roles.includes("Logistics")) {
     MenuItems = LogisticsMenuItems;
   }
-  if(roles.includes("AdminSyria")){
-    MenuItems = AdminSyriaMenuItems
+  if (roles.includes("AdminSyria")) {
+    MenuItems = AdminSyriaMenuItems;
   }
   const logout = (r) => {
     dispatch(logOut());
@@ -52,9 +74,10 @@ const UserLayout = () => {
 
     setUser(null);
   };
-  const [currentPage, setCurrentPage] = useState("home");
-  const [isOpen, setIsoOpen] = useState(false);
-
+  const routeTo = (route) => {
+    navigate(route);
+    setOpen(false);
+  };
   return (
     <>
       <span id="btn-back-to-top" className="ags-btn-top" onClick={() => moveTop()}>
@@ -132,42 +155,49 @@ const UserLayout = () => {
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
                       {/* <a class="dropdown-item "> */}
-                        <Link  class="dropdown-item " to="/user/makepi" className="invoice-item dropdown-item" onClick={() => {  dispatch(emptyCart()); }}  >
-                          Performa Invoice
-                        </Link>
+                      <Link
+                        class="dropdown-item "
+                        to="/user/makepi"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Performa Invoice
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item"> */}
-                        <Link
-                          to="/user/makepo"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Purchase Order
-                        </Link>
+                      <Link
+                        to="/user/makepo"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Purchase Order
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item"> */}
-                        <Link
-                          to="/user/warranty"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Quotation
-                        </Link>
+                      <Link
+                        to="/user/warranty"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Quotation
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item "> */}
-                        <Link
-                          to="/user/packinglistmanual"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Packing List
-                        </Link>
+                      <Link
+                        to="/user/packinglistmanual"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Packing List
+                      </Link>
                       {/* </a> */}
                       {/* <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a> */}
@@ -182,6 +212,42 @@ const UserLayout = () => {
                     </Link>
                   </a>
                 ))}
+
+                <div className="others_options">
+                  <button
+                    class="nav_link"
+                    ref={anchorRef}
+                    id="composition-button"
+                    aria-controls={open ? "composition-menu" : undefined}
+                    aria-expanded={open ? "true" : undefined}
+                    aria-haspopup="true"
+                    onClick={() => {
+                      setOpen((prevOpen) => !prevOpen);
+                    }}
+                  >
+                    <i className={`bx nav_icon  bx bx-down-arrow`}></i> <span>Others</span>
+                  </button>
+                  {open && (
+                    <MenuList
+                      autoFocusItem={open}
+                      id="composition-menu"
+                      aria-labelledby="composition-button"
+                      onKeyDown={() => {
+                        setOpen((prevOpen) => !prevOpen);
+                      }}
+                    >
+                      {MenuItemsOthers.map((menuItem) => (
+                        <MenuItem
+                          onClick={() => {
+                            routeTo(menuItem.link);
+                          }}
+                        >
+                          {menuItem.name}
+                        </MenuItem>
+                      ))}
+                    </MenuList>
+                  )}
+                </div>
               </div>
             </div>
             {/* <div onClick={logout}>

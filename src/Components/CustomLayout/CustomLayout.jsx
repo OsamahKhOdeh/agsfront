@@ -6,13 +6,7 @@ import { useDispatch } from "react-redux";
 import "./layout_styles.css";
 import "../../global/_global.scss";
 import "../../global/_global_dashboard.scss";
-import {
-  AdminMenuItems,
-  EmployeeMenuItems,
-  FinancialMenuItems,
-  LogisticsMenuItems,
-  SalesManagerMenuItems,
-} from "../../Components/Navbar/MenuItems";
+import { AdminMenuItems, EmployeeMenuItems, FinancialMenuItems, LogisticsMenuItems, SalesManagerMenuItems } from "../../Components/Navbar/MenuItems";
 import useAuth from "../../hooks/useAuth";
 import { logOut } from "../../store/authSlice";
 import { emptyCart } from "../../store/cartSlice";
@@ -128,48 +122,56 @@ const CustomLayout = () => {
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-invoice">
                       {/* <a class="dropdown-item "> */}
-                        <Link  class="dropdown-item " to="/user/makepi" className="invoice-item dropdown-item" onClick={() => {  dispatch(emptyCart()); }}  >
-                          Performa Invoice
-                        </Link>
+                      <Link
+                        class="dropdown-item "
+                        to="/user/makepi"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Performa Invoice
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item"> */}
-                        <Link
-                          to="/user/makepo"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Purchase Order
-                        </Link>
+                      <Link
+                        to="/user/makepo"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Purchase Order
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item"> */}
-                        <Link
-                          to="/user/warranty"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Quotation
-                        </Link>
+                      <Link
+                        to="/user/warranty"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Quotation
+                      </Link>
                       {/* </a> */}
                       {/* <a class="dropdown-item "> */}
-                        <Link
-                          to="/user/packinglistmanual"
-                          className="invoice-item dropdown-item"
-                          onClick={() => {
-                            dispatch(emptyCart());
-                          }}
-                        >
-                          Packing List
-                        </Link>
+                      <Link
+                        to="/user/packinglistmanual"
+                        className="invoice-item dropdown-item"
+                        onClick={() => {
+                          dispatch(emptyCart());
+                        }}
+                      >
+                        Packing List
+                      </Link>
                       {/* </a> */}
                       {/* <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a> */}
                     </div>
                   </>
                 )}
+
                 {MenuItems.map((MenuItem) => (
                   <a className="nav_link active">
                     <Link to={MenuItem.path} className="invoice-item" onClick={() => {}}>

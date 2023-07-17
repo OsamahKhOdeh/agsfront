@@ -31,7 +31,24 @@
     padding: 1px 16px;
     height: 1000px;
   }
-  
+  .others_options{
+    position: relative;
+
+  }
+  .others_options .MuiList-root{
+    position: absolute;
+    background: #fff;
+    width: 89%;
+    margin-left: 0.5rem;
+    top: 40px;
+    left: 1px;
+    border-radius: 5px;
+    padding: 0;
+
+  }
+  .others_options .MuiList-root .MuiButtonBase-root {
+    padding: 5px 16px;
+  }
   @media screen and (max-width: 700px) {
     .sidebar2 {
       width: 100%;

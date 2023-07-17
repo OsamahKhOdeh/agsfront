@@ -78,6 +78,9 @@ import UpdateCustomer from "./pages/Customers/UpdateCustomer/UpdateCustomer";
 import UpdateShipmentAgent from "./pages/ShipmentsAgents/UpdateShipmentAgent/UpdateShipmentAgent";
 import AddShipmentAgent from "./pages/ShipmentsAgents/AddShipmentAgent/AddShipmentAgent";
 import AllShipmentsAgents from "./pages/ShipmentsAgents/AllShipmentsAgents/AllShipmentsAgents";
+import AddClearanceAgent from "./pages/ClearanceAgents/AddClearanceAgent/AddClearanceAgent";
+import UpdateClearanceAgent from "./pages/ClearanceAgents/UpdateClearanceAgent/UpdateClearanceAgent";
+import AllClearanceAgent from "./pages/ClearanceAgents/AllClearanceAgent.jsx/AllClearanceAgent.jsx";
 function App() {
   return (
     <div>
@@ -163,6 +166,10 @@ function App() {
                 <Route path="shippingAgents" element={<AllShipmentsAgents />}></Route>
                 <Route path="addShipmentAgent" element={<AddShipmentAgent />}></Route>
                 <Route path="updateShipmentAgent" element={<UpdateShipmentAgent />}></Route>
+                {/* Clearance Agents   Routes*/}
+                <Route path="clearanceAgents" element={<AllClearanceAgent />}></Route>
+                <Route path="addClearanceAgent" element={<AddClearanceAgent />}></Route>
+                <Route path="updateClearanceAgent" element={<UpdateClearanceAgent />}></Route>
               </Route>
             </Route>
           </Route>
