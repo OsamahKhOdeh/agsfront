@@ -102,6 +102,7 @@ const AddCustomer = () => {
         showToastMessage("Customer Added Successfully", "success");
         resetFrom(false);
         setContacts([]);
+        navigate("/user/customers");
       })
       .catch((error) => {
         // Handle any errors

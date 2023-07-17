@@ -25,8 +25,9 @@ const UpdateCustomer = () => {
     country: state.address.country,
     postalCode: state.address.postalCode,
     communicationMethod: state.communicationMethod,
-    // notes: state.notes,
+    website: state.website,
   });
+  console.log("formData", formData);
   const [bufferContact, setBufferContact] = useState({});
   const [contacts, setContacts] = useState(state.contact);
   const [modelContact, setModelContact] = useState({
@@ -46,7 +47,7 @@ const UpdateCustomer = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const validate = () => {
-    if (formData.name !== "") {
+    if (formData.name !== "" && contacts.length > 0 && formData.communicationMethod.length > 0) {
       return true;
     } else {
       return false;
@@ -93,15 +94,17 @@ const UpdateCustomer = () => {
         country: formData.country,
         postalCode: formData.postalCode,
       },
-      // notes: formData.notes,
+      website: formData.website,
+      communicationMethod: formData.communicationMethod,
     };
     axios
-      .post(`${BASE_URL}/customer`, model)
+      .put(`${BASE_URL}/customer/${state._id}`, model)
       .then((response) => {
         // console.log(response.data);
         showToastMessage("Customer Updated Successfully", "success");
         resetFrom(false);
         setContacts([]);
+        navigate("/user/customers");
       })
       .catch((error) => {
         // Handle any errors
@@ -275,33 +278,25 @@ const UpdateCustomer = () => {
                     </div> */}
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          Country <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">Country</label>
                         <input type="text" className="form-control" required name="country" value={formData.country} onChange={handleChange} />
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          City <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">City</label>
                         <input type="text" className="form-control" required name="city" value={formData.city} onChange={handleChange} />
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          Street <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">Street</label>
                         <input type="text" className="form-control" required name="street" value={formData.street} onChange={handleChange} />
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-12">
                       <div className="form-group">
-                        <label htmlFor="customer_name">
-                          State <span className="required">*</span>
-                        </label>
+                        <label htmlFor="customer_name">State</label>
                         <input type="text" className="form-control" required name="state" value={formData.state} onChange={handleChange} />
                       </div>
                     </div>
@@ -337,7 +332,13 @@ const UpdateCustomer = () => {
                           <FormGroup>
                             {communicationMethods.map((item, index) => (
                               <>
-                                <FormControlLabel value={item.name} onChange={handleChangeCommunication} control={<Checkbox />} label={item.name} />
+                                <FormControlLabel
+                                  value={item.name}
+                                  checked={formData.communicationMethod.includes(item.name)}
+                                  onChange={handleChangeCommunication}
+                                  control={<Checkbox />}
+                                  label={item.name}
+                                />
                               </>
                             ))}
                           </FormGroup>
