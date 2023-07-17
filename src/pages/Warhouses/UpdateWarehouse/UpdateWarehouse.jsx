@@ -1,18 +1,20 @@
 import React from "react";
+import "./UpdateWarehouse.scss";
 import { emailValidation } from "../../../helpers/Validations";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
-import "./AddShipmentAgent.scss";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-export const communicationMethods = [
-  { name: "Whatsapp", isSelected: false },
-  { name: "Wechat", isSelected: false },
-  { name: "Email", isSelected: false },
-];
-const AddShipmentAgent = () => {
+import { useLocation, useNavigate } from "react-router-dom";
+// export const communicationMethods = [
+//   { name: "Whatsapp", isSelected: false },
+//   { name: "Wechat", isSelected: false },
+//   { name: "Email", isSelected: false },
+// ];
+const UpdateWarehouse = () => {
+  const { state } = useLocation();
+  console.log("state", state);
   const handleChangeCommunication = (event) => {
     let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
     communicationMethods[index].isSelected = event.target.checked;
@@ -25,27 +27,28 @@ const AddShipmentAgent = () => {
     console.log(formData.communicationMethod);
   };
   const [formData, setFormData] = useState({
-    name: "",
-    image: "https://placehold.co/150x150",
-    street: "",
-    city: "",
-    state: "",
-    country: "",
-    postalCode: "",
-    website: "",
-    contact: [],
-    services: [],
-    notes: "",
-    openFrom: "",
-    openTo: "",
+    name: state.name,
+    image: state.image,
+    street: state.address.street,
+    city: state.address.city,
+    state: state.address.state,
+    country: state.address.country,
+    postalCode: state.address.postalCode,
+    website: state.website,
+    contact: state.contact,
+    services: state.services,
+    notes: state.notes,
+    openFrom: state.operatingHours.from,
+    openTo: state.operatingHours.to,
   });
+  console.log("formData", formData);
   const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
   // const [contactValidEmail, showContactValidEmail] = useState(false);
   const [file, setFile] = useState();
   const [bufferContact, setBufferContact] = useState({});
-  const [contacts, setContacts] = useState([]);
-  const [services, setServices] = useState([]);
+  const [contacts, setContacts] = useState(state.contact);
+  const [services, setServices] = useState(state.services);
   const [service, setService] = useState({
     serviceName: "",
     serviceCost: "",
@@ -106,52 +109,25 @@ const AddShipmentAgent = () => {
     };
     console.log(model);
     axios
-      .post(`${BASE_URL}/shipping-agent`, model)
+      .put(`${BASE_URL}/warehouse/${state._id}`, model)
       .then((response) => {
         // console.log(response.data);
-        showToastMessage("Shipment Agent Added Successfully", "success");
-        resetFrom(false);
-        setServices([]);
-        setContacts([]);
-        navigate("/user/shippingAgents");
+        showToastMessage("Warehouse  Updated Successfully", "success");
+        navigate("/user/warehouses");
       })
       .catch((error) => {
         // Handle any errors
         console.error(error);
       });
   };
-  const resetFrom = (isContact) => {
-    if (isContact) {
-      setModelContact({
-        contactPersonName: "",
-        phone: "",
-        officePhone: "",
-        email: "",
-        position: "",
-      });
-    } else {
-      setFormData({
-        name: "",
-        image: "https://placehold.co/150x150",
-        contactPersonName: "",
-        contactPhone: "",
-        officePhone: "",
-        contactEmail: "",
-        street: "",
-        city: "",
-        state: "",
-        country: "",
-        postalCode: "",
-        etd: "",
-        transitTime: "",
-        website: "",
-        costPerContainer: "",
-        communicationMethod: [],
-        freeStorageDuration: "",
-        availableContainerCount: "",
-        notes: "",
-      });
-    }
+  const resetFrom = () => {
+    setModelContact({
+      contactPersonName: "",
+      phone: "",
+      officePhone: "",
+      email: "",
+      position: "",
+    });
   };
   const validate = () => {
     if ((formData.name !== "") & (formData.country !== "") & (contacts.length > 0)) {
@@ -192,7 +168,7 @@ const AddShipmentAgent = () => {
     updatedContacts.push(modelContact);
     setContacts(updatedContacts);
     console.log(contacts);
-    resetFrom(true);
+    resetFrom();
     showNoValidEmail(false);
   };
   const addService = () => {
@@ -219,10 +195,10 @@ const AddShipmentAgent = () => {
         <div className="card">
           <div class="card-header">
             <div class="tittle-card tittle-back">
-              <div className="btn-back" onClick={() => navigate("/user/shippingAgents")}>
+              <div className="btn-back" onClick={() => navigate("/user/warehouses")}>
                 <i class="uil uil-arrow-circle-left"></i>
               </div>
-              <p> Add Shipping Agent </p>
+              <p> Update Warehouse </p>
             </div>
           </div>
           <div className="card-body">
@@ -235,60 +211,60 @@ const AddShipmentAgent = () => {
                 <div className="wrapper-forwarder">
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_name">
-                        Shipping Agent Name <span className="required">*</span>
+                      <label htmlFor="forwarder_name">
+                        Warehouse Name <span className="required">*</span>
                       </label>
-                      <input type="text" id="shipmentAgent_name" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
+                      <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_country">
+                      <label htmlFor="forwarder_name">
                         Country <span className="required">*</span>
                       </label>
-                      <input type="text" className="form-control" id="shipmentAgent_country" required name="country" value={formData.country} onChange={handleChange} />
+                      <input type="text" className="form-control" required name="country" value={formData.country} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_city">City</label>
-                      <input type="text" className="form-control" id="shipmentAgent_city" name="city" value={formData.city} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">City</label>
+                      <input type="text" className="form-control" name="city" value={formData.city} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_state">State</label>
-                      <input type="text" className="form-control" id="shipmentAgent_state" name="state" value={formData.state} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">State</label>
+                      <input type="text" className="form-control" name="state" value={formData.state} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_street">Street</label>
-                      <input type="text" className="form-control" id="shipmentAgent_street" name="street" value={formData.street} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Street</label>
+                      <input type="text" className="form-control" name="street" value={formData.street} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_postal">Postal Code</label>
-                      <input type="text" className="form-control" id="shipmentAgent_postal" name="postalCode" value={formData.postalCode} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Postal Code</label>
+                      <input type="text" className="form-control" name="postalCode" value={formData.postalCode} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_website">Website</label>
-                      <input type="text" className="form-control" id="shipmentAgent_website" name="website" value={formData.website} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Website</label>
+                      <input type="text" className="form-control" name="website" value={formData.website} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_open">Open From </label>
-                      <input type="time" className="form-control" id="shipmentAgent_open" name="openFrom" value={formData.openFrom} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Open From </label>
+                      <input type="time" className="form-control" name="openFrom" value={formData.openFrom} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="shipmentAgent_to">Open To </label>
-                      <input type="time" className="form-control" id="shipmentAgent_to" name="openTo" value={formData.openTo} onChange={handleChange} />
+                      <label htmlFor="forwarder_name">Open To </label>
+                      <input type="time" className="form-control" name="openTo" value={formData.openTo} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -403,7 +379,7 @@ const AddShipmentAgent = () => {
                       {services.length <= 0 && (
                         <div className="no-banks">
                           <i class="uil uil-credit-card"></i>
-                          <p> No Services Added Yet!</p>
+                          <p> No Warehouses Added Yet!</p>
                         </div>
                       )}
                     </div>
@@ -412,7 +388,7 @@ const AddShipmentAgent = () => {
               </div>
               <div className="add-btn-forwarder">
                 <button type="button" disabled={!validate()} className="ags-btn-main-fill" onClick={handleSubmit}>
-                  Add Shipping Agent
+                  Update Warehouse
                 </button>
               </div>
             </form>
@@ -566,4 +542,4 @@ const AddShipmentAgent = () => {
   );
 };
 
-export default AddShipmentAgent;
+export default UpdateWarehouse;

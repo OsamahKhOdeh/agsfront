@@ -81,6 +81,10 @@ import AllShipmentsAgents from "./pages/ShipmentsAgents/AllShipmentsAgents/AllSh
 import AddClearanceAgent from "./pages/ClearanceAgents/AddClearanceAgent/AddClearanceAgent";
 import UpdateClearanceAgent from "./pages/ClearanceAgents/UpdateClearanceAgent/UpdateClearanceAgent";
 import AllClearanceAgent from "./pages/ClearanceAgents/AllClearanceAgent.jsx/AllClearanceAgent.jsx";
+import { Warehouse } from "@mui/icons-material";
+import AllWarehouses from "./pages/Warhouses/AllWarehouses/AllWarehouses";
+import AddWarehouse from "./pages/Warhouses/AddWarehouse/AddWarehouse";
+import UpdateWarehouse from "./pages/Warhouses/UpdateWarehouse/UpdateWarehouse";
 function App() {
   return (
     <div>
@@ -170,6 +174,10 @@ function App() {
                 <Route path="clearanceAgents" element={<AllClearanceAgent />}></Route>
                 <Route path="addClearanceAgent" element={<AddClearanceAgent />}></Route>
                 <Route path="updateClearanceAgent" element={<UpdateClearanceAgent />}></Route>
+                {/* Warehouses  Routes*/}
+                <Route path="warehouses" element={<AllWarehouses />}></Route>
+                <Route path="addWarehouse" element={<AddWarehouse />}></Route>
+                <Route path="updateWarehouse" element={<UpdateWarehouse />}></Route>
               </Route>
             </Route>
           </Route>

@@ -2,7 +2,7 @@ import React from "react";
 import { emailValidation } from "../../../helpers/Validations";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
-import "./AddShipmentAgent.scss";
+import "./AddWarehouse.scss";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
@@ -12,7 +12,7 @@ export const communicationMethods = [
   { name: "Wechat", isSelected: false },
   { name: "Email", isSelected: false },
 ];
-const AddShipmentAgent = () => {
+const AddWarehouse = () => {
   const handleChangeCommunication = (event) => {
     let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
     communicationMethods[index].isSelected = event.target.checked;
@@ -38,6 +38,7 @@ const AddShipmentAgent = () => {
     notes: "",
     openFrom: "",
     openTo: "",
+    // availableSpace: "",
   });
   const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
@@ -89,6 +90,7 @@ const AddShipmentAgent = () => {
       name: formData.name,
       image: formData.image,
       contact: contacts,
+      // availableSpace: formData.availableSpace,
       address: {
         street: formData.street,
         city: formData.city,
@@ -106,14 +108,14 @@ const AddShipmentAgent = () => {
     };
     console.log(model);
     axios
-      .post(`${BASE_URL}/shipping-agent`, model)
+      .post(`${BASE_URL}/warehouse`, model)
       .then((response) => {
         // console.log(response.data);
-        showToastMessage("Shipment Agent Added Successfully", "success");
+        showToastMessage("Warehouses Added Successfully", "success");
         resetFrom(false);
         setServices([]);
         setContacts([]);
-        navigate("/user/shippingAgents");
+        navigate("/user/warehouses");
       })
       .catch((error) => {
         // Handle any errors
@@ -219,10 +221,10 @@ const AddShipmentAgent = () => {
         <div className="card">
           <div class="card-header">
             <div class="tittle-card tittle-back">
-              <div className="btn-back" onClick={() => navigate("/user/shippingAgents")}>
+              <div className="btn-back" onClick={() => navigate("/user/warehouses")}>
                 <i class="uil uil-arrow-circle-left"></i>
               </div>
-              <p> Add Shipping Agent </p>
+              <p> Add Warehouse </p>
             </div>
           </div>
           <div className="card-body">
@@ -236,7 +238,7 @@ const AddShipmentAgent = () => {
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
                       <label htmlFor="shipmentAgent_name">
-                        Shipping Agent Name <span className="required">*</span>
+                        Warehouse Name<span className="required">*</span>
                       </label>
                       <input type="text" id="shipmentAgent_name" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
@@ -291,6 +293,12 @@ const AddShipmentAgent = () => {
                       <input type="time" className="form-control" id="shipmentAgent_to" name="openTo" value={formData.openTo} onChange={handleChange} />
                     </div>
                   </div>
+                  {/* <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="availableSpace_id">Available Space </label>
+                      <input type="time" className="form-control" id="availableSpace_id" name="availableSpace" value={formData.availableSpace} onChange={handleChange} />
+                    </div>
+                  </div> */}
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
                       <label htmlFor="supplier_name">Logo</label>
@@ -412,7 +420,7 @@ const AddShipmentAgent = () => {
               </div>
               <div className="add-btn-forwarder">
                 <button type="button" disabled={!validate()} className="ags-btn-main-fill" onClick={handleSubmit}>
-                  Add Shipping Agent
+                  Add Warehouse
                 </button>
               </div>
             </form>
@@ -566,4 +574,4 @@ const AddShipmentAgent = () => {
   );
 };
 
-export default AddShipmentAgent;
+export default AddWarehouse;

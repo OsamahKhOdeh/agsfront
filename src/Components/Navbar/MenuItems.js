@@ -185,6 +185,12 @@ export const EmployeeMenuItems = [
     cName: "dropdown-link",
     icon: "bx-group",
   },
+  {
+    title: "Warehouses",
+    path: `/user/warehouses`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
 ];
 
 export const SalesManagerMenuItems = [
@@ -278,6 +284,12 @@ export const SalesManagerMenuItems = [
     cName: "dropdown-link",
     icon: "bx-group",
   },
+  {
+    title: "Warehouses",
+    path: `/user/warehouses`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
 ];
 
 export const FinancialMenuItems = [
@@ -328,6 +340,12 @@ export const FinancialMenuItems = [
   {
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
+  {
+    title: "Warehouses",
+    path: `/user/warehouses`,
     cName: "dropdown-link",
     icon: "bx-group",
   },
@@ -385,6 +403,12 @@ export const LogisticsMenuItems = [
   {
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
+    cName: "dropdown-link",
+    icon: "bx-group",
+  },
+  {
+    title: "Warehouses",
+    path: `/user/warehouses`,
     cName: "dropdown-link",
     icon: "bx-group",
   },

@@ -35,6 +35,10 @@ const MenuItemsOthers = [
     name: "Customers",
     link: "/user/customers",
   },
+  {
+    name: "Warehouses",
+    link: "/user/warehouses",
+  },
 ];
 const UserLayout = () => {
   const anchorRef = useRef(null);
@@ -212,9 +216,8 @@ const UserLayout = () => {
                     </Link>
                   </a>
                 ))}
-
                 <div className="others_options">
-                  <button
+                  {/* <button
                     class="nav_link"
                     ref={anchorRef}
                     id="composition-button"
@@ -226,8 +229,8 @@ const UserLayout = () => {
                     }}
                   >
                     <i className={`bx nav_icon  bx bx-down-arrow`}></i> <span>Others</span>
-                  </button>
-                  {open && (
+                  </button> */}
+                  {/* {open && (
                     <MenuList
                       autoFocusItem={open}
                       id="composition-menu"
@@ -246,7 +249,43 @@ const UserLayout = () => {
                         </MenuItem>
                       ))}
                     </MenuList>
+                  )} */}
+                  {/* <div class="btn-group dropright"> */}
+                  {isAdmin && (
+                    <div>
+                      <button type="button" class="nav_link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className={`bx nav_icon  bx bx-down-arrow`}></i> Others
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        {MenuItemsOthers.map((menuItem) => (
+                          <Link to={menuItem.link} class="dropdown-item ">
+                            {menuItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   )}
+                  {/* </div> */}
+                  {/* 
+                  <div class="btn-group dropright">
+                    <button type="button" class="btn btn-secondary">
+                      Split dropright
+                    </button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropright</span>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">
+                        Action1
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Another action2
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Something else here3
+                      </a>
+                    </div>
+                  </div> */}
                 </div>
               </div>
             </div>
