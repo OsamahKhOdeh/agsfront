@@ -106,8 +106,8 @@ export const AdminMenuItems = [
     icon: "bx-trip",
   },
   {
-    title: "Shipment Agents",
-    path: `/user/shipmentAgents`,
+    title: "Shipping Agents",
+    path: `/user/shippingAgents`,
     cName: "dropdown-link",
     icon: "bxs-truck",
   },
@@ -166,6 +166,12 @@ export const EmployeeMenuItems = [
     path: `/user/customers`,
     cName: "dropdown-link",
     icon: "bx-group",
+  },
+  {
+    title: "Shipping Agents",
+    path: `/user/shippingAgents`,
+    cName: "dropdown-link",
+    icon: "bxs-truck",
   },
 ];
 
@@ -248,6 +254,12 @@ export const SalesManagerMenuItems = [
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
+  {
+    title: "Shipping Agents",
+    path: `/user/shippingAgents`,
+    cName: "dropdown-link",
+    icon: "bxs-truck",
+  },
 ];
 
 export const FinancialMenuItems = [
@@ -289,6 +301,12 @@ export const FinancialMenuItems = [
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
+  {
+    title: "Shipping Agents",
+    path: `/user/shippingAgents`,
+    cName: "dropdown-link",
+    icon: "bxs-truck",
+  },
 ];
 
 export const LogisticsMenuItems = [
@@ -323,16 +341,22 @@ export const LogisticsMenuItems = [
     icon: "bx-selection",
   },
   {
+    title: "Forwarders",
+    path: `/user/forwarders`,
+    cName: "dropdown-link",
+    icon: "bx-trip",
+  },
+  {
     title: "Customers",
     path: `/user/customers`,
     cName: "dropdown-link",
     icon: "bx-group",
   },
   {
-    title: "Forwarders",
-    path: `/user/forwarders`,
+    title: "Shipping Agents",
+    path: `/user/shippingAgents`,
     cName: "dropdown-link",
-    icon: "bx-trip",
+    icon: "bxs-truck",
   },
 ];
 export const SyriaEmployeeMenuItems = [

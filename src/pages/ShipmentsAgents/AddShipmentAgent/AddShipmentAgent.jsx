@@ -109,11 +109,11 @@ const AddShipmentAgent = () => {
       .post(`${BASE_URL}/shipping-agent`, model)
       .then((response) => {
         // console.log(response.data);
-        showToastMessage("Forwarder Added Successfully", "success");
+        showToastMessage("Shipment Agent Added Successfully", "success");
         resetFrom(false);
         setServices([]);
         setContacts([]);
-        navigate("/user/shipmentAgents");
+        navigate("/user/shippingAgents");
       })
       .catch((error) => {
         // Handle any errors
@@ -219,10 +219,10 @@ const AddShipmentAgent = () => {
         <div className="card">
           <div class="card-header">
             <div class="tittle-card tittle-back">
-              <div className="btn-back" onClick={() => navigate("/user/forwarders")}>
+              <div className="btn-back" onClick={() => navigate("/user/shippingAgents")}>
                 <i class="uil uil-arrow-circle-left"></i>
               </div>
-              <p> Add Shipment Agent </p>
+              <p> Add Shipping Agent </p>
             </div>
           </div>
           <div className="card-body">
@@ -235,60 +235,60 @@ const AddShipmentAgent = () => {
                 <div className="wrapper-forwarder">
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
-                        Shipment Agent Name <span className="required">*</span>
+                      <label htmlFor="shipmentAgent_name">
+                        Shipping Agent Name <span className="required">*</span>
                       </label>
-                      <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
+                      <input type="text" id="shipmentAgent_name" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">
+                      <label htmlFor="shipmentAgent_country">
                         Country <span className="required">*</span>
                       </label>
-                      <input type="text" className="form-control" required name="country" value={formData.country} onChange={handleChange} />
+                      <input type="text" className="form-control" id="shipmentAgent_country" required name="country" value={formData.country} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">City</label>
-                      <input type="text" className="form-control" name="city" value={formData.city} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_city">City</label>
+                      <input type="text" className="form-control" id="shipmentAgent_city" name="city" value={formData.city} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">State</label>
-                      <input type="text" className="form-control" name="state" value={formData.state} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_state">State</label>
+                      <input type="text" className="form-control" id="shipmentAgent_state" name="state" value={formData.state} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">Street</label>
-                      <input type="text" className="form-control" name="street" value={formData.street} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_street">Street</label>
+                      <input type="text" className="form-control" id="shipmentAgent_street" name="street" value={formData.street} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">Postal Code</label>
-                      <input type="text" className="form-control" name="postalCode" value={formData.postalCode} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_postal">Postal Code</label>
+                      <input type="text" className="form-control" id="shipmentAgent_postal" name="postalCode" value={formData.postalCode} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">Website</label>
-                      <input type="text" className="form-control" name="website" value={formData.website} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_website">Website</label>
+                      <input type="text" className="form-control" id="shipmentAgent_website" name="website" value={formData.website} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">Open From </label>
-                      <input type="time" className="form-control" name="openFrom" value={formData.openFrom} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_open">Open From </label>
+                      <input type="time" className="form-control" id="shipmentAgent_open" name="openFrom" value={formData.openFrom} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="forwarder_name">Open To </label>
-                      <input type="time" className="form-control" name="openTo" value={formData.openTo} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_to">Open To </label>
+                      <input type="time" className="form-control" id="shipmentAgent_to" name="openTo" value={formData.openTo} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -412,7 +412,7 @@ const AddShipmentAgent = () => {
               </div>
               <div className="add-btn-forwarder">
                 <button type="button" disabled={!validate()} className="ags-btn-main-fill" onClick={handleSubmit}>
-                  Add Shipment Agent
+                  Add Shipping Agent
                 </button>
               </div>
             </form>

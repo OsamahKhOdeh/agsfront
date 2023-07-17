@@ -160,7 +160,7 @@ function App() {
                 <Route path="updateCustomer" element={<UpdateCustomer />}></Route>
                 <Route path="addCustomer" element={<AddCustomer />}></Route>
                 {/* Shipment Agents  Routes*/}
-                <Route path="shipmentAgents" element={<AllShipmentsAgents />}></Route>
+                <Route path="shippingAgents" element={<AllShipmentsAgents />}></Route>
                 <Route path="addShipmentAgent" element={<AddShipmentAgent />}></Route>
                 <Route path="updateShipmentAgent" element={<UpdateShipmentAgent />}></Route>
               </Route>

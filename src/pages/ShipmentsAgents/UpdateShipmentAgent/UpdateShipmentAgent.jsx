@@ -6,13 +6,15 @@ import { BASE_URL } from "../../../api/index";
 import { showToastMessage } from "../../../helpers/toaster";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-export const communicationMethods = [
-  { name: "Whatsapp", isSelected: false },
-  { name: "Wechat", isSelected: false },
-  { name: "Email", isSelected: false },
-];
+import { useLocation, useNavigate } from "react-router-dom";
+// export const communicationMethods = [
+//   { name: "Whatsapp", isSelected: false },
+//   { name: "Wechat", isSelected: false },
+//   { name: "Email", isSelected: false },
+// ];
 const UpdateShipmentAgent = () => {
+  const { state } = useLocation();
+  console.log("state", state);
   const handleChangeCommunication = (event) => {
     let index = communicationMethods.findIndex((c) => c.name === event.target.defaultValue);
     communicationMethods[index].isSelected = event.target.checked;
@@ -25,27 +27,28 @@ const UpdateShipmentAgent = () => {
     console.log(formData.communicationMethod);
   };
   const [formData, setFormData] = useState({
-    name: "",
-    image: "https://placehold.co/150x150",
-    street: "",
-    city: "",
-    state: "",
-    country: "",
-    postalCode: "",
-    website: "",
-    contact: [],
-    services: [],
-    notes: "",
-    openFrom: "",
-    openTo: "",
+    name: state.name,
+    image: state.image,
+    street: state.address.street,
+    city: state.address.city,
+    state: state.address.state,
+    country: state.address.country,
+    postalCode: state.address.postalCode,
+    website: state.website,
+    contact: state.contact,
+    services: state.services,
+    notes: state.notes,
+    openFrom: state.operatingHours.from,
+    openTo: state.operatingHours.to,
   });
+  console.log("formData", formData);
   const navigate = useNavigate();
   const [noValidEmail, showNoValidEmail] = useState(false);
   // const [contactValidEmail, showContactValidEmail] = useState(false);
   const [file, setFile] = useState();
   const [bufferContact, setBufferContact] = useState({});
-  const [contacts, setContacts] = useState([]);
-  const [services, setServices] = useState([]);
+  const [contacts, setContacts] = useState(state.contact);
+  const [services, setServices] = useState(state.services);
   const [service, setService] = useState({
     serviceName: "",
     serviceCost: "",
@@ -106,52 +109,25 @@ const UpdateShipmentAgent = () => {
     };
     console.log(model);
     axios
-      .post(`${BASE_URL}/shipping-agent`, model)
+      .put(`${BASE_URL}/shipping-agent/${state._id}`, model)
       .then((response) => {
         // console.log(response.data);
-        showToastMessage("Forwarder Added Successfully", "success");
-        resetFrom(false);
-        setServices([]);
-        setContacts([]);
-        navigate("/user/shipmentAgents");
+        showToastMessage("Shipping  Updated Successfully", "success");
+        navigate("/user/shippingAgents");
       })
       .catch((error) => {
         // Handle any errors
         console.error(error);
       });
   };
-  const resetFrom = (isContact) => {
-    if (isContact) {
-      setModelContact({
-        contactPersonName: "",
-        phone: "",
-        officePhone: "",
-        email: "",
-        position: "",
-      });
-    } else {
-      setFormData({
-        name: "",
-        image: "https://placehold.co/150x150",
-        contactPersonName: "",
-        contactPhone: "",
-        officePhone: "",
-        contactEmail: "",
-        street: "",
-        city: "",
-        state: "",
-        country: "",
-        postalCode: "",
-        etd: "",
-        transitTime: "",
-        website: "",
-        costPerContainer: "",
-        communicationMethod: [],
-        freeStorageDuration: "",
-        availableContainerCount: "",
-        notes: "",
-      });
-    }
+  const resetFrom = () => {
+    setModelContact({
+      contactPersonName: "",
+      phone: "",
+      officePhone: "",
+      email: "",
+      position: "",
+    });
   };
   const validate = () => {
     if ((formData.name !== "") & (formData.country !== "") & (contacts.length > 0)) {
@@ -192,7 +168,7 @@ const UpdateShipmentAgent = () => {
     updatedContacts.push(modelContact);
     setContacts(updatedContacts);
     console.log(contacts);
-    resetFrom(true);
+    resetFrom();
     showNoValidEmail(false);
   };
   const addService = () => {
@@ -219,10 +195,10 @@ const UpdateShipmentAgent = () => {
         <div className="card">
           <div class="card-header">
             <div class="tittle-card tittle-back">
-              <div className="btn-back" onClick={() => navigate("/user/forwarders")}>
+              <div className="btn-back" onClick={() => navigate("/user/shippingAgents")}>
                 <i class="uil uil-arrow-circle-left"></i>
               </div>
-              <p> Add Shipment Agent </p>
+              <p> Update Shipping Agent </p>
             </div>
           </div>
           <div className="card-body">
@@ -236,7 +212,7 @@ const UpdateShipmentAgent = () => {
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
                       <label htmlFor="forwarder_name">
-                        Shipment Agent Name <span className="required">*</span>
+                        Shipping Agent Name <span className="required">*</span>
                       </label>
                       <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
@@ -412,7 +388,7 @@ const UpdateShipmentAgent = () => {
               </div>
               <div className="add-btn-forwarder">
                 <button type="button" disabled={!validate()} className="ags-btn-main-fill" onClick={handleSubmit}>
-                  Add Shipment Agent
+                  Update Shipping Agent
                 </button>
               </div>
             </form>
