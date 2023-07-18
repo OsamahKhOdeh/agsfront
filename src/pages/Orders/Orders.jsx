@@ -10,9 +10,9 @@ import OrderTrackingUser from "../../Components/OrderTrackingUser/OrderTrackingU
 
 const Orders = () => {
   const { state } = useLocation();
-  console.log(state);
-  let pageContent = <ProformaInvoiceOrders />;
-  const [page, setPage] = useState("orders");
+  console.log("statestatestatestatestatestate", state);
+  let pageContent = state === "purchaseOrderOrders" ? <PurchaseOrderOrders /> : <ProformaInvoiceOrders />;
+  const [page, setPage] = useState(state === "purchaseOrderOrders" ? "purchaseOrderOrders" : "orders");
   switch (page) {
     case "orders":
       pageContent = <ProformaInvoiceOrders />;

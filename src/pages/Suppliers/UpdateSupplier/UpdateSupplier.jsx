@@ -22,7 +22,27 @@ const UpdateSupplier = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   console.log(state);
-  const [formData, setFormData] = useState({ ...state });
+  const [formData, setFormData] = useState({
+    name: state.name,
+    email: state.email,
+    street: state.address.name,
+    city: state.address.name,
+    state: state.address.name,
+    country: state.address.name,
+    postalCode: state.address.name,
+    productCategories: state.productCategories,
+    contact: state.contact,
+    paymentTerms: state.paymentTerms,
+    taxID: state.taxID,
+    website: state.website,
+    logo: state.logo,
+    communicationMethod: state.communicationMethod,
+    cashBackTerms: state.cashBackTerms,
+    bankAccount: state.bankAccount,
+    notes: state.notes,
+  });
+  const [bufferContact, setBufferContact] = useState({});
+  const [contacts, setContacts] = useState(state.contact ? state.contact : []);
   const [file, setFile] = useState();
   const [bufferBank, setBufferBank] = useState({});
   const [indexEdit, setIndexEdit] = useState({});
@@ -56,12 +76,28 @@ const UpdateSupplier = () => {
   });
   const [noValidEmail, showNoValidEmail] = useState(false);
   const [noValidPhone, showNoValidPhone] = useState(false);
+  const [modelContact, setModelContact] = useState({
+    contactPersonName: "",
+    phone: "",
+    officePhone: "",
+    email: "",
+    position: "",
+  });
+  const [noValidEmailContact, showNoValidEmailContact] = useState(false);
   const validateEmail = (e) => {
     if (emailValidation(e.target?.value)) {
       showNoValidEmail(false);
       // setInput(e.target.value);
     } else {
       showNoValidEmail(true);
+    }
+  };
+  const validateEmailContact = (e) => {
+    if (emailValidation(e.target?.value)) {
+      showNoValidEmailContact(false);
+      // setInput(e.target.value);
+    } else {
+      showNoValidEmailContact(true);
     }
   };
   const validatePhone = (e) => {
@@ -100,8 +136,30 @@ const UpdateSupplier = () => {
     // formDataBuff.append("cashBackTerms", {});
     // formDataBuff.append("notes", formData.notes);
     // formDataBuff.append("bankAccount", formData.bankAccount);
+    let model = {
+      name: formData.name,
+      email: formData.email,
+      image: formData.logo,
+      contact: contacts,
+      address: {
+        street: formData.street,
+        city: formData.city,
+        state: formData.state,
+        country: formData.country,
+        postalCode: formData.postalCode,
+      },
+      website: formData.website,
+      notes: formData.notes,
+      productCategories: formData.productCategories,
+      paymentTerms: formData.paymentTerms,
+      communicationMethod: formData.communicationMethod,
+      services: [],
+      cashBackTerms: formData.cashBackTerms,
+      bankAccount: formData.bankAccount,
+      taxID: formData.taxID,
+    };
     axios
-      .put(`${BASE_URL}/supplier/${formData._id}`, formData)
+      .put(`${BASE_URL}/supplier/${state._id}`, model)
       .then((response) => {
         // console.log(response.data);
         showToastMessage("Supplier Updated Succesfully", "success");
@@ -112,6 +170,21 @@ const UpdateSupplier = () => {
         // Handle any errors
         console.error(error);
       });
+  };
+  const addContact = () => {
+    console.log(modelContact);
+    const updatedContacts = [...contacts];
+    updatedContacts.push(modelContact);
+    setContacts(updatedContacts);
+    console.log(contacts);
+    setModelContact({
+      contactPersonName: "",
+      phone: "",
+      officePhone: "",
+      email: "",
+      position: "",
+    });
+    showNoValidEmail(false);
   };
   const addBank = () => {
     formData.bankAccount.push(bankInfo);
@@ -153,18 +226,13 @@ const UpdateSupplier = () => {
     if (
       !noValidEmail &&
       !noValidPhone &&
-      (formData.supplierName !== "") &
-        (formData.contactPerson !== "") &
-        (formData.contactPhone !== "") &
-        (formData.contactEmail !== "") &
-        (formData.address !== "") &
-        (formData.city !== "") &
+      (formData.name !== "") &
+        (formData.email !== "") &
         (formData.country !== "") &
         (formData.productCategories.length > 0) &
         (formData.communicationMethod.length > 0) &
+        (contacts.length > 0) &
         (formData.paymentTerms !== "") &
-        // (formData.taxID !== "") &
-        // (formData.logo !== "") &
         (formData.bankAccount.length > 0)
     ) {
       return true;
@@ -219,6 +287,17 @@ const UpdateSupplier = () => {
     console.log(bufferMethods);
     setFormData((prevFormData) => ({ ...prevFormData, communicationMethod: bufferMethods }));
   };
+  const handleChangeContact = (event) => {
+    const { name, value } = event.target;
+    setModelContact((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+  const deleteContact = () => {
+    let updateContacts = [...contacts];
+    let index = updateContacts.findIndex((b) => b.email === bufferContact.email);
+    console.log(index);
+    updateContacts.splice(index, 1);
+    setContacts(updateContacts);
+  };
   return (
     <>
       <ToastContainer />
@@ -245,58 +324,17 @@ const UpdateSupplier = () => {
                       <label htmlFor="supplier_name">
                         Supplier Name <span className="required">*</span>
                       </label>
-                      <input type="text" className="form-control" required name="supplierName" value={formData.supplierName} onChange={handleChange} />
+                      <input type="text" className="form-control" required name="name" value={formData.name} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Contact Email <span className="required">*</span>
+                      <label htmlFor="supplier_email">
+                        Supplier Email <span className="required">*</span>
                       </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        required
-                        name="contactEmail"
-                        value={formData.contactEmail}
-                        onInput={(e) => validateEmail(e)}
-                        onChange={handleChange}
-                      />
+                      <input type="text" className="form-control" required name="email" value={formData.email} onInput={(e) => validateEmail(e)} onChange={handleChange} />
                     </div>
                     {noValidEmail && <span className="required">Email not valid</span>}
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Contact Person <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="contactPerson" value={formData.contactPerson} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Contact Phone <span className="required">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="contactPhone"
-                        required
-                        value={formData.contactPhone}
-                        onChange={handleChange}
-                        onInput={(e) => validatePhone(e)}
-                      />
-                      {noValidPhone && <span className="required">Phone must be only numbers</span>}
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Address <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="address" value={formData.address} onChange={handleChange} />
-                    </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
@@ -308,16 +346,26 @@ const UpdateSupplier = () => {
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        City <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="city" value={formData.city} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_city">City</label>
+                      <input type="text" className="form-control" id="shipmentAgent_city" name="city" value={formData.city} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
                     <div className="form-group">
-                      <label htmlFor="supplier_name">Postal Code</label>
-                      <input type="text" className="form-control" name="postalCode" value={formData.postalCode} onChange={handleChange} />
+                      <label htmlFor="shipmentAgent_state">State</label>
+                      <input type="text" className="form-control" id="shipmentAgent_state" name="state" value={formData.state} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="shipmentAgent_street">Street</label>
+                      <input type="text" className="form-control" id="shipmentAgent_street" name="street" value={formData.street} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="shipmentAgent_postal">Postal Code</label>
+                      <input type="text" className="form-control" id="shipmentAgent_postal" name="postalCode" value={formData.postalCode} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -356,6 +404,28 @@ const UpdateSupplier = () => {
                     <div className="form-group">
                       <label htmlFor="supplier_name">Website</label>
                       <input type="text" className="form-control" name="website" value={formData.website} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="supplier_name">Tax Id</label>
+                      <input type="text" className="form-control" name="taxID" value={formData.taxID} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="supplier_name">
+                        Payment Terms <span className="required">*</span>
+                      </label>
+                      <input type="text" className="form-control" required name="paymentTerms" value={formData.paymentTerms} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <div className="form-group">
+                      <label className="px-0" htmlFor="notes">
+                        Notes
+                      </label>
+                      <input type="text" className="form-control" name="notes" value={formData.notes} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
@@ -444,20 +514,6 @@ const UpdateSupplier = () => {
                 </div>
                 <div className="wrapper-supplier-second">
                   <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="supplier_name">Tax Id</label>
-                      <input type="text" className="form-control" name="taxID" value={formData.taxID} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="supplier_name">
-                        Payment Terms <span className="required">*</span>
-                      </label>
-                      <input type="text" className="form-control" required name="paymentTerms" value={formData.paymentTerms} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-12">
                     <div className="banks">
                       <div className="bank-tittle">
                         <label className="pb-0" htmlFor="account">
@@ -506,11 +562,53 @@ const UpdateSupplier = () => {
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-12">
-                    <div className="form-group">
-                      <label className="px-0" htmlFor="notes">
-                        Notes
-                      </label>
-                      <textarea type="text" rows="4" className="from-control" name="notes" value={formData.notes} onChange={handleChange}></textarea>
+                    <div className="banks">
+                      <div className="bank-tittle">
+                        <label className="pb-0" htmlFor="account">
+                          Contact <span className="required">*</span>
+                        </label>
+                        <span>
+                          {/* <i class="uil uil-minus-circle" onClick={deleteBank}></i> */}
+                          <i class="uil uil-plus-circle" data-toggle="modal" data-target="#addContactModal"></i>
+                        </span>
+                      </div>
+                      {contacts.length > 0 && (
+                        <table class="table mb-0">
+                          <thead>
+                            <tr>
+                              <th scope="col">Name</th>
+                              <th scope="col">Phone </th>
+                              <th scope="col">Office Phone</th>
+                              <th scope="col">Contact Email</th>
+                              <th scope="col">Position</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {contacts.map((item, index) => (
+                              <tr>
+                                <td>{item.contactPersonName}</td>
+                                <td>{item.phone}</td>
+                                <td>{item.officePhone}</td>
+                                <td>{item.email}</td>
+                                <td>{item.position}</td>
+                                <td>
+                                  <div className="btn-actions">
+                                    {/* <i class="uil uil-edit-alt " onClick={() => saveIndex(item)} data-toggle="modal" data-target="#exampleModal3"></i> */}
+                                    <i class="uil uil-trash-alt " onClick={() => setBufferContact(item)} data-toggle="modal" data-target="#deleteContactModal"></i>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                      {contacts.length <= 0 && (
+                        <div className="no-banks">
+                          <i class="uil uil-credit-card"></i>
+                          <p> No Contacts Added Yet!</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -648,6 +746,88 @@ const UpdateSupplier = () => {
             </div>
             <div class="modal-footer">
               <button type="button" onClick={() => deleteBank()} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Add Contact */}
+      <div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                New Contact
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {/* <div className="row"> */}
+              <div className="col-12">
+                <div className="form-group">
+                  {" "}
+                  <label htmlFor="contactPersonName"> Contact Name </label>
+                  <input type="text" className="form-control" name="contactPersonName" value={modelContact.contactPersonName} onChange={handleChangeContact} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label htmlFor="contactEmail">Contact Email </label>
+                  <input type="text" className="form-control" name="email" onInput={(e) => validateEmailContact(e)} value={modelContact.email} onChange={handleChangeContact} />
+                </div>
+                {noValidEmailContact && <span className="required">Email not valid</span>}
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  {" "}
+                  <label htmlFor="contactPersonName">Contact Phone </label>
+                  <input type="text" className="form-control" name="officePhone" value={modelContact.officePhone} onChange={handleChangeContact} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  {" "}
+                  <label htmlFor="officePhone">Office Phone </label>
+                  <input type="text" className="form-control" name="phone" value={modelContact.phone} onChange={handleChangeContact} />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  {" "}
+                  <label htmlFor="officePhone">Position </label>
+                  <input type="text" className="form-control" name="position" value={modelContact.position} onChange={handleChangeContact} />
+                </div>
+              </div>
+            </div>
+            {/* </div> */}
+            <div class="modal-footer">
+              <button type="button" onClick={addContact} disabled={noValidEmailContact || modelContact.email === ""} class="ags-btn-sm-main-outlin" data-dismiss="modal">
+                Add Contact
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Delete Contact */}
+      <div class="modal fade" id="deleteContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Delete {bufferContact.contactPersonName}
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <p className="mt-3">Are you sure to delete {bufferContact.contactPersonName} </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onClick={() => deleteContact()} class="ags-btn-sm-main-outlin" data-dismiss="modal">
                 Ok
               </button>
             </div>

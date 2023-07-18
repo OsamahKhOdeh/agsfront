@@ -309,7 +309,9 @@ width: 80px;
 }
 
 .td_padding{
-    padding: 2px 0px 2px 2px;}
+    padding: 2px 0px 2px 2px;
+    text-align: center !important;
+  }
 
 .tr_border{
   border-right: #f5f6f7;

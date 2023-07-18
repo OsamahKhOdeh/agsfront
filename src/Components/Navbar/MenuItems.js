@@ -183,13 +183,13 @@ export const EmployeeMenuItems = [
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxl-magento",
   },
   {
     title: "Warehouses",
     path: `/user/warehouses`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxs-widget",
   },
 ];
 
@@ -282,13 +282,13 @@ export const SalesManagerMenuItems = [
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxl-magento",
   },
   {
     title: "Warehouses",
     path: `/user/warehouses`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxs-widget",
   },
 ];
 
@@ -341,13 +341,13 @@ export const FinancialMenuItems = [
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxl-magento",
   },
   {
     title: "Warehouses",
     path: `/user/warehouses`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxs-widget",
   },
 ];
 
@@ -404,13 +404,13 @@ export const LogisticsMenuItems = [
     title: "Clearance Agents",
     path: `/user/clearanceAgents`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxl-magento",
   },
   {
     title: "Warehouses",
     path: `/user/warehouses`,
     cName: "dropdown-link",
-    icon: "bx-group",
+    icon: "bxs-widget",
   },
 ];
 export const SyriaEmployeeMenuItems = [

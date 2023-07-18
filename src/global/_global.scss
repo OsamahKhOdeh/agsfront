@@ -100,6 +100,15 @@
     cursor: pointer;
   }
 }
+.ags-btn-sm-main-fill {
+  border: 1px solid var(--second-color);
+  background-color: var(--second-color);
+  color: var(--white);
+  transition: all 0.5s ease-in-out;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 13px;
+}
 .ags-btn-main-fill {
   border: 2px solid var(--second-color);
   background-color: var(--second-color);
@@ -112,7 +121,6 @@
     cursor: pointer;
   }
 }
-
 .ags-btn-sucess-outlin {
   border: 2px solid var(--green);
   background-color: transparent;
@@ -127,7 +135,6 @@
     cursor: pointer;
   }
 }
-
 .ags-btn-sucess-fill {
   border: 2px solid var(--green);
   background-color: var(--green);

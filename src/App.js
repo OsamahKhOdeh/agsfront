@@ -85,6 +85,8 @@ import { Warehouse } from "@mui/icons-material";
 import AllWarehouses from "./pages/Warhouses/AllWarehouses/AllWarehouses";
 import AddWarehouse from "./pages/Warhouses/AddWarehouse/AddWarehouse";
 import UpdateWarehouse from "./pages/Warhouses/UpdateWarehouse/UpdateWarehouse";
+import PoUnderProcess from "./pages/MakePo/PoUnderProcess/PoUnderProcess";
+import PoUnderProduction from "./pages/MakePo/PoUnderProduction/PoUnderProduction";
 function App() {
   return (
     <div>
@@ -133,6 +135,8 @@ function App() {
                 <Route path="makepi" element={<PiStepper />}></Route>
                 <Route path="makepo" element={<MakePo />}></Route>
                 <Route path="poinfo" element={<PoInfo />}></Route>
+                <Route path="pounderprocess" element={<PoUnderProcess />}></Route>
+                <Route path="pounderproduction" element={<PoUnderProduction />}></Route>
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>

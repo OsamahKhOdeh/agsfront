@@ -9,7 +9,6 @@ import PurchaseOrderPdf from "../../../Components/PurchaseOrderPdf/PurchaseOrder
 import { colorByStatus } from "../../../helpers/piOrdersFunctions";
 const PurchaseOrderOrders = () => {
   const { username } = useAuth();
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getEmployeePurchaseOrdersAction(username));
@@ -33,7 +32,7 @@ const PurchaseOrderOrders = () => {
   }
 
   if (searchQuery.length > 0 && filter.length === 0) {
-    purchaseOrders = purchaseOrders.filter((item) => item.pi_no.toString().includes(searchQuery.toLowerCase()));
+    purchaseOrders = purchaseOrders.filter((item) => item.po_no.toString().includes(searchQuery.toLowerCase()));
   }
 
   const options = [
@@ -62,7 +61,7 @@ const PurchaseOrderOrders = () => {
               setIsPdf(false);
             }}
           >
-             Back
+            Back
           </button>
         </div>
         <PurchaseOrderPdf po={currentPo} />
@@ -124,7 +123,7 @@ const PurchaseOrderOrders = () => {
                   <div className="td_padding employee_cell">{item.employee}</div>
                 </td>
                 <td>
-                  <div className="td_padding customer_cell">{item?.exporter?.split(".")[0]}</div>
+                  <div className="td_padding customer_cell ">{item?.exporter?.split(".")[0]}</div>
                 </td>
                 <td>
                   <div className="td_padding customer_cell">{item?.buyerAddress?.split(".")[0]}</div>
@@ -141,7 +140,7 @@ const PurchaseOrderOrders = () => {
                         </button>
                       ) : item.status === "Rejected" ? (
                         <>
-                          <p >{"Rejected"}</p>
+                          <p>{"Rejected"}</p>
                         </>
                       ) : (
                         "Waiting for manager approval"
