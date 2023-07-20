@@ -427,14 +427,14 @@ const UpdateShipmentAgent = () => {
                 <div className="form-group">
                   {" "}
                   <label htmlFor="contactPersonName">Contact Phone </label>
-                  <input type="text" className="form-control" name="officePhone" value={modelContact.officePhone} onChange={handleChangeContact} />
+                  <input type="text" className="form-control" name="phone" value={modelContact.phone} onChange={handleChangeContact} />
                 </div>
               </div>
               <div className="col-12">
                 <div className="form-group">
                   {" "}
                   <label htmlFor="officePhone">Office Phone </label>
-                  <input type="text" className="form-control" name="phone" value={modelContact.phone} onChange={handleChangeContact} />
+                  <input type="text" className="form-control" name="officePhone" value={modelContact.officePhone} onChange={handleChangeContact} />
                 </div>
               </div>
               <div className="col-12">
