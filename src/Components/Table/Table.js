@@ -10,6 +10,8 @@ import {
   modifyProductPriceLocal,
   modifyProductPriceFreezoneAED,
   modifyProductPriceLocalAED,
+  modifyProductPriceSyriaAED,
+  modifyProductPriceSyria,
 } from "../../store/cartSlice";
 import { setPICurrencyLocation } from "../../store/piSlice";
 import "./styles.css";
@@ -17,6 +19,7 @@ import { contents } from "./test";
 const TablePage = () => {
   const pi = useSelector((state) => state.pi.isPi);
   function calcPrice(item) {
+    console.log("syriaPriceAED", item.syriaPriceAED);
     let price = 0;
     if (location === "freezone" && currency === "AED") {
       price = item.freezonePriceAED;
@@ -24,11 +27,17 @@ const TablePage = () => {
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
     }
+    if (location === "syria" && currency === "AED") {
+      price = item.syriaPriceAED;
+    }
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
     if (location === "local" && currency === "USD") {
       price = item.LocalPrice;
+    }
+    if (location === "syria" && currency === "USD") {
+      price = item.syriaPrice;
     }
 
     return price;
@@ -41,6 +50,8 @@ const TablePage = () => {
   const location = useSelector((state) => state.filters.location);
   const currency = useSelector((state) => state.filters.currency);
   const usdToAedRate = useSelector((state) => state.filters.usdToAedRate);
+  console.log("location", location);
+  console.log("currency", currency);
   useEffect(() => {
     dispatch(setPICurrencyLocation({ currency, location }));
   }, [currency, dispatch, location]);
@@ -66,11 +77,17 @@ const TablePage = () => {
       if (location === "local" && currency === "AED") {
         totalAmount += item.LocalPriceAED * item.qty;
       }
+      if (location === "syria" && currency === "AED") {
+        totalAmount += item.syriaPriceAED * item.qty;
+      }
       if (location === "freezone" && currency === "USD") {
         totalAmount += item.freezonePrice * item.qty;
       }
       if (location === "local" && currency === "USD") {
         totalAmount += item.LocalPrice * item.qty;
+      }
+      if (location === "syria" && currency === "USD") {
+        totalAmount += item.syriaPrice * item.qty;
       }
       totalWeight += item?.grossWeight * item?.qty;
     });
@@ -84,11 +101,17 @@ const TablePage = () => {
     if (location === "local" && currency === "AED") {
       dispatch(modifyProductPriceLocalAED({ id: id, price: parseFloat(event.target.value) }));
     }
+    if (location === "syria" && currency === "AED") {
+      dispatch(modifyProductPriceSyriaAED({ id: id, price: parseFloat(event.target.value) }));
+    }
     if (location === "freezone" && currency === "USD") {
       dispatch(modifyProductPriceFreezone({ id: id, price: parseFloat(event.target.value) }));
     }
     if (location === "local" && currency === "USD") {
       dispatch(modifyProductPriceLocal({ id: id, price: parseFloat(event.target.value) }));
+    }
+    if (location === "syria" && currency === "USD") {
+      dispatch(modifyProductPriceSyria({ id: id, price: parseFloat(event.target.value) }));
     }
   };
   if (selectedProducts.length > 0) {

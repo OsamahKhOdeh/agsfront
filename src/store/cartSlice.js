@@ -45,6 +45,13 @@ export const addToCart = createSlice({
         }
       });
     },
+    modifyProductPriceSyria: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.syriaPrice = action.payload.price;
+        }
+      });
+    },
     modifyProductPriceLocal: (state, action) => {
       state.cart.map((item) => {
         if (action.payload.id === item._id) {
@@ -66,6 +73,13 @@ export const addToCart = createSlice({
         }
       });
     },
+    modifyProductPriceSyriaAED: (state, action) => {
+      state.cart.map((item) => {
+        if (action.payload.id === item._id) {
+          item.syriaPriceAED = action.payload.price;
+        }
+      });
+    },
   },
 });
 
@@ -79,6 +93,8 @@ export const {
   modifyProductPriceLocal,
   modifyProductPriceFreezoneAED,
   modifyProductPriceLocalAED,
+  modifyProductPriceSyria,
+  modifyProductPriceSyriaAED,
   emptyCart,
 } = addToCart.actions;
 

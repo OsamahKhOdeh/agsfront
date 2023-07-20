@@ -81,7 +81,7 @@ const Suppliers = () => {
                           <i class="uil uil-trash-alt" onClick={() => setSupplier(item)} data-toggle="modal" data-target="#exampleModal"></i>
                           <i class="uil uil-edit-alt" onClick={() => updateSupplier(item)}></i>
                         </span>
-                        <h4>{item.supplierName}</h4>
+                        <h4>{item.name}</h4>
                         {item.bankAccount.map((account, index) => (
                           <p>
                             {account.bankName} | {account.accountNumber} | {account.swiftBIC} | {account.currency}
@@ -90,13 +90,17 @@ const Suppliers = () => {
                       </div>
                       <div class="card__footer">
                         <div class="user">
-                          <img src={item.logo} alt="user__image" class="user__image" />
+                          <img src={item.image} alt="user__image" class="user__image" />
                           <div class="user__info">
                             <h5>
-                              {item.address}, {item.city}, {item.country}
+                              {item.address.country}, {item.address.city}, {item.address.state}
                             </h5>
                             <small>
-                              {item.contactEmail} | {item.contactPhone}
+                              {item.contact.length > 0 && (
+                                <>
+                                  {item.contact[0].email} | {item.contact[0].phone}
+                                </>
+                              )}
                             </small>
                           </div>
                         </div>
@@ -123,7 +127,7 @@ const Suppliers = () => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Delete {supplier.supplierName}
+                Delete {supplier.name}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

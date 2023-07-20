@@ -558,7 +558,9 @@ const AddForwarder = () => {
               </div>
               <div className="col-12">
                 <div className="form-group">
-                  <label htmlFor="contactEmail">Contact Email </label>
+                  <label htmlFor="contactEmail">
+                    Contact Email <span className="required">*</span>
+                  </label>
                   <input type="text" className="form-control" name="email" onInput={(e) => validateEmail(e)} value={modelContact.email} onChange={handleChangeContact} />
                 </div>
                 {noValidEmail && <span className="required">Email not valid</span>}

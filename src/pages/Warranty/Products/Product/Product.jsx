@@ -85,6 +85,7 @@ const Product = ({ product, index }) => {
                   ...product,
                   LocalPriceAED: product.LocalPrice * usdToAedRate,
                   freezonePriceAED: product.freezonePrice * usdToAedRate,
+                  syriaPriceAED: product.syriaPrice * usdToAedRate,
                 });
               }}
               src={
@@ -112,6 +113,7 @@ const Product = ({ product, index }) => {
                   ...product,
                   LocalPriceAED: product.LocalPrice * usdToAedRate,
                   freezonePriceAED: product.freezonePrice * usdToAedRate,
+                  syriaPriceAED: product.syriaPrice * usdToAedRate,
                 });
               }}
             >
@@ -172,14 +174,22 @@ const Product = ({ product, index }) => {
                 <h5>
                   <div>
                     {showPrice && (
-                      <div>
+                      <div className="price-stock">
                         {currency === "AED" ? (
                           <>
-                            {location === "freezone" ? (product.freezonePrice * usdToAedRate)?.toFixed(2) : (product.LocalPrice * usdToAedRate)?.toFixed(2)}
+                            {location === "freezone" ? (product.freezonePrice * usdToAedRate)?.toFixed(2) : ""}
+                            {location === "local" ? (product.LocalPrice * usdToAedRate)?.toFixed(2) : ""}
+                            {location === "syria" ? (product.syriaPrice * usdToAedRate)?.toFixed(2) : ""}
                             &nbsp;AED
                           </>
                         ) : (
-                          <>{location === "freezone" ? product.freezonePrice : product.LocalPrice}&nbsp;$</>
+                          <>
+                            {/* {location === "freezone" ? product.freezonePrice : product.LocalPrice} */}
+                            {location === "freezone" ? product.freezonePrice : ""}
+                            {location === "local" ? product.LocalPrice : ""}
+                            {location === "syria" ? product.syriaPrice : ""}
+                            &nbsp;$
+                          </>
                         )}
 
                         {}
@@ -192,7 +202,7 @@ const Product = ({ product, index }) => {
               {/* <div class="grid-item"> */}
               <div class="grid-item">
                 <p>Stock </p>
-                <h5>
+                <h5 className="price-stock">
                   {showStock && (
                     <div style={inStock ? { color: "green" } : { color: "red" }}>
                       <div htmlFor=""> {product.stock} </div>

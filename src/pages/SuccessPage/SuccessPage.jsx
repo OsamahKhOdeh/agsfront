@@ -27,11 +27,17 @@ const SuccessPage = () => {
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
     }
+    if (location === "syria" && currency === "AED") {
+      price = item.syriaPriceAED;
+    }
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
     if (location === "local" && currency === "USD") {
       price = item.LocalPrice;
+    }
+    if (location === "syria" && currency === "USD") {
+      price = item.syriaPrice;
     }
 
     return price;
@@ -286,7 +292,7 @@ const SuccessPage = () => {
                       <td style={{ textAlign: "center" }} colSpan={4}>
                         Final
                       </td>
-                      <td>{((total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges)).toFixed(2)}</td>
+                      <td>{(total + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) + parseFloat(piInfo.documentCharges)).toFixed(2)}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -395,9 +401,12 @@ const SuccessPage = () => {
                 </div>
                 <div className="form-group">
                   <strong>Final : </strong>
-                  {console.log(parseFloat(piInfo.additions))}{console.log(parseFloat(piInfo.discount))}{console.log(parseFloat(piInfo.documentCharges))}{console.log(parseFloat(total))}
-                  {console.log((total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges))}
-                  <span>{(total  + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) ) + parseFloat(piInfo.documentCharges)}</span>
+                  {console.log(parseFloat(piInfo.additions))}
+                  {console.log(parseFloat(piInfo.discount))}
+                  {console.log(parseFloat(piInfo.documentCharges))}
+                  {console.log(parseFloat(total))}
+                  {console.log(total + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) + parseFloat(piInfo.documentCharges))}
+                  <span>{total + parseFloat(piInfo.additions) - parseFloat(piInfo.discount) + parseFloat(piInfo.documentCharges)}</span>
                 </div>
               </div>
             </div>

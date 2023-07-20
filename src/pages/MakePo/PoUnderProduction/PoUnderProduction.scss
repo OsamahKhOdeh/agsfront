@@ -32,6 +32,68 @@
           cursor: pointer;
         }
       }
+      .table {
+        td,
+        th {
+          border: 1px solid #e3e3e3;
+          text-align: center;
+          vertical-align: middle;
+          font-size: 13px;
+        }
+      }
+      .eft-note {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr 0.5fr;
+        gap: 14px;
+        align-items: center;
+        .box {
+          .form-control {
+            padding: 8px 20px;
+          }
+          .btn-update {
+            background-color: var(--second-color) !important;
+            color: var(--white-color) !important;
+            padding: 9px 20px;
+            border-radius: 5px;
+            text-align: center;
+          }
+        }
+      }
+      .bl-list {
+        .banks {
+          border: 1px solid #efefef;
+          border-radius: 5px;
+          // padding: 5px;
+          .bank-tittle {
+            display: flex;
+            justify-content: space-between;
+            background-color: #efefef;
+            padding: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            span {
+              .uil {
+                font-size: 1.2rem;
+                transition: all 0.4s ease-in-out;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+        .no-banks {
+          padding: 1rem;
+          text-align: center;
+          .uil {
+            font-size: 2.8rem;
+          }
+          p {
+            font-size: 13px;
+            color: #606060;
+          }
+        }
+      }
     }
   }
 }

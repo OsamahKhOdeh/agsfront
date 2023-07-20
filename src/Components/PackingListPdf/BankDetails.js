@@ -46,7 +46,7 @@ const BankDetails = ({ bankDetails }) => (
   <View wrap={false} style={styles.container}>
     <Text style={styles.header}>Bank Details : </Text>
     {bankDetails?.length > 0
-      ? bankDetails.map((item, index) => (
+      ? bankDetails?.map((item, index) => (
           <View wrap={false} key={index} style={styles.row}>
             <Text style={styles.description}>
               {bank_details

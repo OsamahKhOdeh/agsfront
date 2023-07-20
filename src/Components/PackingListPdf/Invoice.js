@@ -63,11 +63,7 @@ const Invoice = ({ pkl, withPrice, fake }) => {
   console.log(pkl);
   let logo = logo_ags;
   console.log(pkl.exporter);
-  if (
-    pkl.exporter.includes(
-      "ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae"
-    )
-  ) {
+  if (pkl.exporter.includes("ABDULJALIL CHHADA AUTO SPARE PARTS TRADING LLC DEIRA NAIF, AL MAKTOUM HOSPITAL ROAD    CONTACT:+971 558952656,   Email: info@jalil.ae")) {
     logo = logo_ajc;
   }
 
@@ -78,7 +74,7 @@ const Invoice = ({ pkl, withPrice, fake }) => {
         <Image style={styles.logo} src={logo} />
         <InvoiceTitle title="INVOICE/PACKING LIST" />
         <InvoiceInfo pkl={pkl} />
-        {pkl.truckItems.map((truckItem) => (
+        {pkl.truckItems?.map((truckItem) => (
           <InvoiceItemsTable currency={pkl.piCurrency} truckItem={truckItem} withPrice={withPrice} fake={fake} />
         ))}
         <PklFooter truckItems={pkl.truckItems} fake={fake} withPrice={withPrice} currency={pkl.piCurrency} />

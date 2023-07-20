@@ -561,3 +561,10 @@ visibility: inherit;
   height: 40px;
   right: 0;
 }
+
+.price-stock{
+  font-size: 15px;
+}
+.product__item{
+      margin: inherit;
+}

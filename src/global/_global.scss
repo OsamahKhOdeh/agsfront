@@ -645,6 +645,7 @@ body::-webkit-scrollbar-thumb {
     .btn-table-status {
       span {
         display: flex;
+        justify-content: center;
         padding: 7px 10px;
         border-radius: 3px;
         margin: 5px;

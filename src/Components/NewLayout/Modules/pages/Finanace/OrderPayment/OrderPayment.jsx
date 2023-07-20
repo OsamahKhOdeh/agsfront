@@ -439,7 +439,7 @@ export const OrderPayment = () => {
               <div class="col-12 tittle-section">
                 <p>Purchase Order</p>
               </div>
-              {arrayPos.map((item, index) => (
+              {arrayPos?.map((item, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="radio" class="checkbox-input" name="purchaseOrder" id="purchaseOrder_id" />
@@ -463,7 +463,7 @@ export const OrderPayment = () => {
               <div class="col-12 tittle-section">
                 <p>Beneficiary </p>
               </div>
-              {brands.map((brand, index) => (
+              {brands?.map((brand, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="radio" class="checkbox-input" name="beneficiary" id="beneficiary_id" />
@@ -490,7 +490,7 @@ export const OrderPayment = () => {
               <div class="col-12 tittle-section">
                 <p>Services to be paid</p>
               </div>
-              {comapnies.map((item, index) => (
+              {comapnies?.map((item, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="checkbox" class="checkbox-input" />

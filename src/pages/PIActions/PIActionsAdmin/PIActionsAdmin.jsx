@@ -444,6 +444,7 @@ const PIActionsAdmin = () => {
                   <th style={{ width: "140px" }} scope="col">
                     PDF
                   </th>
+                  <th>Edit</th>
                   <th style={{ width: "225px" }} scope="col">
                     Handle
                   </th>
@@ -555,6 +556,16 @@ const PIActionsAdmin = () => {
                         </div>
                       </td>
                     )} */}
+                    <td>
+                      {proformaInvoice.managerApproval === "Rejected" ||
+                        (proformaInvoice.financiaApproval === "Rejected" && (
+                          <div className="btn-table-status">
+                            <span onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
+                              Edit <i class="uil uil-edit"></i>
+                            </span>
+                          </div>
+                        ))}
+                    </td>
                     {proformaInvoice.branch === Branches.Dubai ? (
                       <>
                         {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
@@ -628,7 +639,7 @@ const PIActionsAdmin = () => {
                             </div>
                           </td>
                         )}{" "}
-                        {proformaInvoice.branch === Branches.Dubai ? (
+                        {/* {proformaInvoice.branch === Branches.Dubai ? (
                           <>
                             {roles.includes("Financial") && proformaInvoice.managerApproval !== "Approved" ? (
                               <td>
@@ -704,7 +715,7 @@ const PIActionsAdmin = () => {
                           </>
                         ) : (
                           <td>From {proformaInvoice.branch}</td>
-                        )}
+                        )} */}
                       </>
                     ) : (
                       <td>From {proformaInvoice.branch}</td>

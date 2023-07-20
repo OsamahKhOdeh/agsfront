@@ -396,7 +396,7 @@ export const DashboardSummary = () => {
                 {/* <div class="col-12 tittle-section">
                   <p>Beneficiary </p>
                 </div> */}
-                {brands.map((brand, index) => (
+                {brands?.map((brand, index) => (
                   <div class="checkbox">
                     <label class="checkbox-wrapper">
                       <input type="radio" class="checkbox-input" name="beneficiary" id="beneficiary_id" />
@@ -423,7 +423,7 @@ export const DashboardSummary = () => {
                 {/* <div class="col-12 tittle-section">
                   <p>Purchase Order</p>
                 </div> */}
-                {arrayPos.map((item, index) => (
+                {arrayPos?.map((item, index) => (
                   <div class="checkbox">
                     <label class="checkbox-wrapper">
                       <input type="radio" class="checkbox-input" name="purchaseOrder" id="purchaseOrder_id" />
@@ -433,7 +433,7 @@ export const DashboardSummary = () => {
                     </label>
                   </div>
                 ))}
-                {arrayPos.length <= 0 && (
+                {arrayPos?.length <= 0 && (
                   <div class="empty-img">
                     <img src="../../../../../images/brands/brand4.png" alt="empty-img" />
                     <span>No POS Available Yet! </span>

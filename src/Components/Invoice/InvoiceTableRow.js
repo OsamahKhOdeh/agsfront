@@ -68,17 +68,23 @@ const InvoiceTableRow = ({ products, currency, location, usdToAedRate }) => {
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
     }
+    if (location === "syria" && currency === "AED") {
+      price = item.syriaPriceAED;
+    }
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
     if (location === "local" && currency === "USD") {
       price = item.LocalPrice;
     }
+    if (location === "syria" && currency === "USD") {
+      price = item.syriaPrice;
+    }
 
     return price;
   }
   let no = 0;
-  const rows = products.map((item, index) => (
+  const rows = products?.map((item, index) => (
     <View style={styles.row} key={index}>
       <Text style={styles.no}>{index + 1}</Text>
       <Text style={styles.description}>

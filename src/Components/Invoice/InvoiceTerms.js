@@ -91,7 +91,7 @@ const InvoiceTerms = ({ terms, paymentPercentage, deliveryDate, documentCharges,
         <Text style={styles.header}>Terms and Conditions : ({terms[0]})</Text>
       </View>
       {allTermsUnique?.length > 0
-        ? allTermsUnique.map((item, index) => (
+        ? allTermsUnique?.map((item, index) => (
             <View wrap={false} key={index} style={styles.row}>
               <Text style={styles.no}>{index + 1}</Text>
               <Text style={styles.description}>{item}</Text>

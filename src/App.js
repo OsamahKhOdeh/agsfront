@@ -87,6 +87,7 @@ import AddWarehouse from "./pages/Warhouses/AddWarehouse/AddWarehouse";
 import UpdateWarehouse from "./pages/Warhouses/UpdateWarehouse/UpdateWarehouse";
 import PoUnderProcess from "./pages/MakePo/PoUnderProcess/PoUnderProcess";
 import PoUnderProduction from "./pages/MakePo/PoUnderProduction/PoUnderProduction";
+import UpdateProductPrices from "./pages/UpdatePrices/UpdateProductPrices";
 function App() {
   return (
     <div>
@@ -140,6 +141,7 @@ function App() {
                 <Route path="popdf" element={<PurchaseOrderPdf />}></Route>
                 <Route path="finance" element={<Finance />}></Route>
                 <Route path="editstock" element={<EditStock />}></Route>
+                <Route path="updatePrices" element={<UpdateProductPrices />}></Route>
                 <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
                 <Route path="packinglistmanual" element={<PackingListManual />}></Route> <Route path="packinglistpdf" element={<PackingListPdf />}></Route>

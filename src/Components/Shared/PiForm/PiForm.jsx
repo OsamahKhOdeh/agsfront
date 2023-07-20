@@ -14,7 +14,7 @@ const PiForm = ({ oldPi }) => {
   //   showModal: false
   // };
   function openModal() {
-    setIsOpen(true);  
+    setIsOpen(true);
   }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -57,11 +57,17 @@ const PiForm = ({ oldPi }) => {
     if (location === "local" && currency === "AED") {
       price = item.LocalPriceAED;
     }
+    if (location === "syria" && currency === "AED") {
+      price = item.syriaPriceAED;
+    }
     if (location === "freezone" && currency === "USD") {
       price = item.freezonePrice;
     }
     if (location === "local" && currency === "USD") {
       price = item.LocalPrice;
+    }
+    if (location === "syria" && currency === "USD") {
+      price = item.syriaPrice;
     }
 
     return price;
@@ -132,11 +138,17 @@ const PiForm = ({ oldPi }) => {
     if (location === "local" && currency === "AED") {
       clonePro.LocalPriceAED = parseFloat(value);
     }
+    if (location === "syria" && currency === "AED") {
+      clonePro.syriaPriceAED = parseFloat(value);
+    }
     if (location === "freezone" && currency === "USD") {
       clonePro.freezonePrice = parseFloat(value);
     }
     if (location === "local" && currency === "USD") {
       clonePro.LocalPrice = parseFloat(value);
+    }
+    if (location === "syria" && currency === "USD") {
+      clonePro.syriaPrice = parseFloat(value);
     }
     theproducts[index] = clonePro;
     setInputs((values) => ({ ...values, products: theproducts }));
@@ -208,27 +220,13 @@ const PiForm = ({ oldPi }) => {
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="buyer_address">Buyer Address</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="buyer_address"
-                      value={inputs.buyer_address || ""}
-                      autocomplete="on"
-                      onChange={handleChange}
-                    />
+                    <input class="form-control" type="text" name="buyer_address" value={inputs.buyer_address || ""} autocomplete="on" onChange={handleChange} />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="consignee">Consignee</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="consignee"
-                      value={inputs.consignee || ""}
-                      autocomplete="on"
-                      onChange={handleChange}
-                    />
+                    <input class="form-control" type="text" name="consignee" value={inputs.consignee || ""} autocomplete="on" onChange={handleChange} />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
@@ -275,56 +273,25 @@ const PiForm = ({ oldPi }) => {
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="discount">Discount</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="discount"
-                      name="discount"
-                      value={inputs.discount || ""}
-                      onChange={handleChange}
-                      autocomplete="on"
-                    />
+                    <input class="form-control" type="text" id="discount" name="discount" value={inputs.discount || ""} onChange={handleChange} autocomplete="on" />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="additions">Additions</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="additions"
-                      name="additions"
-                      value={inputs.additions || ""}
-                      onChange={handleChange}
-                    />
+                    <input class="form-control" type="text" id="additions" name="additions" value={inputs.additions || ""} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="">Note</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="note"
-                      name="note"
-                      value={inputs.note || ""}
-                      autocomplete="on"
-                      onChange={handleChange}
-                    />
+                    <input class="form-control" type="text" id="note" name="note" value={inputs.note || ""} autocomplete="on" onChange={handleChange} />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
                     <label htmlFor="phone_number">Phone Number </label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="phone_number"
-                      name="phone_number"
-                      value={inputs.phone_number || ""}
-                      onChange={handleChange}
-                      autoComplete="on"
-                    />
+                    <input class="form-control" type="text" id="phone_number" name="phone_number" value={inputs.phone_number || ""} onChange={handleChange} autoComplete="on" />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
@@ -359,17 +326,8 @@ const PiForm = ({ oldPi }) => {
                 </div>
                 <div className="col-lg-6 col-md-12">
                   <div className="form-group">
-                    <label htmlFor="paymentPercentage">
-                      Goods will be delivered with in {inputs.deliveryDate || ""} days after completion of full payment{" "}
-                    </label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="paymentPercentage"
-                      name="deliveryDate"
-                      value={inputs.deliveryDate || ""}
-                      onChange={handleChange}
-                    />
+                    <label htmlFor="paymentPercentage">Goods will be delivered with in {inputs.deliveryDate || ""} days after completion of full payment </label>
+                    <input class="form-control" type="text" id="paymentPercentage" name="deliveryDate" value={inputs.deliveryDate || ""} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-12">

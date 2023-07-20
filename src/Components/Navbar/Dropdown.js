@@ -26,7 +26,7 @@ function OptionsDropdown() {
   return (
     <>
       <ul onClick={handleClick} className={click ? "dropdown-menu clicked" : "dropdown-menu"} style={{ display: "flow-root" }}>
-        {MenuItems.map((item, index) => {
+        {MenuItems?.map((item, index) => {
           return (
             <li key={index}>
               <Link

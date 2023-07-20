@@ -15,6 +15,7 @@ import { showToastMessage } from "../../../helpers/toaster";
 import { FileType } from "../../../Enum/GlobalEnum";
 import { UploadFile } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 function PoUnderProcess() {
   const { username } = useAuth();
   const dispatch = useDispatch();
@@ -84,7 +85,6 @@ function PoUnderProcess() {
   }
   //   this function to upload file (API)
   const uploadFile = () => {
-    console.log("fileNumber", fileNumber);
     const formData = new FormData();
     formData.append("division", typeFile);
     formData.append("folderName", itemModel.po_no);
@@ -101,7 +101,7 @@ function PoUnderProcess() {
       .then((response) => {
         console.log(response.data);
         showToastMessage("File Uploaded Successfully", "success");
-        setFile({});
+        setFile("");
         setFileNumber("");
         setIsChange(false);
       })
@@ -116,6 +116,7 @@ function PoUnderProcess() {
   /* -------------------------------------------------------------------------- */
   return (
     <>
+      <ToastContainer />
       <div className="container_custom">
         <div className="card-custom">
           <div className="card-custom-tittle">
@@ -211,10 +212,10 @@ function PoUnderProcess() {
                       <td className="required">5% UP</td>
                       <td>
                         <div>
-                          <button className="ags-btn-sm-main-fill mr-2" onClick={() => navigate("/user/pounderproduction")}>
-                            State
+                          <button className="ags-btn-sm-main-fill mr-2" onClick={() => navigate("/user/pounderproduction", { state: item })}>
+                            View
                           </button>
-                          <button className="ags-btn-sm-main-outlin ml-2">Delete</button>
+                          {/* <button className="ags-btn-sm-main-outlin ml-2">Delete</button> */}
                         </div>
                       </td>
                     </tr>
@@ -240,9 +241,15 @@ function PoUnderProcess() {
             <div class="modal-body">
               <form>
                 <div className="form-group mb-3">
-                  <label htmlFor="File Number">File Number</label>
+                  <label htmlFor="File Number">Supplier PI Number</label>
                   {console.log("this is from file number", fileNumber)}
-                  <input type="text" className="form-control" value={fileNumber} onChange={(e) => setFileNumber(e.target.value)} placeholder="Enter File Number" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={fileNumber}
+                    onChange={(e) => setFileNumber(e.target.value)}
+                    placeholder="Enter  SUPPLIER PI number NOT our PI Number"
+                  />
                 </div>
                 <div className="form-group mb-3">
                   <label htmlFor="file_id">Choose File</label>
@@ -251,7 +258,7 @@ function PoUnderProcess() {
                   {/* </div> */}
                 </div>
                 <div className="text-center mt-3">
-                  <button class="ags-btn-sm-main-fill" disabled={!file && fileNumber !== ""} onClick={() => uploadFile()} data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="ags-btn-sm-main-fill" disabled={!file && fileNumber !== ""} onClick={() => uploadFile()} data-dismiss="modal" aria-label="Close">
                     Upload File
                   </button>
                 </div>

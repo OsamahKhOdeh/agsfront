@@ -155,18 +155,18 @@ const AddSupplier = () => {
       taxID: formData.taxID,
     };
     console.log("model", model);
-    // axios
-    //   .post(`${BASE_URL}/supplier`, model)
-    //   .then((response) => {
-    //     // console.log(response.data);
-    //     showToastMessage("Supplier Added Succesfully", "success");
-    //     resetFrom(false);
-    //     setContacts([]);
-    //   })
-    //   .catch((error) => {
-    //     // Handle any errors
-    //     console.error(error);
-    //   });
+    axios
+      .post(`${BASE_URL}/supplier`, model)
+      .then((response) => {
+        // console.log(response.data);
+        showToastMessage("Supplier Added Succesfully", "success");
+        resetFrom(false);
+        setContacts([]);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
   };
   const addBank = () => {
     formData.bankAccount.push(bankInfo);
@@ -196,7 +196,7 @@ const AddSupplier = () => {
       });
     } else {
       setFormData({
-        supplierName: "",
+        name: "",
         contactPerson: "",
         contactPhone: "",
         contactEmail: "",
@@ -808,7 +808,9 @@ const AddSupplier = () => {
               </div>
               <div className="col-12">
                 <div className="form-group">
-                  <label htmlFor="contactEmail">Contact Email </label>
+                  <label htmlFor="contactEmail">
+                    Contact Email <span className="required">*</span>{" "}
+                  </label>
                   <input type="text" className="form-control" name="email" onInput={(e) => validateEmailContact(e)} value={modelContact.email} onChange={handleChangeContact} />
                 </div>
                 {noValidEmailContact && <span className="required">Email not valid</span>}

@@ -411,7 +411,7 @@ export const AddExpense = () => {
               <div class="col-12 tittle-section">
                 <p>Choose Supplier</p>
               </div>
-              {brands.map((brand, index) => (
+              {brands?.map((brand, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="radio" class="checkbox-input" name="supplier" id="supplier_id" />
@@ -438,7 +438,7 @@ export const AddExpense = () => {
               <div class="col-12 tittle-section">
                 <p>Purchase Order</p>
               </div>
-              {arrayPos.map((item, index) => (
+              {arrayPos?.map((item, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="radio" class="checkbox-input" name="purchaseOrder" id="purchaseOrder_id" />
@@ -462,7 +462,7 @@ export const AddExpense = () => {
               <div class="col-12 tittle-section">
                 <p>For Company</p>
               </div>
-              {comapnies.map((item, index) => (
+              {comapnies?.map((item, index) => (
                 <div class="checkbox">
                   <label class="checkbox-wrapper">
                     <input type="radio" class="checkbox-input" name="company" id="company_id" />

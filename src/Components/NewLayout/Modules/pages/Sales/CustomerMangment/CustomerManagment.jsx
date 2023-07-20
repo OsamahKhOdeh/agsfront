@@ -371,7 +371,7 @@ export const CustomerManagment = () => {
                   <p>Choose Users</p>
                 </div>
                 <div class="grid">
-                  {users.map((user, index) => (
+                  {users?.map((user, index) => (
                     <label class="card">
                       <input class="card__input" type="checkbox" />
                       <div class="card__body" title="Hussam Khaled">

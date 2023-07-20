@@ -25,11 +25,11 @@ const UpdateSupplier = () => {
   const [formData, setFormData] = useState({
     name: state.name,
     email: state.email,
-    street: state.address.name,
-    city: state.address.name,
-    state: state.address.name,
-    country: state.address.name,
-    postalCode: state.address.name,
+    street: state.address.street,
+    city: state.address.city,
+    state: state.address.state,
+    country: state.address.country,
+    postalCode: state.address.postalCode,
     productCategories: state.productCategories,
     contact: state.contact,
     paymentTerms: state.paymentTerms,
@@ -202,7 +202,7 @@ const UpdateSupplier = () => {
       });
     } else {
       setFormData({
-        supplierName: "",
+        name: "",
         contactPerson: "",
         contactPhone: "",
         contactEmail: "",

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 });
 
 const Invoice = ({ pi, currency, location, usdToAedRate }) => {
-  console.log("🚀 ~ file: Invoice.js:62 ~ Invoice ~ pi:", pi.piInfo);
+  console.log("🚀 ~ file: Invoice.js:62 ~ Invoice ~ pi:", pi);
   let logo = logo_ags;
   let stamp = ags_stamp;
   console.log(location);

@@ -49,7 +49,12 @@ export const AdminMenuItems = [
     cName: "dropdown-link",
     icon: "bxs-edit",
   },
-
+  {
+    title: "Update Prices",
+    path: "/user/updatePrices",
+    cName: "dropdown-link",
+    icon: "bx-dollar",
+  },
   {
     title: "Show all PI/s",
     path: "/user/piadmin",
@@ -348,6 +353,12 @@ export const FinancialMenuItems = [
     path: `/user/warehouses`,
     cName: "dropdown-link",
     icon: "bxs-widget",
+  },
+  {
+    title: "Update Prices",
+    path: "/user/updatePrices",
+    cName: "dropdown-link",
+    icon: "bx-dollar",
   },
 ];
 
