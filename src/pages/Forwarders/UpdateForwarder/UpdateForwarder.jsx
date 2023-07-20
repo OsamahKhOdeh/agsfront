@@ -233,7 +233,6 @@ const UpdateForwarder = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="container forwarder">
         <div className="card">
           <div class="card-header">

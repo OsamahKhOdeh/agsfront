@@ -50,7 +50,6 @@ const Suppliers = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="blogs_container">
         <div className="card-custom">
           <div className="card-custom-tittle">

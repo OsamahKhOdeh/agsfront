@@ -186,7 +186,6 @@ const SharedProjects = () => {
   /* -------------------------------------------------------------------------- */
   return (
     <>
-      <ToastContainer />
       {/* <div className="project_page_container_shared">
         <div className="projects_filters_container">
           <SearchBox onChange={handleSearchQueryChange}></SearchBox>

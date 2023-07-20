@@ -250,7 +250,6 @@ const AllProjects = () => {
   /* -------------------------------------------------------------------------- */
   return (
     <>
-      <ToastContainer />
       <div className="project_page_container_all">
         {/* <div className="projects_filters_container">
           <SearchBox onChange={handleSearchQueryChange}></SearchBox>

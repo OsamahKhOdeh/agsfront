@@ -16,7 +16,6 @@ import StatusSelect from "../../pages/Finance/StatusSelect";
 import StatusTracker from "../../pages/Orders/SignedProformaInvoices/StatusTracker";
 import ProformaInvoice from "../PoformaInvoice/ProformaInvoice";
 import OrderStatusTracker from "./OrderStatusTracker/OrderStatusTrackerUser";
-import { ToastContainer } from "react-toastify";
 import { showToastMessage } from "../../helpers/toaster";
 
 // Define a function that takes a date as an argument
@@ -160,7 +159,6 @@ const OrderTrackingUser = () => {
   } else
     return (
       <>
-        <ToastContainer />
         <div className="page_container">
           <div className="search_container">
             {/* this is search section  */}

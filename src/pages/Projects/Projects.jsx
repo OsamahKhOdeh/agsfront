@@ -111,7 +111,6 @@ const Projects = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="projects">
         <div className="project">
           <div className="card-project-tittle projects-tittle">

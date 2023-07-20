@@ -207,7 +207,6 @@ const UpdateCustomer = () => {
   return (
     <div>
       <>
-        <ToastContainer />
         <div className="container customer">
           <div className="card">
             <div class="card-header">

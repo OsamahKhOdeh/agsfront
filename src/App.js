@@ -88,9 +88,11 @@ import UpdateWarehouse from "./pages/Warhouses/UpdateWarehouse/UpdateWarehouse";
 import PoUnderProcess from "./pages/MakePo/PoUnderProcess/PoUnderProcess";
 import PoUnderProduction from "./pages/MakePo/PoUnderProduction/PoUnderProduction";
 import UpdateProductPrices from "./pages/UpdatePrices/UpdateProductPrices";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div>
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="test" element={<FileUploader />} />

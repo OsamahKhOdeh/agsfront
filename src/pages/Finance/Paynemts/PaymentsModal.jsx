@@ -39,10 +39,7 @@ function PaymentsTable(props) {
             <td>{formatDate(payment.createdAt)}</td>
             <td>{parseFloat(payment.amount)?.toFixed(2)}</td>
             <td>
-              <DownloadPDFButton
-                paymentId={payment._id}
-                pdfName={`inovice_${index + 1}_${props.pi_no}_${formatDate(payment.createdAt)}_${payment.customer}`}
-              />
+              <DownloadPDFButton paymentId={payment._id} pdfName={`inovice_${index + 1}_${props.pi_no}_${formatDate(payment.createdAt)}_${payment.customer}`} />
             </td>
           </tr>
         ))}
@@ -96,7 +93,6 @@ const PaymentsModal = ({ pi }) => {
   }
   return (
     <div>
-      <ToastContainer />
       <div className="buttons-finance">
         <button className="ags-btn-sucess-fill" onClick={openModal}>
           Payments

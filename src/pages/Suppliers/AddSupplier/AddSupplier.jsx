@@ -307,7 +307,6 @@ const AddSupplier = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="container supplier">
         <div className="card">
           <div class="card-header">

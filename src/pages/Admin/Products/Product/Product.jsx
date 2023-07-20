@@ -158,7 +158,6 @@ const Product = ({ product, index }) => {
 
   return (
     <div className="item_card">
-      <ToastContainer />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Product</Modal.Title>
@@ -196,7 +195,7 @@ const Product = ({ product, index }) => {
               handleShow();
             }}
           >
-           <i class="uil uil-trash-alt "></i>
+            <i class="uil uil-trash-alt "></i>
           </div>
         </div>
         <div className="product__description">
@@ -419,13 +418,7 @@ const Product = ({ product, index }) => {
               />
             </form>
 
-            <Button
-              disabled={isUploading}
-              variant="contained"
-              style={{ marginTop: "10px", backgroundColor: "#5e99ff" }}
-              onClick={handlePriceStockChange}
-              fullWidth
-            >
+            <Button disabled={isUploading} variant="contained" style={{ marginTop: "10px", backgroundColor: "#5e99ff" }} onClick={handlePriceStockChange} fullWidth>
               Update Product
             </Button>
           </div>

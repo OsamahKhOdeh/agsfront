@@ -201,9 +201,7 @@ const PackingListManual = () => {
   const getTruckProductWarehouseItemQty = (productId, truckIndex, warehouse) => {
     const productIndex = truckItems[truckIndex].truckProductItems.findIndex((obj) => obj.productId === productId);
     if (productIndex !== -1) {
-      const warehouseIndex = truckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
-        (obj) => obj.warehouse === warehouse
-      );
+      const warehouseIndex = truckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex((obj) => obj.warehouse === warehouse);
       if (warehouseIndex !== -1) {
         return truckItems[truckIndex]?.truckProductItems[productIndex]?.productWarehouses[warehouseIndex]?.qty;
       } else {
@@ -236,9 +234,7 @@ const PackingListManual = () => {
     if (productIndex !== -1) {
       let updatedTruckItems = JSON.parse(JSON.stringify(truckItems));
       //updatedTruckItems[truckIndex].truckProductItems[productIndex].productQty = qtyVal;
-      const warehouseIndex = updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex(
-        (obj) => obj.warehouse === warehouse
-      );
+      const warehouseIndex = updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses.findIndex((obj) => obj.warehouse === warehouse);
       if (warehouseIndex === -1) {
         updatedTruckItems[truckIndex].truckProductItems[productIndex].productWarehouses.push({ warehouse: warehouse, qty: qtyVal });
       } else {
@@ -371,7 +367,6 @@ const PackingListManual = () => {
   };
   return (
     <>
-      <ToastContainer />
       {console.log(truckItems)}
       <div className="card-custom ">
         <div className="card-custom-tittle justify-content-center">
@@ -1055,12 +1050,7 @@ const PackingListManual = () => {
                               <label>BL</label>
                             </div>
                             <div>
-                              <input
-                                type="text"
-                                value={truckItems[index].truckBls}
-                                onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                                autocomplete="on"
-                              />
+                              <input type="text" value={truckItems[index].truckBls} onChange={(event) => handleTruckInputChange(event, index, "truckBls")} autocomplete="on" />
                             </div>
                           </div>
                           {/* <div className="truck" key={index}>
@@ -1287,12 +1277,7 @@ const PackingListManual = () => {
                             </div>
                             <div className="box">
                               <h6>BL</h6>
-                              <input
-                                type="text"
-                                value={truckItems[index].truckBls}
-                                onChange={(event) => handleTruckInputChange(event, index, "truckBls")}
-                                autocomplete="on"
-                              />
+                              <input type="text" value={truckItems[index].truckBls} onChange={(event) => handleTruckInputChange(event, index, "truckBls")} autocomplete="on" />
                             </div>
                             {/* <div className="wrapper-tittle">
                  <div>

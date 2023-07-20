@@ -12,6 +12,7 @@ import { FaCarBattery } from "react-icons/fa";
 // import FilteredPagination from "../FilteredPagination";
 import ReactPaginate from "react-paginate";
 import { setOffset } from "../../../store/productsSlice";
+import { ToastContainer } from "react-toastify";
 const Products = ({ searchQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,7 +153,6 @@ const Products = ({ searchQuery }) => {
           )}
         </div>
       )} */}
-
       {products ? (
         showFilters ? (
           <PaginatedItems itemsPerPage={500} searchQuery={searchQuery} />

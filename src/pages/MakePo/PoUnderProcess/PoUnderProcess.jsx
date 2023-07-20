@@ -116,7 +116,6 @@ function PoUnderProcess() {
   /* -------------------------------------------------------------------------- */
   return (
     <>
-      <ToastContainer />
       <div className="container_custom">
         <div className="card-custom">
           <div className="card-custom-tittle">

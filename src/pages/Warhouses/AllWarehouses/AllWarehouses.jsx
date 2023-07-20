@@ -47,7 +47,6 @@ const AllWarehouses = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="blogs_container forwarders">
         <div className="card-custom">
           <div className="card-custom-tittle">

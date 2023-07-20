@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { updateProformaInvoice } from "../../../actions/proformaInvoice";
 import "./styles.css";
 import Modal from "react-modal";
@@ -191,8 +191,6 @@ const PiForm = ({ oldPi }) => {
 
   return (
     <div>
-      <ToastContainer />
-
       <>
         {/* start new form */}
         <span className="ags-btn-review" data-toggle="modal" data-target="#exampleModal">

@@ -668,7 +668,6 @@ const ProductForm = ({ currentId, setCurrentId }) => {
               <button type="submit"  disabled={isUploading} className="ags-btn-main-fill">Submit</button>
            </div>
         </form> */}
-        <ToastContainer />
       </div>
     </div>
   );

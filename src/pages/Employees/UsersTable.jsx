@@ -25,7 +25,6 @@ const UsersTable = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="card-custom">
         <div className="card-custom-tittle">
           <h6>Users</h6>

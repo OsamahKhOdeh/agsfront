@@ -71,12 +71,15 @@ function UploadPdf({ pi, setLoading }) {
 
   return (
     <>
-      <ToastContainer />
       <form className="form_upload" onSubmit={handleSubmit}>
-        <label htmlFor="pi_upload"><i class="uil uil-upload"></i>
-        <input id="pi_upload"    style={{ width: "110px" }} type="file" accept="application/pdf" onChange={handleFileChange}  autocomplete="on"/>
+        <label htmlFor="pi_upload">
+          <i class="uil uil-upload"></i>
+          <input id="pi_upload" style={{ width: "110px" }} type="file" accept="application/pdf" onChange={handleFileChange} autocomplete="on" />
         </label>
-        <button type="submit" className="ags-btn-main-fill" disabled={!pdfFile}  > Upload </button>
+        <button type="submit" className="ags-btn-main-fill" disabled={!pdfFile}>
+          {" "}
+          Upload{" "}
+        </button>
       </form>
     </>
   );

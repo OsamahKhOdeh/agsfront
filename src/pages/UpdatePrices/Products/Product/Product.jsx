@@ -18,6 +18,7 @@ import Price from "./Price";
 import { Button, TextField } from "@material-ui/core";
 import { BASE_URL } from "../../../../api/index";
 import { deleteProductState } from "../../../../store/productsSlice";
+import { showToastMessage } from "../../../../helpers/toaster";
 const Product = ({ product, index }) => {
   const currency = useSelector((state) => state.filters.currency);
 
@@ -118,7 +119,7 @@ const Product = ({ product, index }) => {
       additionOnLocalPercentage: additionOnLocalPercentage,
     });
     console.log(stateProduct);
-    showToastMessage();
+    // showToastMessage();
   };
 
   const addTocart = (items, index) => {
@@ -137,18 +138,18 @@ const Product = ({ product, index }) => {
 
   const exist = itemfromCart.some((item) => item._id === product._id);
 
-  const showToastMessage = () => {
-    toast.success("Product updated Succesfully ✅", {
-      position: "top-center",
-      autoClose: 200,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
+  // const showToastMessage = () => {
+  //   toast.success("Product updated Succesfully ✅", {
+  //     position: "top-center",
+  //     autoClose: 200,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     theme: "light",
+  //   });
+  // };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -170,7 +171,17 @@ const Product = ({ product, index }) => {
     axios
       .patch(`${BASE_URL}/products/price/${product._id}`, model)
       .then((response) => {
-        showToastMessage("Prices Successfully", "success");
+        // showToastMessage("Prices Successfully", "success");
+        toast.success(`Prices Successfully `, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -178,41 +189,21 @@ const Product = ({ product, index }) => {
   };
   const inStock = product.stock > 0;
   return (
-    <div className="item_card">
-      <ToastContainer />
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Product</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h4>are you sure you want to delete</h4>{" "}
-          <h4 style={{ color: "red" }}>
-            {product.brand}
-            {product.code}
-          </h4>{" "}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleConfirmDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <div className={exist ? "product__item active-card" : "product__item"} style={{}}>
-        <div>
-          <div className="product__image ">
-            <img
-              src={
-                product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
-                  ? product.image
-                  : process.env.PUBLIC_URL + `images/${product._id}_1.png` || `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
-              }
-              alt=""
-            />
-            {/* <div
+    <>
+      <div className="item_card">
+        <div></div>
+        <div className={exist ? "product__item active-card" : "product__item"} style={{}}>
+          <div>
+            <div className="product__image ">
+              <img
+                src={
+                  product.image[0] !== "https://res.cloudinary.com/dwen6dx2a/image/upload/v1676527391/vhk7vmtc0dtguqoyvc7a.png"
+                    ? product.image
+                    : process.env.PUBLIC_URL + `images/${product._id}_1.png` || `images/${product._id}_1.jpg` || `images/${product._id}_1.JPG`
+                }
+                alt=""
+              />
+              {/* <div
             className="check__product"
             onClick={() => {
               handleShow();
@@ -220,21 +211,21 @@ const Product = ({ product, index }) => {
           >
             <i class="uil uil-trash-alt "></i>
           </div> */}
-          </div>
-          <div className="product__description">
-            <div className="item__prices justify-content-center">
-              <div>
-                <label htmlFor="">
-                  {product.brand}
-                  {product.code}{" "}
-                </label>
-              </div>
             </div>
-            {/* <div className="product__description">
+            <div className="product__description">
+              <div className="item__prices justify-content-center">
+                <div>
+                  <label htmlFor="">
+                    {product.brand}
+                    {product.code}{" "}
+                  </label>
+                </div>
+              </div>
+              {/* <div className="product__description">
             {product.brand}
             {product.code}
           </div> */}
-            {/* <div className="item__prices justify-content-center">
+              {/* <div className="item__prices justify-content-center">
             {showPrice && (
               <div>
                 <label htmlFor="">Capacity : {product.capacity} </label>
@@ -246,120 +237,120 @@ const Product = ({ product, index }) => {
               </div>
             )}
           </div> */}
-            {/* new design */}
-            <div className="card-desc">
-              {/* <p className="capacity">
+              {/* new design */}
+              <div className="card-desc">
+                {/* <p className="capacity">
               {product.brand} {product.code}
             </p>
             <p className="capacity">
               <span>({product.capacity})</span>
             </p> */}
-              <div class="grid-container">
-                {/* <div class="grid-item">
+                <div class="grid-container">
+                  {/* <div class="grid-item">
                   <p>Capacity</p>
                   <h5>5 Ah</h5>
                 </div> */}
-                {/* <div class="grid-item"> */}
-                <div class="grid-item">
-                  <p>Capacity</p>
-                  <h5 className="price-stock">({product.capacity})</h5>
-                </div>
-                {/* </div> */}
-                {/* <div class="grid-item"> */}
-                <div class="grid-item">
-                  <p>Stock </p>
-                  <h5 className="price-stock">
-                    {showStock && (
-                      <div style={inStock ? { color: "green" } : { color: "red" }}>
-                        <div htmlFor=""> {product.stock} </div>
-                      </div>
-                    )}
-                  </h5>
-                </div>
-                {/* </div> */}
-              </div>
-            </div>
-            <div className="product_price_stock">
-              <div>
-                <div class="input-group input-group-sm ">
-                  <div class="input-group-prepend">
-                    <small class="input-group-text" id="inputGroup-sizing-sm">
-                      Local Price
-                    </small>
+                  {/* <div class="grid-item"> */}
+                  <div class="grid-item">
+                    <p>Capacity</p>
+                    <h5 className="price-stock">({product.capacity})</h5>
                   </div>
-                  <input
-                    type="number"
-                    min={0}
-                    class="form-control"
-                    value={LocalPrice}
-                    onChange={(e) => {
-                      setLocalPrice(e.target.value);
-                    }}
-                    aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm"
-                  />
-                </div>
-                <div class="input-group input-group-sm ">
-                  <div class="input-group-prepend">
-                    <small class="input-group-text" id="inputGroup-sizing-sm">
-                      Freezone Price
-                    </small>
+                  {/* </div> */}
+                  {/* <div class="grid-item"> */}
+                  <div class="grid-item">
+                    <p>Stock </p>
+                    <h5 className="price-stock">
+                      {showStock && (
+                        <div style={inStock ? { color: "green" } : { color: "red" }}>
+                          <div htmlFor=""> {product.stock} </div>
+                        </div>
+                      )}
+                    </h5>
                   </div>
-                  <input
-                    type="number"
-                    min={0}
-                    class="form-control"
-                    value={freezonePrice}
-                    onChange={(e) => {
-                      setFreezonePrice(e.target.value);
-                    }}
-                    aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm"
-                  />
-                </div>
-                <div class="input-group input-group-sm ">
-                  <div class="input-group-prepend">
-                    <small class="input-group-text" id="inputGroup-sizing-sm">
-                      Net Price
-                    </small>
-                  </div>
-                  <input
-                    type="number"
-                    min={0}
-                    class="form-control"
-                    value={netPrice}
-                    onChange={(e) => {
-                      setNetPrice(e.target.value);
-                    }}
-                    aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm"
-                  />
-                </div>
-                <div class="input-group input-group-sm ">
-                  <div class="input-group-prepend">
-                    <small class="input-group-text" id="inputGroup-sizing-sm">
-                      Syrian Price
-                    </small>
-                  </div>
-                  <input
-                    type="number"
-                    min={0}
-                    class="form-control"
-                    value={syrianPrice}
-                    onChange={(e) => {
-                      setSyrianPrice(e.target.value);
-                    }}
-                    aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm"
-                  />
-                </div>
-                <div className="btn-update-item">
-                  <button className="ags-btn-main-fill w-100" disabled={isUploading} onClick={UpdateProductPrices}>
-                    Update Prices
-                  </button>
+                  {/* </div> */}
                 </div>
               </div>
-              {/* <TextField
+              <div className="product_price_stock">
+                <div>
+                  <div class="input-group input-group-sm ">
+                    <div class="input-group-prepend">
+                      <small class="input-group-text" id="inputGroup-sizing-sm">
+                        Local Price
+                      </small>
+                    </div>
+                    <input
+                      type="number"
+                      min={0}
+                      class="form-control"
+                      value={LocalPrice}
+                      onChange={(e) => {
+                        setLocalPrice(e.target.value);
+                      }}
+                      aria-label="Small"
+                      aria-describedby="inputGroup-sizing-sm"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm ">
+                    <div class="input-group-prepend">
+                      <small class="input-group-text" id="inputGroup-sizing-sm">
+                        Freezone Price
+                      </small>
+                    </div>
+                    <input
+                      type="number"
+                      min={0}
+                      class="form-control"
+                      value={freezonePrice}
+                      onChange={(e) => {
+                        setFreezonePrice(e.target.value);
+                      }}
+                      aria-label="Small"
+                      aria-describedby="inputGroup-sizing-sm"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm ">
+                    <div class="input-group-prepend">
+                      <small class="input-group-text" id="inputGroup-sizing-sm">
+                        Net Price
+                      </small>
+                    </div>
+                    <input
+                      type="number"
+                      min={0}
+                      class="form-control"
+                      value={netPrice}
+                      onChange={(e) => {
+                        setNetPrice(e.target.value);
+                      }}
+                      aria-label="Small"
+                      aria-describedby="inputGroup-sizing-sm"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm ">
+                    <div class="input-group-prepend">
+                      <small class="input-group-text" id="inputGroup-sizing-sm">
+                        Syria Price
+                      </small>
+                    </div>
+                    <input
+                      type="number"
+                      min={0}
+                      class="form-control"
+                      value={syrianPrice}
+                      onChange={(e) => {
+                        setSyrianPrice(e.target.value);
+                      }}
+                      aria-label="Small"
+                      aria-describedby="inputGroup-sizing-sm"
+                    />
+                  </div>
+                  <div className="btn-update-item">
+                    <button className="ags-btn-main-fill w-100" disabled={isUploading} onClick={UpdateProductPrices}>
+                      Update Prices
+                    </button>
+                  </div>
+                </div>
+                {/* <TextField
               style={{ marginBottom: "10px", width: "50%" }}
               variant="outlined"
               label="Net Price"
@@ -504,7 +495,7 @@ const Product = ({ product, index }) => {
                 setPaletSize(e.target.value);
               }}
             ></TextField> */}
-              {/* <input
+                {/* <input
               style={{ color: "red", width: "100%", height: "30px" }}
               type="file"
               name="img"
@@ -549,14 +540,15 @@ const Product = ({ product, index }) => {
                 value="Upload Datasheet"
               />
             </form> */}
-              {/* <Button disabled={isUploading} variant="contained" style={{ marginTop: "10px", backgroundColor: "#5e99ff" }} onClick={handlePriceStockChange} fullWidth>
+                {/* <Button disabled={isUploading} variant="contained" style={{ marginTop: "10px", backgroundColor: "#5e99ff" }} onClick={handlePriceStockChange} fullWidth>
               Update Product
             </Button> */}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
