@@ -720,7 +720,9 @@ const PIActionsAdmin = () => {
                     ) : (
                       <td>From {proformaInvoice.branch}</td>
                     )}
-                    <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>{proformaInvoice.managerMessage}</td>
+                    <td className={colorByUpdate(proformaInvoice.createdAt, proformaInvoice.updatedAt)}>
+                      {roles.includes("Financial") ? proformaInvoice.financeMessage : proformaInvoice.managerMessage}
+                    </td>
                   </tr>
                 ))}
               </tbody>
