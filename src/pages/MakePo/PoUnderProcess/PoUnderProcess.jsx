@@ -92,7 +92,7 @@ function PoUnderProcess() {
     formData.append("fileType", typeFile);
     formData.append("fileSize", file.size);
     formData.append("isNew", isChange);
-    formData.append("fileExtension", file.type);
+    formData.append("fileExtension", "pdf");
     formData.append("id", itemModel._id);
     formData.append("fileNo", fileNumber);
     formData.append("file", file);

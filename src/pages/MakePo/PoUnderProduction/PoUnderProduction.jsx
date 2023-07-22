@@ -35,6 +35,7 @@ import { ToastContainer } from "react-toastify";
 // ];
 function PoUnderProduction() {
   const { state } = useLocation();
+  console.log("state", state);
   const [itemModel, setItemModel] = useState(state);
   const [bufferFile, setBufferFile] = useState({});
   const [poItemModel, setPoItemModel] = useState({
@@ -71,7 +72,7 @@ function PoUnderProduction() {
     //   status: "PO need file",
     // },
   ]);
-  const [bls, setBls] = useState([]);
+  const [bls, setBls] = useState(state.bl ? state.bl : []);
   const [typeFile, setTypeFile] = useState();
   const [isChange, setIsChange] = useState(true);
   const [fileNumber, setFileNumber] = useState("");
@@ -128,7 +129,7 @@ function PoUnderProduction() {
     formData.append("fileType", typeFile);
     formData.append("fileSize", file.size);
     formData.append("isNew", isChange);
-    formData.append("fileExtension", ".pdf");
+    formData.append("fileExtension", "pdf");
     formData.append("id", itemModel._id);
     formData.append("fileNo", fileNumber);
     formData.append("file", file);
@@ -138,6 +139,8 @@ function PoUnderProduction() {
       .then((response) => {
         console.log(response.data);
         showToastMessage("File Uploaded Successfully", "success");
+        setBls((prevState) => [...prevState, { No: fileNumber }]);
+        console.log("bls", bls);
         setFile({});
         setFileNumber("");
         setIsChange(true);
@@ -160,6 +163,22 @@ function PoUnderProduction() {
       setIsChange(true);
       setTypeFile("");
     }
+  };
+  const handleConfirmDelete = () => {
+    // await axios
+    //   .delete(`${BASE_URL}/customer/${customer._id}`)
+    //   .then(async (response) => {
+    //     let index = allCustomers.findIndex((s) => s._id === customer._id);
+    //     console.log("index", index);
+    //     const updatedCustomers = [...allCustomers];
+    //     updatedCustomers.splice(index, 1);
+    //     setAllCustomers(updatedCustomers);
+    //     console.log(setAllCustomers);
+    //     showToastMessage("Customer Deleted Successfully", "success");
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
   return (
     <>
@@ -222,7 +241,6 @@ function PoUnderProduction() {
                     <th>File Name</th>
                     <th>File Document</th>
                     {/* <th>PI PDF</th> */}
-                    {/* <th>Status</th> */}
                     <th>Information</th>
                   </tr>
                 </thead>
@@ -239,6 +257,11 @@ function PoUnderProduction() {
                           Enter Information
                         </span>
                       </td>
+                      {/* <td>
+                        <span className="ags-btn-sm-main-outlin" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                          Delete
+                        </span>
+                      </td> */}
                     </tr>
                   ))}
                   {/* {filesPo.map((fileItem, index) => {
@@ -263,33 +286,35 @@ function PoUnderProduction() {
                     </label>
                     <span>
                       {/* <i class="uil uil-minus-circle" onClick={deleteBank}></i> */}
-                      <i class="uil uil-plus-circle" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                      <i class="uil uil-plus-circle" onClick={() => storeFile({ isChange: true, type: FileType.BL })} data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
                     </span>
                   </div>
                   {bls.length > 0 && (
                     <table class="table mb-0">
                       <thead>
                         <tr>
-                          <th scope="col">Bl Number</th>
+                          <th scope="col">File Number</th>
+                          {/* <th scope="col">File Name</th> */}
                           <th scope="col">Enter Information </th>
-                          {/* <th scope="col">Actions</th> */}
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {bls.map((item, index) => (
                           <tr>
-                            <td>{item.fileNumber}</td>
+                            <td>{item.No}</td>
+                            {/* <td>{item.fileName}</td> */}
                             <td>
                               {" "}
                               <span className="ags-btn-sm-main-outlin" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                                 Enter Information
                               </span>
                             </td>
-                            {/* <td>
-                              <div className="btn-actions">
-                                <i class="uil uil-trash-alt " onClick={() => setBufferContact(item)} data-toggle="modal" data-target="#exampleModal1"></i>
-                              </div>
-                            </td> */}
+                            <td>
+                              <span className="ags-btn-sm-main-outlin" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">
+                                Delete
+                              </span>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -398,39 +423,31 @@ function PoUnderProduction() {
           </div>
         </div>
       </div>
-      {/* this is modal for enter bl 
-      <div class="modal fade" id="staticBackdropBl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      {/* this is modal for delete bl */}
+      <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Upload File BL
+                Delete
               </h5>
-              <button type="button" class="close" data-bs-dismiss="modal" onClick={() => resetFile(true)}>
+              <button type="button" class="close" data-bs-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form>
-                <div className="form-group mb-3">
-                  <label htmlFor="File Number">File Number</label>
-                  {console.log("this is from file number", fileNumber)}
-                  <input type="text" className="form-control" value={fileNumberBl} onChange={(e) => setFileNumberBl(e.target.value)} placeholder="Enter File Number" />
-                </div>
-                <div className="form-group mb-3">
-                  <label htmlFor="file_id">Choose File</label>
-                  <input class="form-control" type="file" id="file_id" value={fileBl?.filename} onChange={onChooseFile} />
-                </div>
-                <div className="text-center mt-3">
-                  <button type="button" class="ags-btn-sm-main-fill" disabled={!fileBl && fileNumberBl !== ""} onClick={() => uploadFile()} data-bs-dismiss="modal">
-                    Upload File
-                  </button>
-                </div>
-              </form>
+              <div className="text-center">
+                <p className="mt-3">Do you want to delete BL</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onClick={handleConfirmDelete} class="ags-btn-sm-main-outlin" data-bs-dismiss="modal">
+                Ok
+              </button>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

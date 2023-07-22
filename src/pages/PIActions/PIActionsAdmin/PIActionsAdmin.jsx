@@ -557,14 +557,21 @@ const PIActionsAdmin = () => {
                       </td>
                     )} */}
                     <td>
-                      {proformaInvoice.managerApproval === "Rejected" ||
+                      {/* {
                         (proformaInvoice.financiaApproval === "Rejected" && (
                           <div className="btn-table-status">
                             <span onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
                               Edit <i class="uil uil-edit"></i>
                             </span>
                           </div>
-                        ))}
+                        ))} */}
+                      {proformaInvoice.managerApproval === "Rejected" && (
+                        <div className="btn-table-status">
+                          <span onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}>
+                            Edit <i class="uil uil-edit"></i>
+                          </span>
+                        </div>
+                      )}
                     </td>
                     {proformaInvoice.branch === Branches.Dubai ? (
                       <>
