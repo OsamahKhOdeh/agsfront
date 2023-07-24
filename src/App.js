@@ -90,6 +90,7 @@ import PoUnderProduction from "./pages/MakePo/PoUnderProduction/PoUnderProductio
 import UpdateProductPrices from "./pages/UpdatePrices/UpdateProductPrices";
 import { ToastContainer } from "react-toastify";
 import PoShipment from "./pages/MakePo/PoShipment/PoShipment";
+import EditPkl from "./pages/PackingList/EditPkl/EditPkl";
 function App() {
   return (
     <div>
@@ -148,6 +149,7 @@ function App() {
                 <Route path="updatePrices" element={<UpdateProductPrices />}></Route>
                 <Route path="editstock2" element={<EditStock2 />}></Route>
                 <Route path="packinglist" element={<PackingList />}></Route>
+                <Route path="editpkl" element={<EditPkl />}></Route>
                 <Route path="packinglistmanual" element={<PackingListManual />}></Route> <Route path="packinglistpdf" element={<PackingListPdf />}></Route>
                 <Route path="allpkl" element={<PackingListsAll />}></Route>
                 <Route path="table" element={<ProformaInvoice />}></Route>

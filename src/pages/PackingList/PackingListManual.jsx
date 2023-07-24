@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 import { showToastMessage } from "../../helpers/toaster";
 const PackingListManual = () => {
   const navigate = useNavigate();
-
   const { username } = useAuth();
   console.log(username);
   const [pklInfo, setPklInfo] = useState(null);
@@ -159,7 +158,6 @@ const PackingListManual = () => {
       .then((response) => {
         console.log(response.data);
         showToastMessage("PKL Added Succesfully", "success");
-
         setTimeout(() => {
           navigate("/user/orders");
         }, 2000);

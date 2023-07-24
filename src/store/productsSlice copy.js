@@ -108,6 +108,7 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState, updateProductStockState, updateStockState } = productsSlice.actions;
+export const { fetchAll, fetchFilterd, fetchFilterdUptoBrands, setOffset, deleteProductState, updateProductStockState, updateStockState } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

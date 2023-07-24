@@ -1,6 +1,6 @@
 import React from "react";
 import "./PoUnderProduction.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../api/index";
@@ -34,6 +34,7 @@ import { ToastContainer } from "react-toastify";
 //   },
 // ];
 function PoUnderProduction() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   console.log("state", state);
   const [itemModel, setItemModel] = useState(state);
@@ -64,15 +65,8 @@ function PoUnderProduction() {
       type: FileType.CI,
       status: "Po need information",
     },
-    // {
-    //   fileName: "BL",
-    //   file: itemModel?.bl ? itemModel?.bl : {},
-    //   isChange: itemModel?.bl ? false : true,
-    //   type: FileType.BL,
-    //   status: "PO need file",
-    // },
   ]);
-  const [bls, setBls] = useState(state.bl ? state.bl : []);
+  const [bls, setBls] = useState(state?.bl ? state.bl : []);
   const [typeFile, setTypeFile] = useState();
   const [isChange, setIsChange] = useState(true);
   const [fileNumber, setFileNumber] = useState("");
@@ -353,6 +347,11 @@ function PoUnderProduction() {
                 </div>
               </div>
             </div> */}
+            <div className="text-center mt-5 mb-4">
+              <button className="ags-btn-sm-main-fill" onClick={() => navigate("/user/poshipment")}>
+                Shipment Split
+              </button>
+            </div>
           </div>
         </div>
       </div>

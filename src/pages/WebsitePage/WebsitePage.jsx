@@ -8,7 +8,7 @@ import "./WebsitePage.css";
 import { useState } from "react";
 import SearchBox from "./SearchBox";
 import Navbar from "../../Components/Navbar/Navbar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_DOMAIN } from "../../api/index";
 const WebsitePage = () => {
   let location = useLocation();

@@ -172,7 +172,10 @@ const PackingListsAll = () => {
     setIsPdf(true);
     console.log(isPdf);
   };
-
+  // Edit PKL Route
+  const editPkl = (pkl) => {
+    navigate("/user/editpkl", { state: pkl });
+  };
   /* ------------------------------ Delete Modal ------------------------------ */
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -228,7 +231,9 @@ const PackingListsAll = () => {
             <Modal.Title>Delete PI</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Are you sure you want to delete PI : <span className="required">{currentPkl.pklNo}</span></h4>
+            <h4>
+              Are you sure you want to delete PI : <span className="required">{currentPkl.pklNo}</span>
+            </h4>
             <h4 style={{ color: "red" }}> for Customer : {currentPkl.buyerAddress}</h4>
           </Modal.Body>
           <Modal.Footer>
@@ -425,15 +430,16 @@ const PackingListsAll = () => {
                             <i class="uil uil-times"></i>Reject
                           </span>
                         </button>
-                        <button
-                          disabled={pkl.managerApproval === "Approved"}
-                          type="button"
-                          className="btn-table-status"
-                          onClick={() => handleApprove(pkl._id)}
-                        >
+                        <button disabled={pkl.managerApproval === "Approved"} type="button" className="btn-table-status" onClick={() => handleApprove(pkl._id)}>
                           <span>
                             {" "}
                             <i class="uil uil-check"></i> Approve
+                          </span>
+                        </button>
+                        <button type="button" className="btn-table-status" onClick={() => editPkl(pkl)}>
+                          <span>
+                            {" "}
+                            <i class="uil uil-edit-alt"></i> Edit
                           </span>
                         </button>
                         <button

@@ -112,7 +112,9 @@ const PackingListOrders = () => {
   ];
 
   /* -------------------------------------------------------------------------- */
-
+  const editPkl = (pkl) => {
+    navigate("/user/editpkl", { state: pkl });
+  };
   const handlePDF = (pkl, withPriceVal, isFakeVal) => {
     setWithPrice(withPriceVal);
     setIsFake(isFakeVal);
@@ -197,36 +199,17 @@ const PackingListOrders = () => {
                         {/* <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${proformaInvoice._id}`)}><i class="uil uil-edit"></i> </button> */}
                         {/* <button className="ags-btn-delete"><i class="uil uil-trash-alt"></i>Delete</button> */}
                         <div style={{ overflow: "hidden" }}>
-                          {pkl.managerApproval === "Approved" ? (
-                            // <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(proformaInvoice)}>
-                            //   PI ( pdf )
-                            // </button>
-                            <>
-                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, false)}>
-                                <i class="uil uil-eye"></i>
-                              </button>
-                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, false, false)}>
-                                Without Price<i class="uil uil-eye"></i>
-                              </button>
-                              <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, true)}>
-                                Fake With Price<i class="uil uil-eye"></i>
-                              </button>
-                            </>
-                          ) : pkl.managerApproval === "Rejected" ? (
-                            <>
-                              <button className="ags-btn-approve" onClick={() => navigate(`/user/editpi/${pkl._id}`)}>
-                                <i class="uil uil-edit"></i>
-                              </button>
-                              <p className="warnning">
-                                From {pkl.managerApproval === "Rejected"}
-                                {pkl?.managerMessage}
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <p>Wating for : {pkl.managerApproval === "Pending" && "Manager approval"}</p>
-                            </>
-                          )}
+                          <>
+                            <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, false)}>
+                              <i class="uil uil-eye"></i>
+                            </button>
+                            <button className="ags-btn-reject" onClick={() => handlePDF(pkl, false, false)}>
+                              Without Price<i class="uil uil-eye"></i>
+                            </button>
+                            <button className="ags-btn-reject" onClick={() => handlePDF(pkl, true, true)}>
+                              Fake With Price<i class="uil uil-eye"></i>
+                            </button>
+                          </>
                         </div>
                       </div>
                     </div>
@@ -281,35 +264,20 @@ const PackingListOrders = () => {
                         </td>
                         <td>
                           <div style={{ overflow: "hidden" }}>
-                            {pkl.managerApproval === "Approved" ? (
-                              <div style={{ display: "flex" }}>
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, false)}>
-                                  PKL
-                                </button>
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, true)}>
-                                  PKL/No
-                                </button>{" "}
-                                <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false, true)}>
-                                  PKL/Fake
-                                </button>
-                              </div>
-                            ) : pkl.managerApproval === "Rejected" ? (
-                              <>
-                                <button
-                                  type="button"
-                                  className="button_edit_pdf button_edit"
-                                  onClick={() => navigate(`/user/editpi/${pkl._id}`)}
-                                >
-                                  Edit
-                                </button>
-                                <p style={{ color: "red", padding: 0, margin: 0 }}>
-                                  From {pkl.managerApproval === "Rejected"}
-                                  {pkl?.managerMessage + "/"}
-                                </p>
-                              </>
-                            ) : (
-                              <>Wating for :&nbsp; {pkl.managerApproval === "Pending" && "manager approval"}</>
-                            )}
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, false)}>
+                                PKL
+                              </button>
+                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, true, true)}>
+                                PKL/No
+                              </button>{" "}
+                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => handlePDF(pkl, false, true)}>
+                                PKL/Fake
+                              </button>
+                              <button type="button" className="button_edit_pdf button_pdf" onClick={() => editPkl(pkl)}>
+                                Edit
+                              </button>
+                            </div>
                           </div>
                         </td>
 
